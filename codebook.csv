@@ -1,0 +1,400 @@
+question,duplicate_flag,sources,variable_name,multiple_answers,answer_options
+Type volontaire,NA,"promo_20, q1, q2, q3",type_volontaire,NA,NA
+Région,NA,"promo_20, q1, q2, q3",region,NA,NA
+Site,NA,"promo_20, q1, q2, q3",site,NA,NA
+ID JEUNE,NA,"promo_20, q1, q2, q3",id_jeune,NA,NA
+Sexe,NA,promo_20,sexe,NA,NA
+Nationalité,NA,promo_20,nationalite,NA,NA
+Réfugié,NA,promo_20,refugie,NA,NA
+CAT_AGE,NA,promo_20,age_categorie,NA,NA
+Zone de résidence,NA,promo_20,zone_residence,NA,NA
+Niveau études,NA,promo_20,niveau_etudes,NA,NA
+Décrocheur ?,NA,promo_20,decrocheur,NA,NA
+NEETS,NA,promo_20,neets,NA,NA
+Handicap auto-déclaré,NA,promo_20,handicap_auto_declare,NA,NA
+Handicap Administratif,NA,promo_20,handicap_administratif,NA,NA
+Durée prévue du SC (en mois),NA,promo_20,duree_prevue_sc_mois,NA,NA
+Durée réelle du SC (en mois),NA,promo_20,duree_reelle_sc_mois,NA,NA
+Motif de rupture,NA,promo_20,motif_rupture,NA,NA
+Programme 1,NA,promo_20,programme_1,NA,NA
+Programme 2,NA,promo_20,programme_2,NA,NA
+"Lorsque vous étiez en train de chercher une structure pour effectuer votre Service Civique, quels ont été vos critères de sélection ?",NA,q1,criteres_selection,TRUE,La durée hebdomadaire
+"Lorsque vous étiez en train de chercher une structure pour effectuer votre Service Civique, quels ont été vos critères de sélection ?",NA,q1,criteres_selection,TRUE,L'activité proposée ou le public côtoyé
+"Lorsque vous étiez en train de chercher une structure pour effectuer votre Service Civique, quels ont été vos critères de sélection ?",NA,q1,criteres_selection,TRUE,"La thématique de la mission (social, culture, éducation, etc.)"
+"Lorsque vous étiez en train de chercher une structure pour effectuer votre Service Civique, quels ont été vos critères de sélection ?",NA,q1,criteres_selection,TRUE,"Le type de structure (association, collectivité territoriale, etc.)"
+"Lorsque vous étiez en train de chercher une structure pour effectuer votre Service Civique, quels ont été vos critères de sélection ?",NA,q1,criteres_selection,TRUE,La possibilité de faire votre Service Civique en équipe
+"Lorsque vous étiez en train de chercher une structure pour effectuer votre Service Civique, quels ont été vos critères de sélection ?",NA,q1,criteres_selection,TRUE,La situation géographique de la structure
+"Lorsque vous étiez en train de chercher une structure pour effectuer votre Service Civique, quels ont été vos critères de sélection ?",NA,q1,criteres_selection,TRUE,Le lien avec vos études et/ou votre projet professionnel
+"Lorsque vous étiez en train de chercher une structure pour effectuer votre Service Civique, quels ont été vos critères de sélection ?",NA,q1,criteres_selection,TRUE,La possibilité d'alterner l'école et le Service Civique
+"Lorsque vous étiez en train de chercher une structure pour effectuer votre Service Civique, quels ont été vos critères de sélection ?",NA,q1,criteres_selection,TRUE,La possibilité de réaliser votre projet
+"Lorsque vous étiez en train de chercher une structure pour effectuer votre Service Civique, quels ont été vos critères de sélection ?",NA,q1,criteres_selection,TRUE,L'avis d'un.e ancien.ne volontaire
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,La possibilité de réaliser différents projets
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,Le travail en équipe
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,La préparation de mon projet d'avenir
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,La rencontre avec différents publics
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,La réflexion sur des enjeux de société
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,"L'état d'esprit de la structure (valeurs, ambiance, etc.)"
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,La rencontre avec des jeunes d'horizons divers
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,Le fait d'agir concrètement pour les autres
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,L'alternance entre l'école et le Service Civique
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,La préparation de mon projet d'avenir
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,La rencontre avec différents publics
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,La réflexion sur des enjeux de société
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,"L'état d'esprit de la structure (valeurs, ambiance, etc.)"
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,La rencontre avec des jeunes d'horizons divers
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,Le fait d'agir concrètement pour les autres
+"Au moment où vous avez déposé votre candidature, qu’est-ce qui vous a le plus attiré(e) chez Unis-Cité (ou votre structure d'accueil) ?",NA,q1,attrait_structure_accueil,TRUE,L'alternance entre l'école et le Service Civique
+"A votre avis, que pourrait principalement vous apporter votre Service Civique ?",NA,q1,apport_service_civique,TRUE,Des compétences nouvelles
+"A votre avis, que pourrait principalement vous apporter votre Service Civique ?",NA,q1,apport_service_civique,TRUE,Une maturité personnelle
+"A votre avis, que pourrait principalement vous apporter votre Service Civique ?",NA,q1,apport_service_civique,TRUE,Une ouverture aux autres
+"A votre avis, que pourrait principalement vous apporter votre Service Civique ?",NA,q1,apport_service_civique,TRUE,Une orientation professionnelle
+"A votre avis, que pourrait principalement vous apporter votre Service Civique ?",NA,q1,apport_service_civique,TRUE,La possibilité de poursuivre ma scolarité
+"A votre avis, que pourrait principalement vous apporter votre Service Civique ?",NA,q1,apport_service_civique,TRUE,Un accompagnement pour réaliser mon projet
+"A votre avis, que pourrait principalement vous apporter votre Service Civique ?",NA,q1,apport_service_civique,TRUE,Un changement de vie
+"A votre avis, que pourrait principalement vous apporter votre Service Civique ?",NA,q1,apport_service_civique,TRUE,Une connaissance de la société
+"A votre avis, que pourrait principalement vous apporter votre Service Civique ?",NA,q1,apport_service_civique,TRUE,Une expérience de terrain
+"A votre avis, que pourrait principalement vous apporter votre Service Civique ?",NA,q1,apport_service_civique,TRUE,Un réseau professionnel
+"Si vous deviez chercher un emploi, vous sentez-vous correctement préparé(e) à le faire (faire une lettre de motivation, passer un entretien de recrutement…) ?",NA,q1,preparation_recherche_emploi,NA,Oui
+"Si vous deviez chercher un emploi, vous sentez-vous correctement préparé(e) à le faire (faire une lettre de motivation, passer un entretien de recrutement…) ?",NA,q1,preparation_recherche_emploi,NA,Pas vraiment
+"Si vous deviez chercher un emploi, vous sentez-vous correctement préparé(e) à le faire (faire une lettre de motivation, passer un entretien de recrutement…) ?",NA,q1,preparation_recherche_emploi,NA,Non
+Avez-vous déjà une idée du métier que vous souhaiteriez exercer ?,NA,q1,idee_metier_souhaite,NA,Oui
+Avez-vous déjà une idée du métier que vous souhaiteriez exercer ?,NA,q1,idee_metier_souhaite,NA,Pas vraiment
+Avez-vous déjà une idée du métier que vous souhaiteriez exercer ?,NA,q1,idee_metier_souhaite,NA,Non
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Agriculture, pêche"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,Artisanat
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Arts, culture et spectacle"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Banque, assurance, immobilier"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,Bâtiment et travaux publics
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Electronique, mécanique"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Commerce, distribution, vente"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Santé, Social"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,Services aux personnes
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,Droit
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Communication, médias, marketing, RH"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Accueil, secrétariat, gestion administrative"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Enseignement, formation, recherche"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Informatique, télécommunications"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Energie, environnement, chimie"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Logistique, transport"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Audit, comptabilité, finance"
+Dans quel(s) secteur(s) souhaiteriez-vous travailler ?,NA,q1,secteurs_travail_souhaite,TRUE,"Tourisme, hôtellerie, restauration"
+"Quelles étaient en moyenne vos ressources par mois avant le Service Civique ? [tenez compte de l’ensemble de vos revenus, y compris non déclarés]",NA,q1,ressources_avant_sc,NA,Moins de 100€
+"Quelles étaient en moyenne vos ressources par mois avant le Service Civique ? [tenez compte de l’ensemble de vos revenus, y compris non déclarés]",NA,q1,ressources_avant_sc,NA,Entre 100 et 500€
+"Quelles étaient en moyenne vos ressources par mois avant le Service Civique ? [tenez compte de l’ensemble de vos revenus, y compris non déclarés]",NA,q1,ressources_avant_sc,NA,Entre 500 et 1000€
+"Quelles étaient en moyenne vos ressources par mois avant le Service Civique ? [tenez compte de l’ensemble de vos revenus, y compris non déclarés]",NA,q1,ressources_avant_sc,NA,Entre 1000 et 1500€
+"Quelles étaient en moyenne vos ressources par mois avant le Service Civique ? [tenez compte de l’ensemble de vos revenus, y compris non déclarés]",NA,q1,ressources_avant_sc,NA,Plus de 1500€
+"Avant votre Service Civique, avez-vous été bénévole ?",NA,q1,benevolat_avant_sc,NA,Oui
+"Avant votre Service Civique, avez-vous été bénévole ?",NA,q1,benevolat_avant_sc,NA,Non
+"D'une manière générale, pour vous, voter c'est plutôt :",NA,q1,perception_vote,TRUE,Un devoir citoyen
+"D'une manière générale, pour vous, voter c'est plutôt :",NA,q1,perception_vote,TRUE,Un droit
+"D'une manière générale, pour vous, voter c'est plutôt :",NA,q1,perception_vote,TRUE,Une responsabilité
+"D'une manière générale, pour vous, voter c'est plutôt :",NA,q1,perception_vote,TRUE,Une corvée
+"D'une manière générale, pour vous, voter c'est plutôt :",NA,q1,perception_vote,TRUE,Une manière d'agir sur le monde
+"D'une manière générale, pour vous, voter c'est plutôt :",NA,q1,perception_vote,TRUE,Une action inutile
+Avez-vous voté lors des dernières élections (locales ou nationales) ?,NA,"q1, q2",vote_derniers_elections,NA,Oui
+Avez-vous voté lors des dernières élections (locales ou nationales) ?,NA,"q1, q2",vote_derniers_elections,NA,Non
+Avez-vous voté lors des dernières élections (locales ou nationales) ?,NA,"q1, q2",vote_derniers_elections,NA,Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales
+Savez-vous ce que vous ferez à la fin de votre Service Civique ?,NA,q1,projet_fin_sc,NA,"Non, aucune idée"
+Savez-vous ce que vous ferez à la fin de votre Service Civique ?,NA,q1,projet_fin_sc,NA,"Non, mais le Service Civique va m'aider à y réfléchir"
+Savez-vous ce que vous ferez à la fin de votre Service Civique ?,NA,q1,projet_fin_sc,NA,"Oui, je vais reprendre mes études, préparer un concours"
+Savez-vous ce que vous ferez à la fin de votre Service Civique ?,NA,q1,projet_fin_sc,NA,"Oui, je vais chercher une formation professionnelle"
+Savez-vous ce que vous ferez à la fin de votre Service Civique ?,NA,q1,projet_fin_sc,NA,"Oui, je vais chercher un emploi"
+Savez-vous ce que vous ferez à la fin de votre Service Civique ?,NA,q1,projet_fin_sc,NA,"Oui, je vais créer mon activité"
+Savez-vous ce que vous ferez à la fin de votre Service Civique ?,NA,q1,projet_fin_sc,NA,"Oui, je vais poursuivre mon projet solidaire"
+Savez-vous ce que vous ferez à la fin de votre Service Civique ?,NA,q1,projet_fin_sc,NA,"Oui, je vais faire un autre volontariat"
+"Concernant votre avenir, êtes-vous...?",NA,q1,perception_avenir,NA,Très confiant(e)
+"Concernant votre avenir, êtes-vous...?",NA,q1,perception_avenir,NA,Assez confiant(e)
+"Concernant votre avenir, êtes-vous...?",NA,q1,perception_avenir,NA,Peu confiant(e)
+"Concernant votre avenir, êtes-vous...?",NA,q1,perception_avenir,NA,Pas du tout confiant(e)
+"En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?",NA,"q1, q3",action_individuelle_societe,NA,Oui
+"En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?",NA,"q1, q3",action_individuelle_societe,NA,Pas vraiment
+"En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?",NA,"q1, q3",action_individuelle_societe,NA,Non
+"D'une manière générale, diriez-vous que votre Service Civique s'est déroulé de façon...",NA,q2,satisfaction,NA,Très satisfaisante
+"D'une manière générale, diriez-vous que votre Service Civique s'est déroulé de façon...",NA,q2,satisfaction,NA,Assez satisfaisante
+"D'une manière générale, diriez-vous que votre Service Civique s'est déroulé de façon...",NA,q2,satisfaction,NA,Peu satisfaisante
+"D'une manière générale, diriez-vous que votre Service Civique s'est déroulé de façon...",NA,q2,satisfaction,NA,Pas du tout satisfaisante
+Avez-vous eu le sentiment que les membres de votre équipe étaient...,NA,q2,differences_equipe,NA,Très différents de vous
+Avez-vous eu le sentiment que les membres de votre équipe étaient...,NA,q2,differences_equipe,NA,Différents de vous
+Avez-vous eu le sentiment que les membres de votre équipe étaient...,NA,q2,differences_equipe,NA,Peu différents de vous
+Avez-vous eu le sentiment que les membres de votre équipe étaient...,NA,q2,differences_equipe,NA,Pas différents de vous
+Considérez-vous que ces différences étaient principalement...?,NA,q2,differences_equipe_raisons,TRUE,Une source d'enrichissement personnel
+Considérez-vous que ces différences étaient principalement...?,NA,q2,differences_equipe_raisons,TRUE,Une source de conflit pour les membres
+Considérez-vous que ces différences étaient principalement...?,NA,q2,differences_equipe_raisons,TRUE,Une force pour l'équipe
+Considérez-vous que ces différences étaient principalement...?,NA,q2,differences_equipe_raisons,TRUE,Une faiblesse pour l'équipe
+Considérez-vous que ces différences étaient principalement...?,NA,q2,differences_equipe_raisons,TRUE,Sans incidence sur le fonctionnement de l'équipe
+"Que vous a principalement apporté l'accompagnement d'Unis-Cité (coordinateur d'équipe, chargé de formation, responsable d'antenne, directeur) ?",NA,q2,accompagnement_citeunis,TRUE,Des conseils pour travailler en équipe
+"Que vous a principalement apporté l'accompagnement d'Unis-Cité (coordinateur d'équipe, chargé de formation, responsable d'antenne, directeur) ?",NA,q2,accompagnement_citeunis,TRUE,Un suivi individualisé
+"Que vous a principalement apporté l'accompagnement d'Unis-Cité (coordinateur d'équipe, chargé de formation, responsable d'antenne, directeur) ?",NA,q2,accompagnement_citeunis,TRUE,Des conseils pour s'intégrer dans les structures
+"Que vous a principalement apporté l'accompagnement d'Unis-Cité (coordinateur d'équipe, chargé de formation, responsable d'antenne, directeur) ?",NA,q2,accompagnement_citeunis,TRUE,Des outils méthodologiques
+"Que vous a principalement apporté l'accompagnement d'Unis-Cité (coordinateur d'équipe, chargé de formation, responsable d'antenne, directeur) ?",NA,q2,accompagnement_citeunis,TRUE,Des connaissances
+"Que vous a principalement apporté l'accompagnement d'Unis-Cité (coordinateur d'équipe, chargé de formation, responsable d'antenne, directeur) ?",NA,q2,accompagnement_citeunis,TRUE,Un cadre de travail
+"Que vous a principalement apporté l'accompagnement d'Unis-Cité (coordinateur d'équipe, chargé de formation, responsable d'antenne, directeur) ?",NA,q2,accompagnement_citeunis,TRUE,Une aide pour gérer les tensions
+"Que vous a principalement apporté l'accompagnement d'Unis-Cité (coordinateur d'équipe, chargé de formation, responsable d'antenne, directeur) ?",NA,q2,accompagnement_citeunis,TRUE,Rien de tout cela
+Souhaitez-vous avoir une activité bénévole dans le futur ?,NA,q2,benevole_future,NA,Oui
+Souhaitez-vous avoir une activité bénévole dans le futur ?,NA,q2,benevole_future,NA,Peut-être
+Souhaitez-vous avoir une activité bénévole dans le futur ?,NA,q2,benevole_future,NA,Non
+Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ?,NA,q2,confiance_en_soi,NA,"Oui, beaucoup"
+Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ?,NA,q2,confiance_en_soi,NA,"Oui, assez"
+Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ?,NA,q2,confiance_en_soi,NA,"Non, pas vraiment"
+Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ?,NA,q2,confiance_en_soi,NA,"Non, pas du tout"
+Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ?,NA,q2,confiance_en_soi,NA,Je ne sais pas
+Vous sentez-vous fier de ce que vous avez accompli pendant votre Service Civique ?,NA,q2,fierte,NA,"Oui, tout à fait"
+Vous sentez-vous fier de ce que vous avez accompli pendant votre Service Civique ?,NA,q2,fierte,NA,"Oui, un peu"
+Vous sentez-vous fier de ce que vous avez accompli pendant votre Service Civique ?,NA,q2,fierte,NA,"Non, pas vraiment"
+Vous sentez-vous fier de ce que vous avez accompli pendant votre Service Civique ?,NA,q2,fierte,NA,"Non, pas du tout"
+Vous sentez-vous capable d'agir au sein de votre quartier et de la société ?,NA,q2,capacite_agir,NA,"Oui, tout à fait"
+Vous sentez-vous capable d'agir au sein de votre quartier et de la société ?,NA,q2,capacite_agir,NA,"Oui, un peu"
+Vous sentez-vous capable d'agir au sein de votre quartier et de la société ?,NA,q2,capacite_agir,NA,"Non, pas vraiment"
+Vous sentez-vous capable d'agir au sein de votre quartier et de la société ?,NA,q2,capacite_agir,NA,"Non, pas du tout"
+Diriez-vous que votre Service Civique a été...?,NA,q2,comparaison_utilite_autres,NA,Plus utile à vous qu'aux autres
+Diriez-vous que votre Service Civique a été...?,NA,q2,comparaison_utilite_autres,NA,Autant utile à vous qu'aux autres
+Diriez-vous que votre Service Civique a été...?,NA,q2,comparaison_utilite_autres,NA,Moins utile à vous qu'aux autres
+"Aujourd'hui, avez-vous le sentiment d'être davantage acteur de cette société qu'avant votre Service Civique ?",NA,q2,acteur_societe,NA,"Oui, tout à fait"
+"Aujourd'hui, avez-vous le sentiment d'être davantage acteur de cette société qu'avant votre Service Civique ?",NA,q2,acteur_societe,NA,"Oui, un peu"
+"Aujourd'hui, avez-vous le sentiment d'être davantage acteur de cette société qu'avant votre Service Civique ?",NA,q2,acteur_societe,NA,"Non, pas vraiment"
+"Aujourd'hui, avez-vous le sentiment d'être davantage acteur de cette société qu'avant votre Service Civique ?",NA,q2,acteur_societe,NA,"Non, pas du tout"
+Êtes-vous en situation de handicap ?,NA,q2,handicap,NA,Oui
+Êtes-vous en situation de handicap ?,NA,q2,handicap,NA,Non
+Quel impact a eu le Service Civique sur le regard que vous portez sur vous-même et sur votre handicap ?,NA,q2,handicap_impact,NA,Très positif
+Quel impact a eu le Service Civique sur le regard que vous portez sur vous-même et sur votre handicap ?,NA,q2,handicap_impact,NA,Plutôt positif
+Quel impact a eu le Service Civique sur le regard que vous portez sur vous-même et sur votre handicap ?,NA,q2,handicap_impact,NA,Plutôt négatif
+Quel impact a eu le Service Civique sur le regard que vous portez sur vous-même et sur votre handicap ?,NA,q2,handicap_impact,NA,Très négatif
+Quel impact a eu le Service Civique sur le regard que vous portez sur vous-même et sur votre handicap ?,NA,q2,handicap_impact,NA,Aucun impact
+Votre handicap a-t-il engendré des difficultés d'intégration au sein de votre équipe ?,NA,q2,handicap_difficultes_equipe,NA,"Oui, beaucoup"
+Votre handicap a-t-il engendré des difficultés d'intégration au sein de votre équipe ?,NA,q2,handicap_difficultes_equipe,NA,"Oui, assez"
+Votre handicap a-t-il engendré des difficultés d'intégration au sein de votre équipe ?,NA,q2,handicap_difficultes_equipe,NA,"Non, pas vraiment"
+Votre handicap a-t-il engendré des difficultés d'intégration au sein de votre équipe ?,NA,q2,handicap_difficultes_equipe,NA,"Non, pas du tout"
+Votre handicap a-t-il été bien pris en compte dans l'adaptation de votre mission de Service Civique ?,NA,q2,handicapt_prisencompte,NA,"Oui, tout-à-fait"
+Votre handicap a-t-il été bien pris en compte dans l'adaptation de votre mission de Service Civique ?,NA,q2,handicapt_prisencompte,NA,"Oui, un peu"
+Votre handicap a-t-il été bien pris en compte dans l'adaptation de votre mission de Service Civique ?,NA,q2,handicapt_prisencompte,NA,"Non, pas vraiment"
+Votre handicap a-t-il été bien pris en compte dans l'adaptation de votre mission de Service Civique ?,NA,q2,handicapt_prisencompte,NA,"Non, pas du tout"
+Votre handicap a-t-il été bien pris en compte dans l'adaptation de votre mission de Service Civique ?,NA,q2,handicapt_prisencompte,NA,Je ne sais pas
+Avez-vous rencontré des difficultés dans votre mission de Service Civique du fait de votre handicap ?,NA,q2,handicap_difficultes_mission,NA,"Oui, beaucoup"
+Avez-vous rencontré des difficultés dans votre mission de Service Civique du fait de votre handicap ?,NA,q2,handicap_difficultes_mission,NA,"Oui, assez"
+Avez-vous rencontré des difficultés dans votre mission de Service Civique du fait de votre handicap ?,NA,q2,handicap_difficultes_mission,NA,"Non, pas vraiment"
+Avez-vous rencontré des difficultés dans votre mission de Service Civique du fait de votre handicap ?,NA,q2,handicap_difficultes_mission,NA,"Non, pas du tout"
+Pensez-vous que la vision qu'avaient les volontaires de votre équipe sur le handicap a changé au cours de leur Service Civique ?,NA,q2,handicap_vision,NA,"Oui, beaucoup"
+Pensez-vous que la vision qu'avaient les volontaires de votre équipe sur le handicap a changé au cours de leur Service Civique ?,NA,q2,handicap_vision,NA,"Oui, assez"
+Pensez-vous que la vision qu'avaient les volontaires de votre équipe sur le handicap a changé au cours de leur Service Civique ?,NA,q2,handicap_vision,NA,"Non, pas vraiment"
+Pensez-vous que la vision qu'avaient les volontaires de votre équipe sur le handicap a changé au cours de leur Service Civique ?,NA,q2,handicap_vision,NA,"Non, pas du tout"
+Pensez-vous que la vision qu'avaient les volontaires de votre équipe sur le handicap a changé au cours de leur Service Civique ?,NA,q2,handicap_vision,NA,Je ne sais pas
+Conseilleriez-vous à d'autres jeunes en situation de handicap de faire un Service Civique ?,NA,q2,handicap_conseille,NA,Oui
+Conseilleriez-vous à d'autres jeunes en situation de handicap de faire un Service Civique ?,NA,q2,handicap_conseille,NA,Non
+Avez-vous le statut de réfugié ou une protection subsidiaire ?,NA,q2,refugie_ou_protection_subsidaire,NA,Oui
+Avez-vous le statut de réfugié ou une protection subsidiaire ?,NA,q2,refugie_ou_protection_subsidaire,NA,Non
+Avez-vous le sentiment que votre Service Civique a contribué à votre intégration au sein de la société française ?,NA,q2,integration,NA,"Oui, tout à fait"
+Avez-vous le sentiment que votre Service Civique a contribué à votre intégration au sein de la société française ?,NA,q2,integration,NA,"Oui, un peu"
+Avez-vous le sentiment que votre Service Civique a contribué à votre intégration au sein de la société française ?,NA,q2,integration,NA,"Non, pas vraiment"
+Avez-vous le sentiment que votre Service Civique a contribué à votre intégration au sein de la société française ?,NA,q2,integration,NA,"Non, pas du tout"
+Avez-vous le sentiment d'avoir progressé en français grâce à votre Service Civique ?,NA,q2,francais,NA,"Oui, tout à fait"
+Avez-vous le sentiment d'avoir progressé en français grâce à votre Service Civique ?,NA,q2,francais,NA,"Oui, un peu"
+Avez-vous le sentiment d'avoir progressé en français grâce à votre Service Civique ?,NA,q2,francais,NA,"Non, pas vraiment"
+Avez-vous le sentiment d'avoir progressé en français grâce à votre Service Civique ?,NA,q2,francais,NA,"Non, pas du tout"
+Avez-vous le sentiment que le Service Civique a contribué à clarifier ou modifier votre projet d'avenir ?,NA,q2,projet_avenir,NA,"Oui, tout à fait"
+Avez-vous le sentiment que le Service Civique a contribué à clarifier ou modifier votre projet d'avenir ?,NA,q2,projet_avenir,NA,"Oui, un peu"
+Avez-vous le sentiment que le Service Civique a contribué à clarifier ou modifier votre projet d'avenir ?,NA,q2,projet_avenir,NA,"Non, pas vraiment"
+Avez-vous le sentiment que le Service Civique a contribué à clarifier ou modifier votre projet d'avenir ?,NA,q2,projet_avenir,NA,"Non, pas du tout"
+Savez-vous ce que vous allez faire à la fin de votre Service Civique ?,NA,q2,projet_avenir_concret,NA,"Non, aucune idée"
+Savez-vous ce que vous allez faire à la fin de votre Service Civique ?,NA,q2,projet_avenir_concret,NA,"Oui, je vais finir mes études ou préparer un examen d'entrée dans une école"
+Savez-vous ce que vous allez faire à la fin de votre Service Civique ?,NA,q2,projet_avenir_concret,NA,"Oui, je vais rechercher une formation professionnelle pour compléter mes études"
+Savez-vous ce que vous allez faire à la fin de votre Service Civique ?,NA,q2,projet_avenir_concret,NA,"Oui, je vais rechercher une formation pour m'orienter dans un nouveau secteur"
+Savez-vous ce que vous allez faire à la fin de votre Service Civique ?,NA,q2,projet_avenir_concret,NA,"Oui, je vais préparer un concours de la fonction publique d'Etat ou territoriale"
+Savez-vous ce que vous allez faire à la fin de votre Service Civique ?,NA,q2,projet_avenir_concret,NA,"Oui, je vais chercher un stage"
+Savez-vous ce que vous allez faire à la fin de votre Service Civique ?,NA,q2,projet_avenir_concret,NA,"Oui, je vais chercher un emploi"
+Savez-vous ce que vous allez faire à la fin de votre Service Civique ?,NA,q2,projet_avenir_concret,NA,"Oui, je vais créer mon activité"
+Savez-vous ce que vous allez faire à la fin de votre Service Civique ?,NA,q2,projet_avenir_concret,NA,"Oui, je vais faire une autre expérience de volontariat en France ou à l'étranger"
+"Par rapport au début de votre Service Civique, si vous aviez à chercher un emploi ou une formation, vous sentez-vous...?",NA,q2,pret_recherche_travail,NA,Davantage prêt.e
+"Par rapport au début de votre Service Civique, si vous aviez à chercher un emploi ou une formation, vous sentez-vous...?",NA,q2,pret_recherche_travail,NA,Autant prêt.e
+"Par rapport au début de votre Service Civique, si vous aviez à chercher un emploi ou une formation, vous sentez-vous...?",NA,q2,pret_recherche_travail,NA,Moins prêt.e
+Vous sentez-vous capable de valoriser votre expérience de Service Civique auprès d'un futur employeur ?,NA,q2,valorisation_emploie,NA,Tout à fait
+Vous sentez-vous capable de valoriser votre expérience de Service Civique auprès d'un futur employeur ?,NA,q2,valorisation_emploie,NA,"Oui, un peu"
+Vous sentez-vous capable de valoriser votre expérience de Service Civique auprès d'un futur employeur ?,NA,q2,valorisation_emploie,NA,"Non, pas vraiment"
+Vous sentez-vous capable de valoriser votre expérience de Service Civique auprès d'un futur employeur ?,NA,q2,valorisation_emploie,NA,Pas du tout
+"Concernant votre avenir personnel, êtes-vous...?",NA,q2,confiance_avenir_personnel,NA,Très confiant.e
+"Concernant votre avenir personnel, êtes-vous...?",NA,q2,confiance_avenir_personnel,NA,Assez confiant.e
+"Concernant votre avenir personnel, êtes-vous...?",NA,q2,confiance_avenir_personnel,NA,Peu confiant.e
+"Concernant votre avenir personnel, êtes-vous...?",NA,q2,confiance_avenir_personnel,NA,Pas du tout confiant.e
+"Avec du recul, qu’est-ce qui vous a le plus marqué.e pendant votre Service Civique ?",NA,q3,marque_le_plus,NA,La rencontre avec différents publics
+"Avec du recul, qu’est-ce qui vous a le plus marqué.e pendant votre Service Civique ?",NA,q3,marque_le_plus,NA,L’enchaînement de différents projets
+"Avec du recul, qu’est-ce qui vous a le plus marqué.e pendant votre Service Civique ?",NA,q3,marque_le_plus,NA,Le travail en équipe
+"Avec du recul, qu’est-ce qui vous a le plus marqué.e pendant votre Service Civique ?",NA,q3,marque_le_plus,NA,La découverte du monde associatif
+"Avec du recul, qu’est-ce qui vous a le plus marqué.e pendant votre Service Civique ?",NA,q3,marque_le_plus,NA,La préparation du projet d’avenir
+"Avec du recul, qu’est-ce qui vous a le plus marqué.e pendant votre Service Civique ?",NA,q3,marque_le_plus,NA,La réflexion sur des enjeux de société
+"Avec du recul, qu’est-ce qui vous a le plus marqué.e pendant votre Service Civique ?",NA,q3,marque_le_plus,NA,L’ambiance au sein de ma structure
+"Avec du recul, qu’est-ce qui vous a le plus marqué.e pendant votre Service Civique ?",NA,q3,marque_le_plus,NA,La rencontre avec des jeunes d’horizons divers
+"Avec du recul, qu’est-ce qui vous a le plus marqué.e pendant votre Service Civique ?",NA,q3,marque_le_plus,NA,Le fait d’agir concrètement pour les autres
+"Avec du recul, qu’est-ce qui vous a le plus marqué.e pendant votre Service Civique ?",NA,q3,marque_le_plus,NA,L'opportunité de réaliser mon projet/de créer mon activité
+Pensez-vous que votre Service Civique a eu un impact...?,NA,q3,impact_situation_actuelle,NA,Positif sur votre situation actuelle
+Pensez-vous que votre Service Civique a eu un impact...?,NA,q3,impact_situation_actuelle,NA,Plutôt positif sur votre situation actuelle
+Pensez-vous que votre Service Civique a eu un impact...?,NA,q3,impact_situation_actuelle,NA,Plutôt négatif sur votre situation actuelle
+Pensez-vous que votre Service Civique a eu un impact...?,NA,q3,impact_situation_actuelle,NA,Négatif sur votre situation actuelle
+Pensez-vous que votre Service Civique a eu un impact...?,NA,q3,impact_situation_actuelle,NA,Aucun sur votre situation actuelle
+Actuellement quelle est votre situation ?,NA,q3,situation_actuelle,NA,Je suis lycéen.ne ou étudiant.e
+Actuellement quelle est votre situation ?,NA,q3,situation_actuelle,NA,Je fais une formation professionnelle
+Actuellement quelle est votre situation ?,NA,q3,situation_actuelle,NA,Je prépare un concours
+Actuellement quelle est votre situation ?,NA,q3,situation_actuelle,NA,Je cherche une formation
+Actuellement quelle est votre situation ?,NA,q3,situation_actuelle,NA,Je cherche un emploi
+Actuellement quelle est votre situation ?,NA,q3,situation_actuelle,NA,Je suis salarié.e
+Actuellement quelle est votre situation ?,NA,q3,situation_actuelle,NA,Je continue mon projet lancé durant mon Service Civique
+Actuellement quelle est votre situation ?,NA,q3,situation_actuelle,NA,Je crée mon activité (entreprise/association)
+Actuellement quelle est votre situation ?,NA,q3,situation_actuelle,NA,Je fais un volontariat
+Si vous êtes lycéen.ne ou étudiant.e,NA,q3,etudes,NA,Vous finissez les études entreprises avant le Service Civique
+Si vous êtes lycéen.ne ou étudiant.e,NA,q3,etudes,NA,Vous reprenez des études
+Quel type de formation suivez-vous ?,NA,q3,formation,NA,"CAP, BEP"
+Quel type de formation suivez-vous ?,NA,q3,formation,NA,Baccalauréat
+Quel type de formation suivez-vous ?,NA,q3,formation,NA,"L1, L2, BTS, DUT, 1er cycle de l'enseignement supérieur"
+Quel type de formation suivez-vous ?,NA,q3,formation,NA,"Diplôme professionnel (animation, sport, jeunesse…)"
+Quel type de formation suivez-vous ?,NA,q3,formation,NA,"Diplôme d'état (éducateur spécialisé, assistante sociale, infirmière, …)"
+Quel type de formation suivez-vous ?,NA,q3,formation,NA,"L3, Master 1"
+Quel type de formation suivez-vous ?,NA,q3,formation,NA,"Master 2, école d'ingénieur, école de commerce"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Accueil, secrétariat, gestion administrative"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Agriculture, pêche"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Arts, culture et spectacle"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Banque, assurance, immobilier"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,Bâtiments et travaux publics
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Commerce, distribution, vente"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Communication, marketing, médias"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,Droit
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Education, recherche, formation"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Energie, environnement"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Gestion, audit, comptabilité, finance"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,Industrie
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Informatique, télécommunications"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,Ressources humaines
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Santé, paramédical"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,Service à la personne
+Dans quel secteur ?,NA,q3,formation_secteur,NA,Social
+Dans quel secteur ?,NA,q3,formation_secteur,NA,Sport
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Tourisme, hôtellerie, restauration"
+Dans quel secteur ?,NA,q3,formation_secteur,NA,"Transports, logistique"
+Pensez-vous que votre Service Civique a eu une influence sur votre choix de poursuivre ou de reprendre vos études ?,NA,q3,impact_choix_poursuite_etudes,NA,Oui
+Pensez-vous que votre Service Civique a eu une influence sur votre choix de poursuivre ou de reprendre vos études ?,NA,q3,impact_choix_poursuite_etudes,NA,Plutôt oui
+Pensez-vous que votre Service Civique a eu une influence sur votre choix de poursuivre ou de reprendre vos études ?,NA,q3,impact_choix_poursuite_etudes,NA,Plutôt non
+Pensez-vous que votre Service Civique a eu une influence sur votre choix de poursuivre ou de reprendre vos études ?,NA,q3,impact_choix_poursuite_etudes,NA,Non
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Accueil, secrétariat, gestion administrative"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Agriculture, pêche"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Arts, culture et spectacle"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Banque, assurance, immobilier"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,Bâtiments et travaux publics
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Commerce, distribution, vente"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Communication, marketing, médias"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,Droit
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Education, recherche, formation"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Energie, environnement"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Gestion, audit, comptabilité, finance"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,Industrie
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Informatique, télécommunications"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,Ressources humaines
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Santé, paramédical"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,Service à la personne
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,Social
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,Sport
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Tourisme, hôtellerie, restauration"
+Dans quel secteur ?,duplicate,q3,recherche_emploi_secteur,NA,"Transports, logistique"
+Pensez-vous que votre Service Civique a eu une influence sur le choix du secteur dans lequel vous préparez votre concours ou recherchez une formation/un emploi ?,NA,q3,impact_recherche_emploi_secteur,NA,Oui
+Pensez-vous que votre Service Civique a eu une influence sur le choix du secteur dans lequel vous préparez votre concours ou recherchez une formation/un emploi ?,NA,q3,impact_recherche_emploi_secteur,NA,Plutôt oui
+Pensez-vous que votre Service Civique a eu une influence sur le choix du secteur dans lequel vous préparez votre concours ou recherchez une formation/un emploi ?,NA,q3,impact_recherche_emploi_secteur,NA,Plutôt non
+Pensez-vous que votre Service Civique a eu une influence sur le choix du secteur dans lequel vous préparez votre concours ou recherchez une formation/un emploi ?,NA,q3,impact_recherche_emploi_secteur,NA,Non
+"Si vous êtes en activité, vous êtes...?",NA,q3,activite,NA,intérimaire
+"Si vous êtes en activité, vous êtes...?",NA,q3,activite,NA,en CDD de moins de 6 mois
+"Si vous êtes en activité, vous êtes...?",NA,q3,activite,NA,en CDD de 6 mois et +
+"Si vous êtes en activité, vous êtes...?",NA,q3,activite,NA,en CDI
+"Si vous êtes en activité, vous êtes...?",NA,q3,activite,NA,créateur d'une activité (entreprise/association/projet)
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Accueil, secrétariat, gestion administrative"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Agriculture, pêche"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Arts, culture et spectacle"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Banque, assurance, immobilier"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,Bâtiments et travaux publics
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Commerce, distribution, vente"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Communication, marketing, médias"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,Droit
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Education, recherche, formation"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Energie, environnement"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Gestion, audit, comptabilité, finance"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,Industrie
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Informatique, télécommunications"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,Ressources humaines
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Santé, paramédical"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,Service à la personne
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,Social
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,Sport
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Tourisme, hôtellerie, restauration"
+Dans quel secteur ?,duplicate,q3,activite_secteur,NA,"Transports, logistique"
+Pensez-vous que votre Service Civique a eu une influence sur le choix du secteur de votre activité ?,NA,q3,impact_activite_secteur,NA,Oui
+Pensez-vous que votre Service Civique a eu une influence sur le choix du secteur de votre activité ?,NA,q3,impact_activite_secteur,NA,Plutôt oui
+Pensez-vous que votre Service Civique a eu une influence sur le choix du secteur de votre activité ?,NA,q3,impact_activite_secteur,NA,Plutôt non
+Pensez-vous que votre Service Civique a eu une influence sur le choix du secteur de votre activité ?,NA,q3,impact_activite_secteur,NA,Non
+"Après la fin de votre Service Civique, combien de temps avez-vous mis pour trouver votre emploi ou lancer votre activité ?",NA,q3,activite_temps_recherche,NA,Je l'ai fait durant mon Service Civique
+"Après la fin de votre Service Civique, combien de temps avez-vous mis pour trouver votre emploi ou lancer votre activité ?",NA,q3,activite_temps_recherche,NA,Moins de 2 mois
+"Après la fin de votre Service Civique, combien de temps avez-vous mis pour trouver votre emploi ou lancer votre activité ?",NA,q3,activite_temps_recherche,NA,Entre 2 et 4 mois
+"Après la fin de votre Service Civique, combien de temps avez-vous mis pour trouver votre emploi ou lancer votre activité ?",NA,q3,activite_temps_recherche,NA,Entre 4 et 6 mois
+"Après la fin de votre Service Civique, combien de temps avez-vous mis pour trouver votre emploi ou lancer votre activité ?",NA,q3,activite_temps_recherche,NA,Plus de 6 mois
+"Au cours de votre recherche d'emploi ou de votre création d'activité, avez-vous valorisé votre expérience de Service Civique ?",NA,q3,activite_recherche_valorisation,NA,"Oui, dans mon CV"
+"Au cours de votre recherche d'emploi ou de votre création d'activité, avez-vous valorisé votre expérience de Service Civique ?",NA,q3,activite_recherche_valorisation,NA,"Oui, dans mon CV et lors de mon entretien"
+"Au cours de votre recherche d'emploi ou de votre création d'activité, avez-vous valorisé votre expérience de Service Civique ?",NA,q3,activite_recherche_valorisation,NA,"Oui, lors de mon entretien"
+"Au cours de votre recherche d'emploi ou de votre création d'activité, avez-vous valorisé votre expérience de Service Civique ?",NA,q3,activite_recherche_valorisation,NA,"Oui, dans mon projet d'activité"
+"Au cours de votre recherche d'emploi ou de votre création d'activité, avez-vous valorisé votre expérience de Service Civique ?",NA,q3,activite_recherche_valorisation,NA,Non
+"Pensez-vous que le module d’accompagnement au projet d'avenir (rédaction du CV, techniques de recherche d’emploi, entretien individuel, etc.) a facilité votre recherche d'emploi ou la création de votre activité ?",NA,q3,activite_recherche_module_accompagnement,NA,Oui
+"Pensez-vous que le module d’accompagnement au projet d'avenir (rédaction du CV, techniques de recherche d’emploi, entretien individuel, etc.) a facilité votre recherche d'emploi ou la création de votre activité ?",NA,q3,activite_recherche_module_accompagnement,NA,Plutôt oui
+"Pensez-vous que le module d’accompagnement au projet d'avenir (rédaction du CV, techniques de recherche d’emploi, entretien individuel, etc.) a facilité votre recherche d'emploi ou la création de votre activité ?",NA,q3,activite_recherche_module_accompagnement,NA,Plutôt non
+"Pensez-vous que le module d’accompagnement au projet d'avenir (rédaction du CV, techniques de recherche d’emploi, entretien individuel, etc.) a facilité votre recherche d'emploi ou la création de votre activité ?",NA,q3,activite_recherche_module_accompagnement,NA,Non
+"Si oui, sur quels aspects ?",NA,q3,activite_recherche_module_accompagnement_aspects,NA,Rédaction d'un CV/d'une lettre de motivation
+"Si oui, sur quels aspects ?",NA,q3,activite_recherche_module_accompagnement_aspects,NA,Préparation à un entretien d'embauche
+"Si oui, sur quels aspects ?",NA,q3,activite_recherche_module_accompagnement_aspects,NA,Découverte de nouveaux secteurs
+"Si oui, sur quels aspects ?",NA,q3,activite_recherche_module_accompagnement_aspects,NA,Découverte de nouveaux métiers
+"Si oui, sur quels aspects ?",NA,q3,activite_recherche_module_accompagnement_aspects,NA,Module de connaissance de soi
+"Si oui, sur quels aspects ?",NA,q3,activite_recherche_module_accompagnement_aspects,NA,Valorisation de mes compétences
+"Si oui, sur quels aspects ?",NA,q3,activite_recherche_module_accompagnement_aspects,NA,Suivi individuel
+Pensez-vous que votre expérience de Service Civique a facilité l'obtention de votre emploi ou la création de votre activité ?,NA,q3,impact_activite_obtention,NA,Oui
+Pensez-vous que votre expérience de Service Civique a facilité l'obtention de votre emploi ou la création de votre activité ?,NA,q3,impact_activite_obtention,NA,Non
+Pensez-vous que votre expérience de Service Civique a facilité l'obtention de votre emploi ou la création de votre activité ?,NA,q3,impact_activite_obtention,NA,Je ne sais pas
+"Depuis la fin de votre Service Civique, avez-vous le sentiment d’avoir utilisé des connaissances acquises au cours de la formation civique et citoyenne ?",NA,q3,impact_utilisation_connaissances,NA,Oui
+"Depuis la fin de votre Service Civique, avez-vous le sentiment d’avoir utilisé des connaissances acquises au cours de la formation civique et citoyenne ?",NA,q3,impact_utilisation_connaissances,NA,Plutôt oui
+"Depuis la fin de votre Service Civique, avez-vous le sentiment d’avoir utilisé des connaissances acquises au cours de la formation civique et citoyenne ?",NA,q3,impact_utilisation_connaissances,NA,Plutôt non
+"Depuis la fin de votre Service Civique, avez-vous le sentiment d’avoir utilisé des connaissances acquises au cours de la formation civique et citoyenne ?",NA,q3,impact_utilisation_connaissances,NA,Non
+"Avez-vous le sentiment de mieux maitriser les démarches administratives (Pôle emploi, CAF, CPAM...) ?",NA,q3,impact_demarches_admin,NA,Oui
+"Avez-vous le sentiment de mieux maitriser les démarches administratives (Pôle emploi, CAF, CPAM...) ?",NA,q3,impact_demarches_admin,NA,Plutôt oui
+"Avez-vous le sentiment de mieux maitriser les démarches administratives (Pôle emploi, CAF, CPAM...) ?",NA,q3,impact_demarches_admin,NA,Plutôt non
+"Avez-vous le sentiment de mieux maitriser les démarches administratives (Pôle emploi, CAF, CPAM...) ?",NA,q3,impact_demarches_admin,NA,Non
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur...?",NA,q3,impact_concret,TRUE,Vos orientations politiques
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur...?",NA,q3,impact_concret,TRUE,Votre connaissance des questions sociales
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur...?",NA,q3,impact_concret,TRUE,Votre connaissance des institutions
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur...?",NA,q3,impact_concret,TRUE,Votre connaissance de la vie associative
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur...?",NA,q3,impact_concret,TRUE,Votre connaissance de l'économie sociale et solidaire
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur...?",NA,q3,impact_concret,TRUE,Votre envie d'aller voter
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur...?",NA,q3,impact_concret,TRUE,Votre envie d'agir
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur...?",NA,q3,impact_concret,TRUE,Vos gestes quotidiens à l'égard de l'environnement
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur...?",NA,q3,impact_concret,TRUE,Votre connaissance des conduites à risques
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur...?",NA,q3,impact_concret,TRUE,Votre perception des attitudes discriminantes
+Avez-vous conservé des liens avec les associations ou structures au sein desquelles vous avez mené des projets ?,NA,q3,conservation_liens,NA,Non
+Avez-vous conservé des liens avec les associations ou structures au sein desquelles vous avez mené des projets ?,NA,q3,conservation_liens,NA,"Oui, avec une association"
+Avez-vous conservé des liens avec les associations ou structures au sein desquelles vous avez mené des projets ?,NA,q3,conservation_liens,NA,"Oui, avec entre 2 et 3 associations"
+Avez-vous conservé des liens avec les associations ou structures au sein desquelles vous avez mené des projets ?,NA,q3,conservation_liens,NA,"Oui, avec plus de 3 associations"
+"Si oui, quel type de lien ?",NA,q3,conservation_liens_type,NA,Je me suis tenu.e informé.e de leurs activités
+"Si oui, quel type de lien ?",NA,q3,conservation_liens_type,NA,J'ai adhéré
+"Si oui, quel type de lien ?",NA,q3,conservation_liens_type,NA,Je suis devenu.e bénévole
+"Si oui, quel type de lien ?",NA,q3,conservation_liens_type,NA,Je suis devenu.e salarié.e
+"Et plus généralement, êtes-vous bénévole dans une ou plusieurs associations ?",NA,q3,benevolat_apres,NA,Oui
+"Et plus généralement, êtes-vous bénévole dans une ou plusieurs associations ?",NA,q3,benevolat_apres,NA,Pas encore mais j'en ai l'intention
+"Et plus généralement, êtes-vous bénévole dans une ou plusieurs associations ?",NA,q3,benevolat_apres,NA,Non
+"Vous sentez-vous plus capable d'agir au sein de votre quartier, de votre ville ou de la société ?",NA,q3,capacite_agir,NA,"Oui, tout-à-fait"
+"Vous sentez-vous plus capable d'agir au sein de votre quartier, de votre ville ou de la société ?",NA,q3,capacite_agir,NA,"Oui, un peu"
+"Vous sentez-vous plus capable d'agir au sein de votre quartier, de votre ville ou de la société ?",NA,q3,capacite_agir,NA,"Non, pas vraiment"
+"Vous sentez-vous plus capable d'agir au sein de votre quartier, de votre ville ou de la société ?",NA,q3,capacite_agir,NA,"Non, pas du tout"
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur votre envie d'aller voter ?",NA,q3,impact_envie_voter,NA,Oui
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur votre envie d'aller voter ?",NA,q3,impact_envie_voter,NA,Non
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur votre envie d'aller voter ?",NA,q3,impact_envie_voter,NA,Je ne sais pas
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur votre acceptation de...?",NA,q3,impact_acceptation,TRUE,Les différences de parcours personnels
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur votre acceptation de...?",NA,q3,impact_acceptation,TRUE,Les différences de niveau scolaire ou de diplôme
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur votre acceptation de...?",NA,q3,impact_acceptation,TRUE,Les différences d'origine culturelle
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur votre acceptation de...?",NA,q3,impact_acceptation,TRUE,Les différences religieuses
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur votre acceptation de...?",NA,q3,impact_acceptation,TRUE,Les différences de valeurs et d'opinions politiques
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur votre acceptation de...?",NA,q3,impact_acceptation,TRUE,Les différences d'orientation sexuelle
+"Avec du recul, pensez-vous que votre Service Civique a eu une influence sur votre acceptation de...?",NA,q3,impact_acceptation,TRUE,Les différences liées au handicap
+"Quand vous pensez à votre situation personnelle future, vous vous dites :",NA,q3,future_personnelle,NA,Elle sera meilleure que ma situation actuelle
+"Quand vous pensez à votre situation personnelle future, vous vous dites :",NA,q3,future_personnelle,NA,Elle sera plus ou moins comme ma situation actuelle
+"Quand vous pensez à votre situation personnelle future, vous vous dites :",NA,q3,future_personnelle,NA,Elle sera moins bonne que ma situation actuelle
+Délégation,NA,q3,delegation,NA,NA
+Programme UC (promo),NA,programmes,programme_UC_promo,NA,NA
+Programme UC (questions Q2),NA,programmes,programme_UC_questions_q2,NA,NA
+Thématique,NA,programmes,thematique,NA,NA

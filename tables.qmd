@@ -1,0 +1,196 @@
+---
+title: "Tables"
+format:
+  html:
+    toc: true
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(labelled) # for extracting labels from labelled data
+library(sjlabelled)
+library(ggalluvial)  # For alluvial (sankey-style) plots
+library(sf)         # For GIS magic
+library(rmapshaper) # simplify maps (so that they're less complex and take less time to handle)
+library(wesanderson)
+library(kableExtra)
+library(broom)
+library(gtsummary)
+library(flextable)
+library(gt)
+library(ggpubr)
+library(DescTools)
+#library(brms)
+```
+
+```{r functions}
+# load functions
+source("functions/functions.R")
+```
+
+```{r}
+# read data
+load("data/cleaned_promo_combined.RData")
+combined <- combined_data
+
+# read map
+map <- readRDS("data/map.rds")
+
+# read codebook
+codebook <- read_csv("data/codebook.csv") |> 
+  # display answer options more nicely
+  mutate(answer_options = str_replace_all(answer_options, "\\n", "; ")) 
+
+# define by hand demographic variables (for tables and computations)
+demographic_variables <- c(
+  "type_volontaire", "sexe",
+  "refugie", "age_categorie", "zone_residence",
+  "niveau_etudes", "handicap_auto_declare", "handicap_administratif",
+  "duree_prevue_sc_mois", "duree_reelle_sc_mois", "motif_rupture"
+)
+
+# define other demographic variables that are not reported in tables, but used for subsetting data sets
+demographic_variables_not_reported <- c("id_jeune", "region", "site", "type_volontaire", "decrocheur", "nationalite", "neets", "programme_1", "programme_2", "rupture_negative", "rupture_valence")
+```
+
+```{r}
+#| label: tbl-within-variables
+#| tbl-cap: Summary table of sample demographics
+#| ft.align: left
+
+
+# Step 1: Identify within-person variables for each promo group
+within_variables_by_promo <- combined |>
+  mutate(across(everything(), as.character)) |>
+  pivot_longer(cols = -c(source, promo), names_to = "variable", values_to = "value") |>
+  filter(!is.na(value)) |>
+  distinct(promo, variable, source) |>
+  group_by(promo, variable) |>
+  summarize(
+    time_points = toString(unique(source)), 
+    n_time_points = n_distinct(source),
+    .groups = "drop"
+  ) |>
+  # remove demographic variables, and some other demographic variables
+  filter(
+    !variable %in% demographic_variables,
+    !variable %in% demographic_variables_not_reported,
+    # select only variables that appear more than once
+    n_time_points > 1
+  )
+
+# Step 2: Merge with variables detected in each promo
+grouped_codebook <- within_variables_by_promo |>
+  rename(variable_name = variable) |>
+  left_join(codebook |> select(variable_name, question, answer_options), by = "variable_name") |>
+  select(promo, variable_name, question, answer_options, time_points) |>
+  arrange(promo, variable_name)
+
+# Step 3: Pretty table grouped by promo
+grouped_codebook |>
+  select(-promo) |>  # hide promo column from display
+  kbl(
+    booktabs = TRUE,
+    longtable = TRUE,
+    escape = FALSE,
+    col.names = c("Variable", "Question", "Réponses", "Temps")
+  ) |>
+  kable_styling(latex_options = c("repeat_header")) |>
+  group_rows(index = table(grouped_codebook$promo))  # still group by promo
+```
+
+```{r}
+#| label: tbl-trend-departements
+#| tbl-cap: Table showing the number of volunteers for different departements, across the different cohorts.
+#| ft.align: left
+
+# trend data by departments
+map |> 
+  st_drop_geometry() |> 
+  drop_na(n) |> 
+  select(NOM, promo, n) |> 
+  pivot_wider(names_from = promo, 
+              values_from = n) |> 
+  kbl(booktabs = TRUE, longtable = TRUE) 
+```
+
+```{r}
+#| label: tbl-demographics
+#| tbl-cap: Summary table of sample demographics
+#| ft.align: left
+
+# set gtsummary themes
+# gtsummary::reset_gtsummary_theme()
+#theme_gtsummary_journal(journal = "nejm", set_theme = TRUE)
+
+table <- combined |> 
+  # this supposes that demographics don't vary by time!
+  # we need to slice since gt_summary counts rows
+  group_by(id_jeune) %>%
+  slice(1) %>%
+  ungroup() %>%
+  select(promo, all_of(demographic_variables)) |> 
+  rename_with(~ str_to_title(.), all_of(demographic_variables)) %>%
+  tbl_summary(
+    by = promo,  # <- This is the key change!
+    type = all_continuous() ~ "continuous2",
+    statistic = list(
+      all_continuous() ~ c(
+        "{mean} ({sd})",
+        "{median}",
+        "{min}, {max}"
+      ),
+      all_categorical() ~ "{n} ({p}%)"
+    ),
+    digits = list(all_continuous() ~ 1),
+    missing = "no",
+  ) %>%
+  bold_labels() %>%
+  modify_header(
+    label = "**Variable**",
+    all_stat_cols() ~ "**{level}**, N = {n}"
+  ) %>%
+  gtsummary::as_kable_extra(booktabs = TRUE, longtable = TRUE) |> 
+  kableExtra::column_spec(1, width = "4cm") |> 
+  kableExtra::column_spec(2, width = "3cm")  |> 
+  kableExtra::column_spec(3, width = "3cm") |> 
+  kableExtra::column_spec(4, width = "3cm")  |> 
+  kableExtra::column_spec(5, width = "3cm") 
+
+table
+```
+
+```{r}
+#| label: tbl-codebook
+#| tbl-cap: Codeboook
+#| ft.align: left
+
+codebook |>
+  select(variable_name, question, answer_options) |>  # hide promo column from display
+  kbl(
+    booktabs = TRUE,
+    longtable = TRUE,
+    escape = FALSE,
+  ) |>
+  kable_styling(latex_options = c("repeat_header")) 
+```
+
+```{r}
+#| label: tbl-programme
+#| tbl-cap: Codeboook
+#| ft.align: left
+
+combined |> 
+  group_by(programme_1) |> 
+  summarise(n = n_distinct(id_jeune)) |> 
+  arrange(desc(n)) |> 
+  kbl(
+    booktabs = TRUE,
+    longtable = TRUE,
+    escape = FALSE,
+  ) |>
+  kable_styling(latex_options = c("repeat_header")) 
+
+```
+

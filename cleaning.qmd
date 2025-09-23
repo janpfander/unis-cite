@@ -1,0 +1,727 @@
+---
+title: "Data Cleaning"
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(labelled) # for extracting labels from labelled data
+library(sjlabelled)
+library(ggalluvial)  # For alluvial (sankey-style) plots
+library(sf)         # For GIS magic
+library(rmapshaper) # simplify maps (so that they're less complex and take less time to handle)
+library(wesanderson)
+```
+
+In this file, we document the cleaning process of the data that has been obtained from the google surveys.
+
+# Promo 2020-21
+
+## Read files
+
+```{r message=FALSE}
+# read files for promo 2020/21
+
+file_path <- "data/Promo 20-21.xlsx"  # Replace with your file path
+sheet_names <- excel_sheets(file_path)
+
+all_sheets <- map(sheet_names, ~ read_excel(file_path, sheet = .x, col_types = "text", col_names = TRUE))
+
+# give better names to sheets
+better_names <- c("promo_20", "q1", "q2", "q3", "programmes")
+names(all_sheets) <- better_names 
+
+# Assign each sheet as a separate data frame
+list2env(all_sheets, envir = .GlobalEnv)
+
+```
+
+We first make a question overview. Note that several questions appear several times. There are two main reasons for that: 
+
+1. Some volunteers participated in two programs. Within the same survey wave, the same questions appear again for people for whom that is the case. We here identify these questions as **"duplicates"**. Note that our method identifies some questions as duplicates that are in fact none, because they are follow-ups to different questions, but which share the same wording, e.g. "Pour quelles raisons ?". We will identify by hand which duplicates are due to occurrences in various programs and which are follow-up questions.
+
+```{r}
+# Apply pivot_longer() to each data frame in the list
+all_sheets_long <- map(all_sheets, ~ pivot_longer(.x, cols = everything(), names_to = "questions", values_to = "answer")) 
+
+combined_data <- bind_rows(all_sheets_long, .id = "source")
+
+question_overview <- combined_data |> 
+  # some variables are coded within several sheets
+  # let them appear only once in the overview 
+  group_by(source) |> 
+  distinct(questions, .keep_all = TRUE) |>  # Ensure distinct questions per source the overview 
+  distinct(questions) |> 
+  ungroup() |> 
+  # questions appear with ... and numbers, probably to preserve unique columns during merging
+  # Remove dots and numbers from the 'text' column
+  mutate(questions = str_remove_all(questions, "\\.\\.+\\d+$")) |> 
+  # highlight duplicates 
+  mutate(duplicate_flag = if_else(duplicated(questions), "duplicate", NA)) 
+```
+
+2. Some questions are asked in several survey waves. This is interesting in order to trace how the responses of volunteers change over the course of their work. We will identify for each question in which wave(s) it has been asked. 
+
+```{r}
+# Combine all data frames into one
+survey_wave_overview <- combined_data  |> 
+  # Some variables are coded within several sheets
+  # Let them appear only once per source
+  group_by(source) |> 
+  distinct(questions, .keep_all = TRUE) |>  # Ensure distinct questions per source
+  ungroup() |> 
+  # Remove dots and numbers from the 'questions' column
+  mutate(questions = str_remove_all(questions, "\\.\\.+\\d+$")) |> 
+  # Identify sources (i.e. in which wave a question has been asked)
+  group_by(questions) |> 
+  summarize(sources = toString(unique(source))) |> 
+  ungroup()
+
+codebook_prelimiary <- left_join(question_overview |> 
+                                   select(-source), 
+                                 survey_wave_overview) 
+  
+```
+
+We export a preliminary version of the codebook in order to edit it by hand (i.e. remove duplicates, add answer options, add identifiers for second program etc.)
+
+```{r}
+write_csv(codebook_prelimiary, "data/codebook_prelimiary_20-21.csv")
+```
+
+From this preliminary code-book, we will do several by-hand operations in a google spreadsheet: 
+
+- make a selection of relevant variables 
+
+- write a codebook, by adding answer options and assigning variable names
+
+- remove duplicates
+
+The results are stored in a .csv file called `codebook.csv`. We read the hand edited .csv file back in for some final tweaks. 
+
+```{r}
+# sample code to get one row per answer option: 
+codebook <- read_csv("data/codebook.csv") 
+
+# codebook <- codebook_by_hand |> 
+#   mutate(source = ifelse(str_detect(source, "promo_20"), "q0", source)
+#          )
+# 
+#   # Ensure multi-option responses are split into separate rows
+#   separate_longer_delim(c(variable_name, answer_options), delim = "\n")
+
+# Save as csv
+# write_csv(codebook, "data/codebook.csv")
+```
+
+## Clean data
+
+```{r}
+cleaning_data <- function(data, codebook){
+  
+  cleaned_data <- data |> 
+    # Filter out columns not in the codebook
+    select(any_of(codebook$question)) |> 
+    # Rename columns using codebook
+    rename_with(~ codebook$variable_name[match(.x, codebook$question)], .cols = everything())
+  
+  return(cleaned_data)
+}
+
+# 1. Clean all sheets
+cleaned_sheets <- map(all_sheets, ~ cleaning_data(.x, codebook)) |>
+  imap(~ mutate(.x, source = .y))
+
+# 2. Get variable names from promo_20, excluding id_jeune
+vars_to_remove <- setdiff(names(cleaned_sheets$promo_20), c("id_jeune", "source"))
+
+# 3. Remove overlapping vars from other sheets, but keep id_jeune
+cleaned_sheets <- imap(cleaned_sheets, function(df, name) {
+  if (name != "promo_20") {
+    df <- df |> select(-any_of(vars_to_remove))
+  }
+  df
+})
+
+# Assign each sheet as a separate data frame in the environment
+list2env(cleaned_sheets, envir = .GlobalEnv)
+```
+
+
+Next, we combine the data from the different time points. Note that some variables, like `site` appear in several of the time points, but some time points have NA's for certain jeunes. To make it easier, we only keep those variables from the `promo_20` file. 
+
+```{r}
+# remove demographics from list
+cleaned_sheets$programmes <- NULL
+cleaned_sheets$promo_20 <- NULL
+
+# combine survey data
+survey_data <- bind_rows(cleaned_sheets, .id = "source")
+
+# add demographic data
+combined_data <- full_join(survey_data , 
+                           promo_20 |> select(-source), 
+                           join_by(id_jeune)) 
+
+# check
+# combined_data |> 
+#   distinct(id_jeune, programme_1) |> 
+#   arrange(id_jeune) |> 
+#   group_by(id_jeune) |> 
+#   mutate(n = n()) |> 
+#   filter(n > 1)
+```
+
+For a nicer name, change "promo_20" to "q0".
+
+```{r}
+# Prepare data: Count unique participants per source
+combined_data <- combined_data |> 
+  mutate(source = ifelse(is.na(source), "q0", source))
+```
+
+Finally, we write out the data as a .csv file
+
+```{r}
+write_csv(combined_data, "data/cleaned_promo_20-21.csv")
+```
+
+# Promo 2021-22
+
+## Read files
+
+```{r message=FALSE}
+# read files for promo 2021/22
+
+file_path <- "data/Promo 21-22.xlsx"  # Replace with your file path
+sheet_names <- excel_sheets(file_path)
+
+all_sheets <- map(sheet_names, ~ read_excel(file_path, sheet = .x, col_types = "text", col_names = TRUE))
+
+# give better names to sheets
+better_names <- c("promo_21", "q1", "q2", "q3", "programmes")
+names(all_sheets) <- better_names 
+
+# Assign each sheet as a separate data frame
+list2env(all_sheets, envir = .GlobalEnv)
+
+```
+
+## Clean data
+
+```{r}
+# 1. Clean all sheets
+cleaned_sheets <- map(all_sheets, ~ cleaning_data(.x, codebook)) |>
+  imap(~ mutate(.x, source = .y))
+
+# 2. Get variable names from promo_20, excluding id_jeune
+vars_to_remove <- setdiff(names(cleaned_sheets$promo_21), c("id_jeune", "source"))
+
+# 3. Remove overlapping vars from other sheets, but keep id_jeune
+cleaned_sheets <- imap(cleaned_sheets, function(df, name) {
+  if (name != "promo_21") {
+    df <- df |> select(-any_of(vars_to_remove))
+  }
+  df
+})
+
+# Assign each sheet as a separate data frame in the environment
+list2env(cleaned_sheets, envir = .GlobalEnv)
+```
+
+```{r}
+# remove demographics from list
+cleaned_sheets$programmes <- NULL
+cleaned_sheets$promo_21 <- NULL
+
+# combine survey data
+survey_data <- bind_rows(cleaned_sheets, .id = "source")
+
+# add demographic data
+combined_data <- full_join(survey_data , 
+                           promo_21 |> select(-source), 
+                           join_by(id_jeune)) 
+```
+
+For a nicer name, change "promo_20" to "q0"
+
+```{r}
+# Prepare data: Count unique participants per source
+combined_data <- combined_data |> 
+  mutate(source = ifelse(is.na(source), "q0", source))
+```
+
+Finally, we write out the data as a .csv file
+
+```{r}
+write_csv(combined_data, "data/cleaned_promo_21-22.csv")
+```
+
+# Promo 2022-23
+
+## Read files
+
+```{r message=FALSE}
+# read files for promo 2022/23
+
+file_path <- "data/Promo 22-23.xlsx"  # Replace with your file path
+sheet_names <- excel_sheets(file_path)
+
+all_sheets <- map(sheet_names, ~ read_excel(file_path, sheet = .x, col_types = "text", col_names = TRUE))
+
+# give better names to sheets
+better_names <- c("promo_22", "q1", "q2", "q3", "programmes")
+names(all_sheets) <- better_names 
+
+# Assign each sheet as a separate data frame
+list2env(all_sheets, envir = .GlobalEnv)
+
+```
+
+## Clean data
+
+```{r}
+# 1. Clean all sheets
+cleaned_sheets <- map(all_sheets, ~ cleaning_data(.x, codebook)) |>
+  imap(~ mutate(.x, source = .y))
+
+# 2. Get variable names from promo_20, excluding id_jeune
+vars_to_remove <- setdiff(names(cleaned_sheets$promo_22), c("id_jeune", "source"))
+
+# 3. Remove overlapping vars from other sheets, but keep id_jeune
+cleaned_sheets <- imap(cleaned_sheets, function(df, name) {
+  if (name != "promo_22") {
+    df <- df |> select(-any_of(vars_to_remove))
+  }
+  df
+})
+
+# Assign each sheet as a separate data frame in the environment
+list2env(cleaned_sheets, envir = .GlobalEnv)
+
+
+```
+
+```{r}
+# remove demographics from list
+cleaned_sheets$programmes <- NULL
+cleaned_sheets$promo_22 <- NULL
+
+# combine survey data
+survey_data <- bind_rows(cleaned_sheets, .id = "source")
+
+# add demographic data
+combined_data <- full_join(survey_data , 
+                           promo_22 |> select(-source), 
+                           join_by(id_jeune)) 
+```
+
+For a nicer name, change "promo_20" to "q0"
+
+```{r}
+# Prepare data: Count unique participants per source
+combined_data <- combined_data |> 
+  mutate(source = ifelse(is.na(source), "q0", source))
+```
+
+Finally, we write out the data as a .csv file
+
+```{r}
+write_csv(combined_data, "data/cleaned_promo_22-23.csv")
+```
+
+
+# Promo 2023-24
+
+## Read files
+
+```{r message=FALSE}
+# read files for promo 2022/23
+
+file_path <- "data/Promo 23-24.xlsx"  # Replace with your file path
+sheet_names <- excel_sheets(file_path)
+
+all_sheets <- map(sheet_names, ~ read_excel(file_path, sheet = .x, col_types = "text", col_names = TRUE))
+
+# give better names to sheets
+better_names <- c("promo_23", "q1", "q2", "q3", "programmes")
+names(all_sheets) <- better_names 
+
+# Assign each sheet as a separate data frame
+list2env(all_sheets, envir = .GlobalEnv)
+
+```
+
+## Clean data
+
+```{r}
+# 1. Clean all sheets
+cleaned_sheets <- map(all_sheets, ~ cleaning_data(.x, codebook)) |>
+  imap(~ mutate(.x, source = .y))
+
+# 2. Get variable names from promo_20, excluding id_jeune
+vars_to_remove <- setdiff(names(cleaned_sheets$promo_23), c("id_jeune", "source"))
+
+# 3. Remove overlapping vars from other sheets, but keep id_jeune
+cleaned_sheets <- imap(cleaned_sheets, function(df, name) {
+  if (name != "promo_23") {
+    df <- df |> select(-any_of(vars_to_remove))
+  }
+  df
+})
+
+# Assign each sheet as a separate data frame in the environment
+list2env(cleaned_sheets, envir = .GlobalEnv)
+```
+
+```{r}
+# remove demographics from list
+cleaned_sheets$programmes <- NULL
+cleaned_sheets$promo_23 <- NULL
+
+# combine survey data
+survey_data <- bind_rows(cleaned_sheets, .id = "source")
+
+# add demographic data
+combined_data <- full_join(survey_data , 
+                           promo_23 |> select(-source), 
+                           join_by(id_jeune)) 
+```
+
+For a nicer name, change "promo_20" to "q0"
+
+```{r}
+# Prepare data: Count unique participants per source
+combined_data <- combined_data |> 
+  mutate(source = ifelse(is.na(source), "q0", source))
+```
+
+Finally, we write out the data as a .csv file
+
+```{r}
+write_csv(combined_data, "data/cleaned_promo_23-24.csv")
+```
+
+# A common data frame
+
+```{r}
+files <- list.files("data/", pattern = "cleaned_promo_\\d{2}-\\d{2}\\.csv", full.names = TRUE)
+
+combined_data <- files |> 
+  map_dfr(~ {
+    read_csv(.x, col_types = cols(id_jeune = col_character())) |> 
+      mutate(promo = str_extract(basename(.x), "\\d{2}-\\d{2}"))
+  })
+
+# check
+# combined_data |> 
+#   group_by(promo) |> 
+#   summarise(n = n_distinct(id_jeune))
+```
+
+There are a couple of volunteers that appear several times within the same survey.
+
+```{r}
+combined_data |> 
+  group_by(id_jeune, source) |> 
+  count() |> 
+  filter(n > 1)
+```
+
+To better understand this, let's check out two of these, randomly in detail.
+
+```{r}
+detail_check <- combined_data |> 
+  filter(id_jeune %in% c("3940", "10209"))
+
+detail_check
+```
+
+For the first individual, it appears to be a pure duplicate. For the second individual, a couple of answers appear to be slightly different, e.g. `criteres_selection`.
+
+Maybe this is due to inviduals who were enrolled in two programs. But for now, without any additional information, let's just pick the first appearance. 
+
+```{r}
+n_before <- nrow(combined_data)
+
+combined_data <- combined_data %>%
+  group_by(id_jeune, source) %>%
+  arrange(id_jeune, source) %>%
+  slice(1) %>%
+  ungroup()
+
+n_after <- nrow(combined_data)
+
+n_before - n_after
+```
+
+Note that these removes many observation, because it removes many NAs.
+
+## Rupture variable
+
+So far the `motif_rupture` variable codes why a volunteer has stopped their contract. We make a news variable simply coding _if_ they stopped their contract. Not all ruptures happen for negative reasons. We first distinguish between negative an positive reasons (`rupture_valence`. Then, we build a binary variable for rupture _for negative reasons_ (`rupture_negative`).
+
+```{r}
+table(combined_data$motif_rupture, useNA = "always")
+
+combined_data <- combined_data |> 
+  mutate(
+    rupture_valence = case_when(
+      motif_rupture %in% c("01 - Abandon de poste", 
+                           "02 - Faute grave d'une des parties", 
+                           "06 - Commun accord entre les parties", 
+                           "07 - Le volontaire n'a jamais pris son poste", 
+                           "08 - Retrait de l'agrément de la structure d'accueil",
+                           "09 - Reprise d'études"
+      ) ~ "negative",
+      motif_rupture %in% c("04 - Embauche en CDD d'au moins 6 mois ou CDI", 
+                           "05 - Embauche en CDD moins de 6 mois"
+                           ) ~ "positive",
+      motif_rupture %in% c("03 - Force majeure", 
+                           "10 - Fin de validité du Titre de Séjour"
+                           ) ~ "raisons externes",
+      TRUE ~ NA_character_),
+    rupture_negative = factor(if_else(is.na(motif_rupture) | rupture_valence == "negative", 
+                                      0, 
+                                      1), 
+                              levels = c(0, 1), 
+                              labels = c("pas de rupture negative", "rupture negative")
+                              )
+    ) 
+
+# check
+combined_data |> 
+  distinct(motif_rupture, rupture_valence, rupture_negative)
+```
+
+## Type volontaire
+
+There is one case for which matchin was not possible. Remove this case. 
+
+```{r}
+combined_data <- combined_data |> 
+  filter(type_volontaire != "Matching non possible")
+```
+
+
+## Write out data
+
+Finally, we write out the data as a .csv file
+
+```{r}
+# Save as CSV
+write_csv(combined_data, "data/cleaned_promo_combined.csv")
+
+# Save as .RData
+save(combined_data, file = "data/cleaned_promo_combined.RData")
+```
+
+# Make data for mapping
+
+First, we fix some stuff with the values, such as removing numbers and adding some apostrophes etc. This is necessary to merge the data with shape files. 
+
+```{r}
+# make more compatible "site" names
+combined_data <- combined_data %>%
+  mutate(
+    # removes "75 - ", etc.
+    site = str_remove(site, "^\\d+\\s+-\\s+"), 
+    # fix other stuff
+    site = recode(site,
+      "Le-Puy-en-Velay"   = "Le Puy-en-Velay",
+      "Saint-Etienne"     = "Saint-Étienne",
+      "Val-d-Oise"        = "Val-d'Oise",
+      "Chize"             = "Chizé",
+      "Creusot"           = "Le Creusot",
+      "Evreux"            = "Évreux",
+      "Hénin-Carvin"      = "Hénin-Beaumont",   # or "Carvin", depending on your intent
+      "Oléron"            = "Saint-Pierre-d'Oléron", # or another Oléron commune
+      "Saint Benoît"      = "Saint-Benoît",
+      "Saint-Benoit"      = "Saint-Benoît"
+    )
+  )
+```
+
+We can then make a summary data frame of participants for the different "sites". 
+
+```{r}
+n_jeunes <- combined_data |> 
+  group_by(site, promo) |> 
+  summarise(n = n_distinct(id_jeune)) |> 
+  ungroup()
+```
+
+Shape files for different French administrative units were downloaded here: https://geoservices.ign.fr/adminexpress
+
+```{r}
+regions <- read_sf("data/map/REGION.shp")
+departements <- read_sf("data/map/DEPARTEMENT.shp")
+communes <- read_sf("data/map/COMMUNE.shp")
+```
+
+Check how compatible the names of our data are with the shape files. 
+
+```{r}
+commune_names <- unique(communes$NOM)  
+departements_names <- unique(departements$NOM)  
+
+matches <- n_jeunes |> 
+  mutate(match = case_when(
+    site %in% departements_names & site %in% commune_names  ~ "both",
+    site %in% commune_names ~ "commune", 
+    site %in% departements_names ~ "departement",
+    TRUE ~ NA_character_
+  ))
+
+matches |> 
+  count(match)
+```
+
+Pretty compatible on the whole, let's check the NA value. 
+
+```{r}
+matches |> 
+  filter(is.na(match)) |> 
+  group_by(site) |> 
+  summarise(n = sum(n))
+```
+Seems like these are simply missing information cases, and "Manche Nord" might be a region, but so few cases that we will ignore it here.
+
+Next, we merge the geodata with our summary data. We got to make sure not to double-count in cases where there is a match with both the commune and the department (only the case for Paris). 
+
+```{r}
+double_matches <- matches |> 
+  filter(match == "both") |> 
+  pull(site)
+
+# it's only the case for Paris
+double_matches
+```
+
+
+```{r}
+# merge two different levels with participant data
+
+department_level <- left_join(departements, n_jeunes |> 
+                                # remove Paris not to double count it
+                                filter(!site %in% double_matches), 
+                              by = join_by(NOM == site))
+
+commune_level <- left_join(communes, n_jeunes, by = join_by(NOM == site)) 
+
+```
+
+Seems like there is a many-to-many issue because several communes appear several times in the shape file
+
+```{r}
+communes |> st_drop_geometry() |> count(NOM) |>  filter(n > 1)
+
+# check out one case
+communes |> filter(NOM == "Abancourt")
+```
+
+Apparently, different communes have the exact same name. Let's check for how many cases in our data that is relevant.
+
+```{r}
+# Step 1: Count how many times each commune name appears in the shapefile
+commune_name_counts <- communes %>%
+  st_drop_geometry() |> 
+  count(NOM) %>% 
+  filter(n > 1)
+
+# Step 2: Join this with your data's site names to see which match
+n_jeunes %>%
+  distinct(site) %>%
+  inner_join(commune_name_counts, by = c("site" = "NOM"))
+```
+
+Anyways, the transformation seems to have worked. Issue to be looked at again later. 
+
+For slightly nicer plotting, let's have all data at the department level
+
+```{r}
+# have a count at the department level
+n_department_level <- commune_level |> 
+  # without this, all the geometries are grouped and it takes ages
+  st_drop_geometry() |> 
+  group_by(INSEE_DEP, promo) |> 
+  summarise(n = sum(n, na.rm = TRUE)) |> 
+  # for plotting, make sure zeros are NAs
+  mutate(n = ifelse(n == 0, NA, n)) |> 
+  drop_na(promo) |> 
+  pivot_wider(names_from = promo, 
+              values_from = n)
+```
+
+```{r}
+department_level_wide <- department_level |> 
+  st_drop_geometry() |> 
+  pivot_wider(names_from = promo, 
+              values_from = n)
+
+# merge this with department level data (no shape file here)
+promos <- c("20-21", "21-22", "22-23", "23-24")
+
+department_level_long <- department_level_wide |> 
+  left_join(n_department_level, by = "INSEE_DEP", 
+            suffix = c("_dep", "_com")) %>%
+  mutate(
+    `20-21` = coalesce(`20-21_dep`, `20-21_com`),
+    `21-22` = coalesce(`21-22_dep`, `21-22_com`),
+    `22-23` = coalesce(`22-23_dep`, `22-23_com`),
+    `23-24` = coalesce(`23-24_dep`, `23-24_com`)
+    ) |> 
+  pivot_longer(c("20-21", "21-22", "22-23", "23-24"), 
+               names_to = "promo", 
+               values_to = "n") |> 
+  select(
+    # unselect old helper variables
+    -contains("_com"), 
+         -contains("_dep", ignore.case = FALSE)
+    ) |> 
+  # select only key variables
+  select(INSEE_DEP, promo, n)
+    
+```
+
+Finally, we merge the data. We also make the map a bit less complex so that it takes R less time to handle it for computations and plotting. 
+
+```{r}
+# Simplify to reduce detail (keep=0.05 keeps 5% of original points)
+departments_simple <- ms_simplify(departements, keep = 0.05)
+
+# we now merge this data
+map_data <- departments_simple |> 
+  left_join(department_level_long, by = "INSEE_DEP") 
+```
+
+Then, we write out the data. 
+
+```{r}
+# Save
+saveRDS(map_data, "data/map.rds")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

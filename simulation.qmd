@@ -1,0 +1,172 @@
+---
+title: "Untitled"
+format: html
+editor: visual
+---
+
+## Simulating data
+
+```{r}
+library(tidyverse)
+library(ggalluvial)
+```
+
+
+```{r}
+#| echo: true
+
+library(tidyverse)
+
+# Set parameters
+set.seed(123) # For reproducibility
+n_years <- 5
+n_responses_per_academic_year <- 6000
+years <- 2021:2025
+periods <- c("Start", "End", "6_Months_After")
+
+# Generate respondent IDs, academic years, and periods
+data <- expand.grid(
+  Year = years,
+  Period = periods,
+  Respondent_ID = seq_len(n_responses_per_academic_year)
+) %>%
+  mutate(
+    Academic_Year = paste0(Year, "-", Year + 1),
+    Respondent_ID = paste0("Respondent_", Year, "_", Respondent_ID),
+    Contract_Number = sample(10000:99999, n(), replace = TRUE),
+    CEP_Name = paste("CEP", sample(1:100, n(), replace = TRUE)),
+    Q1_Criteria_Selection = map_chr(
+      seq_len(n()),
+      ~ paste(sample(
+        c(
+          "Duration", "Activity", "Mission Theme", "Structure Type",
+          "Team Service", "Geographic Location", "Studies Link",
+          "Alternating School and Service", "Project Realization",
+          "Past Volunteer Feedback"
+        ), sample(3:6, 1), replace = FALSE
+      ), collapse = ", ")
+    ),
+    Q2_Attraction_Unis_Cite = map_chr(
+      seq_len(n()),
+      ~ paste(sample(
+        c(
+          "Diverse Projects", "Teamwork", "Future Preparation",
+          "Meeting Publics", "Societal Reflection", "Structure Spirit",
+          "Diverse Young People", "Concrete Action", "School Alternation"
+        ), sample(2:4, 1), replace = FALSE
+      ), collapse = ", ")
+    ),
+    Q3_Service_Benefits = map_chr(
+      seq_len(n()),
+      ~ paste(sample(
+        c(
+          "New Skills", "Personal Maturity", "Openness",
+          "Professional Orientation", "School Continuation",
+          "Project Support", "Life Change", "Societal Knowledge",
+          "Field Experience", "Professional Network"
+        ), sample(2:5, 1), replace = FALSE
+      ), collapse = ", ")
+    ),
+    Q4_Preparedness = sample(c("Yes", "Somewhat", "No"), n(), replace = TRUE, prob = c(0.5, 0.3, 0.2)),
+    Q5_Career_Idea = sample(c("Yes", "Somewhat", "No"), n(), replace = TRUE, prob = c(0.4, 0.4, 0.2)),
+    Q6_Sectors = map_chr(
+      seq_len(n()),
+      ~ paste(sample(
+        c(
+          "Agriculture", "Artisan", "Culture", "Finance", "Construction",
+          "Electronics", "Commerce", "Health", "Education", "IT",
+          "Energy", "Transport", "Legal", "Tourism"
+        ), sample(2:5, 1), replace = FALSE
+      ), collapse = ", ")
+    ),
+    Q7_Income = sample(
+      c("<100", "100-500", "500-1000", "1000-1500", ">1500"),
+      n(), replace = TRUE, prob = c(0.1, 0.3, 0.4, 0.15, 0.05)
+    ),
+    Q8_Voting_Beliefs = map_chr(
+      seq_len(n()),
+      ~ paste(sample(
+        c("Civic Duty", "Right", "Responsibility", "Chore", "Acting on World", "Useless"),
+        sample(1:3, 1), replace = FALSE
+      ), collapse = ", ")
+    ),
+    Q9_Voted = sample(c("Yes", "No", "Not Eligible"), n(), replace = TRUE, prob = c(0.6, 0.3, 0.1)),
+    Q10_Volunteer = sample(c("Yes", "No"), n(), replace = TRUE, prob = c(0.5, 0.5)),
+    Q11_Caregiver = sample(c("Yes", "No"), n(), replace = TRUE, prob = c(0.3, 0.7)),
+    Q12_Future_Plan = sample(
+      c(
+        "No Idea", "Service Helps Reflection", "Resume Studies",
+        "Seek Training", "Seek Job", "Start Business", "Continue Solidarity Project",
+        "Another Volunteer Service"
+      ), n(), replace = TRUE
+    ),
+    Q13_Confidence = sample(
+      c("Very Confident", "Somewhat Confident", "Little Confidence", "No Confidence"),
+      n(), replace = TRUE, prob = c(0.3, 0.4, 0.2, 0.1)
+    ),
+    Q14_Impact_Belief = sample(c("Yes", "Somewhat", "No"), n(), replace = TRUE, prob = c(0.6, 0.3, 0.1))
+  )
+
+# Save to CSV
+# write_csv(data, "data/simulated_data.csv")
+```
+
+```{r}
+# Reshape data to track Career Idea across periods
+career_tracking <- data %>%
+  filter(Year == 2022) %>%
+  select(Respondent_ID, Period, Q5_Career_Idea) %>%
+  pivot_wider(names_from = Period, values_from = Q5_Career_Idea)
+
+# Reshape back to long format for plotting
+career_tracking_long <- career_tracking %>%
+  pivot_longer(
+    cols = c(Start, End, `6_Months_After`),
+    names_to = "Period",
+    values_to = "Career_Idea"
+  ) %>%
+  mutate(Period = factor(Period, levels = c("Start", "End", "6_Months_After")))
+
+# Create alluvial plot
+ggplot(career_tracking_long, aes(x = Period, stratum = Career_Idea, alluvium = Respondent_ID, fill = Career_Idea)) +
+  geom_flow() +
+  geom_stratum(alpha = 0.7) +
+  theme_minimal() +
+  labs(
+    title = "Career Idea Transition Over Periods (2022)",
+    x = "Period",
+    y = "Count",
+    fill = "Career Idea"
+  )
+
+```
+
+```{r}
+
+# Prepare the data
+data_summary <- data %>%
+  group_by(Year, Q12_Future_Plan) %>%
+  summarise(count = n()) %>%
+  ungroup()
+
+# Create the boxplot
+ggplot(data, aes(x = factor(Year), y = as.numeric(factor(Q13_Confidence, 
+  levels = c("No Confidence", "Little Confidence", "Somewhat Confident", "Very Confident"))), 
+  group = Year, color = factor(Year))) + 
+  geom_boxplot() + 
+  geom_line(stat = "summary", fun = "mean", aes(group = 1, color = "Trend")) + 
+  labs(
+    title = "Trend in Confidence on Future Plans by Year",
+    x = "Year",
+    y = "Confidence in Future Plans",
+    color = "Year"
+  ) +
+  theme_minimal() + 
+  scale_color_manual(values = RColorBrewer::brewer.pal(5, "Set1")) # Add colors to each year
+```
+
+
+
+
+
+

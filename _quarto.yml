@@ -1,0 +1,30 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+    - "!simulation.qmd"
+    - "!cleaning.qmd"
+
+website:
+  title: "Cité-Unis"
+  navbar:
+    left:
+      - href: report.qmd
+        text: Report
+      - href: tables.qmd
+        text: Tables
+      
+        
+format:
+  apaquarto-html: default
+  apaquarto-docx: default  
+  apaquarto-pdf: default
+
+execute:
+  echo: false
+  warning: false
+  message: false
+
+
+

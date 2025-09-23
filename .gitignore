@@ -1,0 +1,17 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+/.quarto/
+
+# do not upload data
+data/
+
+docs/
+
+**/*.quarto_ipynb
+.Rdata
+.httr-oauth
+.DS_Store
+.quarto
