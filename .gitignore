@@ -1,6 +1,7 @@
 .Rproj.user
 .Rhistory
-.RData
+.RD
+ata
 .Ruserdata
 
 /.quarto/
@@ -8,7 +9,6 @@
 # do not upload data
 data/
 
-docs/
 
 **/*.quarto_ipynb
 .Rdata
