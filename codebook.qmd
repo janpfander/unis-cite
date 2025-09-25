@@ -1,0 +1,67 @@
+---
+title: "Codebook"
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(labelled) # for extracting labels from labelled data
+library(sjlabelled)
+library(ggalluvial)  # For alluvial (sankey-style) plots
+library(sf)         # For GIS magic
+library(rmapshaper) # simplify maps (so that they're less complex and take less time to handle)
+library(wesanderson)
+library(kableExtra)
+library(broom)
+library(gtsummary)
+library(flextable)
+library(gt)
+library(ggpubr)
+library(DescTools)
+#library(brms)
+```
+
+```{r functions}
+# load functions
+source("functions/functions.R")
+```
+
+```{r}
+# read data
+load("data/cleaned_promo_combined.RData")
+combined <- combined_data
+
+# read map
+map <- readRDS("data/map.rds")
+
+# read codebook
+codebook <- read_csv("data/codebook.csv") |> 
+  # display answer options more nicely
+  mutate(answer_options = str_replace_all(answer_options, "\\n", "; ")) 
+
+# define by hand demographic variables (for tables and computations)
+demographic_variables <- c(
+  "type_volontaire", "sexe",
+  "refugie", "age_categorie", "zone_residence",
+  "niveau_etudes", "handicap_auto_declare", "handicap_administratif",
+  "duree_prevue_sc_mois", "duree_reelle_sc_mois", "motif_rupture"
+)
+
+# define other demographic variables that are not reported in tables, but used for subsetting data sets
+demographic_variables_not_reported <- c("id_jeune", "region", "site", "type_volontaire", "decrocheur", "nationalite", "neets", "programme_1", "programme_2", "rupture_negative", "rupture_valence")
+```
+
+```{r}
+#| label: tbl-codebook
+#| tbl-cap: Codeboook
+#| ft.align: left
+
+codebook |>
+  select(variable_name, question, answer_options) |>  # hide promo column from display
+  kbl(
+    booktabs = TRUE,
+    longtable = TRUE,
+    escape = FALSE,
+  ) |>
+  kable_styling(latex_options = c("repeat_header")) 
+```

@@ -1,0 +1,1032 @@
+---
+title: "Volunteer Report Cité-Unis"
+shorttitle: "Cité-Unis"
+author:
+  - name: Jan Pfänder
+    corresponding: true
+    email: janlukas.pfaender@gmail.com
+    
+abstract: "This report analyzes surveys for four different cohorts of Cité-Unis volunteers who did their service civique (2020-2024)."
+
+mask: true
+
+format:
+  apaquarto-html: default
+  apaquarto-docx: default  
+  apaquarto-pdf:
+    # Can be jou (journal), man (manuscript), stu (student), or doc (document)
+    documentmode: doc
+
+always_allow_html: true
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(labelled) # for extracting labels from labelled data
+library(sjlabelled)
+library(ggalluvial)  # For alluvial (sankey-style) plots
+library(sf)         # For GIS magic
+library(rmapshaper) # simplify maps (so that they're less complex and take less time to handle)
+library(wesanderson)
+library(kableExtra)
+library(broom)
+library(gtsummary)
+library(flextable)
+library(gt)
+library(ggpubr)
+library(DescTools)
+#library(brms)
+```
+
+```{r functions}
+# load functions
+source("functions/functions.R")
+```
+
+```{r}
+# read data
+load("data/cleaned_promo_combined.RData")
+combined <- combined_data
+
+# read map
+map <- readRDS("data/map.rds")
+
+# read codebook
+codebook <- read_csv("data/codebook.csv") |> 
+  # display answer options more nicely
+  mutate(answer_options = str_replace_all(answer_options, "\\n", "; ")) 
+
+# define by hand demographic variables (for tables and computations)
+demographic_variables <- c(
+  "type_volontaire", "sexe",
+  "refugie", "age_categorie", "zone_residence",
+  "niveau_etudes", "handicap_auto_declare", "handicap_administratif",
+  "duree_prevue_sc_mois", "duree_reelle_sc_mois", "motif_rupture"
+)
+
+# define other demographic variables that are not reported in tables, but used for subsetting data sets
+demographic_variables_not_reported <- c("id_jeune", "region", "site", "type_volontaire", "decrocheur", "nationalite", "neets", "programme_1", "programme_2", "rupture_negative", "rupture_valence")
+```
+
+In this report, we address three main questions regarding volunteers who do there service civique in France: 
+
+1. Who are the volunteers? (@sec-who) 
+2. How does the service civique change the volunteers' attitudes and views? (@sec-within-change)
+3. Are there trends between different cohorts of volunteers? (@sec-between-change)
+4. What predicts whether volunteers... 
+  - ...end their contract early? (@sec-rupture)
+  - ...are more satisfied ? (@sec-satisfaction)
+  - ...are more self-confident? (@sec-confidence)
+5. How do volunteers differ between the different programs? 
+  - Ciné (@sec-cine)
+  - Ecology 
+  - Coeur vs. Relais (@sec-coeur-vs-relais)
+
+We rely on questionnaires collected by Cité-Unis for four different cohorts of volunteers who did their service civique for a year (2020-2021; 2021-2022; 2022-2023; 2023-2024). These questionnaires are very extensive. For the present analyses, we selected a subset of key questions (a full list can be found in the [codebook](codebook.qmd)). Note that this selection of variables was based only on the questionnaire of the first cohort (2020/21). As a result, potentially interesting variables that only appear in later questionnaires will not appear here. 
+
+# Who are the volunteers ? {#sec-who}
+
+Here, we just review some demographic variables briefly. An extensive summary table with sample demographics across the different cohorts can be found in [Tables](tables.qmd). 
+
+## Geographic location
+
+```{r descriptives-demographics}
+# get average participants per year for departments
+participants_per_year_department <- map |> 
+  st_drop_geometry() |> 
+  group_by(NOM) |> 
+  summarise(n = round(mean(n, na.rm = TRUE))) |> 
+  arrange(desc(n))
+
+n_departments <- sum(!is.na(participants_per_year_department$n))
+
+# trend data by departments
+trend_department <- map |> 
+  st_drop_geometry() |> 
+  pivot_wider(names_from = promo, 
+              values_from = n) |> 
+  mutate(trend = `23-24` - `20-21`) |> 
+  summarize(
+    mean_trend = mean(trend, na.rm = TRUE), 
+    trend_positive = sum(trend > 0, na.rm = TRUE), 
+    trend_negative = sum(trend < 0, na.rm = TRUE)
+  ) |> 
+  rounded_numbers()
+
+# average trends for promo
+n_per_promo <- combined |>
+  group_by(promo) |>
+  summarise(n = n_distinct(id_jeune)) |>
+  # Extract starting year of each promo
+  mutate(year = as.numeric(str_sub(promo, 1, 2))) |>  
+  arrange(year) 
+  
+trend_per_year <- lm(n ~ year, data = n_per_promo) |> 
+  tidy() %>%
+  split(.$term)
+
+```
+
+Volunteers came from `r n_departments` different departments (see @fig-map-repartition). On average, across the different cohorts, most volunteers came from `r participants_per_year_department$NOM[1]` (n = `r participants_per_year_department$n[1]`), followed by `r participants_per_year_department$NOM[2]` (n = `r participants_per_year_department$n[2]`) and `r participants_per_year_department$NOM[3]` (n = `r participants_per_year_department$n[3]`). 
+
+Overall, there has been a steady increase in volunteers, from `r first(n_per_promo$n)` in `r first(n_per_promo$promo)` to `r last(n_per_promo$n)` in `r last(n_per_promo$promo)`, and an average increase of `r trend_per_year$year$estimate` per year. Since the `r first(n_per_promo$promo)` cohort, each departement has on average increased by `r trend_department$mean_trend`. There were `r trend_department$trend_positive` departements who saw an increase, and `r trend_department$trend_negative` who saw a decrease (see @fig-map-trend). For details on the trend of each departement, see [Tables](tables.qmd). 
+
+```{r}
+#| label: fig-map-repartition
+#| fig-cap: Répartition des volontaires en France à travers le temps. 
+
+pal <- wes_palette("Zissou1", 100, type = "continuous")
+
+ggplot() +
+  geom_sf(data = map, aes(fill = n)) +
+  scale_fill_gradientn(colours = pal, na.value = "white") + 
+  theme_minimal() +
+  coord_sf(datum = NA) +  # removes the coordinate axes and graticules
+  labs(
+    title = "Répartition des volontaires en France",
+    fill = "Nombre de volontaires"
+  ) +
+  facet_wrap(~promo)
+```
+
+```{r}
+#| label: fig-map-trend
+#| fig-cap: Evolution de recrutement pour la promo de 2023-24 par rapport à 2020-21. 
+#| 
+# make a trend map of volunteers
+map |> 
+  pivot_wider(names_from = promo, 
+              values_from = n) |> 
+  mutate(trend = `23-24` - `20-21`) |> 
+ggplot() +
+  geom_sf(aes(fill = trend)) +
+  scale_fill_gradient2(low = "#2C7BB6", mid = "grey", high = "#D7191C",
+                           midpoint = 0, na.value = "white") +
+  theme_minimal() +
+  coord_sf(datum = NA) +  # removes the coordinate axes and graticules
+  labs(
+    title = "Difference Récrutement entre 2023 et 2020",
+    fill = "Nombre de volontaires"
+  )
+```
+
+## Age
+
+
+
+## Education
+
+## Sex
+
+# How have volunteers changed their attitudes? {#sec-within-change}
+
+First, this analysis is restricted by attrition, i.e. volunteers dropping out of the surveys over time (see @fig-attrition). Second, there are only two questions that volunteers of the same promo have been asked at different time points (@tbl-within-variables). @fig-vote_derniers_elections shows all volunteers who answered at both time points (q1 and q2), with either "yes" or "no". This descriptive analysis suggests that the service civique did not have an impact on voting behavior, on average. However, this analysis is pooled across different cohorts, not all of which would have had the chance to change their voting behavior during their year volunteering, simply because there were no elections. @fig-action_individuelle_societe shows changes in volunteers perception on whether their individual action can contribute to changing society. Descriptively, there is no clear positive or negative trend either.
+
+```{r}
+#| label: fig-attrition
+#| fig-cap: "Number of volunteers per survey time point. Volunteers who appear under 'q0' have participated in the program but have not even filled out the first questionnaire. Note that in the percentage plot, the percentages are relative to all volunteers from the respective promo."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+# ABSOLUTE NUMBERS
+
+# Prepare data: Count unique participants per source
+attrition_data <- combined |> 
+  group_by(promo, source) |> 
+  summarise(n_participants = n_distinct(id_jeune)) |> 
+  # remove the programmes (since it is not a survey time point)
+  filter(source != "programmes") 
+
+
+# Plot attrition trend across sources
+ggplot(attrition_data, aes(x = source, y = n_participants)) +
+geom_col() +
+  geom_text(aes(label = n_participants), vjust = -0.5, size = 3) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.1))) +
+  theme_minimal() +
+  labs(
+    title = "Attrition",
+    x = "Time Point",
+    y = "Number of Participants"
+  ) + 
+  plot_theme +
+  facet_wrap(~promo)
+
+# PERCENTAGES
+
+# Step 1: Get baseline (q0 + q1) counts per promo
+baseline_counts <- combined |>
+  filter(source == "q0" | source == "q1") |>
+  group_by(promo) |>
+  summarise(baseline_n = n_distinct(id_jeune), .groups = "drop")
+
+# Step 2: Count participants per source and promo
+attrition_percent <- combined |>
+  group_by(promo, source) |>
+  summarise(n_participants = n_distinct(id_jeune), .groups = "drop") |>
+  filter(source != "programmes") |> 
+  left_join(baseline_counts, by = "promo") |>
+  mutate(percent = n_participants / baseline_n * 100)
+
+# Step 3: Plot percentages relative to q0 and q1 
+ggplot(attrition_percent |> 
+         # remove q0 baseline
+         filter(source != "q0"), 
+       aes(x = source, y = percent)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = paste0(round(percent, 1), "%")), vjust = -0.5, size = 3) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    title = "Attrition",
+    x = "Time Point",
+    y = "Share of participants"
+  ) +
+  plot_theme +
+  facet_wrap(~promo)
+```
+
+```{r}
+#| label: fig-vote_derniers_elections
+#| fig-cap: "Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-subcap:
+#|   - "Alluvial plot"
+#|   - "Percentages" 
+#| layout-ncol: 2
+
+
+vote_data <- combined %>%
+  drop_na(vote_derniers_elections) |>
+  filter(vote_derniers_elections %in% c("Oui", "Non")) |>
+  select(id_jeune, source, vote_derniers_elections) %>%
+  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
+  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
+  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Non", "Oui"))))
+
+# run mcnemar test
+#mcnemar.test(table(vote_data$vote_q1, vote_data$vote_q2))
+
+# Prepare data for alluvial plot
+vote_long <- vote_data |> 
+  pivot_longer(cols = starts_with("vote_q"), names_to = "time", values_to = "vote") |> 
+  mutate(time = recode(time, "vote_q1" = "q1", "vote_q2" = "q2"))
+
+
+# Proportions
+vote_long_prop <- vote_long |>
+  group_by(time, vote) |>
+  summarise(n = n(), .groups = "drop") |>
+  group_by(time) |>
+  mutate(prop = n / sum(n)) |>
+  ungroup()
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(5, 1)]
+
+# Create alluvial plot
+ggplot(vote_long, 
+       aes(x = time, stratum = vote, alluvium = id_jeune, fill = vote, label = vote)) +
+  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
+  geom_stratum() +
+  scale_fill_manual(values = pal) + 
+  scale_x_discrete(expand = c(0.1, 0.1)) +
+  labs(
+    #title = "Changements dans le vote entre Q1 et Q2",
+    x = "Temps",
+    y = "Nombre d'individus",
+    fill = "Voté"
+  ) +
+  plot_theme +
+   geom_text(data = vote_long_prop, aes(x = time, y= n, label = scales::percent(prop, accuracy = 1)),
+            position = position_stack(vjust = 0.8), 
+            color = "white", 
+            size = 3, 
+            inherit.aes = FALSE) 
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(5, 3, 1)]
+
+vote_change_summary <- vote_data |>
+  mutate(change = case_when(
+    vote_q1 == vote_q2 ~ "Pas de changement",
+    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui"
+  )) |>
+  count(change) |>
+  mutate(prop = n / sum(n))
+
+ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  scale_fill_manual(values = c(
+    #"Pas de changement" = "#E1AF00",
+    "Changé vers Non" = "#F21A00",
+    "Changé vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    #title = "Changements individuels entre Q1 et Q2",
+    x = NULL,
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme
+```
+
+```{r}
+# for a plot that takes into account NAs
+
+# vote_long <- combined %>%
+#   filter(source %in% c("q1", "q2")) |>
+#   select(id_jeune, source, vote_derniers_elections) %>%
+#   rename(time = source, 
+#          vote = vote_derniers_elections) |> 
+#     mutate(vote = ifelse(is.na(vote), "Pas de réponse", vote)
+#            )
+# 
+# # Create alluvial plot
+# ggplot(vote_long, 
+#        aes(x = time, stratum = vote, alluvium = id_jeune, fill = vote, label = vote)) +
+#   geom_flow(stat = "alluvium",  alpha = 0.7) +
+#   geom_stratum() +
+#   scale_x_discrete(expand = c(0.1, 0.1)) +
+#   labs(
+#     title = "Changements dans le vote entre Q1 et Q2",
+#     x = "Temps",
+#     y = "Nombre d'individus",
+#     fill = "Vote"
+#   ) +
+#   plot_theme
+```
+
+```{r}
+# for a statistical test
+# action_data <- combined %>%
+#   drop_na(action_individuelle_societe) |>
+#   select(id_jeune, source, action_individuelle_societe) |> 
+#   rename(time = source) |> 
+#   # select individuals with observations in both
+#   group_by(id_jeune) |>
+#   filter(all(c("q1", "q3") %in% time)) |>
+#   ungroup() |> 
+#   # make factors
+#   mutate(
+#     action_individuelle_societe = factor(
+#       action_individuelle_societe,
+#       levels = c("Pas vraiment", "Non", "Oui")  # ref = Pas vraiment
+#     ),
+#     time = factor(time, levels = c("q1", "q3"))
+#   )
+# 
+# # Multinomial logistic mixed model
+# mod <- brm(
+#   action_individuelle_societe ~ time + (1 | id_jeune),
+#   data = action_data,
+#   family = categorical(),
+#   chains = 4, cores = 4, seed = 1234
+# )
+# 
+# exp(fixef(mod))  # For point estimates
+# 
+# library(ggeffects)
+# 
+# preds <- ggpredict(mod, terms = "time")
+# plot(preds) +
+#   labs(title = "Effet du programme sur les réponses",
+#        x = "Temps", y = "Probabilité prédite")
+```
+
+
+```{r}
+#| label: fig-action_individuelle_societe
+#| fig-cap: "Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered at *both* time points."
+#| fig-subcap:
+#|   - "Alluvial plot"
+#|   - "Percentages" 
+#| layout-ncol: 2
+
+# make wide format data to track change
+action_data <- combined %>%
+  drop_na(action_individuelle_societe) |>
+  select(id_jeune, source, action_individuelle_societe) %>%
+  pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
+  filter(!is.na(action_individuelle_q1) & !is.na(action_individuelle_q3))
+
+
+# Prepare data for alluvial plot
+plot_data <- combined %>%
+  drop_na(action_individuelle_societe) |>
+  select(id_jeune, source, action_individuelle_societe) |> 
+  rename(time = source) |> 
+  # select individuals with observations in both
+  group_by(id_jeune) |>
+  filter(all(c("q1", "q3") %in% time)) |>
+  ungroup() |> 
+  # make a factor
+    mutate(action_individuelle_societe = factor(
+    action_individuelle_societe,
+    levels = c("Pas vraiment", "Non", "Oui")
+  ))
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
+
+# Create alluvial plot
+ggplot(plot_data, 
+       aes(x = time, stratum = action_individuelle_societe, alluvium = id_jeune, fill = action_individuelle_societe, label = action_individuelle_societe)) +
+  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
+  geom_stratum() +
+  scale_fill_manual(values = pal) + 
+  scale_x_discrete(expand = c(0.1, 0.1)) +
+  labs(
+    x = "Temps",
+    y = "Nombre d'individus",
+    fill = "Vote"
+  ) +
+  plot_theme 
+
+# make plot for change
+
+change_summary <- action_data |>
+  mutate(change = case_when(
+    action_individuelle_q1 == action_individuelle_q3 ~ "Pas de changement",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment"
+  )) |>
+  count(change) |>
+  mutate(prop = n / sum(n))
+
+ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  scale_fill_manual(values = c(
+    "vers Pas vraiment" = "#E1AF00",
+    "vers Non" = "#F21A00",
+    "vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    x = "Changé",
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme
+```
+
+# Are there trends between different cohorts of volunteers?{#sec-between-change}
+
+There are many possible variables to look at regarding between-cohort differences. As an example, @fig-satisfaction shows how different cohorts evaluated their satisfaction with the service civique. 
+
+```{r}
+#| label: fig-satisfaction
+#| fig-cap: "Satisfaction between cohorts." 
+#| 
+combined <- combined |> 
+  # make satisfaction a factor, also make a numeric version
+  mutate(
+    satisfaction = factor(
+      satisfaction,
+      levels = c(
+        "Pas du tout satisfaisante",
+        "Peu satisfaisante",
+        "Assez satisfaisante",
+        "Très satisfaisante"
+      ),
+      ordered = TRUE
+    ),
+    satisfaction_num = as.numeric(satisfaction)
+  )
+
+
+combined |> 
+  drop_na(satisfaction) |> 
+  count(promo, satisfaction) |> 
+  group_by(promo) |> 
+  mutate(prop = n / sum(n)) |> 
+  ggplot(aes(x = satisfaction, y = prop, fill = promo)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            position = position_dodge(width = 0.8), 
+            vjust = -0.5, size = 3) +
+    scale_y_continuous(limits = c(0, NA), 
+                       expand = expansion(mult = c(0, 0.1)),
+                       labels = scales::percent_format(accuracy = 1)
+                       ) +
+  scale_fill_viridis_d(option = "plasma") +
+  labs(
+    x = "Satisfaction",
+    y = "Proportion",
+    fill = "Promo",
+    title = "Répartition des niveaux de satisfaction par promo"
+  ) +
+  guides(fill = FALSE) + 
+  facet_wrap(~promo) +  # Facet by promo
+  plot_theme +
+  theme(
+    axis.text.x = element_text(angle = 15, hjust = 1)  # Rotate x-axis labels
+  )
+
+```
+
+# Predictions
+
+For all predictions, we rely only on volunteers from the "Coeur" program. Note that all predicitons here are just statistical associations--they tell us about differences we observe, but they do not provide proof for causal conclusions on why we observe these differences. 
+
+## What predicts whether volunteers end their contract early (rupture)? {#sec-rupture}
+
+```{r}
+share_rupture <- combined |> 
+  mutate(rupture = factor(if_else(is.na(motif_rupture), 
+                                  0, 
+                                  1), 
+                          levels = c(0, 1), 
+                          labels = c("no_rupture", "rupture")
+                          )) |> 
+  group_by(rupture) |> 
+  summarise(
+    count = n_distinct(id_jeune)
+  ) |> 
+  mutate(share = paste0(round(count / sum(count) * 100, 1), "%")) %>%
+  split(.$rupture)
+```
+
+Not all volunteers work until the end of their contract. In fact, `r share_rupture$rupture$share` of volunteers have a "rupture", i.e. terminate the contract early. There are various motives for ending one's contract early (see @tbl-rupture). Not all of them are necessarily bad, e.g. "Embauche en CDD d'au moins 6 mois ou CDI", and some are outside of the influence of the volunteers, e.g. "Fin de validité du Titre de Séjour". For our analyses, we focus only on volunteers who ended their contract early for apparently negative reasons. 
+
+To see whether there are differences in different groups, we ran separate logistic regressions for a selection of variables. The results are shown in @fig-rupture-model. Because the magnitude of the odds ratios (OR) are not straightforward to interpret, @fig-rupture-descriptive shows descriptive differences in contract terminations for some groups. 
+
+```{r}
+#| label: tbl-rupture
+#| tbl-cap: Different motives for "rupture" and whether they were coded as negative, positive, or external reasons.
+combined |> 
+  group_by(motif_rupture, rupture_valence) |> 
+  summarize(n = n_distinct(id_jeune)) |> 
+  kbl()
+```
+
+```{r}
+# remove variables that don't make sense, i.e. the motive and the actual duration (obviously, the longer the duration, the less likely to have a rupture)
+reduced_demographic_variables <- setdiff(demographic_variables, c("motif_rupture", "Duree_reelle_sc_mois"))
+
+# add the two non-demographic variables asked in q1
+factors_for_rupture <- c(reduced_demographic_variables, "perception_avenir", "action_individuelle_societe")
+
+# make model data - we only want to have one rupture value per volunteer
+rupture_data <- combined |>
+  arrange(id_jeune, is.na(motif_rupture)) |>  # NA last
+  group_by(id_jeune) |>
+  slice(1) |>  # Keep first (i.e. non-NA if it exists)
+  ungroup()
+
+# Fit one model per demographic variable
+model_results <- factors_for_rupture %>%
+  map_dfr(function(var) {
+    formula <- as.formula(glue::glue("rupture_negative ~ `{var}`"))
+    
+    model <- glm(formula, data = rupture_data, family = "binomial")
+    
+    tidy(model, exponentiate = TRUE, conf.int = TRUE) %>%
+      filter(term != "(Intercept)") %>%
+      mutate(variable = var)
+  })
+
+# check
+# model_results
+```
+
+```{r}
+#| label: fig-rupture-model 
+#| fig-cap: Effects of demographic factors on negative rupture. Coefficients are the results of separate logistic regressions for each variable. For categorical variables, a baseline has been chosen in the model (refer to the codebook to see the omitted baseline category). Each bar or dot in the chart shows how a factor (like age, gender, or education) relates to the chance of a rupture. An odds ratio of 1 means that this group has the same chance of a rupture as the baseline group. More than 1 means that this group is more likely to have a rupture. For example, an odds ratio of 2.0 means twice as likely. Less than 1 means that this group is less likely to have a rupture. An odds ratio of 0.5 means half as likely. The lines show uncertainty (confidence intervals). If they cross 1, the difference might not be meaningful (in this case, the result is not statistically significant). The logarithmic scale is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+
+
+model_results <- model_results %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  scale_x_log10() +
+  labs(
+    x = "Odds Ratio (log scale)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-rupture-descriptive 
+#| fig-cap: Percentages of rupture for (allegedly) negative reasons for different groups, for different variables.
+
+plot_variables <- c("age_categorie", "type_volontaire", "niveau_etudes", "sexe")
+
+count_plot_data <- combined %>%
+  mutate(across(all_of(plot_variables), as.character)) %>%
+  pivot_longer(cols = all_of(plot_variables), names_to = "variable", values_to = "level") %>%
+  drop_na(level) |> 
+  group_by(variable, level, rupture_negative) |> 
+  summarize(n = n_distinct(id_jeune)) |> 
+  group_by(variable, level) %>%
+  mutate(pct = n / sum(n) * 100) |> 
+  ungroup()
+
+ggplot(count_plot_data, aes(x = level, y = pct, fill = factor(rupture_negative))) +
+  geom_col(position = position_dodge(width = 0.9)) +
+  geom_text(
+    aes(label = sprintf("%.1f%%", pct)),
+    position = position_dodge(width = 0.9),
+    vjust = -0.3,
+    size = 3
+  ) +
+  scale_fill_viridis_d(option = "rocket", direction = -1) +
+  facet_wrap(~ variable, scales = "free_x") +
+  labs(
+    x = NULL, y = "Share",
+    fill = "Contract status",
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
+  coord_cartesian(ylim = c(0, max(count_plot_data$pct) * 1.2)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+```
+
+How to make sense of the odds ratios? Take the example of the type of volunteers (`type_volontaire`). @tbl-OR-example shows the count, odds and share for rupture vs. no rupture for a negative motive. 
+
+```{r}
+#| label: tbl-OR-example
+#| tbl-cap: Count, odds and share for rupture vs. no rupture for a negative motive, according to which type of volunteer.
+
+
+table <- combined |> 
+    group_by(type_volontaire, rupture_negative) |> 
+  summarise(
+    n = n_distinct(id_jeune)
+  ) |> 
+  ungroup() |> 
+  pivot_wider(names_from = rupture_negative, values_from = n) |> 
+  mutate(odds = `pas de rupture negative` / `rupture negative`, 
+         share = `rupture negative` / (`pas de rupture negative` + `rupture negative`)
+         ) |> 
+  mutate_if(is.numeric, round, digits = 3)
+
+# Then manually calculate OR:
+OR_example <- table$odds[table$type_volontaire == "CŒUR"] / table$odds[table$type_volontaire == "RELAIS"]
+
+table |> 
+  kbl()
+```
+
+In this case the OR is odds of "CŒUR" divided by odds of "RELAIS" (OR = `r OR_example`).
+
+For non-demographic variables, investigating their relationship with rupture is not possible--simply because, by definition, for questions that have been only asked at "q2" and "q3", volunteers who had ended their contract early were not available anymore (see @tbl-rupture-candidates). Only for the two variables that have been asked at "q1" (`perception_avenir` and `action_individuelle_societe`) we can look at their relationship with rupture (@fig-rupture-model).
+
+```{r}
+#| label: tbl-rupture-candidates
+#| tbl-cap: Candidate variables to evaluating their association with rupture.
+
+factors_for_rupture <- c("perception_avenir", 
+                         "projet_avenir_concret", "action_individuelle_societe", 
+                         "comparaison_utilite_autres", "fierte",
+                         "confiance_en_soi", "confiance_avenir_personnel",
+                         "impact_situation_actuelle", "integration")
+
+
+combined |> 
+  pivot_longer(all_of(factors_for_rupture), 
+               names_to = "variable", 
+               values_to = "value") |> 
+  drop_na(value) |> 
+  distinct(variable, source) |> 
+  kbl()
+```
+
+
+## What predicts whether volunteers are more satisfied ? (@sec-satisfaction)
+
+In this section, we look at satisfaction ("D'une manière générale, diriez-vous que votre Service Civique s'est déroulé de façon..." with levels 1, "pas du tout satisfaisainte", to 4, "très satisfaisante")^[In all analyses we treat this as a continuous variable]. As shown in @fig-satisfaction-descriptive, taking all cohorts together, the majority of volunteers thinks their experience is "très satisfaisant". 
+
+```{r}
+#| label: fig-satisfaction-descriptive
+#| fig-cap: "Répartition des niveaux de satisfaction" 
+#| 
+
+combined |> 
+  drop_na(satisfaction) |> 
+  group_by(satisfaction) |> 
+  summarise(n = n_distinct(id_jeune)) |> 
+  ungroup() |> 
+  mutate(prop = n / sum(n)) |> 
+  ggplot(aes(x = satisfaction, y = prop)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            position = position_dodge(width = 0.8), 
+            vjust = -0.5, size = 3) +
+    scale_y_continuous(limits = c(0, NA), 
+                       expand = expansion(mult = c(0, 0.1)),
+                       labels = scales::percent_format(accuracy = 1)
+                       ) +
+  scale_fill_viridis_d(option = "plasma") +
+  labs(
+    x = "Satisfaction",
+    y = "Proportion"
+  ) +
+  plot_theme 
+
+```
+
+To see whether there are statistical differences between different categories of volunteers, we ran separate regression models for a selection of variables. The results are shown in @fig-satisfaction-demographic-variables, for demographic variables, and @fig-satisfaction-other-variables, for other variables. The estimates in these figures are the results of separate linear regressions for each variable. All likert scale type responses (such as satisfaction) have been coded as numeric (from 1 to 4). How to interpret the coefficients? For categorical variables, a baseline has been chosen in the model (refer to the codebook to see the omitted baseline category). The estimate shown in the graph is how much, compared to this baseline, satisfaction increases or decreases (on a scale from 1 to 4). For numeric variables, estimates represent how much satisfaction increases or decreases after increasing the variable by one unit.
+
+```{r}
+# non-demographic variables 
+factors_for_satisfaction <- c(
+  "perception_avenir_num",
+  "action_individuelle_societe",
+  "comparaison_utilite_autres",
+  "fierte_num",
+  "confiance_en_soi_num",
+  "confiance_avenir_personnel_num",
+  "impact_situation_actuelle"
+)
+
+
+# make model data - we only want to have one satisfaction value per volunteer
+satisfaction_data <- combined |>
+  arrange(id_jeune, is.na(satisfaction)) |>  # NA last
+  group_by(id_jeune) |>
+  slice(1) |>  # Keep first (i.e. non-NA if it exists)
+  ungroup()
+
+# Fit one model per other variable
+model_results_other_variables <- factors_for_satisfaction %>%
+  map_dfr(function(var) {
+    df <- satisfaction_data %>%
+      select(satisfaction_num, !!sym(var)) %>%
+      drop_na()
+
+    # Only run if predictor has 2+ unique levels
+    if (n_distinct(df[[var]]) < 2) {
+      return(NULL)
+    }
+
+    formula <- as.formula(glue::glue("satisfaction_num ~ `{var}`"))
+    model <- lm(formula, data = df)
+
+    tidy(model, conf.int = TRUE) %>%
+      filter(term != "(Intercept)") %>%
+      mutate(variable = var)
+  })
+
+# Fit one model per demographic variable
+model_results_demographic_variables <- demographic_variables %>%
+  map_dfr(function(var) {
+    df <- satisfaction_data %>%
+      select(satisfaction_num, !!sym(var)) %>%
+      drop_na()
+
+    # Only run if predictor has 2+ unique levels
+    if (n_distinct(df[[var]]) < 2) {
+      return(NULL)
+    }
+
+    formula <- as.formula(glue::glue("satisfaction_num ~ `{var}`"))
+    model <- lm(formula, data = df)
+
+    tidy(model, conf.int = TRUE) %>%
+      filter(term != "(Intercept)") %>%
+      mutate(variable = var)
+  })
+
+
+# check
+# model_results_other_variables
+```
+
+```{r}
+#| label: fig-satisfaction-demographic-variables 
+#| fig-cap: Effects of demographic factors on satisfaction.
+
+
+model_results <- model_results_demographic_variables %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  labs(
+    x = "Estimate (on a scale from 1 to 4)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-satisfaction-other-variables 
+#| fig-cap: Effects of other, non-demographic factors on satisfaction.
+
+model_results <- model_results_other_variables %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  labs(
+    x = "Estimate (on a scale from 1 to 4)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+## What predicts whether volunteers are more confident in their future ? (@sec-confiance_avenir)
+
+In this section, we look at confidence in one's future ("Concernant votre avenir, êtes-vous...?" with levels 1, "Pas du tout confiant.e", to 4, "Très confiant.e")^[In all analyses we treat this as a continuous variable]. As shown in @fig-perception-avenir-descriptive, taking all cohorts together, the majority of volunteers are "assez confiant.e". 
+
+```{r}
+#| label: fig-perception-avenir-descriptive
+#| fig-cap: "Répartition des niveaux de satisfaction" 
+#| 
+
+combined |> 
+  drop_na(perception_avenir) |> 
+  group_by(perception_avenir) |> 
+  summarise(n = n_distinct(id_jeune)) |> 
+  ungroup() |> 
+  mutate(prop = n / sum(n)) |> 
+  ggplot(aes(x = perception_avenir, y = prop)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            position = position_dodge(width = 0.8), 
+            vjust = -0.5, size = 3) +
+    scale_y_continuous(limits = c(0, NA), 
+                       expand = expansion(mult = c(0, 0.1)),
+                       labels = scales::percent_format(accuracy = 1)
+                       ) +
+  scale_fill_viridis_d(option = "plasma") +
+  labs(
+    x = "Perceptions of one's future",
+    y = "Proportion"
+  ) +
+  plot_theme 
+
+```
+
+To see whether there are statistical differences between different categories of volunteers, we ran separate regression models for a selection of variables. The results are shown in @fig-satisfaction-demographic-variables, for demographic variables, and @fig-satisfaction-other-variables, for other variables. The estimates in these figures are the results of separate linear regressions for each variable. All likert scale type responses (such as satisfaction) have been coded as numeric (from 1 to 4). How to interpret the coefficients? For categorical variables, a baseline has been chosen in the model (refer to the codebook to see the omitted baseline category). The estimate shown in the graph is how much, compared to this baseline, satisfaction increases or decreases (on a scale from 1 to 4). For numeric variables, estimates represent how much satisfaction increases or decreases after increasing the variable by one unit.
+
+```{r}
+# non-demographic variables 
+factors_for_perception_avenir <- c(
+  "satisfaction_num",
+  "action_individuelle_societe",
+  "comparaison_utilite_autres",
+  "fierte_num",
+  "confiance_en_soi_num",
+  "confiance_avenir_personnel_num",
+  "impact_situation_actuelle"
+)
+
+
+# make model data - we only want to have one satisfaction value per volunteer
+perception_avenir_data <- combined |>
+  arrange(id_jeune, is.na(perception_avenir)) |>  # NA last
+  group_by(id_jeune) |>
+  slice(1) |>  # Keep first (i.e. non-NA if it exists)
+  ungroup()
+
+# Fit one model per other variable
+model_results_other_variables <- factors_for_perception_avenir %>%
+  map_dfr(function(var) {
+    df <- perception_avenir_data %>%
+      select(perception_avenir_num, !!sym(var)) %>%
+      drop_na()
+
+    # Only run if predictor has 2+ unique levels
+    if (n_distinct(df[[var]]) < 2) {
+      return(NULL)
+    }
+
+    formula <- as.formula(glue::glue("perception_avenir_num ~ `{var}`"))
+    model <- lm(formula, data = df)
+
+    tidy(model, conf.int = TRUE) %>%
+      filter(term != "(Intercept)") %>%
+      mutate(variable = var)
+  })
+
+# Fit one model per demographic variable
+model_results_demographic_variables <- demographic_variables %>%
+  map_dfr(function(var) {
+    df <- perception_avenir_data %>%
+      select(perception_avenir_num, !!sym(var)) %>%
+      drop_na()
+
+    # Only run if predictor has 2+ unique levels
+    if (n_distinct(df[[var]]) < 2) {
+      return(NULL)
+    }
+
+    formula <- as.formula(glue::glue("perception_avenir_num ~ `{var}`"))
+    model <- lm(formula, data = df)
+
+    tidy(model, conf.int = TRUE) %>%
+      filter(term != "(Intercept)") %>%
+      mutate(variable = var)
+  })
+
+
+# check
+# model_results_other_variables
+```
+
+```{r}
+#| label: fig-perception-avenir-demographic-variables 
+#| fig-cap: Effects of demographic factors on confidence in one's future.
+
+
+model_results <- model_results_demographic_variables %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  labs(
+    x = "Estimate (on a scale from 1 to 4)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-perception-avenir-other-variables 
+#| fig-cap: Effects of other, non-demographic factors on confidence in one's future.
+
+model_results <- model_results_other_variables %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  labs(
+    x = "Estimate (on a scale from 1 to 4)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```

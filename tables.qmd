@@ -1,8 +1,5 @@
 ---
 title: "Tables"
-format:
-  html:
-    toc: true
 ---
 
 ```{r}
@@ -55,8 +52,55 @@ demographic_variables_not_reported <- c("id_jeune", "region", "site", "type_volo
 ```
 
 ```{r}
-#| label: tbl-within-variables
+#| label: tbl-demographics
 #| tbl-cap: Summary table of sample demographics
+#| ft.align: left
+
+# set gtsummary themes
+# gtsummary::reset_gtsummary_theme()
+#theme_gtsummary_journal(journal = "nejm", set_theme = TRUE)
+
+table <- combined |> 
+  # this supposes that demographics don't vary by time!
+  # we need to slice since gt_summary counts rows
+  group_by(id_jeune) %>%
+  slice(1) %>%
+  ungroup() %>%
+  select(promo, all_of(demographic_variables)) |> 
+  rename_with(~ str_to_title(.), all_of(demographic_variables)) %>%
+  tbl_summary(
+    by = promo,  # <- This is the key change!
+    type = all_continuous() ~ "continuous2",
+    statistic = list(
+      all_continuous() ~ c(
+        "{mean} ({sd})",
+        "{median}",
+        "{min}, {max}"
+      ),
+      all_categorical() ~ "{n} ({p}%)"
+    ),
+    digits = list(all_continuous() ~ 1),
+    missing = "no",
+  ) %>%
+  bold_labels() %>%
+  modify_header(
+    label = "**Variable**",
+    all_stat_cols() ~ "**{level}**, N = {n}"
+  ) %>%
+  gtsummary::as_kable_extra(booktabs = TRUE, longtable = TRUE) |> 
+  kableExtra::column_spec(1, width = "4cm") |> 
+  kableExtra::column_spec(2, width = "3cm")  |> 
+  kableExtra::column_spec(3, width = "3cm") |> 
+  kableExtra::column_spec(4, width = "3cm")  |> 
+  kableExtra::column_spec(5, width = "3cm") 
+
+table
+```
+
+
+```{r}
+#| label: tbl-within-variables
+#| tbl-cap: Questions that have been asked at different time points for a single promo
 #| ft.align: left
 
 
@@ -113,67 +157,6 @@ map |>
   pivot_wider(names_from = promo, 
               values_from = n) |> 
   kbl(booktabs = TRUE, longtable = TRUE) 
-```
-
-```{r}
-#| label: tbl-demographics
-#| tbl-cap: Summary table of sample demographics
-#| ft.align: left
-
-# set gtsummary themes
-# gtsummary::reset_gtsummary_theme()
-#theme_gtsummary_journal(journal = "nejm", set_theme = TRUE)
-
-table <- combined |> 
-  # this supposes that demographics don't vary by time!
-  # we need to slice since gt_summary counts rows
-  group_by(id_jeune) %>%
-  slice(1) %>%
-  ungroup() %>%
-  select(promo, all_of(demographic_variables)) |> 
-  rename_with(~ str_to_title(.), all_of(demographic_variables)) %>%
-  tbl_summary(
-    by = promo,  # <- This is the key change!
-    type = all_continuous() ~ "continuous2",
-    statistic = list(
-      all_continuous() ~ c(
-        "{mean} ({sd})",
-        "{median}",
-        "{min}, {max}"
-      ),
-      all_categorical() ~ "{n} ({p}%)"
-    ),
-    digits = list(all_continuous() ~ 1),
-    missing = "no",
-  ) %>%
-  bold_labels() %>%
-  modify_header(
-    label = "**Variable**",
-    all_stat_cols() ~ "**{level}**, N = {n}"
-  ) %>%
-  gtsummary::as_kable_extra(booktabs = TRUE, longtable = TRUE) |> 
-  kableExtra::column_spec(1, width = "4cm") |> 
-  kableExtra::column_spec(2, width = "3cm")  |> 
-  kableExtra::column_spec(3, width = "3cm") |> 
-  kableExtra::column_spec(4, width = "3cm")  |> 
-  kableExtra::column_spec(5, width = "3cm") 
-
-table
-```
-
-```{r}
-#| label: tbl-codebook
-#| tbl-cap: Codeboook
-#| ft.align: left
-
-codebook |>
-  select(variable_name, question, answer_options) |>  # hide promo column from display
-  kbl(
-    booktabs = TRUE,
-    longtable = TRUE,
-    escape = FALSE,
-  ) |>
-  kable_styling(latex_options = c("repeat_header")) 
 ```
 
 ```{r}

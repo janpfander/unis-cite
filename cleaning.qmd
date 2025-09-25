@@ -503,6 +503,109 @@ combined_data <- combined_data |>
   filter(type_volontaire != "Matching non possible")
 ```
 
+## Satisfaction
+
+Make a factor and numeric version. 
+
+```{r}
+combined_data <- combined_data |> 
+  # make satisfaction a factor, also make a numeric version
+  mutate(
+    satisfaction = factor(
+      satisfaction,
+      levels = c(
+        "Pas du tout satisfaisante",
+        "Peu satisfaisante",
+        "Assez satisfaisante",
+        "Très satisfaisante"
+      ),
+      ordered = TRUE
+    ),
+    satisfaction_num = as.numeric(satisfaction)
+  )
+```
+
+
+## Confiance en soi
+
+Make a numeric version of `confiance_en_soi`.
+
+```{r}
+combined_data <- combined_data %>%
+  mutate(
+    confiance_en_soi_num = recode(confiance_en_soi,
+      "Non, pas du tout"    = 1,
+      "Non, pas vraiment"   = 2,
+      "Oui, assez"          = 3,
+      "Oui, beaucoup"       = 4,
+      "Je ne sais pas"      = NA_real_  # treat as missing
+    )
+  )
+```
+
+## Confiance avenir personnel
+
+```{r}
+combined_data <- combined_data %>%
+  mutate(
+    confiance_avenir_personnel_num = recode(confiance_avenir_personnel,
+      "Pas du tout confiant.e" = 1,
+      "Peu confiant.e"         = 2,
+      "Assez confiant.e"       = 3,
+      "Très confiant.e"        = 4
+    )
+  )
+```
+
+## Fierte
+
+```{r}
+combined_data <- combined_data %>%
+  mutate(
+    fierte_num = recode(fierte,
+      "Non, pas du tout"   = 1,
+      "Non, pas vraiment"  = 2,
+      "Oui, un peu"        = 3,
+      "Oui, tout à fait"   = 4
+    )
+  )
+```
+
+## Confiance avenir
+
+Make factor and order levels. 
+
+```{r}
+combined_data  <- combined_data  |> 
+  # make satisfaction a factor, also make a numeric version
+  mutate(
+    perception_avenir = factor(
+      perception_avenir,
+      levels = c(
+      "Pas du tout confiant(e)",
+      "Peu confiant(e)",
+      "Assez confiant(e)",
+      "Très confiant(e)"
+      ),
+      ordered = TRUE
+    )
+  )
+```
+
+
+Make numeric version.
+
+```{r}
+combined_data <- combined_data %>%
+  mutate(
+    perception_avenir_num = recode(perception_avenir,
+      "Pas du tout confiant(e)" = 1,
+      "Peu confiant(e)"         = 2,
+      "Assez confiant(e)"       = 3,
+      "Très confiant(e)"        = 4
+    )
+  )
+```
 
 ## Write out data
 

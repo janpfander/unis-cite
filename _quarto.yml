@@ -5,23 +5,23 @@ project:
     - "*.qmd"
     - "!simulation.qmd"
     - "!cleaning.qmd"
-
+    
 website:
   title: "Cité-Unis"
   navbar:
     left:
-      - href: report.qmd
+      - href: index.qmd
         text: Report
       - href: tables.qmd
         text: Tables
-      
-        
+      - href: codebook.qmd
+        text: Codebook
+
 format:
   apaquarto-html: default
-  apaquarto-docx: default  
-  apaquarto-pdf: default
 
 execute:
+  freeze: auto 
   echo: false
   warning: false
   message: false
