@@ -134,8 +134,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#predictions" id="toc-predictions" class="nav-link" data-scroll-target="#predictions">Predictions</a>
   <ul class="collapse">
   <li><a href="#sec-rupture" id="toc-sec-rupture" class="nav-link" data-scroll-target="#sec-rupture">What predicts whether volunteers end their contract early (rupture)?</a></li>
-  <li><a href="#what-predicts-whether-volunteers-are-more-satisfied-sec-satisfaction" id="toc-what-predicts-whether-volunteers-are-more-satisfied-sec-satisfaction" class="nav-link" data-scroll-target="#what-predicts-whether-volunteers-are-more-satisfied-sec-satisfaction">What predicts whether volunteers are more satisfied ? (<strong>?@sec-satisfaction</strong>)</a></li>
-  <li><a href="#what-predicts-whether-volunteers-are-more-confident-in-their-future-sec-confiance_avenir" id="toc-what-predicts-whether-volunteers-are-more-confident-in-their-future-sec-confiance_avenir" class="nav-link" data-scroll-target="#what-predicts-whether-volunteers-are-more-confident-in-their-future-sec-confiance_avenir">What predicts whether volunteers are more confident in their future ? (<strong>?@sec-confiance_avenir</strong>)</a></li>
+  <li><a href="#sec-satisfaction" id="toc-sec-satisfaction" class="nav-link" data-scroll-target="#sec-satisfaction">What predicts whether volunteers are more satisfied ?</a></li>
+  <li><a href="#sec-perception-avenir" id="toc-sec-perception-avenir" class="nav-link" data-scroll-target="#sec-perception-avenir">What predicts whether volunteers are more confident in their future ?</a></li>
+  </ul></li>
+  <li><a href="#differences-between-programs" id="toc-differences-between-programs" class="nav-link" data-scroll-target="#differences-between-programs">Differences between programs</a>
+  <ul class="collapse">
+  <li><a href="#sec-cine" id="toc-sec-cine" class="nav-link" data-scroll-target="#sec-cine">Ciné</a></li>
+  <li><a href="#sec-ecovolonterre" id="toc-sec-ecovolonterre" class="nav-link" data-scroll-target="#sec-ecovolonterre">Ecovolonterre</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.docx"><i class="bi bi-file-word"></i>MS Word (apaquarto)</a></li><li><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF (apaquarto)</a></li></ul></div></nav>
@@ -176,16 +181,15 @@ ul.task-list li input[type="checkbox"] {
 </ol>
 <ul>
 <li>…end their contract early? (<a href="#sec-rupture" class="quarto-xref">Section&nbsp;4.1</a>)</li>
-<li>…are more satisfied ? (<strong>?@sec-satisfaction</strong>)</li>
-<li>…are more self-confident? (<strong>?@sec-confidence</strong>)</li>
+<li>…are more satisfied ? (<a href="#sec-satisfaction" class="quarto-xref">Section&nbsp;4.2</a>)</li>
+<li>…are more confident about their future? (<a href="#sec-perception-avenir" class="quarto-xref">Section&nbsp;4.3</a>)</li>
 </ul>
 <ol start="5" type="1">
 <li>How do volunteers differ between the different programs?</li>
 </ol>
 <ul>
-<li>Ciné (<strong>?@sec-cine</strong>)</li>
-<li>Ecology</li>
-<li>Coeur vs.&nbsp;Relais (<strong>?@sec-coeur-vs-relais</strong>)</li>
+<li>Ciné (<a href="#sec-cine" class="quarto-xref">Section&nbsp;5.1</a>)</li>
+<li>Ecology (<a href="#sec-ecovolonterre" class="quarto-xref">Section&nbsp;5.2</a>)</li>
 </ul>
 <p>We rely on questionnaires collected by Cité-Unis for four different cohorts of volunteers who did their service civique for a year (2020-2021; 2021-2022; 2022-2023; 2023-2024). These questionnaires are very extensive. For the present analyses, we selected a subset of key questions (a full list can be found in the <a href="./codebook.html">codebook</a>). Note that this selection of variables was based only on the questionnaire of the first cohort (2020/21). As a result, potentially interesting variables that only appear in later questionnaires will not appear here.</p>
 </section>
@@ -199,17 +203,20 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="age" class="level2">
 <h2 data-anchor-id="age">Age</h2>
+<p>The majority of volunteers is between 18 and 20 years old (~30%). The next biggest age group are volunteers between 21 and 23 years old ( ~30%).</p>
 </section>
 <section id="education" class="level2">
 <h2 data-anchor-id="education">Education</h2>
+<p>Volunteers with a “Bac + 3 et plus” are relatively rare (~17%). The share of volunteers with a “Bac à Bac + 2” has been constantly decreasing, from 48% in 2020/21 to 40% in 2023/24. By contrast, volunteers “Infra-bac”, have been increasing from 32% in 2020/21 to 43% in 2023/24.</p>
 </section>
 <section id="sex" class="level2">
 <h2 data-anchor-id="sex">Sex</h2>
+<p>There is a relatively stable difference, with more women (~60%) being volunteers than men.</p>
 </section>
 </section>
 <section id="sec-within-change" class="level1">
 <h1>How have volunteers changed their attitudes?</h1>
-<p>First, this analysis is restricted by attrition, i.e.&nbsp;volunteers dropping out of the surveys over time (see <a href="#fig-attrition" class="quarto-xref" aria-expanded="false">Figure&nbsp;3</a>). Second, there are only two questions that volunteers of the same promo have been asked at different time points (<strong>?@tbl-within-variables</strong>). <a href="#fig-vote_derniers_elections" class="quarto-xref" aria-expanded="false">Figure&nbsp;4</a> shows all volunteers who answered at both time points (q1 and q2), with either “yes” or “no”. This descriptive analysis suggests that the service civique did not have an impact on voting behavior, on average. However, this analysis is pooled across different cohorts, not all of which would have had the chance to change their voting behavior during their year volunteering, simply because there were no elections. <a href="#fig-action_individuelle_societe" class="quarto-xref" aria-expanded="false">Figure&nbsp;5</a> shows changes in volunteers perception on whether their individual action can contribute to changing society. Descriptively, there is no clear positive or negative trend either.</p>
+<p>First, this analysis is restricted by attrition, i.e.&nbsp;volunteers dropping out of the surveys over time (see <a href="#fig-attrition" class="quarto-xref" aria-expanded="false">Figure&nbsp;3</a>). Second, there are only two questions that volunteers of the same promo have been asked at different time points. <a href="#fig-vote_derniers_elections" class="quarto-xref" aria-expanded="false">Figure&nbsp;4</a> shows all volunteers who answered at both time points (q1 and q2), with either “yes” or “no”. This descriptive analysis suggests that the service civique did not have an impact on voting behavior, on average. However, this analysis is pooled across different cohorts, not all of which would have had the chance to change their voting behavior during their year volunteering, simply because there were no elections. <a href="#fig-action_individuelle_societe" class="quarto-xref" aria-expanded="false">Figure&nbsp;5</a> shows changes in volunteers perception on whether their individual action can contribute to changing society. Descriptively, there is no clear positive or negative trend either.</p>
 </section>
 <section id="sec-between-change" class="level1">
 <h1>Are there trends between different cohorts of volunteers?</h1>
@@ -217,28 +224,39 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="predictions" class="level1">
 <h1>Predictions</h1>
-<p>For all predictions, we rely only on volunteers from the “Coeur” program. Note that all predicitons here are just statistical associations–they tell us about differences we observe, but they do not provide proof for causal conclusions on why we observe these differences.</p>
+<p>Note that all predicitons here are just statistical associations–they tell us about differences we observe, but they do not provide proof for causal conclusions on why we observe these differences.</p>
 <section id="sec-rupture" class="level2">
 <h2 data-anchor-id="sec-rupture">What predicts whether volunteers end their contract early (rupture)?</h2>
 <p>Not all volunteers work until the end of their contract. In fact, 22.9% of volunteers have a “rupture”, i.e.&nbsp;terminate the contract early. There are various motives for ending one’s contract early (see <a href="#tbl-rupture" class="quarto-xref" aria-expanded="false">Table&nbsp;1</a>). Not all of them are necessarily bad, e.g.&nbsp;“Embauche en CDD d’au moins 6 mois ou CDI”, and some are outside of the influence of the volunteers, e.g.&nbsp;“Fin de validité du Titre de Séjour”. For our analyses, we focus only on volunteers who ended their contract early for apparently negative reasons.</p>
 <p>To see whether there are differences in different groups, we ran separate logistic regressions for a selection of variables. The results are shown in <a href="#fig-rupture-model" class="quarto-xref" aria-expanded="false">Figure&nbsp;7</a>. Because the magnitude of the odds ratios (OR) are not straightforward to interpret, <a href="#fig-rupture-descriptive" class="quarto-xref" aria-expanded="false">Figure&nbsp;8</a> shows descriptive differences in contract terminations for some groups.</p>
 <p>How to make sense of the odds ratios? Take the example of the type of volunteers (<code>type_volontaire</code>). <a href="#tbl-OR-example" class="quarto-xref" aria-expanded="false">Table&nbsp;2</a> shows the count, odds and share for rupture vs.&nbsp;no rupture for a negative motive.</p>
-<p>In this case the OR is odds of “CŒUR” divided by odds of “RELAIS” (OR = 1.5114392).</p>
+<p>In this case the OR is odds of “CŒUR” divided by odds of “RELAIS” (OR = 1.6138667).</p>
 <p>For non-demographic variables, investigating their relationship with rupture is not possible–simply because, by definition, for questions that have been only asked at “q2” and “q3”, volunteers who had ended their contract early were not available anymore (see <a href="#tbl-rupture-candidates" class="quarto-xref" aria-expanded="false">Table&nbsp;3</a>). Only for the two variables that have been asked at “q1” (<code>perception_avenir</code> and <code>action_individuelle_societe</code>) we can look at their relationship with rupture (<a href="#fig-rupture-model" class="quarto-xref" aria-expanded="false">Figure&nbsp;7</a>).</p>
 </section>
-<section id="what-predicts-whether-volunteers-are-more-satisfied-sec-satisfaction" class="level2">
-<h2 data-anchor-id="what-predicts-whether-volunteers-are-more-satisfied-sec-satisfaction">What predicts whether volunteers are more satisfied ? (<strong>?@sec-satisfaction</strong>)</h2>
+<section id="sec-satisfaction" class="level2">
+<h2 data-anchor-id="sec-satisfaction">What predicts whether volunteers are more satisfied ?</h2>
 <p>In this section, we look at satisfaction (“D’une manière générale, diriez-vous que votre Service Civique s’est déroulé de façon…” with levels 1, “pas du tout satisfaisainte”, to 4, “très satisfaisante”)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. As shown in <a href="#fig-satisfaction-descriptive" class="quarto-xref" aria-expanded="false">Figure&nbsp;9</a>, taking all cohorts together, the majority of volunteers thinks their experience is “très satisfaisant”.</p>
 <p>To see whether there are statistical differences between different categories of volunteers, we ran separate regression models for a selection of variables. The results are shown in <a href="#fig-satisfaction-demographic-variables" class="quarto-xref" aria-expanded="false">Figure&nbsp;10</a>, for demographic variables, and <a href="#fig-satisfaction-other-variables" class="quarto-xref" aria-expanded="false">Figure&nbsp;11</a>, for other variables. The estimates in these figures are the results of separate linear regressions for each variable. All likert scale type responses (such as satisfaction) have been coded as numeric (from 1 to 4). How to interpret the coefficients? For categorical variables, a baseline has been chosen in the model (refer to the codebook to see the omitted baseline category). The estimate shown in the graph is how much, compared to this baseline, satisfaction increases or decreases (on a scale from 1 to 4). For numeric variables, estimates represent how much satisfaction increases or decreases after increasing the variable by one unit.</p>
 </section>
-<section id="what-predicts-whether-volunteers-are-more-confident-in-their-future-sec-confiance_avenir" class="level2">
-<h2 data-anchor-id="what-predicts-whether-volunteers-are-more-confident-in-their-future-sec-confiance_avenir">What predicts whether volunteers are more confident in their future ? (<strong>?@sec-confiance_avenir</strong>)</h2>
+<section id="sec-perception-avenir" class="level2">
+<h2 data-anchor-id="sec-perception-avenir">What predicts whether volunteers are more confident in their future ?</h2>
 <p>In this section, we look at confidence in one’s future (“Concernant votre avenir, êtes-vous…?” with levels 1, “Pas du tout confiant.e”, to 4, “Très confiant.e”)<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. As shown in <a href="#fig-perception-avenir-descriptive" class="quarto-xref" aria-expanded="false">Figure&nbsp;12</a>, taking all cohorts together, the majority of volunteers are “assez confiant.e”.</p>
 <p>To see whether there are statistical differences between different categories of volunteers, we ran separate regression models for a selection of variables. The results are shown in <a href="#fig-satisfaction-demographic-variables" class="quarto-xref" aria-expanded="false">Figure&nbsp;10</a>, for demographic variables, and <a href="#fig-satisfaction-other-variables" class="quarto-xref" aria-expanded="false">Figure&nbsp;11</a>, for other variables. The estimates in these figures are the results of separate linear regressions for each variable. All likert scale type responses (such as satisfaction) have been coded as numeric (from 1 to 4). How to interpret the coefficients? For categorical variables, a baseline has been chosen in the model (refer to the codebook to see the omitted baseline category). The estimate shown in the graph is how much, compared to this baseline, satisfaction increases or decreases (on a scale from 1 to 4). For numeric variables, estimates represent how much satisfaction increases or decreases after increasing the variable by one unit.</p>
+</section>
+</section>
+<section id="differences-between-programs" class="level1">
+<h1>Differences between programs</h1>
+<section id="sec-cine" class="level2">
+<h2 data-anchor-id="sec-cine">Ciné</h2>
+<p>Volunteers who work in cine-related projects tend to be older and more educated. Refugies are less likely to be cine volunteers. If there is a preliminary end to the contract, cine volunteers are more likely to do so because they were offered a CDD of less than 6 months. Refugees are less likely to be cine volunteers, and women, as well as people from urban areas are more likely.</p>
+</section>
+<section id="sec-ecovolonterre" class="level2">
+<h2 data-anchor-id="sec-ecovolonterre">Ecovolonterre</h2>
+<p>Ecovolonterres tend to be older (mostly in the 21 to 23 agegroup) and more educated than other volunteers. They tend to plan for longer volunteer programs. Ecovolonterres tend to be from more rural but also urban ares (compared to QVP).</p>
 
 
 <div class="cell FigureWithoutNote" prefix="" data-tblnum="1" data-custom-style="FigureWithoutNote">
-<div id="tbl-rupture" class="cell quarto-float quarto-figure quarto-figure-center" prefix="" data-tblnum="1">
+<div id="tbl-rupture" class="cell quarto-float quarto-figure quarto-figure-center" data-tblnum="1" prefix="">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rupture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -271,7 +289,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">03 - Force majeure</td>
-<td style="text-align: left;">raisons externes</td>
+<td style="text-align: left;">negative</td>
 <td style="text-align: right;">280</td>
 </tr>
 <tr class="even">
@@ -301,7 +319,7 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">09 - Reprise d'études</td>
-<td style="text-align: left;">negative</td>
+<td style="text-align: left;">positive</td>
 <td style="text-align: right;">412</td>
 </tr>
 <tr class="even">
@@ -322,7 +340,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="cell FigureWithoutNote" prefix="" data-tblnum="2" data-custom-style="FigureWithoutNote">
-<div id="tbl-OR-example" class="cell quarto-float quarto-figure quarto-figure-center" prefix="" data-tblnum="2">
+<div id="tbl-OR-example" class="cell quarto-float quarto-figure quarto-figure-center" data-tblnum="2" prefix="">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-OR-example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -347,17 +365,17 @@ ul.task-list li input[type="checkbox"] {
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">CŒUR</td>
-<td style="text-align: right;">19931</td>
-<td style="text-align: right;">877</td>
-<td style="text-align: right;">22.726</td>
-<td style="text-align: right;">0.042</td>
+<td style="text-align: right;">19863</td>
+<td style="text-align: right;">945</td>
+<td style="text-align: right;">21.019</td>
+<td style="text-align: right;">0.045</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">RELAIS</td>
-<td style="text-align: right;">6706</td>
-<td style="text-align: right;">446</td>
-<td style="text-align: right;">15.036</td>
-<td style="text-align: right;">0.062</td>
+<td style="text-align: right;">6642</td>
+<td style="text-align: right;">510</td>
+<td style="text-align: right;">13.024</td>
+<td style="text-align: right;">0.071</td>
 </tr>
 </tbody>
 </table>
@@ -367,7 +385,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="cell FigureWithoutNote" prefix="" data-tblnum="3" data-custom-style="FigureWithoutNote">
-<div id="tbl-rupture-candidates" class="cell quarto-float quarto-figure quarto-figure-center" prefix="" data-tblnum="3">
+<div id="tbl-rupture-candidates" class="cell quarto-float quarto-figure quarto-figure-center" data-tblnum="3" prefix="">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rupture-candidates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -436,7 +454,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
 <div class="cell-output-display">
-<div id="fig-map-repartition" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="1">
+<div id="fig-map-repartition" class="quarto-float quarto-figure quarto-figure-center" data-fignum="1" prefix="">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-map-repartition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -455,7 +473,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
 <div class="cell-output-display">
-<div id="fig-map-trend" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="2">
+<div id="fig-map-trend" class="quarto-float quarto-figure quarto-figure-center" data-fignum="2" prefix="">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-map-trend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -485,7 +503,7 @@ ul.task-list li input[type="checkbox"] {
 <div aria-describedby="fig-attrition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-attrition" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-attrition-1" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="3A">
+<div id="fig-attrition-1" class="quarto-float quarto-figure quarto-figure-center" data-fignum="3A" prefix="">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-fig" id="fig-attrition-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (A) (absolute numbers)
@@ -497,7 +515,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-attrition" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-attrition-2" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="3B">
+<div id="fig-attrition-2" class="quarto-float quarto-figure quarto-figure-center" data-fignum="3B" prefix="">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-fig" id="fig-attrition-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (B) (percentages)
@@ -525,7 +543,7 @@ ul.task-list li input[type="checkbox"] {
 <div aria-describedby="fig-vote_derniers_elections-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-vote_derniers_elections" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-vote_derniers_elections-1" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="4A">
+<div id="fig-vote_derniers_elections-1" class="quarto-float quarto-figure quarto-figure-center" data-fignum="4A" prefix="">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-fig" id="fig-vote_derniers_elections-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (A) Alluvial plot
@@ -537,7 +555,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-vote_derniers_elections" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-vote_derniers_elections-2" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="4B">
+<div id="fig-vote_derniers_elections-2" class="quarto-float quarto-figure quarto-figure-center" data-fignum="4B" prefix="">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-fig" id="fig-vote_derniers_elections-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (B) Percentages
@@ -565,7 +583,7 @@ ul.task-list li input[type="checkbox"] {
 <div aria-describedby="fig-action_individuelle_societe-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="quarto-layout-row">
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-action_individuelle_societe" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-action_individuelle_societe-1" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="5A">
+<div id="fig-action_individuelle_societe-1" class="quarto-float quarto-figure quarto-figure-center" data-fignum="5A" prefix="">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-fig" id="fig-action_individuelle_societe-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (A) Alluvial plot
@@ -577,7 +595,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-action_individuelle_societe" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="fig-action_individuelle_societe-2" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="5B">
+<div id="fig-action_individuelle_societe-2" class="quarto-float quarto-figure quarto-figure-center" data-fignum="5B" prefix="">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <figcaption class="quarto-float-caption-top quarto-subfloat-caption quarto-subfloat-fig" id="fig-action_individuelle_societe-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (B) Percentages
@@ -594,7 +612,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
 <div class="cell-output-display">
-<div id="fig-satisfaction" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="6">
+<div id="fig-satisfaction" class="quarto-float quarto-figure quarto-figure-center" data-fignum="6" prefix="">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-satisfaction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -613,7 +631,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
 <div class="cell-output-display">
-<div id="fig-rupture-model" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="7">
+<div id="fig-rupture-model" class="quarto-float quarto-figure quarto-figure-center" data-fignum="7" prefix="">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-rupture-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -632,7 +650,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
 <div class="cell-output-display">
-<div id="fig-rupture-descriptive" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="8">
+<div id="fig-rupture-descriptive" class="quarto-float quarto-figure quarto-figure-center" data-fignum="8" prefix="">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-rupture-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -651,7 +669,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
 <div class="cell-output-display">
-<div id="fig-satisfaction-descriptive" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="9">
+<div id="fig-satisfaction-descriptive" class="quarto-float quarto-figure quarto-figure-center" data-fignum="9" prefix="">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-satisfaction-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -670,7 +688,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
 <div class="cell-output-display">
-<div id="fig-satisfaction-demographic-variables" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="10">
+<div id="fig-satisfaction-demographic-variables" class="quarto-float quarto-figure quarto-figure-center" data-fignum="10" prefix="">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-satisfaction-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -689,7 +707,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
 <div class="cell-output-display">
-<div id="fig-satisfaction-other-variables" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="11">
+<div id="fig-satisfaction-other-variables" class="quarto-float quarto-figure quarto-figure-center" data-fignum="11" prefix="">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-satisfaction-other-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -708,7 +726,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
 <div class="cell-output-display">
-<div id="fig-perception-avenir-descriptive" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="12">
+<div id="fig-perception-avenir-descriptive" class="quarto-float quarto-figure quarto-figure-center" data-fignum="12" prefix="">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-perception-avenir-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -727,7 +745,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
 <div class="cell-output-display">
-<div id="fig-perception-avenir-demographic-variables" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="13">
+<div id="fig-perception-avenir-demographic-variables" class="quarto-float quarto-figure quarto-figure-center" data-fignum="13" prefix="">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-perception-avenir-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -746,7 +764,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
 <div class="cell-output-display">
-<div id="fig-perception-avenir-other-variables" class="quarto-float quarto-figure quarto-figure-center" prefix="" data-fignum="14">
+<div id="fig-perception-avenir-other-variables" class="quarto-float quarto-figure quarto-figure-center" data-fignum="14" prefix="">
 <figure class="quarto-float quarto-float-fig figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-perception-avenir-other-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="FigureTitle" data-custom-style="FigureTitle">
@@ -758,6 +776,44 @@ ul.task-list li input[type="checkbox"] {
 </figcaption>
 <div aria-describedby="fig-perception-avenir-other-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="index_files/figure-html/fig-perception-avenir-other-variables-1.svg" class="img-fluid figure-img" width="624">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
+<div class="cell-output-display">
+<div id="fig-cine-demographic-variables" class="quarto-float quarto-figure quarto-figure-center" data-fignum="15" prefix="">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-cine-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="FigureTitle" data-custom-style="FigureTitle">
+<p>Figure&nbsp;15</p>
+</div>
+<div class="Caption" data-custom-style="Caption">
+<p>Differences in Ciné-related vs.&nbsp;other programs along demographic factors</p>
+</div>
+</figcaption>
+<div aria-describedby="fig-cine-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-cine-demographic-variables-1.svg" class="img-fluid figure-img" width="624">
+</div>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell FigureWithoutNote" data-custom-style="FigureWithoutNote">
+<div class="cell-output-display">
+<div id="fig-ecovolonterre-demographic-variables" class="quarto-float quarto-figure quarto-figure-center" data-fignum="16" prefix="">
+<figure class="quarto-float quarto-float-fig figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-ecovolonterre-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="FigureTitle" data-custom-style="FigureTitle">
+<p>Figure&nbsp;16</p>
+</div>
+<div class="Caption" data-custom-style="Caption">
+<p>Differences in Ecovolonterre vs.&nbsp;other programs along demographic factors</p>
+</div>
+</figcaption>
+<div aria-describedby="fig-ecovolonterre-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-ecovolonterre-demographic-variables-1.svg" class="img-fluid figure-img" width="624">
 </div>
 </figure>
 </div>

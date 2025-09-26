@@ -77,11 +77,10 @@ In this report, we address three main questions regarding volunteers who do ther
 4. What predicts whether volunteers... 
   - ...end their contract early? (@sec-rupture)
   - ...are more satisfied ? (@sec-satisfaction)
-  - ...are more self-confident? (@sec-confidence)
+  - ...are more confident about their future? (@sec-perception-avenir)
 5. How do volunteers differ between the different programs? 
   - Ciné (@sec-cine)
-  - Ecology 
-  - Coeur vs. Relais (@sec-coeur-vs-relais)
+  - Ecology (@sec-ecovolonterre)
 
 We rely on questionnaires collected by Cité-Unis for four different cohorts of volunteers who did their service civique for a year (2020-2021; 2021-2022; 2022-2023; 2023-2024). These questionnaires are very extensive. For the present analyses, we selected a subset of key questions (a full list can be found in the [codebook](codebook.qmd)). Note that this selection of variables was based only on the questionnaire of the first cohort (2020/21). As a result, potentially interesting variables that only appear in later questionnaires will not appear here. 
 
@@ -173,15 +172,19 @@ ggplot() +
 
 ## Age
 
-
+The majority of volunteers is between 18 and 20 years old (~30%). The next biggest age group are volunteers between 21 and 23 years old ( ~30%).
 
 ## Education
 
+Volunteers with a "Bac + 3 et plus" are relatively rare (~17%). The share of volunteers with a "Bac à Bac + 2" has been constantly decreasing, from 48% in 2020/21 to 40% in 2023/24. By contrast, volunteers "Infra-bac", have been increasing from 32% in 2020/21 to 43% in 2023/24. 
+
 ## Sex
+
+There is a relatively stable difference, with more women (~60%) being volunteers than men. 
 
 # How have volunteers changed their attitudes? {#sec-within-change}
 
-First, this analysis is restricted by attrition, i.e. volunteers dropping out of the surveys over time (see @fig-attrition). Second, there are only two questions that volunteers of the same promo have been asked at different time points (@tbl-within-variables). @fig-vote_derniers_elections shows all volunteers who answered at both time points (q1 and q2), with either "yes" or "no". This descriptive analysis suggests that the service civique did not have an impact on voting behavior, on average. However, this analysis is pooled across different cohorts, not all of which would have had the chance to change their voting behavior during their year volunteering, simply because there were no elections. @fig-action_individuelle_societe shows changes in volunteers perception on whether their individual action can contribute to changing society. Descriptively, there is no clear positive or negative trend either.
+First, this analysis is restricted by attrition, i.e. volunteers dropping out of the surveys over time (see @fig-attrition). Second, there are only two questions that volunteers of the same promo have been asked at different time points. @fig-vote_derniers_elections shows all volunteers who answered at both time points (q1 and q2), with either "yes" or "no". This descriptive analysis suggests that the service civique did not have an impact on voting behavior, on average. However, this analysis is pooled across different cohorts, not all of which would have had the chance to change their voting behavior during their year volunteering, simply because there were no elections. @fig-action_individuelle_societe shows changes in volunteers perception on whether their individual action can contribute to changing society. Descriptively, there is no clear positive or negative trend either.
 
 ```{r}
 #| label: fig-attrition
@@ -537,9 +540,9 @@ combined |>
 
 # Predictions
 
-For all predictions, we rely only on volunteers from the "Coeur" program. Note that all predicitons here are just statistical associations--they tell us about differences we observe, but they do not provide proof for causal conclusions on why we observe these differences. 
+Note that all predicitons here are just statistical associations--they tell us about differences we observe, but they do not provide proof for causal conclusions on why we observe these differences. 
 
-## What predicts whether volunteers end their contract early (rupture)? {#sec-rupture}
+## What predicts whether volunteers end their contract early (rupture)?{#sec-rupture}
 
 ```{r}
 share_rupture <- combined |> 
@@ -717,7 +720,7 @@ combined |>
 ```
 
 
-## What predicts whether volunteers are more satisfied ? (@sec-satisfaction)
+## What predicts whether volunteers are more satisfied ?{#sec-satisfaction}
 
 In this section, we look at satisfaction ("D'une manière générale, diriez-vous que votre Service Civique s'est déroulé de façon..." with levels 1, "pas du tout satisfaisainte", to 4, "très satisfaisante")^[In all analyses we treat this as a continuous variable]. As shown in @fig-satisfaction-descriptive, taking all cohorts together, the majority of volunteers thinks their experience is "très satisfaisant". 
 
@@ -874,7 +877,7 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   theme_minimal()
 ```
 
-## What predicts whether volunteers are more confident in their future ? (@sec-confiance_avenir)
+## What predicts whether volunteers are more confident in their future ? {#sec-perception-avenir}
 
 In this section, we look at confidence in one's future ("Concernant votre avenir, êtes-vous...?" with levels 1, "Pas du tout confiant.e", to 4, "Très confiant.e")^[In all analyses we treat this as a continuous variable]. As shown in @fig-perception-avenir-descriptive, taking all cohorts together, the majority of volunteers are "assez confiant.e". 
 
@@ -1030,3 +1033,179 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   guides(color="none") +
   theme_minimal()
 ```
+
+# Differences between programs
+
+## Ciné {#sec-cine}
+
+Volunteers who work in cine-related projects tend to be older and more educated. Refugies are less likely to be cine volunteers. If there is a preliminary end to the contract, cine volunteers are more likely to do so because they were offered a CDD of less than 6 months. Refugees are less likely to be cine volunteers, and women, as well as people from urban areas are more likely.
+
+```{r}
+# non-demographic variables 
+factors_for_cine <- c(
+  "satisfaction_num",
+  "perception_avenir_num",
+  "action_individuelle_societe",
+  "comparaison_utilite_autres",
+  "fierte_num",
+  "confiance_en_soi_num",
+  "confiance_avenir_personnel_num",
+  "impact_situation_actuelle"
+)
+
+
+# make model data - we only want to have one satisfaction value per volunteer
+cine_data <- combined |>
+  arrange(id_jeune, is.na(programme_cine_binary)) |>  # NA last
+  group_by(id_jeune) |>
+  slice(1) |>  # Keep first (i.e. non-NA if it exists)
+  ungroup()
+
+# Fit one model per other variable
+model_results_other_variables <- factors_for_cine %>%
+  map_dfr(function(var) {
+    df <- cine_data  %>%
+      select(programme_cine_binary, !!sym(var)) %>%
+      drop_na()
+
+    # Only run if predictor has 2+ unique levels
+    if (n_distinct(df[[var]]) < 2) {
+      return(NULL)
+    }
+
+    formula <- as.formula(glue::glue("programme_cine_binary ~ `{var}`"))
+    
+    model <- glm(formula, data = cine_data, family = "binomial")
+    
+    tidy(model, exponentiate = TRUE, conf.int = TRUE) %>%
+      filter(term != "(Intercept)") %>%
+      mutate(variable = var)
+  })
+
+# Fit one model per demographic variable
+model_results_demographic_variables <- demographic_variables %>%
+  map_dfr(function(var) {
+    df <- cine_data  %>%
+      select(programme_cine_binary, !!sym(var)) %>%
+      drop_na()
+
+    # Only run if predictor has 2+ unique levels
+    if (n_distinct(df[[var]]) < 2) {
+      return(NULL)
+    }
+
+    formula <- as.formula(glue::glue("programme_cine_binary ~ `{var}`"))
+    
+    model <- glm(formula, data = cine_data, family = "binomial")
+    
+    tidy(model, exponentiate = TRUE, conf.int = TRUE) %>%
+      filter(term != "(Intercept)") %>%
+      mutate(variable = var)
+  })
+
+
+# check
+# model_results_other_variables
+```
+
+```{r}
+#| label: fig-cine-demographic-variables 
+#| fig-cap: Differences in Ciné-related vs. other programs along demographic factors
+
+
+model_results <- model_results_demographic_variables %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  scale_x_log10() +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  labs(
+    x = "Estimate",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+## Ecovolonterre {#sec-ecovolonterre}
+
+Ecovolonterres tend to be older (mostly in the 21 to 23 agegroup) and more educated than other volunteers. They tend to plan for longer volunteer programs. Ecovolonterres tend to be from more rural but also urban ares (compared to QVP).
+
+```{r}
+# reduce demographic variables 
+reduced_demographic_variables <- setdiff(demographic_variables, c("motif_rupture"))
+
+
+# make model data - we only want to have one satisfaction value per volunteer
+ecovolonterre_data <- combined |>
+  arrange(id_jeune, is.na(ecovolonterre_binary)) |>  # NA last
+  group_by(id_jeune) |>
+  slice(1) |>  # Keep first (i.e. non-NA if it exists)
+  ungroup()
+
+# Fit one model per demographic variable
+model_results_demographic_variables <- reduced_demographic_variables %>%
+   map_dfr(function(var) {
+    df <- ecovolonterre_data %>%
+      select(ecovolonterre_binary, !!sym(var)) %>%
+      drop_na()
+
+    # Only run if predictor has 2+ unique levels
+    if (n_distinct(df[[var]]) < 2) {
+      return(NULL)
+    }
+
+    formula <- as.formula(glue::glue("ecovolonterre_binary ~ `{var}`"))
+    
+    model <- glm(formula, data = ecovolonterre_data, family = "binomial")
+    
+    tidy(model, exponentiate = TRUE, conf.int = TRUE) %>%
+      filter(term != "(Intercept)") %>%
+      mutate(variable = var)
+  })
+
+
+# check
+# model_results_demographic_variables
+```
+
+```{r}
+#| label: fig-ecovolonterre-demographic-variables 
+#| fig-cap: Differences in Ecovolonterre vs. other programs along demographic factors
+
+model_results <- model_results_demographic_variables %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  scale_x_log10() +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  labs(
+    x = "Estimate",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+

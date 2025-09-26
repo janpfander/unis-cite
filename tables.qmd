@@ -161,7 +161,7 @@ map |>
 
 ```{r}
 #| label: tbl-programme
-#| tbl-cap: Codeboook
+#| tbl-cap: Number of volunteers by program
 #| ft.align: left
 
 combined |> 

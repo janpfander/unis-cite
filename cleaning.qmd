@@ -469,16 +469,16 @@ combined_data <- combined_data |>
     rupture_valence = case_when(
       motif_rupture %in% c("01 - Abandon de poste", 
                            "02 - Faute grave d'une des parties", 
+                           "03 - Force majeure",
                            "06 - Commun accord entre les parties", 
                            "07 - Le volontaire n'a jamais pris son poste", 
-                           "08 - Retrait de l'agrément de la structure d'accueil",
-                           "09 - Reprise d'études"
+                           "08 - Retrait de l'agrément de la structure d'accueil"
       ) ~ "negative",
       motif_rupture %in% c("04 - Embauche en CDD d'au moins 6 mois ou CDI", 
-                           "05 - Embauche en CDD moins de 6 mois"
+                           "05 - Embauche en CDD moins de 6 mois",
+                           "09 - Reprise d'études"
                            ) ~ "positive",
-      motif_rupture %in% c("03 - Force majeure", 
-                           "10 - Fin de validité du Titre de Séjour"
+      motif_rupture %in% c("10 - Fin de validité du Titre de Séjour"
                            ) ~ "raisons externes",
       TRUE ~ NA_character_),
     rupture_negative = factor(if_else(is.na(motif_rupture) | rupture_valence == "negative", 
@@ -607,7 +607,47 @@ combined_data <- combined_data %>%
   )
 ```
 
-## Write out data
+## Cine program binary 
+
+To make a binary variable, we include all the programs that contain "Ciné".
+
+```{r}
+combined_data <- combined_data %>%
+    mutate(
+    programme_cine_binary= case_when(
+      str_detect(programme_1, "Ciné") ~ 1,
+      !is.na(programme_1) ~ 0,
+      TRUE ~ NA_real_
+    ),
+    programme_cine_binary = factor(
+      programme_cine_binary,
+      levels = c(0, 1),
+      labels = c("other", "cine")
+    )
+  )
+  
+```
+
+## Ecovolonterre
+
+```{r}
+combined_data <- combined_data %>%
+  mutate(
+    ecovolonterre_binary = case_when(
+      str_detect(programme_1, "Ecovolonterre") ~ 1,
+      !is.na(programme_1) ~ 0,
+      TRUE ~ NA_real_
+    ),
+    ecovolonterre_binary = factor(
+      ecovolonterre_binary,
+      levels = c(0, 1),
+      labels = c("other", "ecovolonterre")
+    )
+  )
+```
+
+
+# Write out data
 
 Finally, we write out the data as a .csv file
 
