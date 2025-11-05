@@ -51,6 +51,8 @@ demographic_variables <- c(
 demographic_variables_not_reported <- c("id_jeune", "region", "site", "type_volontaire", "decrocheur", "nationalite", "neets", "programme_1", "programme_2", "rupture_negative", "rupture_valence")
 ```
 
+# Demographics
+
 ```{r}
 #| label: tbl-demographics
 #| tbl-cap: Summary table of sample demographics
@@ -97,6 +99,7 @@ table <- combined |>
 table
 ```
 
+# Repeated questions
 
 ```{r}
 #| label: tbl-within-variables
@@ -144,6 +147,8 @@ grouped_codebook |>
   group_rows(index = table(grouped_codebook$promo))  # still group by promo
 ```
 
+# Geographic trends
+
 ```{r}
 #| label: tbl-trend-departements
 #| tbl-cap: Table showing the number of volunteers for different departements, across the different cohorts.
@@ -159,13 +164,36 @@ map |>
   kbl(booktabs = TRUE, longtable = TRUE) 
 ```
 
+# Programs
+
 ```{r}
 #| label: tbl-programme
 #| tbl-cap: Number of volunteers by program
 #| ft.align: left
 
 combined |> 
-  group_by(programme_1) |> 
+  group_by(programme_grouped, programme_cle, programme_1) |> 
+  summarise(n = n_distinct(id_jeune)) |> 
+  arrange(desc(n)) |> 
+  rename(`Category` = programme_grouped, 
+         `Program` = `programme_1`, 
+         `Key Program` = `programme_cle`) |> 
+  kbl(
+    booktabs = TRUE,
+    longtable = TRUE,
+    escape = FALSE,
+  ) |>
+  kable_styling(latex_options = c("repeat_header")) 
+
+```
+
+```{r}
+#| label: tbl-programme-cle
+#| tbl-cap: Programs of key interest and the number of volunteers.
+#| ft.align: left
+
+combined |> 
+  group_by(programme_cle) |> 
   summarise(n = n_distinct(id_jeune)) |> 
   arrange(desc(n)) |> 
   kbl(

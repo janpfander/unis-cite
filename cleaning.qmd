@@ -11,6 +11,7 @@ library(ggalluvial)  # For alluvial (sankey-style) plots
 library(sf)         # For GIS magic
 library(rmapshaper) # simplify maps (so that they're less complex and take less time to handle)
 library(wesanderson)
+library(kableExtra)
 ```
 
 In this file, we document the cleaning process of the data that has been obtained from the google surveys.
@@ -466,6 +467,12 @@ table(combined_data$motif_rupture, useNA = "always")
 
 combined_data <- combined_data |> 
   mutate(
+    rupture = factor(if_else(is.na(motif_rupture), 
+                             0, 
+                             1), 
+                     levels = c(0, 1), 
+                     labels = c("no_rupture", "rupture")
+    ),
     rupture_valence = case_when(
       motif_rupture %in% c("01 - Abandon de poste", 
                            "02 - Faute grave d'une des parties", 
@@ -603,6 +610,164 @@ combined_data <- combined_data %>%
       "Peu confiant(e)"         = 2,
       "Assez confiant(e)"       = 3,
       "Très confiant(e)"        = 4
+    )
+  )
+```
+
+## Education
+
+Make factor and order levels. 
+
+```{r}
+combined_data  <- combined_data  |> 
+  mutate(
+    niveau_etudes = factor(
+      niveau_etudes,
+      levels = c(
+      "Infra-bac",
+      "Bac à Bac + 2",
+      "Bac + 3 et plus"
+      ),
+      ordered = TRUE
+    )
+  )
+```
+
+## Sex
+
+Make factor and order levels. 
+
+```{r}
+combined_data  <- combined_data  |> 
+  mutate(
+    sexe = recode(sexe,
+                  "F" = "female",
+                  "M" = "male"),
+    sexe = factor(sexe, levels = c("female", "male"))
+  )
+```
+
+## Programme grouped
+
+The different programs can be grouped into broader categories. 
+
+```{r}
+# Create a lookup table
+programme_lookup <- tribble(
+  ~programme_1, ~programme_grouped,
+  "Famille en Harmonie (FEH)", "Aidance",
+  "Solidarité Aidants", "Aidance",
+  "Support'Air", "Aidance",
+  "Intermédiation - VOLONTAIRES POUR LA CITOYENNETE ET LE LIEN SOCIAL", "Autre",
+  "Intermédiation - VOLONTAIRES SERVICE CIVIQUE D'INITIATIVE", "Autre",
+  "Programme local - VOLONTAIRES POUR LA CITOYENNETE ET LE LIEN SOCIAL", "Autre",
+  "Programme local - VOLONTAIRES SERVICE CIVIQUE D'INITIATIVE", "Autre",
+  "Projet local", "Autre",
+  "RELAIS", "Autre",
+  "Rêve & Réalise", "Autre",
+  "Rêve et Réalise (R&R)", "Autre",
+  "Chercheurs d'art", "Culture",
+  "Cinéma & Citoyenneté", "Culture",
+  "Cinéma & Citoyenneté en établissement scolaire", "Culture",
+  "Cinéma & Citoyenneté en salle de cinéma", "Culture",
+  "Cinéma et Citoyenneté (C&C)", "Culture",
+  "Expérimentation des Salles", "Culture",
+  "Intermédiation - VOLONTAIRES POUR LA CULTURE", "Culture",
+  "Intermédiation - VOLONTAIRES POUR LE CINEMA ET LA CITOYENNETE", "Culture",
+  "Programme local - VOLONTAIRES POUR LA CULTURE", "Culture",
+  "Programme local - VOLONTAIRES POUR LE CINEMA ET LA CITOYENNETE", "Culture",
+  "Ambassadeurs des Médias et de l'Information (AMI)", "Education",
+  "Booster", "Education",
+  "Booster (pour les mineurs uniquement)", "Education",
+  "Booster PRO (pour les mineurs uniquement)", "Education",
+  "Coop'R", "Education",
+  "Intermédiation - VOLONTAIRES POUR L'EDUCATION", "Education",
+  "Néo-Citoyens", "Education",
+  "Parlons Cash", "Education",
+  "Programme local - VOLONTAIRES POUR L'EDUCATION", "Education",
+  "Anti-Gaspi", "Environnement",
+  "Check' énergie", "Environnement",
+  "Check'énergie", "Environnement",
+  "Ecovolonterre", "Environnement",
+  "Intermédiation - VOLONTAIRES POUR LA TRANSITION ECOLOGIQUE", "Environnement",
+  "Les Vitaminés", "Environnement",
+  "Médiaterre", "Environnement",
+  "Mission Energie", "Environnement",
+  "Mobili'terre", "Environnement",
+  "Programme local - VOLONTAIRES POUR LA TRANSITION ECOLOGIQUE", "Environnement",
+  "Solidarité Energie", "Environnement",
+  "Volontaires de la Transition Energétique", "Environnement",
+  "Volontaires de la Transition Energétique (VTE)", "Environnement",
+  "Ambassadeurs du Code", "Numérique",
+  "Ambassadeurs du Code (ADC)", "Numérique",
+  "Intermédiation - VOLONTAIRES POUR L'INCLUSION NUMERIQUE", "Numérique",
+  "Jeunes Citoyens du Numérique", "Numérique",
+  "Jeunes Citoyens du Numérique (JCN)", "Numérique",
+  "Programme local - VOLONTAIRES POUR L'INCLUSION NUMERIQUE", "Numérique",
+  "Ambassadeurs de la Santé Mentale", "Santé",
+  "Ambassadeurs Santé Mentale (ASM)", "Santé",
+  "Programme local - VOLONTAIRES POUR LA SANTE", "Santé",
+  "Re'pairs Santé", "Santé",
+  "Re'Pairs Santé", "Santé",
+  "Re-Pairs santé", "Santé",
+  "Re'pairs Santé Mentale", "Santé",
+  "Génér'Action", "Seniors",
+  "Intergénéreux", "Seniors",
+  "Les Connectés", "Seniors",
+  "Les Connectés - Intermédiation", "Seniors",
+  "Programme local - VOLONTAIRES SOLIDARITE SENIORS", "Seniors",
+  "Projet local - SC2S", "Seniors",
+  "Réseau de Confiance", "Seniors",
+  "Réseau de confiance (RDC)", "Seniors",
+  "Silver Geek", "Seniors",
+  "Solidarité Séniors", "Seniors",
+  "Accel'R", "Solidarité",
+  "Diffuseurs de solidarité", "Solidarité",
+  "Diffuseurs de Solidarité (DDS)", "Solidarité",
+  "Inclu'R", "Solidarité",
+  "Intermédiation - VOLONTAIRES ENGAGES CONTRE L'EXCLUSION", "Solidarité",
+  "JADE", "Solidarité",
+  "Programme local - EUROPEENS ET SOLIDAIRES", "Solidarité",
+  "Programme local - VOLONTAIRES ENGAGES CONTRE L'EXCLUSION", "Solidarité",
+  "Célébrations JO 2024", "Sport",
+  "Intermédiation - PROMOUVOIR LE SPORT, LA CITOYENNETE ET LA COHESION SOCIALE GENERATION DEUX MILLE VINGT", "Sport",
+  "Intermédiation - VOLONTAIRES SPORT ET COHESION SOCIALE", "Sport",
+  "Programme local - PROMOUVOIR LE SPORT, LA CITOYENNETE ET LA COHESION SOCIALE GENERATION DEUX MILLE VINGT", "Sport",
+  "Programme local - VOLONTAIRES SPORT ET COHESION SOCIALE", "Sport",
+  "Tous Dehors", "Sport"
+)
+
+kable(programme_lookup)
+```
+
+Add the grouped categories.
+
+```{r}
+# Join to your main dataset
+combined_data <- combined_data %>%
+  left_join(programme_lookup, by = "programme_1")
+
+# check
+# combined_data |> 
+#   select(id_jeune, programme_1, programme_grouped)
+```
+
+## Key programs
+
+Add a variable for certain programs of key interest.
+
+```{r}
+combined_data  <- combined_data  %>%
+  mutate(
+    programme_cle = case_when(
+      str_detect(programme_1, regex("Solidarité Aidants", ignore_case = TRUE)) ~ "Solidarité Aidants",
+      str_detect(programme_1, regex("Cinéma\\s*&\\s*Citoyenneté", ignore_case = TRUE)) ~ "Cinéma & Citoyenneté",
+      str_detect(programme_1, regex("Booster", ignore_case = TRUE)) ~ "Booster",
+      str_detect(programme_1, regex("Ecovolonterre", ignore_case = TRUE)) ~ "Ecovolonterre",
+      str_detect(programme_1, regex("Médiaterre", ignore_case = TRUE)) ~ "Médiaterre",
+      str_detect(programme_1, regex("Santé Mentale", ignore_case = TRUE)) ~ "ASM",
+      str_detect(programme_1, regex("Solidarité Sén", ignore_case = TRUE)) ~ "Solidarité Séniors",
+      TRUE ~ NA_character_
     )
   )
 ```

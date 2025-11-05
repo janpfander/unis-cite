@@ -18,7 +18,9 @@ website:
         text: Codebook
 
 format:
-  apaquarto-html: default
+  html:
+    toc: true
+    toc-depth: 3
 
 execute:
   freeze: auto 

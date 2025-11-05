@@ -5,13 +5,14 @@ author:
   - name: Jan Pfänder
     corresponding: true
     email: janlukas.pfaender@gmail.com
+    affiliations: Paris
     
 abstract: "This report analyzes surveys for four different cohorts of Cité-Unis volunteers who did their service civique (2020-2024)."
 
 mask: true
 
 format:
-  apaquarto-html: default
+  html: default
   apaquarto-docx: default  
   apaquarto-pdf:
     # Can be jou (journal), man (manuscript), stu (student), or doc (document)
@@ -68,6 +69,8 @@ demographic_variables <- c(
 # define other demographic variables that are not reported in tables, but used for subsetting data sets
 demographic_variables_not_reported <- c("id_jeune", "region", "site", "type_volontaire", "decrocheur", "nationalite", "neets", "programme_1", "programme_2", "rupture_negative", "rupture_valence")
 ```
+
+# Introduction
 
 In this report, we address three main questions regarding volunteers who do there service civique in France: 
 
@@ -172,19 +175,165 @@ ggplot() +
 
 ## Age
 
-The majority of volunteers is between 18 and 20 years old (~30%). The next biggest age group are volunteers between 21 and 23 years old ( ~30%).
+Across all promos, the majority of volunteers is between 18 and 20 years old (@fig-age).
+
+```{r}
+#| label: fig-age
+#| fig-cap: "Number of volunteers per age group, within the different promos. Note that in the percentage plot, the percentages are relative to all volunteers from the respective promo."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+# ABSOLUTE NUMBERS
+
+# Prepare data: Count unique participants per source
+age_data <- combined |> 
+  group_by(promo, age_categorie) |> 
+  summarise(n_participants = n_distinct(id_jeune)) |> 
+  group_by(promo) |> 
+  mutate(share = n_participants/sum(n_participants)) |> 
+  ungroup()
+
+
+# Plot attrition trend across sources
+ggplot(age_data, aes(x = age_categorie, y = n_participants)) +
+geom_col() +
+  geom_text(aes(label = n_participants), vjust = -0.5, size = 3) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.1))) +
+  theme_minimal() +
+  labs(
+    title = "Age groups",
+    x = "Age group",
+    y = "Number of Participants"
+  ) + 
+  plot_theme +
+  facet_wrap(~promo)
+
+# PERCENTAGES
+
+ggplot(age_data,
+       aes(x = age_categorie, y = share)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = paste0(round(share*100, 1), "%")), vjust = -0.5, size = 3) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    title = "Age groups",
+    x = "Age group",
+    y = "Share of participants"
+  ) +
+  plot_theme +
+  facet_wrap(~promo)
+```
 
 ## Education
 
-Volunteers with a "Bac + 3 et plus" are relatively rare (~17%). The share of volunteers with a "Bac à Bac + 2" has been constantly decreasing, from 48% in 2020/21 to 40% in 2023/24. By contrast, volunteers "Infra-bac", have been increasing from 32% in 2020/21 to 43% in 2023/24. 
+As shown in @fig-education, volunteers with a "Bac + 3 et plus" are relatively rare. The share of volunteers with a "Bac à Bac + 2" has been constantly decreasing, from 48% in 2020/21 to 40% in 2023/24. By contrast, volunteers "Infra-bac", have been increasing from 32% in 2020/21 to 43% in 2023/24. 
+
+```{r}
+#| label: fig-education
+#| fig-cap: "Number of volunteers per education level, within the different promos. Note that in the percentage plot, the percentages are relative to all volunteers from the respective promo."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+# ABSOLUTE NUMBERS
+
+# Prepare data: Count unique participants per source
+education_data <- combined |> 
+  group_by(promo, niveau_etudes) |> 
+  summarise(n_participants = n_distinct(id_jeune)) |> 
+  group_by(promo) |> 
+  mutate(share = n_participants/sum(n_participants)) |> 
+  ungroup()
+
+
+# Plot attrition trend across sources
+ggplot(education_data, aes(x = niveau_etudes, y = n_participants)) +
+geom_col() +
+  geom_text(aes(label = n_participants), vjust = -0.5, size = 3) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.1))) +
+  theme_minimal() +
+  labs(
+    title = "Education",
+    x = "Level of education",
+    y = "Number of Participants"
+  ) + 
+  plot_theme +
+  facet_wrap(~promo)
+
+# PERCENTAGES
+
+ggplot(education_data,
+       aes(x = niveau_etudes, y = share)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = paste0(round(share*100, 1), "%")), vjust = -0.5, size = 3) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    title = "Education",
+    x = "Level of education",
+    y = "Share of participants"
+  ) +
+  plot_theme +
+  facet_wrap(~promo)
+```
 
 ## Sex
 
-There is a relatively stable difference, with more women (~60%) being volunteers than men. 
+There is a relatively stable difference regarding sex, with more women (~60%) being volunteers than men (@fig-sex). 
+
+```{r}
+#| label: fig-sex
+#| fig-cap: "Number of male and female volunteers, within the different promos. Note that in the percentage plot, the percentages are relative to all volunteers from the respective promo."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+# ABSOLUTE NUMBERS
+
+# Prepare data: Count unique participants per source
+sex_data <- combined |> 
+  group_by(promo, sexe) |> 
+  summarise(n_participants = n_distinct(id_jeune)) |> 
+  group_by(promo) |> 
+  mutate(share = n_participants/sum(n_participants)) |> 
+  ungroup()
+
+
+# Plot attrition trend across sources
+ggplot(sex_data, aes(x = sexe, y = n_participants)) +
+geom_col() +
+  geom_text(aes(label = n_participants), vjust = -0.5, size = 3) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.1))) +
+  theme_minimal() +
+  labs(
+    title = "Sex",
+    x = "Sex",
+    y = "Number of Participants"
+  ) + 
+  plot_theme +
+  facet_wrap(~promo)
+
+# PERCENTAGES
+ggplot(sex_data,
+       aes(x = sexe, y = share)) +
+  geom_col(fill = "steelblue") +
+  geom_text(aes(label = paste0(round(share*100, 1), "%")), vjust = -0.5, size = 3) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    title = "Sex",
+    x = "Sex",
+    y = "Share of participants"
+  ) +
+  plot_theme +
+  facet_wrap(~promo)
+```
 
 # How have volunteers changed their attitudes? {#sec-within-change}
 
-First, this analysis is restricted by attrition, i.e. volunteers dropping out of the surveys over time (see @fig-attrition). Second, there are only two questions that volunteers of the same promo have been asked at different time points. @fig-vote_derniers_elections shows all volunteers who answered at both time points (q1 and q2), with either "yes" or "no". This descriptive analysis suggests that the service civique did not have an impact on voting behavior, on average. However, this analysis is pooled across different cohorts, not all of which would have had the chance to change their voting behavior during their year volunteering, simply because there were no elections. @fig-action_individuelle_societe shows changes in volunteers perception on whether their individual action can contribute to changing society. Descriptively, there is no clear positive or negative trend either.
+First, this analysis is restricted by attrition, i.e. volunteers dropping out of the surveys over time (see @fig-attrition). Second, there are only two questions that volunteers of the same promo have been asked at different time points: [REPORT them here]. 
 
 ```{r}
 #| label: fig-attrition
@@ -232,7 +381,7 @@ attrition_percent <- combined |>
   summarise(n_participants = n_distinct(id_jeune), .groups = "drop") |>
   filter(source != "programmes") |> 
   left_join(baseline_counts, by = "promo") |>
-  mutate(percent = n_participants / baseline_n * 100)
+  mutate(percent = n_participants / baseline_n)
 
 # Step 3: Plot percentages relative to q0 and q1 
 ggplot(attrition_percent |> 
@@ -240,8 +389,8 @@ ggplot(attrition_percent |>
          filter(source != "q0"), 
        aes(x = source, y = percent)) +
   geom_col(fill = "steelblue") +
-  geom_text(aes(label = paste0(round(percent, 1), "%")), vjust = -0.5, size = 3) +
-  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.1))) +
+  geom_text(aes(label = paste0(round(percent*100, 1), "%")), vjust = -0.5, size = 3) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
   labs(
     title = "Attrition",
     x = "Time Point",
@@ -251,9 +400,17 @@ ggplot(attrition_percent |>
   facet_wrap(~promo)
 ```
 
+## Voting
+
+The figures in this section shows all volunteers who answered the question [XX] at both time points (q1 and q2), with either "yes" or "no", for the different promos (promo 2020-21, @fig-vote_derniers_elections-2020; promo 2021-22, @fig-vote_derniers_elections-2021; 2022-23, @fig-vote_derniers_elections-2022; 2023-24, @fig-vote_derniers_elections-2023). 
+
+This descriptive analysis suggests that the service civique did not have an impact on voting behavior, on average. However, this analysis is pooled across different cohorts, not all of which would have had the chance to change their voting behavior during their year volunteering, simply because there were no elections.
+
+### Promo 2020-21
+
 ```{r}
-#| label: fig-vote_derniers_elections
-#| fig-cap: "Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| label: fig-vote_derniers_elections-2020
+#| fig-cap: "Promo 2020-21. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
 #| fig-subcap:
 #|   - "Alluvial plot"
 #|   - "Percentages" 
@@ -261,6 +418,7 @@ ggplot(attrition_percent |>
 
 
 vote_data <- combined %>%
+  filter(promo == "20-21") |> 
   drop_na(vote_derniers_elections) |>
   filter(vote_derniers_elections %in% c("Oui", "Non")) |>
   select(id_jeune, source, vote_derniers_elections) %>%
@@ -401,10 +559,286 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 #        x = "Temps", y = "Probabilité prédite")
 ```
 
+### Promo 2021-22
 
 ```{r}
-#| label: fig-action_individuelle_societe
-#| fig-cap: "Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered at *both* time points."
+#| label: fig-vote_derniers_elections-2021
+#| fig-cap: "Promo 2021-22. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-subcap:
+#|   - "Alluvial plot"
+#|   - "Percentages" 
+#| layout-ncol: 2
+
+
+vote_data <- combined %>%
+  filter(promo == "21-22") |> 
+  drop_na(vote_derniers_elections) |>
+  filter(vote_derniers_elections %in% c("Oui", "Non")) |>
+  select(id_jeune, source, vote_derniers_elections) %>%
+  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
+  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
+  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Non", "Oui"))))
+
+# run mcnemar test
+#mcnemar.test(table(vote_data$vote_q1, vote_data$vote_q2))
+
+# Prepare data for alluvial plot
+vote_long <- vote_data |> 
+  pivot_longer(cols = starts_with("vote_q"), names_to = "time", values_to = "vote") |> 
+  mutate(time = recode(time, "vote_q1" = "q1", "vote_q2" = "q2"))
+
+
+# Proportions
+vote_long_prop <- vote_long |>
+  group_by(time, vote) |>
+  summarise(n = n(), .groups = "drop") |>
+  group_by(time) |>
+  mutate(prop = n / sum(n)) |>
+  ungroup()
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(5, 1)]
+
+# Create alluvial plot
+ggplot(vote_long, 
+       aes(x = time, stratum = vote, alluvium = id_jeune, fill = vote, label = vote)) +
+  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
+  geom_stratum() +
+  scale_fill_manual(values = pal) + 
+  scale_x_discrete(expand = c(0.1, 0.1)) +
+  labs(
+    #title = "Changements dans le vote entre Q1 et Q2",
+    x = "Temps",
+    y = "Nombre d'individus",
+    fill = "Voté"
+  ) +
+  plot_theme +
+   geom_text(data = vote_long_prop, aes(x = time, y= n, label = scales::percent(prop, accuracy = 1)),
+            position = position_stack(vjust = 0.8), 
+            color = "white", 
+            size = 3, 
+            inherit.aes = FALSE) 
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(5, 3, 1)]
+
+vote_change_summary <- vote_data |>
+  mutate(change = case_when(
+    vote_q1 == vote_q2 ~ "Pas de changement",
+    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui"
+  )) |>
+  count(change) |>
+  mutate(prop = n / sum(n))
+
+ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  scale_fill_manual(values = c(
+    #"Pas de changement" = "#E1AF00",
+    "Changé vers Non" = "#F21A00",
+    "Changé vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    #title = "Changements individuels entre Q1 et Q2",
+    x = NULL,
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme
+```
+
+### Promo 2022-23
+
+```{r}
+#| label: fig-vote_derniers_elections-2022
+#| fig-cap: "Promo 2022-23. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-subcap:
+#|   - "Alluvial plot"
+#|   - "Percentages" 
+#| layout-ncol: 2
+
+
+vote_data <- combined %>%
+  filter(promo == "22-23") |> 
+  drop_na(vote_derniers_elections) |>
+  filter(vote_derniers_elections %in% c("Oui", "Non")) |>
+  select(id_jeune, source, vote_derniers_elections) %>%
+  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
+  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
+  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Non", "Oui"))))
+
+# run mcnemar test
+#mcnemar.test(table(vote_data$vote_q1, vote_data$vote_q2))
+
+# Prepare data for alluvial plot
+vote_long <- vote_data |> 
+  pivot_longer(cols = starts_with("vote_q"), names_to = "time", values_to = "vote") |> 
+  mutate(time = recode(time, "vote_q1" = "q1", "vote_q2" = "q2"))
+
+
+# Proportions
+vote_long_prop <- vote_long |>
+  group_by(time, vote) |>
+  summarise(n = n(), .groups = "drop") |>
+  group_by(time) |>
+  mutate(prop = n / sum(n)) |>
+  ungroup()
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(5, 1)]
+
+# Create alluvial plot
+ggplot(vote_long, 
+       aes(x = time, stratum = vote, alluvium = id_jeune, fill = vote, label = vote)) +
+  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
+  geom_stratum() +
+  scale_fill_manual(values = pal) + 
+  scale_x_discrete(expand = c(0.1, 0.1)) +
+  labs(
+    #title = "Changements dans le vote entre Q1 et Q2",
+    x = "Temps",
+    y = "Nombre d'individus",
+    fill = "Voté"
+  ) +
+  plot_theme +
+   geom_text(data = vote_long_prop, aes(x = time, y= n, label = scales::percent(prop, accuracy = 1)),
+            position = position_stack(vjust = 0.8), 
+            color = "white", 
+            size = 3, 
+            inherit.aes = FALSE) 
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(5, 3, 1)]
+
+vote_change_summary <- vote_data |>
+  mutate(change = case_when(
+    vote_q1 == vote_q2 ~ "Pas de changement",
+    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui"
+  )) |>
+  count(change) |>
+  mutate(prop = n / sum(n))
+
+ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  scale_fill_manual(values = c(
+    #"Pas de changement" = "#E1AF00",
+    "Changé vers Non" = "#F21A00",
+    "Changé vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    #title = "Changements individuels entre Q1 et Q2",
+    x = NULL,
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme
+```
+
+
+### Promo 2023-24
+
+```{r}
+#| label: fig-vote_derniers_elections-2023
+#| fig-cap: "Promo 2023-24. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-subcap:
+#|   - "Alluvial plot"
+#|   - "Percentages" 
+#| layout-ncol: 2
+
+
+vote_data <- combined %>%
+  filter(promo == "23-24") |> 
+  drop_na(vote_derniers_elections) |>
+  filter(vote_derniers_elections %in% c("Oui", "Non")) |>
+  select(id_jeune, source, vote_derniers_elections) %>%
+  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
+  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
+  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Non", "Oui"))))
+
+# run mcnemar test
+#mcnemar.test(table(vote_data$vote_q1, vote_data$vote_q2))
+
+# Prepare data for alluvial plot
+vote_long <- vote_data |> 
+  pivot_longer(cols = starts_with("vote_q"), names_to = "time", values_to = "vote") |> 
+  mutate(time = recode(time, "vote_q1" = "q1", "vote_q2" = "q2"))
+
+
+# Proportions
+vote_long_prop <- vote_long |>
+  group_by(time, vote) |>
+  summarise(n = n(), .groups = "drop") |>
+  group_by(time) |>
+  mutate(prop = n / sum(n)) |>
+  ungroup()
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(5, 1)]
+
+# Create alluvial plot
+ggplot(vote_long, 
+       aes(x = time, stratum = vote, alluvium = id_jeune, fill = vote, label = vote)) +
+  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
+  geom_stratum() +
+  scale_fill_manual(values = pal) + 
+  scale_x_discrete(expand = c(0.1, 0.1)) +
+  labs(
+    #title = "Changements dans le vote entre Q1 et Q2",
+    x = "Temps",
+    y = "Nombre d'individus",
+    fill = "Voté"
+  ) +
+  plot_theme +
+   geom_text(data = vote_long_prop, aes(x = time, y= n, label = scales::percent(prop, accuracy = 1)),
+            position = position_stack(vjust = 0.8), 
+            color = "white", 
+            size = 3, 
+            inherit.aes = FALSE) 
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(5, 3, 1)]
+
+vote_change_summary <- vote_data |>
+  mutate(change = case_when(
+    vote_q1 == vote_q2 ~ "Pas de changement",
+    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui"
+  )) |>
+  count(change) |>
+  mutate(prop = n / sum(n))
+
+ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  scale_fill_manual(values = c(
+    #"Pas de changement" = "#E1AF00",
+    "Changé vers Non" = "#F21A00",
+    "Changé vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    #title = "Changements individuels entre Q1 et Q2",
+    x = NULL,
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme
+```
+
+## Acting for society
+
+The figures in this section show changes in volunteers perception on whether their individual action can contribute to changing society, for the different promos (promo 2020-21, @fig-action_individuelle_societe-2020; promo 2021-22, @fig-vote_derniers_elections-2021; 2022-23, @fig-vote_derniers_elections-2022; 2023-24, @fig-vote_derniers_elections-2023)^[Note that for the promo 2023-24, q3 is not yet available, and therefore the promo cannot be inclueded here]. Descriptively, there is no clear positive or negative trend either.
+
+### Promo 2020-21
+
+```{r}
+#| label: fig-action_individuelle_societe-2020
+#| fig-cap: "Promo 2020-21. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered at *both* time points."
 #| fig-subcap:
 #|   - "Alluvial plot"
 #|   - "Percentages" 
@@ -412,6 +846,175 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 # make wide format data to track change
 action_data <- combined %>%
+  filter(promo == "20-21") |> 
+  drop_na(action_individuelle_societe) |>
+  select(id_jeune, source, action_individuelle_societe) %>%
+  pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
+  filter(!is.na(action_individuelle_q1) & !is.na(action_individuelle_q3))
+
+
+# Prepare data for alluvial plot
+plot_data <- combined %>%
+  drop_na(action_individuelle_societe) |>
+  select(id_jeune, source, action_individuelle_societe) |> 
+  rename(time = source) |> 
+  # select individuals with observations in both
+  group_by(id_jeune) |>
+  filter(all(c("q1", "q3") %in% time)) |>
+  ungroup() |> 
+  # make a factor
+    mutate(action_individuelle_societe = factor(
+    action_individuelle_societe,
+    levels = c("Pas vraiment", "Non", "Oui")
+  ))
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
+
+# Create alluvial plot
+ggplot(plot_data, 
+       aes(x = time, stratum = action_individuelle_societe, alluvium = id_jeune, fill = action_individuelle_societe, label = action_individuelle_societe)) +
+  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
+  geom_stratum() +
+  scale_fill_manual(values = pal) + 
+  scale_x_discrete(expand = c(0.1, 0.1)) +
+  labs(
+    x = "Temps",
+    y = "Nombre d'individus",
+    fill = "Vote"
+  ) +
+  plot_theme 
+
+# make plot for change
+
+change_summary <- action_data |>
+  mutate(change = case_when(
+    action_individuelle_q1 == action_individuelle_q3 ~ "Pas de changement",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment"
+  )) |>
+  count(change) |>
+  mutate(prop = n / sum(n))
+
+ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  scale_fill_manual(values = c(
+    "vers Pas vraiment" = "#E1AF00",
+    "vers Non" = "#F21A00",
+    "vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    x = "Changé",
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme
+```
+
+### Promo 2021-22
+
+```{r}
+#| label: fig-action_individuelle_societe-2021
+#| fig-cap: "Promo 2021-22. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered at *both* time points."
+#| fig-subcap:
+#|   - "Alluvial plot"
+#|   - "Percentages" 
+#| layout-ncol: 2
+
+# make wide format data to track change
+action_data <- combined %>%
+  filter(promo == "21-22") |> 
+  drop_na(action_individuelle_societe) |>
+  select(id_jeune, source, action_individuelle_societe) %>%
+  pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
+  filter(!is.na(action_individuelle_q1) & !is.na(action_individuelle_q3))
+
+
+# Prepare data for alluvial plot
+plot_data <- combined %>%
+  drop_na(action_individuelle_societe) |>
+  select(id_jeune, source, action_individuelle_societe) |> 
+  rename(time = source) |> 
+  # select individuals with observations in both
+  group_by(id_jeune) |>
+  filter(all(c("q1", "q3") %in% time)) |>
+  ungroup() |> 
+  # make a factor
+    mutate(action_individuelle_societe = factor(
+    action_individuelle_societe,
+    levels = c("Pas vraiment", "Non", "Oui")
+  ))
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
+
+# Create alluvial plot
+ggplot(plot_data, 
+       aes(x = time, stratum = action_individuelle_societe, alluvium = id_jeune, fill = action_individuelle_societe, label = action_individuelle_societe)) +
+  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
+  geom_stratum() +
+  scale_fill_manual(values = pal) + 
+  scale_x_discrete(expand = c(0.1, 0.1)) +
+  labs(
+    x = "Temps",
+    y = "Nombre d'individus",
+    fill = "Vote"
+  ) +
+  plot_theme 
+
+# make plot for change
+
+change_summary <- action_data |>
+  mutate(change = case_when(
+    action_individuelle_q1 == action_individuelle_q3 ~ "Pas de changement",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment"
+  )) |>
+  count(change) |>
+  mutate(prop = n / sum(n))
+
+ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  scale_fill_manual(values = c(
+    "vers Pas vraiment" = "#E1AF00",
+    "vers Non" = "#F21A00",
+    "vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    x = "Changé",
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme
+```
+
+### Promo 2022-23
+
+```{r}
+#| label: fig-action_individuelle_societe-2022
+#| fig-cap: "Promo 2022-23. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered at *both* time points."
+#| fig-subcap:
+#|   - "Alluvial plot"
+#|   - "Percentages" 
+#| layout-ncol: 2
+
+# make wide format data to track change
+action_data <- combined %>%
+  filter(promo == "22-23") |> 
   drop_na(action_individuelle_societe) |>
   select(id_jeune, source, action_individuelle_societe) %>%
   pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
@@ -485,7 +1088,11 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 # Are there trends between different cohorts of volunteers?{#sec-between-change}
 
-There are many possible variables to look at regarding between-cohort differences. As an example, @fig-satisfaction shows how different cohorts evaluated their satisfaction with the service civique. 
+There are many possible differences to investigate between cohorts. Here, we report XX [add two other variables].
+
+## Satisfaction
+
+@fig-satisfaction shows how different cohorts evaluated their satisfaction with the service civique. 
 
 ```{r}
 #| label: fig-satisfaction
@@ -540,18 +1147,14 @@ combined |>
 
 # Predictions
 
-Note that all predicitons here are just statistical associations--they tell us about differences we observe, but they do not provide proof for causal conclusions on why we observe these differences. 
+Note that all predictions here are just statistical associations--they tell us about differences we observe, but they do not provide proof for causal conclusions on why we observe these differences. 
 
 ## What predicts whether volunteers end their contract early (rupture)?{#sec-rupture}
 
+@fig-rupture shows how many volunteers have ended their contract early (rupture), for the different promos. @fig-rupture-motive provides an overview of the different reasons, pooling all promos.
+
 ```{r}
 share_rupture <- combined |> 
-  mutate(rupture = factor(if_else(is.na(motif_rupture), 
-                                  0, 
-                                  1), 
-                          levels = c(0, 1), 
-                          labels = c("no_rupture", "rupture")
-                          )) |> 
   group_by(rupture) |> 
   summarise(
     count = n_distinct(id_jeune)
@@ -560,18 +1163,83 @@ share_rupture <- combined |>
   split(.$rupture)
 ```
 
+```{r}
+#| label: fig-rupture
+#| fig-cap: "Number of volunteers with a rupture (for various possible reasons, including positive ones, such as obtaining a work contract)."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+combined |> 
+  group_by(promo, rupture) |> 
+  summarise(
+    count = n_distinct(id_jeune)
+  ) |> 
+  mutate(share = round(count / sum(count), 3)
+         ) |> 
+  ggplot(aes(x = rupture, y = count, fill = rupture)) +
+  geom_col() +
+  scale_fill_viridis_d(option = "plasma") +
+  geom_text(aes(label = count), vjust = -0.5, size = 3) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    x = "Rupture",
+    y = "Number of volunteers"
+  ) +
+  plot_theme +
+  facet_wrap(~promo)
+
+combined |> 
+  group_by(promo, rupture) |> 
+  summarise(
+    count = n_distinct(id_jeune)
+  ) |> 
+  mutate(share = round(count / sum(count), 3)
+         ) |> 
+  ggplot(aes(x = rupture, y = share, fill = rupture)) +
+  geom_col() +
+  scale_fill_viridis_d(option = "plasma") +
+  geom_text(aes(label = paste0(share*100, "%")), vjust = -0.5, size = 3) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    x = "Rupture",
+    y = "Share of volunteers"
+  ) +
+  plot_theme +
+  facet_wrap(~promo)
+  
+```
+```{r}
+#| label: fig-rupture-motive
+#| fig-cap: "Prevalence of different rupture motives"
+
+combined |> 
+  group_by(motif_rupture, rupture_valence) |> 
+  drop_na(motif_rupture) |> 
+  summarise(n = n_distinct(id_jeune), .groups = "drop") |> 
+  mutate(motif_rupture = fct_reorder(motif_rupture, n, .fun = sum)) |> 
+  ggplot(aes(x = motif_rupture, y = n, fill = rupture_valence)) +
+  geom_col(position = "dodge") +
+  geom_text(aes(label = n), 
+            position = position_dodge(width = 0.9),
+            vjust = 0.3, hjust = -0.1, size = 3) +
+  scale_fill_viridis_d(option = "plasma", end = 0.85) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    x = NULL,
+    y = "Number of volunteers",
+    fill = "Valence de la rupture"
+  ) +
+  labs(fill = NULL) +
+  coord_flip() + 
+  theme(legend.position = "top")
+  
+```
+
 Not all volunteers work until the end of their contract. In fact, `r share_rupture$rupture$share` of volunteers have a "rupture", i.e. terminate the contract early. There are various motives for ending one's contract early (see @tbl-rupture). Not all of them are necessarily bad, e.g. "Embauche en CDD d'au moins 6 mois ou CDI", and some are outside of the influence of the volunteers, e.g. "Fin de validité du Titre de Séjour". For our analyses, we focus only on volunteers who ended their contract early for apparently negative reasons. 
 
 To see whether there are differences in different groups, we ran separate logistic regressions for a selection of variables. The results are shown in @fig-rupture-model. Because the magnitude of the odds ratios (OR) are not straightforward to interpret, @fig-rupture-descriptive shows descriptive differences in contract terminations for some groups. 
-
-```{r}
-#| label: tbl-rupture
-#| tbl-cap: Different motives for "rupture" and whether they were coded as negative, positive, or external reasons.
-combined |> 
-  group_by(motif_rupture, rupture_valence) |> 
-  summarize(n = n_distinct(id_jeune)) |> 
-  kbl()
-```
 
 ```{r}
 # remove variables that don't make sense, i.e. the motive and the actual duration (obviously, the longer the duration, the less likely to have a rupture)
@@ -718,7 +1386,6 @@ combined |>
   distinct(variable, source) |> 
   kbl()
 ```
-
 
 ## What predicts whether volunteers are more satisfied ?{#sec-satisfaction}
 
