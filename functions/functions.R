@@ -112,103 +112,53 @@ run_regression <- function(data, dependent_var, independent_var, return = "data"
   }
 }
 
-# function to calculate models
-calculate_models <- function(predictor, return_as = "tidy") {  
-  # Define model formulas dynamically  
-  formula_lmer <- as.formula(paste("trust ~", predictor, "+ (1 +", predictor, "| id)"))  
-  formula_lmer_within <- as.formula(paste("trust ~", predictor, "+ (1 +", predictor, "| id) + (1 +", predictor, "| discipline)"))  
-  formula_lm <- as.formula(paste("trust ~", predictor))  
+# run models for different programs
+run_program_models <- function(
+    data,
+    outcome_var,
+    id_var = id_jeune,
+    predictor_sets
+) {
+  # ---- Setup ----
+  outcome_var <- rlang::ensym(outcome_var)
+  id_var <- rlang::ensym(id_var)
   
-  # Fit models  
-  model_across <- lmer(formula_lmer, data = data_long %>% filter(discipline != "general"))  
-  model_within <- lmer(formula_lmer_within, data = data_long %>% filter(discipline != "general"))  
-  model_general <- lm(formula_lm, data = data_long %>% filter(discipline == "general"))  
+  # ---- Prepare data: keep one non-NA outcome per participant ----
+  model_data <- data |>
+    arrange(!!id_var, is.na(!!outcome_var)) |>  # NA last
+    group_by(!!id_var) |>
+    slice(1) |>  # keep first (non-NA if available)
+    ungroup()
   
-  # Ensure return_as is valid  
-  if (!return_as %in% c("tidy", "raw")) {  
-    stop('Invalid value for return_as. Use "tidy" or "raw".')  
-  }  
+  # ---- Fit one model per predictor ----
+  results <- predictor_sets |>
+    map_dfr(function(var) {
+      df <- model_data |>
+        select(!!outcome_var, !!sym(var)) |>
+        drop_na()
+      
+      # Only run if predictor has 2+ unique levels
+      if (n_distinct(df[[var]]) < 2) {
+        return(NULL)
+      }
+      
+      formula <- as.formula(glue::glue("{rlang::as_name(outcome_var)} ~ `{var}`"))
+      
+      model <- glm(formula, data = model_data, family = "binomial")
+      
+      broom::tidy(model, exponentiate = TRUE, conf.int = TRUE) |>
+        filter(term != "(Intercept)") |>
+        mutate(
+          variable = var,
+          outcome = rlang::as_name(outcome_var),
+          label = round(estimate, digits = 2)
+        )
+    })
   
-  # Return raw models if specified  
-  if (return_as == "raw") {  
-    return(list(  
-      across_disciplines = model_across,  
-      within_disciplines = model_within,  
-      science_in_general_only = model_general  
-    ))  
-  }  
-  
-  # Otherwise, return tidy results  
-  results <- bind_rows(  
-    tidy(model_across, conf.int = TRUE) %>% mutate(model = "across_disciplines"),  
-    tidy(model_within, conf.int = TRUE) %>% mutate(model = "within_disciplines"),  
-    tidy(model_general, conf.int = TRUE) %>% mutate(model = "science_in_general_only")  
-  ) %>% rounded_numbers()  
-  
-  return(results)  
-}
-
-plot_between <- function(data, x_var) {
-  
-  # Group data by discipline and calculate the mean for the selected x variable and trust
-  plot_data_between <- data |> 
-    group_by(discipline) %>% 
-    select(trust, all_of(x_var)) %>% 
-    summarise(across(c(trust, all_of(x_var)), ~mean(.x, na.rm = TRUE), 
-                     .names = "mean_{.col}")
-    )
-  
-  # Generate plot with the specified x variable
-  plot <- ggplot(plot_data_between, aes_string(x = paste0("mean_", x_var), y = "mean_trust")) + 
-    geom_point() +
-    geom_label_repel(aes(label = discipline), size = 3, nudge_y = -0.02) +
-    labs(x = paste(x_var, "[Scale from 1 to 5]"), y = "Trust [Scale from 1 to 5]") +
-    plot_theme +
-  # Set axis limits and labels
-  scale_x_continuous(limits = c(1, 5), breaks = 1:5) +
-    scale_y_continuous(limits = c(1, 5), breaks = 1:5) 
-  return(plot)
+  return(results)
 }
 
 
-plot_within <- function(data, x_var) {
-  
-  # Aggregate data: Count participants per (consensus, trust) pair
-  count_data <- data |> 
-    filter(discipline != "general") |> 
-    group_by(discipline, {{x_var}}, trust) |> 
-    summarize(participant_count = n_distinct(id))
-  
-  # Plot with precomputed participant count
-  plot <- ggplot(count_data, aes(x = {{x_var}}, y = trust)) + 
-    # Tile fill reflects participant count
-    geom_tile(aes(fill = participant_count), alpha = 0.9) +
-    # Jittered points for individual observations
-    geom_jitter(data = data |> filter(discipline != "general"), 
-                aes(x = {{x_var}}, y = trust), 
-                width = 0.3, height = 0.2, alpha = 0.2, color = "black", 
-                size = 0.5) +
-    # Single color gradient
-    scale_fill_gradient(low = "#deebf7", high = "#08519c", name = "Participant Count") +
-    # Regression line
-    geom_smooth(data = data |> filter(discipline != "general"), 
-                aes(x = {{x_var}}, y = trust), method = "lm", se = FALSE) +
-    # Set axis limits and labels
-    scale_x_continuous(limits = c(1, 5), breaks = 1:5) +
-    scale_y_continuous(limits = c(1, 5), breaks = 1:5) +
-    # Labels & Theme
-    labs(
-      x = str_to_title(as.character(substitute(x_var))),  # Convert x_var to uppercase
-      y = "Trust [Scale from 1 to 5]") +
-    plot_theme +
-    facet_wrap(~discipline) +
-    theme(legend.position = c(0.9, 0.2), 
-          legend.direction = "horizontal",
-          legend.key.width = unit(0.4, "cm")
-    ) +
-    guides(fill = guide_colorbar(title.position = "top"))
-  
-  return(plot)
-  
-}
+
+
 

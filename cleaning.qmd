@@ -761,56 +761,167 @@ combined_data  <- combined_data  %>%
   mutate(
     programme_cle = case_when(
       str_detect(programme_1, regex("Solidarité Aidants", ignore_case = TRUE)) ~ "Solidarité Aidants",
-      str_detect(programme_1, regex("Cinéma\\s*&\\s*Citoyenneté", ignore_case = TRUE)) ~ "Cinéma & Citoyenneté",
+      str_detect(
+        programme_1,
+        regex("Cinéma\\s*&\\s*Citoyenneté|Expérimentation des Salles|Cinéma et Citoyenneté \\(C&C\\)",
+              ignore_case = TRUE)
+      ) ~ "Cinéma & Citoyenneté",
       str_detect(programme_1, regex("Booster", ignore_case = TRUE)) ~ "Booster",
       str_detect(programme_1, regex("Ecovolonterre", ignore_case = TRUE)) ~ "Ecovolonterre",
       str_detect(programme_1, regex("Médiaterre", ignore_case = TRUE)) ~ "Médiaterre",
-      str_detect(programme_1, regex("Santé Mentale", ignore_case = TRUE)) ~ "ASM",
+      str_detect(programme_1, regex("Santé Mentale", ignore_case = TRUE)) &
+        !str_detect(programme_1, regex("Re'pairs Santé Mentale", ignore_case = TRUE)) ~ "ASM",
       str_detect(programme_1, regex("Solidarité Sén", ignore_case = TRUE)) ~ "Solidarité Séniors",
       TRUE ~ NA_character_
     )
   )
+
+# check
+# check <- combined_data |> 
+#   distinct(programme_1, programme_cle)
+# 
+# check
 ```
 
-## Cine program binary 
+Next, we make several binary versions for these key program categories, to be able to make comparative analyses.
 
-To make a binary variable, we include all the programs that contain "Ciné".
+### Solidarité Aidants program binary 
 
 ```{r}
 combined_data <- combined_data %>%
     mutate(
-    programme_cine_binary= case_when(
-      str_detect(programme_1, "Ciné") ~ 1,
-      !is.na(programme_1) ~ 0,
+    programme_solidarite_aidants_binary = case_when(
+      programme_cle == "Solidarité Aidants" ~ 1,
+      !is.na(programme_cle) ~ 0,
       TRUE ~ NA_real_
     ),
-    programme_cine_binary = factor(
-      programme_cine_binary,
+    programme_solidarite_aidants_binary = factor(
+      programme_solidarite_aidants_binary,
       levels = c(0, 1),
-      labels = c("other", "cine")
+      labels = c("Other", "Solidarité Aidants")
     )
   )
   
 ```
 
-## Ecovolonterre
+### Cinéma & Citoyenneté program binary 
 
 ```{r}
 combined_data <- combined_data %>%
-  mutate(
-    ecovolonterre_binary = case_when(
-      str_detect(programme_1, "Ecovolonterre") ~ 1,
-      !is.na(programme_1) ~ 0,
+    mutate(
+    programme_cine_binary = case_when(
+      programme_cle == "Cinéma & Citoyenneté" ~ 1,
+      !is.na(programme_cle) ~ 0,
       TRUE ~ NA_real_
     ),
-    ecovolonterre_binary = factor(
-      ecovolonterre_binary,
+    programme_cine_binary = factor(
+      programme_cine_binary,
       levels = c(0, 1),
-      labels = c("other", "ecovolonterre")
+      labels = c("Other", "Cinéma & Citoyenneté")
+    )
+  )
+
+# check
+combined_data |> 
+  drop_na(programme_cle) |> 
+  #filter(programme_cle == "Cinéma & Citoyenneté") |> 
+  select(programme_cle, programme_cine_binary)
+  
+```
+
+### Booster program binary 
+
+```{r}
+combined_data <- combined_data %>%
+    mutate(
+    programme_booster_binary = case_when(
+      programme_cle == "Booster" ~ 1,
+      !is.na(programme_cle) ~ 0,
+      TRUE ~ NA_real_
+    ),
+    programme_booster_binary = factor(
+      programme_booster_binary,
+      levels = c(0, 1),
+      labels = c("Other", "Booster")
+    )
+  )
+  
+```
+
+### Ecovolonterre program binary 
+
+```{r}
+combined_data <- combined_data %>%
+    mutate(
+    programme_ecovolonterre_binary = case_when(
+      programme_cle == "Ecovolonterre" ~ 1,
+      !is.na(programme_cle) ~ 0,
+      TRUE ~ NA_real_
+    ),
+    programme_ecovolonterre_binary = factor(
+      programme_ecovolonterre_binary,
+      levels = c(0, 1),
+      labels = c("Other", "Ecovolonterre")
+    )
+  )
+  
+```
+
+### Médiaterre program binary 
+
+```{r}
+combined_data <- combined_data %>%
+    mutate(
+    programme_mediaterre_binary = case_when(
+      programme_cle == "Médiaterre" ~ 1,
+      !is.na(programme_cle) ~ 0,
+      TRUE ~ NA_real_
+    ),
+    programme_mediaterre_binary = factor(
+      programme_mediaterre_binary,
+      levels = c(0, 1),
+      labels = c("Other", "Médiaterre")
+    )
+  )
+  
+```
+
+### ASM program binary 
+
+```{r}
+combined_data <- combined_data %>%
+    mutate(
+    programme_asm_binary = case_when(
+      programme_cle == "ASM" ~ 1,
+      !is.na(programme_cle) ~ 0,
+      TRUE ~ NA_real_
+    ),
+    programme_asm_binary = factor(
+      programme_asm_binary,
+      levels = c(0, 1),
+      labels = c("Other", "ASM")
+    )
+  )
+  
+```
+
+### Solidarité Séniors program binary 
+
+```{r}
+combined_data <- combined_data %>%
+    mutate(
+    programme_solidarite_seniors_binary = case_when(
+      programme_cle == "Solidarité Séniors" ~ 1,
+      !is.na(programme_cle) ~ 0,
+      TRUE ~ NA_real_
+    ),
+    programme_solidarite_seniors_binary = factor(
+      programme_solidarite_seniors_binary,
+      levels = c(0, 1),
+      labels = c("Other", "Solidarité Séniors")
     )
   )
 ```
-
 
 # Write out data
 
