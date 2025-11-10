@@ -17,6 +17,11 @@ website:
       - href: codebook.qmd
         text: Codebook
 
+
+    right:
+      - text: "View Source at {{< fa brands github >}} GitHub"
+        href: https://github.com/janpfander/unis-cite
+
   page-footer: 
     background: light
     left: |

@@ -2751,5 +2751,3 @@ Another lever for improvement is making the questionnaires at different time poi
 
 On a minor note, it might be more interesting to ask volunteers about their voting intentions, rather than their past voting behavior. There is reason to believe that some volunteers do not answer the current question on past behavior as intended (@fig-vote_derniers_elections-youngest). Also, observing change regarding past voting behavior is very dependend on whether elecitons happen to take place for a particular cohort during their year of service civique. 
 
-
-
