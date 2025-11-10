@@ -484,17 +484,21 @@ combined_data <- combined_data |>
       motif_rupture %in% c("04 - Embauche en CDD d'au moins 6 mois ou CDI", 
                            "05 - Embauche en CDD moins de 6 mois",
                            "09 - Reprise d'études"
-                           ) ~ "positive",
+      ) ~ "positive",
       motif_rupture %in% c("10 - Fin de validité du Titre de Séjour"
-                           ) ~ "raisons externes",
+      ) ~ "raisons externes",
       TRUE ~ NA_character_),
-    rupture_negative = factor(if_else(is.na(motif_rupture) | rupture_valence == "negative", 
-                                      0, 
-                                      1), 
-                              levels = c(0, 1), 
-                              labels = c("pas de rupture negative", "rupture negative")
-                              )
-    ) 
+    rupture_negative = case_when(
+      is.na(motif_rupture) ~ 0,
+      rupture_valence == "negative" ~ 1,
+      TRUE ~ 0
+    ),
+    rupture_negative = factor(
+      rupture_negative,
+      levels = c(0, 1),
+      labels = c("pas de rupture negative", "rupture negative")
+    )
+  ) 
 
 # check
 combined_data |> 
@@ -619,15 +623,17 @@ combined_data <- combined_data %>%
 Make factor and order levels. 
 
 ```{r}
-combined_data  <- combined_data  |> 
+combined_data <- combined_data |>
   mutate(
+    niveau_etudes = case_when(
+      niveau_etudes == "Infra-bac" ~ "infra_bac",
+      niveau_etudes == "Bac à Bac + 2" ~ "bac_bac2",
+      niveau_etudes == "Bac + 3 et plus" ~ "bac3_plus",
+      TRUE ~ NA_character_
+    ),
     niveau_etudes = factor(
       niveau_etudes,
-      levels = c(
-      "Infra-bac",
-      "Bac à Bac + 2",
-      "Bac + 3 et plus"
-      ),
+      levels = c("infra_bac", "bac_bac2", "bac3_plus"),
       ordered = TRUE
     )
   )
