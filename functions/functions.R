@@ -151,13 +151,81 @@ run_program_models <- function(
         mutate(
           variable = var,
           outcome = rlang::as_name(outcome_var),
-          label = round(estimate, digits = 2)
+          label = round(estimate, digits = 2),
+          significant = ifelse(p.value <= 0.05, TRUE, FALSE)
         )
     })
   
   return(results)
 }
 
+# program descriptive plots
+plot_faceted_distribution <- function(data, plot_variables, fill_var, program_colour = "Blue") {
+  
+  fill_var <- rlang::ensym(fill_var)
+  
+  
+  # store level orders (works for factors and non-factors)
+  level_orders <- lapply(data[plot_variables], function(x) {
+    if (is.factor(x)) levels(x) else unique(x)
+  })
+  
+  plot_data <- data %>%
+    mutate(across(all_of(plot_variables), as.character)) %>%
+    pivot_longer(cols = all_of(plot_variables),
+                 names_to = "variable",
+                 values_to = "level") %>%
+    drop_na(level) %>%
+    drop_na(!!fill_var) %>%
+    group_by(variable, level, !!fill_var) %>%
+    summarize(n = n_distinct(id_jeune), .groups = "drop") %>%
+    group_by(variable, !!fill_var) %>%
+    mutate(pct = n / sum(n) * 100) %>%
+    ungroup()
+  
+  # restore original factor order
+  plot_data <- plot_data %>%
+    group_by(variable) %>%
+    mutate(level = factor(level, levels = level_orders[[unique(variable)]])) %>%
+    ungroup()
+  
+  ymax <- max(plot_data$pct, na.rm = TRUE) * 1.2
+  
+  # get levels
+  fill_levels <- levels(plot_data[[rlang::as_name(fill_var)]])
+  
+  ggplot(plot_data,
+         aes(x = level, y = pct, fill = factor(!!fill_var))) +
+    geom_col(position = position_dodge(width = 0.9)) +
+    geom_text(
+      aes(label = sprintf("%.1f%%", pct)),
+      position = position_dodge(width = 0.9),
+      vjust = -0.3,
+      size = 3
+    ) +
+    scale_fill_manual(
+      values = c(
+        "#D8D2C2",
+        program_colour
+      )
+    ) +
+    facet_wrap(~variable, scales = "free_x") +
+    labs(
+      x = NULL,
+      y = "Share",
+      fill = "Programme"
+    ) +
+    scale_y_continuous(
+      labels = scales::percent_format(scale = 1),
+      breaks = seq(0, 100, 20)
+    ) +
+    coord_cartesian(ylim = c(0, ymax)) +
+    plot_theme +
+    theme(
+      axis.text.x = element_text(angle = 20, hjust = 1),
+      legend.position = "top"
+    )
+}
 
 
 

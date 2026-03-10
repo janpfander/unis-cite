@@ -17,6 +17,11 @@ format:
   apaquarto-pdf:
     # Can be jou (journal), man (manuscript), stu (student), or doc (document)
     documentmode: doc
+    toc: true
+    toc-depth: 4
+    # header-includes:
+    #   - \usepackage{float}
+    #   - \floatplacement{table}{H}
 
 always_allow_html: true
 ---
@@ -70,19 +75,41 @@ demographic_variables <- c(
 demographic_variables_not_reported <- c("id_jeune", "region", "site", "type_volontaire", "decrocheur", "nationalite", "neets", "programme_1", "programme_2", "rupture_negative", "rupture_valence")
 ```
 
+
+```{r}
+# define colors
+program_colours <- c(
+  "#2E4057",  # deep blue
+  "#A6332A",  # earthy red
+  "#2F6F4E",  # forest green
+  "#B67C44",  # warm amber/brown
+  "#5D4E7A",  # muted purple
+  "#E69F3D",  # golden orange
+  "#4E9F9F"   # teal/blue-green
+)
+```
+
+\clearpage
+
 # Introduction
 
 This report analyzes survey data for four different cohorts of Cité Unis volunteers who did their service civique in France between 2020 and 2024.
 
-@sec-who provides analyses as to who are the volunteers. In @sec-within-change, we look at how the service civique has changed the volunteers' attitudes and views? We then look at several outcomes of interest in detail, namely whether volunteers end their contract early (@sec-rupture), how satisfied they are (@sec-satisfaction), and how confident they are about their future? (@sec-perception-avenir). For these outcomes, we analyze whether there are trends across the different cohorts, and which demographic variables predict them. In @sec-programs we investigate differences between different programs offered by Cité Unis. The report ends with a brief conclusion on methodological notes for future questionnaires. 
+@sec-who provides information on who the volunteers are, in terms of age, sex, level of education and geographical location. @sec-attrition provides an overview on how many volunteers answered to questionnaires at different stages of their service civique (every volunteer is asked to fill out three questionnaires in total).
 
-For these analyses, we rely on questionnaires collected by Cité Unis for four different cohorts of volunteers who did their service civique for a year (2020-2021; 2021-2022; 2022-2023; 2023-2024). These questionnaires are very extensive. For the present analyses, we selected a subset of key questions (a full list can be found in the [codebook](codebook.qmd))^[Note that, in the process of writing this report, this selection of variables was based only on the questionnaire of the first cohort (2020/21). As a result, potentially interesting variables that only appear in later questionnaires will not appear here.]. 
+In @sec-within-change, we look at how volunteers have changed certain attitudes and views during their service civique, and which demographic and other factors are associated with changes.
 
-Before diving into the results, a note on caution in interpreting the results presented in is report: Whenever we speak of "predictions", that simply means statistical associations---mere observations of differences between groups. This report does **not** provide any evidence that would warrant causal conclusions---answers as to **why** we observe these differences. 
+We then look at several outcomes of interest in detail, namely whether volunteers end their contract early (@sec-rupture), how satisfied they are (@sec-satisfaction), and how confident they are about their future (@sec-perception-avenir). For these outcomes, we analyze whether there are trends across the different cohorts, and whether the outcomes are associated with demographic and other factors. 
 
-Because the data underlying this report is observational and---for most of it---does not allow to track opinion change (because most questions have only been asked once per cohort), the main objective of this report is not to provide specific and definitive answers. Instead, the aim is to allow Cité Unis to identify interesting questions. The numeric results presented here can act as pointers, but are not problem diagnoses. They always need to be accompanied by qualitative assessments of *why* we observe certain differences, and what could or could not be done about them. 
+In @sec-programs we investigate demographic differences between different key programs offered by Cité Unis for their volunteers. 
 
-This report is meant to inform by figures: the text passages do not discuss all the results from the figures. The text is mostly intended to provide guidance---to illustrate how to interpret the figures. The examples for these illustrations are mostly picked at random.
+The report ends with a brief conclusion on methodological notes for future questionnaires. 
+
+For these analyses, we rely on questionnaires collected by Cité Unis for four different cohorts of volunteers who did their service civique for a year (2020-2021; 2021-2022; 2022-2023; 2023-2024). These questionnaires are very extensive. For the present analyses, we selected a subset of key questions (a full list can be found in the [codebook](codebook.qmd))^[Note that the questions have been selected based on the questionnaire of the first cohort (2020/21). As a result, potentially interesting variables that only appear in later questionnaires will not appear here.]. 
+
+Before diving into the results, a note on caution in interpreting the results presented in is report: Whenever we speak of "predictions" that simply means statistical associations---mere observations of differences between groups. This report does **not** provide any evidence that would warrant causal conclusions---answers as to **why** we observe these differences. 
+
+Because the data underlying this report is observational and---for most of it---does not allow to track opinion change (because most questions have only been asked once per cohort), the main objective of this report is not to provide specific and definitive answers. Instead, the aim of this report is to help Cité Unis in identifying patterns and sparking question that may inform new evaluation procedures. The quantitative results presented here can act as pointers, but they are not problem diagnoses. They always need to be accompanied by qualitative assessments of *why* we observe certain differences, and what could or could not be done about them. 
 
 # Who are the volunteers ? {#sec-who}
 
@@ -172,7 +199,7 @@ ggplot() +
 
 ## Age
 
-As shown in @fig-age, across all promos, the majority of volunteers is between 18 and 20 years old. The share of the age group of 16-17 has been increasing rapily, doubling the percentage points from 13% in 2020 to 24% in 2024.
+As shown in @fig-age, across all promos, the majority of volunteers is between 18 and 20 years old. The share of the age group of 16-17 has been increasing rapidly, roughly doubling from 13% in 2020 to 24% in 2024.
 
 ```{r}
 #| label: fig-age
@@ -202,7 +229,7 @@ geom_col() +
   labs(
     title = "Age groups",
     x = "Age group",
-    y = "Number of Participants"
+    y = "Number of Volunteers"
   ) + 
   plot_theme +
   facet_wrap(~promo)
@@ -219,7 +246,7 @@ ggplot(age_data,
   labs(
     title = "Age groups",
     x = "Age group",
-    y = "Share of participants"
+    y = "Share of volunteers"
   ) +
   plot_theme +
   facet_wrap(~promo)
@@ -227,7 +254,7 @@ ggplot(age_data,
 
 ## Education
 
-@fig-education shows that volunteers with a "Bac + 3 et plus" are relatively rare. The share of volunteers with a "Bac à Bac + 2" has been constantly decreasing, from 48% in 2020-21 to 40% in 2023-24. By contrast, volunteers "Infra-bac", have been increasing from 32% in 2020-21 to 43% in 2023-24. 
+@fig-education shows that volunteers with a "Bac + 3 et plus" are relatively rare, compared to the other education levels. The share of volunteers with a "Bac à Bac + 2" has been constantly decreasing, from 48% in 2020-21 to 40% in 2023-24. By contrast, volunteers "Infra-bac", have been increasing from 32% in 2020-21 to 43% in 2023-24. 
 
 ```{r}
 #| label: fig-education
@@ -257,7 +284,7 @@ geom_col() +
   labs(
     title = "Education",
     x = "Level of education",
-    y = "Number of Participants"
+    y = "Number of volunteers"
   ) + 
   plot_theme +
   facet_wrap(~promo)
@@ -274,7 +301,7 @@ ggplot(education_data,
   labs(
     title = "Education",
     x = "Level of education",
-    y = "Share of participants"
+    y = "Share of volunteers"
   ) +
   plot_theme +
   facet_wrap(~promo)
@@ -282,7 +309,7 @@ ggplot(education_data,
 
 ## Sex
 
-There is a stable difference regarding sex, with more women (~60%) being volunteers than men (@fig-sex). 
+On average, more women (~60%) are being volunteers than men. This difference is relatively stable across cohorts---if anything, the data suggests a slight trend towards an increasing share of women over time (@fig-sex). 
 
 ```{r}
 #| label: fig-sex
@@ -313,7 +340,7 @@ geom_col() +
   labs(
     title = "Sex",
     x = "Sex",
-    y = "Number of Participants"
+    y = "Number of volunteers"
   ) + 
   guides(fill = FALSE) +
   plot_theme +
@@ -329,26 +356,18 @@ ggplot(sex_data,
   labs(
     title = "Sex",
     x = "Sex",
-    y = "Share of participants"
+    y = "Share of volunteers"
   ) +
   guides(fill = FALSE) +
   plot_theme +
   facet_wrap(~promo)
 ```
 
-# How have volunteers changed their attitudes? {#sec-within-change}
+# Attrition {#sec-attrition}
 
-In the selection of variables made for this report, there are only two questions that volunteers of the same promo have been asked at different time points: 
+As part of their service civique, each volunteer is asked to fill out three different questionnaires: the first one at the onset of their service civique (later on referred to as "q1"), the second one at the end ("q2"), and the third one six months after their service civique ("q1"). Answering these questionnaires is voluntary, and response rates typically decline considerably from the first to the third questionnaire. These declining response rates are referred to as "attrition". Some volunteers do not even respond to any one questionnaire^[Cité Unis nevertheless has some administrative data on volunteers who did not respond to a single questionnaire, for example which program they have been in. In some of the plots in this report, notably in @sec-attrition, these volunteers appear under the label "q0".]. 
 
-1. "Avez-vous voté lors des dernières élections (locales ou nationales) ?" (@sec-vote)
-
-2. "En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?" (@sec-individual-action). 
-
-Before we turn to these two questions, we will look at attrition.
-
-## Attrition
-
-The term attrition refers to volunteers dropping out of the surveys over time. Attrition can can have many causes. Here we distinguish between two explanations: ruptures, i.e. volonteers ending their service civique early (@sec-rupture) and survey fatigue, i.e. volunteers who continue their service civique but do not fill out the questionnaires (@fig-attrition-norupture). 
+Attrition can can have many causes. Here we distinguish between two explanations: ruptures, i.e. volunteers ending their service civique early (@sec-rupture) and survey fatigue, i.e. volunteers who continue their service civique but do not fill out the questionnaires (@fig-attrition-norupture). 
 
 @fig-attrition shows attrition generally, while @fig-attrition-norupture excludes ruptures, thereby giving an estimate of survey fatigue. This latter figure shows that survey fatigue is an issue, but also suggests that there is a slightly positive trend towards reduced survey fatigue: more and more volunteers seem to answering the questionnaires at least for the first two questionnaires (q1 and q2), but less so for the third questionnaire (q3). 
 
@@ -491,6 +510,14 @@ ggplot(attrition_percent |>
   facet_wrap(~promo)
 ```
 
+# How have volunteers changed their attitudes? {#sec-within-change}
+
+In the selection of variables made for this report, there are only two questions that volunteers have been asked at several time points during their service civique: 
+
+1. "Avez-vous voté lors des dernières élections (locales ou nationales) ?" (@sec-vote)
+
+2. "En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?" (@sec-individual-action). 
+
 ## Voting {#sec-vote}
 
 In this section, we look at how volunteers have changed regarding their voting behavior. Voting behavior was measured with the question: "Avez-vous voté lors des dernières élections (locales ou nationales) ?", which has been asked at time points q1 and q2. @fig-vote_derniers_elections-overview shows that, averaged across all cohorts and time points, the majority of volunteers reports having voted.
@@ -558,6 +585,8 @@ The following sections reveal considerable differences between the cohorts. For 
 It is not clear why we observe these differences. One explanation might be that volunteers care more about national elections than local ones (or vice verse). If that is the case, we would expect changes in voting behavior to be dependent on whether there were national or local elections happening during the year of a cohort's service civique.
 
 ### Promo 2020-21
+
+@fig-vote_derniers_elections-2020 shows change in volunteers' reported voting behavior for the promo "2020-21".
 
 ```{r}
 #| label: fig-vote_derniers_elections-2020
@@ -716,6 +745,8 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Promo 2021-22
 
+@fig-vote_derniers_elections-2021 shows change in volunteers' reported voting behavior for the promo "2021-22".
+
 ```{r}
 #| label: fig-vote_derniers_elections-2021
 #| fig-cap: "Promo 2021-22. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
@@ -810,6 +841,8 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Promo 2022-23
 
+@fig-vote_derniers_elections-2022 shows change in volunteers' reported voting behavior for the promo "2022-23".
+
 ```{r}
 #| label: fig-vote_derniers_elections-2022
 #| fig-cap: "Promo 2022-23. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
@@ -902,6 +935,8 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 ```
 
 ### Promo 2023-24
+
+@fig-vote_derniers_elections-2023 shows change in volunteers' reported voting behavior for the promo "2023-24".
 
 ```{r}
 #| label: fig-vote_derniers_elections-2023
@@ -996,11 +1031,7 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Which demographic factors are associated with change of voting intentions? 
 
-@fig-vote-change-model shows how different demographic variables predict changes in voting behavior. For this analysis, we look at all cohorts together. The outcome, changes in voting behavior, is binary (changed to no vs. changed to yes)^[I.e. ignoring all volunteers who did not change]. 
-
-Plotted on the y-axis are the demographic variables, taken to predict change in voting behavior. For each categorical demographic variable, different levels are shown. For example, for the variable `age_category`, the plot shows three levels: `age_categorie18-20`, `age_categorie21-23`, `age_categorie24-30`. Each of these categories has an estimate (x-axis). These estimates are the results logistic regressions^[For each variable, a separate logistic regression has been run. The estimates from the logistic regression are exponantiated, so that the reported estimates can be interpreted as odds ratios (ORs).]. They indicate how being part of a certain category (e.g. being between 18 and 20 years old) predicts the chances of changing one's voting behavior. The estimates are "odds ratios", which can be conceived of as probabilities: An odds ratio of 1 means that this group has the same chance changing to "no" as changing to "yes". More than 1 means that this group is more likely to change to "yes". For example, an odds ratio of 2.0 means twice as likely. Less than 1 means that this group is more likely to change to "no". An odds ratio of 0.5 means half as likely. 
-
-For each categorical variable, one category is chosen as the baseline (or reference) category. The odds ratios of all other categories are relative to that baseline. For example, for the variable `age_category`, the category "16-17" is not appearing in the graph, because it is the (invisible) baseline category. If the odds ratio for `age_category18–20` is 1.43, this means that 18 to 20 year-olds are more likely to change their vote towards "Yes", compared to 16 to 17 year-olds. More specifically, the odds of changing towards “Yes” among 18–20-year-olds are about 43% higher than among 16–17-year-olds. 
+To determine which demographic variables are associated with change of voting intentions, we ran statistical models. These models are explained in the Appendix (@sec-appendix-voting). Here, we only report the variables that were statistically significant in these models. 
 
 ```{r}
 # remove variables that don't make sense, i.e. the motive and the actual duration (obviously, the longer the duration, the less likely to have a rupture)
@@ -1033,7 +1064,7 @@ vote_data <- combined %>%
   ) 
 
 # Fit one model per demographic variable
-model_results <- factors_for_model  %>%
+model_results_voting_demographic <- factors_for_model  %>%
   map_dfr(function(var) {
     formula <- as.formula(glue::glue("change_vote ~ `{var}`"))
     
@@ -1041,49 +1072,130 @@ model_results <- factors_for_model  %>%
     
     tidy(model, exponentiate = TRUE, conf.int = TRUE) %>%
       filter(term != "(Intercept)") %>%
-      mutate(variable = var)
+      mutate(variable = var, 
+             significant = ifelse(p.value <= 0.05, TRUE, FALSE))
   })
 
 # check
-# model_results
+# model_results_voting_demographic |> 
+#   filter(significant)
 ```
 
-```{r}
-#| label: fig-vote-change-model 
-#| fig-cap: Effects of demographic factors on change in voting behavior. The outcome is binary (changed to no vs. changed to yes). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+#### Sex
 
-model_results <- model_results %>%
-  mutate(
-    label = round(estimate, digits = 2)
+As shown in @fig-vote_derniers_elections-sex, more female volunteers changed towards "Yes" than towards "No". Among male volunteers, the opposite was true. 
+
+```{r}
+#| label: fig-vote_derniers_elections-sex
+#| fig-cap: "Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their sex. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+# ABSOLUTE NUMBERS
+
+vote_data <- combined %>%
+  drop_na(vote_derniers_elections) |>
+  # filter(vote_derniers_elections %in% c("Oui", "Non")) |>
+  mutate(vote_derniers_elections = case_when(
+    vote_derniers_elections == "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales" ~ "Pas sur les listes", 
+    TRUE ~ vote_derniers_elections
   )
+  ) |> 
+  select(id_jeune, source, vote_derniers_elections, sexe) %>%
+  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
+  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
+  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Pas sur les listes", "Non", "Oui"))))
 
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
-  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
-  geom_point() +
-  geom_text(
-    aes(label = label),
-    vjust = -0.4,  # just slightly to the right of the point
-    size = 3,
-    check_overlap = TRUE  # avoid overlapping labels
-  ) +
-  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
-  scale_color_viridis_d(option = "plasma", end = 0.8) +
-  scale_x_log10() +
+vote_change_summary <- vote_data |>
+  mutate(change = case_when(
+    vote_q1 == vote_q2 ~ "Pas de changement",
+    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui", 
+    vote_q1 == "Pas sur les listes" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Pas sur les listes" & vote_q2 == "Oui" ~ "Changé vers Oui", 
+    TRUE ~ NA_character_
+  )) |>
+  drop_na(change) |> 
+  group_by(change, sexe) |> 
+  summarize(n = n()) |>
+  group_by(sexe) |> 
+  mutate(prop = n / sum(n))
+
+ggplot(vote_change_summary, aes(x = change, y = n, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = n), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
+  scale_fill_manual(values = c(
+    #"Pas de changement" = "#E1AF00",
+    "Changé vers Non" = "#F21A00",
+    "Changé vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
   labs(
-    x = "Odds Ratio (log scale)",
-    y = NULL
+    #title = "Changements individuels entre Q1 et Q2",
+    x = NULL,
+    y = "Proportion",
+    fill = NULL
   ) +
-  guides(color="none") +
-  theme_minimal()
+  plot_theme +
+  facet_wrap(~sexe) +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+
+# PERCENTAGES
+
+vote_change_summary <- vote_data |>
+  mutate(change = case_when(
+    vote_q1 == vote_q2 ~ "Pas de changement",
+    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui", 
+    vote_q1 == "Pas sur les listes" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Pas sur les listes" & vote_q2 == "Oui" ~ "Changé vers Oui", 
+    TRUE ~ NA_character_
+  )) |>
+  drop_na(change) |> 
+  group_by(change, sexe) |> 
+  summarize(n = n()) |>
+  group_by(sexe) |> 
+  mutate(prop = n / sum(n))
+
+ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 0.1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.2))) +
+  scale_fill_manual(values = c(
+    #"Pas de changement" = "#E1AF00",
+    "Changé vers Non" = "#F21A00",
+    "Changé vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    #title = "Changements individuels entre Q1 et Q2",
+    x = NULL,
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme +
+  facet_wrap(~sexe) +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
 ```
 
-To understand this odds ratio, take @fig-vote_derniers_elections-age-absolute: it shows that among the 16 to 17 year-olds, 285 have changed towards "No", while only 238 have changed towards "Yes". That makes the odds of changing towards yes for the youngest age group, chosen as the baseline category in the model, `238:285 = ~0.84`. By contrast, among the 18 to 20 year-olds, the odds were `784:658 = ~1.19`. The odds ratio for the 18 to 20 year-olds compares their odds to those of the 16 to 17 year-olds `odds ratio = 1.19:0.84 = 1.4`.
+#### Age
 
-@fig-vote_derniers_elections-age-percentages allows to compare the odds ratios to the percentages for the different age groups. Just like for absolute numbers, the odds ratios can be calculated from the percentages. For example, among the 16 to 17 year-olds, 13.8% have changed towards "No", while 11.5% have changed towards "Yes", making the odds of changing to "Yes", as above, `0.115:0.138 = ~0.83`^[Note that in this illustration, we obtain a slightly different value compared to 0.84 above due to rounding imprecision.]. Among the 18 to 20 year-olds, accordingly, the odds were, as above, `0.174:0.146 = ~1.19`, resulting in the same odds ratio of ~1.4. 
+@fig-vote_derniers_elections-age compares changes in voting behaviour between age groups. Among the 18 to 20 year-olds, the share of volunteers who have changed towards "Yes" was highest. One interpretation could be, that the service civique might encourage this age group in particular to vote. However, an alternative explanation could be that this group could vote for the first time during their service civique, as the legal voting age in France is 18. 
 
 ```{r}
-#| label: fig-vote_derniers_elections-age-absolute
-#| fig-cap: "Absolute numbers. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, for the different age groups. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| label: fig-vote_derniers_elections-age
+#| fig-cap: "Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, for the different age groups. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+# ABSOLUTE NUMBERS
 
 vote_data <- combined %>%
   drop_na(vote_derniers_elections) |>
@@ -1134,24 +1246,8 @@ ggplot(vote_change_summary, aes(x = change, y = n, fill = change)) +
   plot_theme +
   facet_wrap(~age_categorie) +
   theme(axis.text.x = element_text(angle = 20, hjust = 1))
-```
 
-```{r}
-#| label: fig-vote_derniers_elections-age-percentages
-#| fig-cap: "Percentages. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, for the different age groups. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
-
-vote_data <- combined %>%
-  drop_na(vote_derniers_elections) |>
-  # filter(vote_derniers_elections %in% c("Oui", "Non")) |>
-  mutate(vote_derniers_elections = case_when(
-    vote_derniers_elections == "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales" ~ "Pas sur les listes", 
-    TRUE ~ vote_derniers_elections
-  )
-  ) |> 
-  select(id_jeune, source, vote_derniers_elections, age_categorie) %>%
-  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
-  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
-  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Pas sur les listes", "Non", "Oui"))))
+# PERCENTAGES
 
 vote_change_summary <- vote_data |>
   mutate(change = case_when(
@@ -1191,7 +1287,7 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
   theme(axis.text.x = element_text(angle = 20, hjust = 1))
 ```
 
-On a side note, looking at the 16 to 17 age groups shows that some answers were erroneous. In France, the legal voting age is 18. Therefore, the 16 to 17 year olds, at least at the beginning of their service civique (q0/q1), have never been on a voting list before. However, as shown in @fig-vote_derniers_elections-youngest there are 443 volunteers who answered "No" at q0/q1 (which technically is true, but not the most specific answer option), and 20 who answered "Yes" (probably not reading the question carefully or accidentally clicking on the wrong response). It is unclear whether or how this could have affected our findings on changes in voting behavior. 
+On a side note, looking at the 16 to 17 age groups shows that some answers were erroneous. In France, the legal voting age is 18. Therefore, the 16 to 17 year-olds, at least at the beginning of their service civique (q0/q1), have never been on a voting list before. However, as shown in @fig-vote_derniers_elections-youngest there are 443 volunteers who answered "No" at q0/q1 (which technically is true, but not the most specific answer option), and 20 who answered "Yes" (probably not reading the question carefully or accidentally clicking on the wrong response). 
 
 ```{r}
 #| label: fig-vote_derniers_elections-youngest
@@ -1228,14 +1324,204 @@ combined |>
   theme(legend.position = "top")
 ```
 
+#### Zone of Residence
+
+@fig-vote_derniers_elections-residence shows that volunteers from "QPV" and ZRR" residential areas had a greater tendency to change towards "No", compared to "Yes". By contrast, in particular in rural areas, but also slightly in urban ones, more volunteers changed towards "Yes". 
+
+```{r}
+#| label: fig-vote_derniers_elections-residence
+#| fig-cap: "Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their zone of residence. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+# ABSOLUTE NUMBERS
+
+vote_data <- combined %>%
+  drop_na(vote_derniers_elections) |>
+  # filter(vote_derniers_elections %in% c("Oui", "Non")) |>
+  mutate(vote_derniers_elections = case_when(
+    vote_derniers_elections == "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales" ~ "Pas sur les listes", 
+    TRUE ~ vote_derniers_elections
+  )
+  ) |> 
+  select(id_jeune, source, vote_derniers_elections, zone_residence) %>%
+  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
+  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
+  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Pas sur les listes", "Non", "Oui"))))
+
+vote_change_summary <- vote_data |>
+  mutate(change = case_when(
+    vote_q1 == vote_q2 ~ "Pas de changement",
+    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui", 
+    vote_q1 == "Pas sur les listes" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Pas sur les listes" & vote_q2 == "Oui" ~ "Changé vers Oui", 
+    TRUE ~ NA_character_
+  )) |>
+  drop_na(change) |> 
+  group_by(change, zone_residence) |> 
+  summarize(n = n()) |>
+  group_by(zone_residence) |> 
+  mutate(prop = n / sum(n))
+
+ggplot(vote_change_summary, aes(x = change, y = n, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = n), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
+  scale_fill_manual(values = c(
+    #"Pas de changement" = "#E1AF00",
+    "Changé vers Non" = "#F21A00",
+    "Changé vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    #title = "Changements individuels entre Q1 et Q2",
+    x = NULL,
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme +
+  facet_wrap(~zone_residence) +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+
+# PERCENTAGES
+
+ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 0.1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.2))) +
+  scale_fill_manual(values = c(
+    #"Pas de changement" = "#E1AF00",
+    "Changé vers Non" = "#F21A00",
+    "Changé vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    #title = "Changements individuels entre Q1 et Q2",
+    x = NULL,
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme +
+  facet_wrap(~zone_residence) +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+```
+
+#### Education
+
+As shown in @fig-vote_derniers_elections-education, the share of volunteers who changed towards "Yes" was particularly high among those with a level of education corresponding to "Bac+2". In all other education segments, the share of those changing towards "No" was higher. 
+
+```{r}
+#| label: fig-vote_derniers_elections-education
+#| fig-cap: "Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their level of education. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+# ABSOLUTE NUMBERS
+
+vote_data <- combined %>%
+  drop_na(vote_derniers_elections) |>
+  # filter(vote_derniers_elections %in% c("Oui", "Non")) |>
+  mutate(vote_derniers_elections = case_when(
+    vote_derniers_elections == "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales" ~ "Pas sur les listes", 
+    TRUE ~ vote_derniers_elections
+  )
+  ) |> 
+  select(id_jeune, source, vote_derniers_elections, niveau_etudes) %>%
+  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
+  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
+  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Pas sur les listes", "Non", "Oui"))))
+
+vote_change_summary <- vote_data |>
+  mutate(change = case_when(
+    vote_q1 == vote_q2 ~ "Pas de changement",
+    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui", 
+    vote_q1 == "Pas sur les listes" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Pas sur les listes" & vote_q2 == "Oui" ~ "Changé vers Oui", 
+    TRUE ~ NA_character_
+  )) |>
+  drop_na(change) |> 
+  group_by(change, niveau_etudes) |> 
+  summarize(n = n()) |>
+  group_by(niveau_etudes) |> 
+  mutate(prop = n / sum(n))
+
+ggplot(vote_change_summary, aes(x = change, y = n, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = n), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
+  scale_fill_manual(values = c(
+    #"Pas de changement" = "#E1AF00",
+    "Changé vers Non" = "#F21A00",
+    "Changé vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    #title = "Changements individuels entre Q1 et Q2",
+    x = NULL,
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme +
+  facet_wrap(~niveau_etudes) +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+
+# PERCENTAGES
+
+vote_change_summary <- vote_data |>
+  mutate(change = case_when(
+    vote_q1 == vote_q2 ~ "Pas de changement",
+    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui", 
+    vote_q1 == "Pas sur les listes" & vote_q2 == "Non" ~ "Changé vers Non",
+    vote_q1 == "Pas sur les listes" & vote_q2 == "Oui" ~ "Changé vers Oui", 
+    TRUE ~ NA_character_
+  )) |>
+  drop_na(change) |> 
+  group_by(change, niveau_etudes) |> 
+  summarize(n = n()) |>
+  group_by(niveau_etudes) |> 
+  mutate(prop = n / sum(n))
+
+ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 0.1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.2))) +
+  scale_fill_manual(values = c(
+    #"Pas de changement" = "#E1AF00",
+    "Changé vers Non" = "#F21A00",
+    "Changé vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    #title = "Changements individuels entre Q1 et Q2",
+    x = NULL,
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme +
+  facet_wrap(~niveau_etudes) +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+```
 
 ## Individual action for society {#sec-individual-action}
 
-In this section, we look at how volunteers have changed regarding their perception on whether their individual action can contribute to changing society. This was measured with the question: "En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?", which has been asked at time points q1 and q3 We look at the different cohorts separately (promo 2020-21, @fig-action_individuelle_societe-2020; promo 2021-22, @fig-vote_derniers_elections-2021; 2022-23, @fig-vote_derniers_elections-2022; 2023-24, @fig-vote_derniers_elections-2023)^[Note that for the promo 2023-24, q3 is not yet available, and therefore the promo cannot be included here].
+In this section, we look at how volunteers have changed regarding their perception on whether their individual action can contribute to changing society. This was measured with the question: "En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?", which has been asked at time points q1 and q3. We look at the different cohorts separately (promo 2020-21, @fig-action_individuelle_societe-2020; promo 2021-22, @fig-vote_derniers_elections-2021; 2022-23, @fig-vote_derniers_elections-2022; 2023-24, @fig-vote_derniers_elections-2023).
 
-Descriptively, there is no clear positive or negative trend either. On average, across all cohorts, slightly more people are changing towards "No" or "Not really", compared to "Yes". 
+Descriptively, there is no clear positive or negative trend. On average, across all cohorts, slightly more people are changing towards "No" or "Not really", compared to "Yes".
 
 ### Promo 2020-21
+
+@fig-action_individuelle_societe-2020 shows change in volunteers' perceptions of whether their individual action contributes to changing society, for the promo "2020-21".
 
 ```{r}
 #| label: fig-action_individuelle_societe-2020
@@ -1281,7 +1567,7 @@ ggplot(plot_data,
   labs(
     x = "Temps",
     y = "Nombre d'individus",
-    fill = "Vote"
+    fill = "Contribution individuelle"
   ) +
   plot_theme 
 
@@ -1320,6 +1606,8 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 ```
 
 ### Promo 2021-22
+
+@fig-action_individuelle_societe-2021 shows change in volunteers' perceptions of whether their individual action contributes to changing society, for the promo "2021-22".
 
 ```{r}
 #| label: fig-action_individuelle_societe-2021
@@ -1365,7 +1653,7 @@ ggplot(plot_data,
   labs(
     x = "Temps",
     y = "Nombre d'individus",
-    fill = "Vote"
+    fill = "Contribution individuelle"
   ) +
   plot_theme 
 
@@ -1404,6 +1692,8 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 ```
 
 ### Promo 2022-23
+
+@fig-action_individuelle_societe-2022 shows change in volunteers' perceptions of whether their individual action contributes to changing society, for the promo "2022-23".
 
 ```{r}
 #| label: fig-action_individuelle_societe-2022
@@ -1449,7 +1739,93 @@ ggplot(plot_data,
   labs(
     x = "Temps",
     y = "Nombre d'individus",
-    fill = "Vote"
+    fill = "Contribution individuelle"
+  ) +
+  plot_theme 
+
+# make plot for change
+
+change_summary <- action_data |>
+  mutate(change = case_when(
+    action_individuelle_q1 == action_individuelle_q3 ~ "Pas de changement",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment"
+  )) |>
+  count(change) |>
+  mutate(prop = n / sum(n))
+
+ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  scale_fill_manual(values = c(
+    "vers Pas vraiment" = "#E1AF00",
+    "vers Non" = "#F21A00",
+    "vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    x = "Changé",
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme
+```
+
+### Promo 2023-24
+
+@fig-action_individuelle_societe-2023 shows change in volunteers' perceptions of whether their individual action contributes to changing society, for the promo "2023-24".
+
+```{r}
+#| label: fig-action_individuelle_societe-2023
+#| fig-cap: "Promo 2023-24. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3. Note that this analysis considers only answers of volunteers who answered at *both* time points."
+#| fig-subcap:
+#|   - "Alluvial plot"
+#|   - "Percentages" 
+#| layout-ncol: 2
+
+# make wide format data to track change
+action_data <- combined %>%
+  filter(promo == "23-24") |> 
+  drop_na(action_individuelle_societe) |>
+  select(id_jeune, source, action_individuelle_societe) %>%
+  pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
+  filter(!is.na(action_individuelle_q1) & !is.na(action_individuelle_q3))
+
+
+# Prepare data for alluvial plot
+plot_data <- combined %>%
+  drop_na(action_individuelle_societe) |>
+  select(id_jeune, source, action_individuelle_societe) |> 
+  rename(time = source) |> 
+  # select individuals with observations in both
+  group_by(id_jeune) |>
+  filter(all(c("q1", "q3") %in% time)) |>
+  ungroup() |> 
+  # make a factor
+    mutate(action_individuelle_societe = factor(
+    action_individuelle_societe,
+    levels = c("Pas vraiment", "Non", "Oui")
+  ))
+
+pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
+
+# Create alluvial plot
+ggplot(plot_data, 
+       aes(x = time, stratum = action_individuelle_societe, alluvium = id_jeune, fill = action_individuelle_societe, label = action_individuelle_societe)) +
+  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
+  geom_stratum() +
+  scale_fill_manual(values = pal) + 
+  scale_x_discrete(expand = c(0.1, 0.1)) +
+  labs(
+    x = "Temps",
+    y = "Nombre d'individus",
+    fill = "Contribution individuelle"
   ) +
   plot_theme 
 
@@ -1489,7 +1865,7 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Which demographic factors are associated with change in perceptions of one's individual contribution to society? 
 
-@fig-action-change-model shows how different demographic variables predict changes in perceptions of one's individual contribution to society. For this analysis, we look at all cohorts together. The outcome, changes in perceptions of one's individual contribution to society, collapsed into a binary measure ("vers Non/Pas vraiment" vs. "vers Oui"). The plots can be interpreted as described above in the section on voting behavior (@sec-vote). An odds ratio of 1 means that a certain group has the same chance of changing to "Non/Pas vraiment" as changing to "Oui", compared to the baseline group. More than 1 means that this group is more likely to change to "Oui". Less than 1 means that this group is more likely to change to "Non/Pas vraiment". 
+Whether volunteers perceived their individual action can contribute to changing society varies along different demographic variables. These models are explained in the Appendix (@sec-appendix-individual-action). Here, we only report the variables that were statistically significant in these models. 
 
 ```{r}
 # remove variables that don't make sense, i.e. the motive and the actual duration (obviously, the longer the duration, the less likely to have a rupture)
@@ -1520,7 +1896,7 @@ action_data <- combined %>%
 
 
 # Fit one model per demographic variable
-model_results <- factors_for_model  %>%
+model_results_action <- factors_for_model  %>%
   map_dfr(function(var) {
     formula <- as.formula(glue::glue("change_action ~ `{var}`"))
     
@@ -1528,57 +1904,36 @@ model_results <- factors_for_model  %>%
     
     tidy(model, exponentiate = TRUE, conf.int = TRUE) %>%
       filter(term != "(Intercept)") %>%
-      mutate(variable = var)
+      mutate(variable = var,
+             significant = ifelse(p.value <= 0.05, TRUE, FALSE)
+             )
   })
 
 # check
-# model_results
+# model_results_action |>
+#   filter(significant)
 ```
 
-```{r}
-#| label: fig-action-change-model 
-#| fig-cap: Effects of demographic factors on change in perceptions of how one's individual actions can contribute to society. The outcome is binary ("vers Non/Pas vraiment" vs. "vers Oui"). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+#### Zone of Residence
 
-model_results <- model_results %>%
-  mutate(
-    label = round(estimate, digits = 2)
-  )
-
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
-  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
-  geom_point() +
-  geom_text(
-    aes(label = label),
-    vjust = -0.4,  # just slightly to the right of the point
-    size = 3,
-    check_overlap = TRUE  # avoid overlapping labels
-  ) +
-  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
-  scale_color_viridis_d(option = "plasma", end = 0.8) +
-  scale_x_log10() +
-  scale_y_discrete(expand = expansion(mult = c(0, 0.1))) +
-  labs(
-    x = "Odds Ratio (log scale)",
-    y = NULL
-  ) +
-  guides(color="none") +
-  theme_minimal() 
-```
-
-The results suggests that volunteers from the "Relais" program are more likely to change towards "Yes", than volunteers from the "CŒUR" program. @fig-action_individuelle_societe-type zooms in on those findings.
+@fig-action_individuelle_societe-residence shows that in particular volunteers from rural areas had a greater tendency to change towards "Yes", compared to changes towards "No" or "Not really". 
 
 ```{r}
-#| label: fig-action_individuelle_societe-type
-#| fig-cap: "Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, depending on whether they were part of the 'CŒUR' or the 'Relais' program. Note that this analysis considers only answers of volunteers who answered at *both* time points."
+#| label: fig-action_individuelle_societe-residence
+#| fig-cap: "Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to their zone of residence. Note that this analysis considers only answers of volunteers who provided an answer at *both* time points."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
 
+# ABSOLUTE NUMBERS
 
 # make wide format data to track change
 action_data <- combined %>%
   drop_na(action_individuelle_societe) |>
-  select(id_jeune, source, action_individuelle_societe, type_volontaire) %>%
+  select(id_jeune, source, action_individuelle_societe, zone_residence) %>%
   pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
   filter(!is.na(action_individuelle_q1) & !is.na(action_individuelle_q3))
-
 
 # make plot for change
 
@@ -1592,16 +1947,16 @@ change_summary <- action_data |>
     action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment",
     action_individuelle_q1 == "Non" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment"
   )) |>
-  group_by(change, type_volontaire) |> 
+  group_by(change, zone_residence) |> 
   summarize(n = n()) |>
-  group_by(type_volontaire) |>
+  group_by(zone_residence) |>
   mutate(prop = n / sum(n))
 
-ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
+ggplot(change_summary, aes(x = change, y = n, fill = change)) +
   geom_col() +
-  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+  geom_text(aes(label = n), 
             vjust = -0.5, size = 4) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
   scale_fill_manual(values = c(
     "vers Pas vraiment" = "#E1AF00",
     "vers Non" = "#F21A00",
@@ -1614,8 +1969,193 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
     fill = NULL
   ) +
   plot_theme +
-  facet_wrap(~type_volontaire) +
-  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+  facet_wrap(~zone_residence) +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1))
+
+# PERCENTAGES
+
+ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.3))) +
+  scale_fill_manual(values = c(
+    "vers Pas vraiment" = "#E1AF00",
+    "vers Non" = "#F21A00",
+    "vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    x = "Changé",
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme +
+  facet_wrap(~zone_residence) +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1))
+```
+
+#### Education
+
+@fig-action_individuelle_societe-education shows that volunteers with a "Bac+3" had a greater tendency to change towards "Yes", compared to changing towards "No" or "Not really", than the other groups. 
+
+```{r}
+#| label: fig-action_individuelle_societe-education
+#| fig-cap: "Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to their level of education. Note that this analysis considers only answers of volunteers who provided an answer at *both* time points."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+# ABSOLUTE NUMBERS
+
+# make wide format data to track change
+action_data <- combined %>%
+  drop_na(action_individuelle_societe) |>
+  select(id_jeune, source, action_individuelle_societe, niveau_etudes) %>%
+  pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
+  filter(!is.na(action_individuelle_q1) & !is.na(action_individuelle_q3))
+
+# make plot for change
+
+change_summary <- action_data |>
+  mutate(change = case_when(
+    action_individuelle_q1 == action_individuelle_q3 ~ "Pas de changement",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment"
+  )) |>
+  group_by(change, niveau_etudes) |> 
+  summarize(n = n()) |>
+  group_by(niveau_etudes) |>
+  mutate(prop = n / sum(n))
+
+ggplot(change_summary, aes(x = change, y = n, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = n), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
+  scale_fill_manual(values = c(
+    "vers Pas vraiment" = "#E1AF00",
+    "vers Non" = "#F21A00",
+    "vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    x = "Changé",
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme +
+  facet_wrap(~niveau_etudes) +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1))
+
+# PERCENTAGES
+
+ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.3))) +
+  scale_fill_manual(values = c(
+    "vers Pas vraiment" = "#E1AF00",
+    "vers Non" = "#F21A00",
+    "vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    x = "Changé",
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme +
+  facet_wrap(~niveau_etudes) +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1))
+```
+
+#### Handicap (administrative)
+
+@fig-action_individuelle_societe-handicap shows that volunteers with a handicap (administrative) had a greater tendency to change towards "No" or "Not really", compared to changing towards "Yes". 
+
+```{r}
+#| label: fig-action_individuelle_societe-handicap
+#| fig-cap: "Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to whether they had a handicap (administrative) or not. Note that this analysis considers only answers of volunteers who provided an answer at *both* time points."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+# ABSOLUTE NUMBERS
+
+# make wide format data to track change
+action_data <- combined %>%
+  drop_na(action_individuelle_societe) |>
+  select(id_jeune, source, action_individuelle_societe, handicap_administratif) %>%
+  pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
+  filter(!is.na(action_individuelle_q1) & !is.na(action_individuelle_q3))
+
+# make plot for change
+
+change_summary <- action_data |>
+  mutate(change = case_when(
+    action_individuelle_q1 == action_individuelle_q3 ~ "Pas de changement",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Non" ~ "vers Non",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Oui" ~ "vers Oui",
+    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment",
+    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment"
+  )) |>
+  group_by(change, handicap_administratif) |> 
+  summarize(n = n()) |>
+  group_by(handicap_administratif) |>
+  mutate(prop = n / sum(n)) |> 
+  mutate(handicap_administratif = paste0("Handicap: ", handicap_administratif))
+
+ggplot(change_summary, aes(x = change, y = n, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = n), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
+  scale_fill_manual(values = c(
+    "vers Pas vraiment" = "#E1AF00",
+    "vers Non" = "#F21A00",
+    "vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    x = "Changé",
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme +
+  facet_wrap(~handicap_administratif) +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1))
+
+# PERCENTAGES
+
+ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
+  geom_col() +
+  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
+            vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.3))) +
+  scale_fill_manual(values = c(
+    "vers Pas vraiment" = "#E1AF00",
+    "vers Non" = "#F21A00",
+    "vers Oui" = "#3B9AB2"
+  )) +
+  guides(fill = FALSE) +
+  labs(
+    x = "Changé",
+    y = "Proportion",
+    fill = NULL
+  ) +
+  plot_theme +
+  facet_wrap(~handicap_administratif) +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1))
 ```
 
 # Rupture {#sec-rupture}
@@ -1764,9 +2304,7 @@ combined |>
 
 ## What predicts whether volunteers end their contract early (rupture)?
 
-For analyses on what predicts ruptures, we focus only on volunteers who ended their contract early for apparently *negative* reasons. We used a binary outcome measure (no negative rupture vs. negative rupture) and ran separate logistic regressions with demographic variables (@fig-rupture-model-demographic) a selection of other variables (@fig-rupture-model-other). 
-
-An odds ratio of 1 means that a certain group has the same chance of having a rupture, compared to the baseline group. More than 1 means that this group is more likely to have a rupture. Less than 1 means that this group is less likely to have a rupture. 
+Statistical models on rupture can be found in the Appendix (@sec-appendix-rupture). Here, we only report the variables that were statistically significant in these models. Not all ruptures happen for negative reasons (@fig-rupture-motive). For analyses in this section, we focus on negative reasons: We distinguish between volunteers who ended their contract early for apparently *negative* reasons, and all other volunteers. 
 
 ```{r}
 # remove variables that don't make sense, e.g., the motive and the actual duration (obviously, the longer the duration, the less likely to have a rupture)
@@ -1783,7 +2321,7 @@ rupture_data <- combined |>
   ungroup()
 
 # Fit one model per demographic variable
-model_results_other_variables <- factors_for_rupture %>%
+model_results_rupture_other_variables <- factors_for_rupture %>%
   map_dfr(function(var) {
     df <- rupture_data %>%
       select(rupture_negative, !!sym(var)) %>%
@@ -1800,14 +2338,15 @@ model_results_other_variables <- factors_for_rupture %>%
     
     tidy(model, exponentiate = TRUE, conf.int = TRUE) %>%
       filter(term != "(Intercept)") %>%
-      mutate(variable = var)
+      mutate(variable = var,
+             significant = ifelse(p.value <= 0.05, TRUE, FALSE))
   })
 
 # check
 # model_results_other_variables
 
 # Fit one model per demographic variable
-model_results_demographic_variables <- reduced_demographic_variables %>%
+model_results_rupture_demographic_variables <- reduced_demographic_variables %>%
   map_dfr(function(var) {
     df <- rupture_data %>%
       select(rupture_negative, !!sym(var)) %>%
@@ -1824,58 +2363,32 @@ model_results_demographic_variables <- reduced_demographic_variables %>%
     
     tidy(model, exponentiate = TRUE, conf.int = TRUE) %>%
       filter(term != "(Intercept)") %>%
-      mutate(variable = var)
+      mutate(variable = var,
+             significant = ifelse(p.value <= 0.05, TRUE, FALSE))
   })
 
 
 
 # check
-# model_results_demographic_variables
+# model_results_rupture_demographic_variables |> 
+#   filter(significant)
+# 
+# model_results_rupture_other_variables |> 
+#   filter(significant)
+
 ```
 
 ### Demographic factors
 
-@fig-rupture-model-demographic reveals, for example, that older age groups or refugees are less likely to have a rupture, male volunteers and volunteers with a handicap are more likely. The odds ratios can be interpreted as in previous sections. To provide another example, take the variable whether volunteers were part of the "CŒUR" or of the "RELAIS" program (`type_volontaire`). The odds ratio is 0.9, meaning volunteers of the "RELAIS" program were less likely to have a rupture. More specifically, they only had 90% of the odds to breach their contract, compared to volunteers of the "CŒUR". 
-
-To get a better sense of this, @fig-rupture-descriptive shows descriptive differences (in percentages) regarding ruputre for some demographic variables, including `type_volontaire`. The odds ratio can be obtained by dividing the odds of the "RELAIS" program (0.161:0.834 = 0.193) by the odds of the "CŒUR" program (0.181:0.819 = 0.221) program (0.193:0.221 = ~0.9)^[Note that there are slight differences with the reported odds ratio due to rounding errors.].
-
-```{r}
-#| label: fig-rupture-model-demographic 
-#| fig-cap: Effects of demographic factors on negative ruptures. The outcome is binary (no negative rupture vs. negative rupture). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
-
-
-model_results <- model_results_demographic_variables %>%
-  mutate(
-    label = round(estimate, digits = 2)
-  )
-
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
-  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
-  geom_point() +
-  geom_text(
-    aes(label = label),
-    vjust = -0.4,  # just slightly to the right of the point
-    size = 3,
-    check_overlap = TRUE  # avoid overlapping labels
-  ) +
-  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
-  scale_color_viridis_d(option = "plasma", end = 0.8) +
-  scale_x_log10() +
-  labs(
-    x = "Odds Ratio (log scale)",
-    y = NULL
-  ) +
-  guides(color="none") +
-  theme_minimal()
-```
+As shown in @fig-rupture-descriptive, older volunteers tend to have less ruptures than younger ones; less educated volunteers (in particular "infra bac") tend to have more ruptures than those with higher education; refugees tend to have less ruptures than non-refugees; male volunteers tend to have slightly more ruptures than female ones; volunteers in the "Relai" program tend to have slightly less ruptures than volunteers in the "Coeur" program; volunteers from "QPV" residential areas tend to have considerably higher rupture rates than volunteers from other residential areas. 
 
 ```{r}
 #| label: fig-rupture-descriptive 
 #| fig-cap: Percentages of rupture for (allegedly) negative reasons for different groups, for different variables.
 
-plot_variables <- c("age_categorie", "type_volontaire", "niveau_etudes", "sexe")
+plot_variables <- c("age_categorie", "type_volontaire", "niveau_etudes", "sexe", "refugie", "zone_residence")
 
-count_plot_data <- combined %>%
+plot_data <- combined %>%
   mutate(across(all_of(plot_variables), as.character)) %>%
   pivot_longer(cols = all_of(plot_variables), names_to = "variable", values_to = "level") %>%
   drop_na(level) |> 
@@ -1885,7 +2398,15 @@ count_plot_data <- combined %>%
   mutate(pct = n / sum(n) * 100) |> 
   ungroup()
 
-ggplot(count_plot_data, aes(x = level, y = pct, fill = factor(rupture_negative))) +
+# add correct levels for order
+level_orders <- lapply(combined[plot_variables], levels)
+
+plot_data <- plot_data %>%
+  group_by(variable) %>%
+  mutate(level = factor(level, levels = level_orders[[unique(variable)]])) %>%
+  ungroup()
+
+ggplot(plot_data, aes(x = level, y = pct, fill = factor(rupture_negative))) +
   geom_col(position = position_dodge(width = 0.9)) +
   geom_text(
     aes(label = sprintf("%.1f%%", pct)),
@@ -1897,109 +2418,76 @@ ggplot(count_plot_data, aes(x = level, y = pct, fill = factor(rupture_negative))
   facet_wrap(~ variable, scales = "free_x") +
   labs(
     x = NULL, y = "Share",
-    fill = "Contract status",
+    fill = "Rupture",
   ) +
   scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
-  coord_cartesian(ylim = c(0, max(count_plot_data$pct) * 1.2)) +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 20, hjust = 1))
+  coord_cartesian(ylim = c(0, max(plot_data$pct) * 1.2)) +
+  plot_theme +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1), 
+        legend.position = "top")
 ```
 
 ### Other factors
 
 For non-demographic variables, investigating their relationship with rupture is not possible--simply because, by definition, for questions that have been only asked at "q2" and "q3", volunteers who had ended their contract early were not available anymore (see @tbl-rupture-candidates). Only for the two variables that have been asked at "q1": 
 
-1. `perception_avenir_num` (Concernant votre avenir, êtes-vous...? 	Très confiant(e); Assez confiant(e); Peu confiant(e); Pas du tout confiant(e))^[Note `_num` in the variable name stands for 'numeric': we use a numeric version, from "Pas du tout confiant(e)" = 1, to "Très confiant(e)" = 4.]
+1. `perception_avenir` (Concernant votre avenir, êtes-vous...? 	Très confiant(e); Assez confiant(e); Peu confiant(e); Pas du tout confiant(e))
 2. `action_individuelle_societe` (En général, pensez-vous que votre action individuelle peut contribuer à changer la société ? 	Oui; Pas vraiment; Non)
 
-@fig-rupture-model-other shows how these variables predict rupture. The variable `action_individuelle_societe` is categorical and can be interpreted like the demographic variables in the previous results: one category serves as the reference (omitted) category, and the reported odds ratios represent how the odds of rupture differ relative to that reference. The variable `perception_avenir_num` is numeric (on a scale from 1 to 4). For numeric predictors, the estimated odds ratio indicates how much the odds of rupture change, on average, for each one-unit increase on the scale. For example, the resulting estimate of 1.14 in @fig-rupture-model-other for `perception_avenir_num` means that, on average, a one point increase in confidence about one's future corresponds to 14% higher odds of rupture. In other words, the results suggest that, the more confident volunteers are about their future, the more likely they are to have a rupture, on average. However, @fig-rupture-perception_avenir zooms in on this finding and suggests that this average effect is mostly driven by those volunteers who are "very confident". 
+As shown in @fig-rupture-other, perhaps unsurprisingly, those volunteers who tend to think that their individual action can contribute to changing society tend to disrupt their contract less. Interestingly, volunteers who are very confident regarding their future tend to distrupt their contract more. 
 
 ```{r}
-#| label: tbl-rupture-candidates
-#| tbl-cap: Candidate variables to evaluating their association with rupture.
+#| label: fig-rupture-other
+#| fig-cap: Percentages of rupture for (allegedly) negative reasons, as a function of (i) the volunteers' confidence in their future and (ii) their perception that their individual action can contribute to changing society.
 
-factors_for_rupture <- c("perception_avenir", 
-                         "projet_avenir_concret", "action_individuelle_societe", 
-                         "comparaison_utilite_autres", "fierte",
-                         "confiance_en_soi", "confiance_avenir_personnel",
-                         "impact_situation_actuelle", "integration")
+plot_variables <- c("perception_avenir", "action_individuelle_societe")
 
+plot_data <- combined %>%
+  mutate(across(all_of(plot_variables), as.character)) %>%
+  pivot_longer(cols = all_of(plot_variables), names_to = "variable", values_to = "level") %>%
+  drop_na(level) |> 
+  mutate(level = factor(level)) %>%
+  group_by(variable, level, rupture_negative) |> 
+  summarize(n = n_distinct(id_jeune)) |> 
+  group_by(variable, level) %>%
+  mutate(pct = n / sum(n) * 100) |> 
+  ungroup()
 
-combined |> 
-  pivot_longer(all_of(factors_for_rupture), 
-               names_to = "variable", 
-               values_to = "value") |> 
-  drop_na(value) |> 
-  distinct(variable, source) |> 
-  kbl()
-```
+# add correct levels for order
+level_orders <- lapply(combined[plot_variables], levels)
 
-```{r}
-#| label: fig-rupture-model-other 
-#| fig-cap: Effects of demographic factors on negative ruptures. The outcome is binary (no negative rupture vs. negative rupture). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+plot_data <- plot_data %>%
+  group_by(variable) %>%
+  mutate(level = factor(level, levels = level_orders[[unique(variable)]])) %>%
+  ungroup()
 
-
-model_results <- model_results_other_variables %>%
-  mutate(
-    label = round(estimate, digits = 2)
-  )
-
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
-  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
-  geom_point() +
+ggplot(plot_data, aes(x = level, y = pct, fill = factor(rupture_negative))) +
+  geom_col(position = position_dodge(width = 0.9)) +
   geom_text(
-    aes(label = label),
-    vjust = -0.4,  # just slightly to the right of the point
-    size = 3,
-    check_overlap = TRUE  # avoid overlapping labels
+    aes(label = sprintf("%.1f%%", pct)),
+    position = position_dodge(width = 0.9),
+    vjust = -0.3,
+    size = 3
   ) +
-  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
-  scale_color_viridis_d(option = "plasma", end = 0.8) +
-  scale_x_log10() +
+  scale_fill_viridis_d(option = "rocket", direction = -1) +
+  facet_wrap(~ variable, scales = "free_x") +
   labs(
-    x = "Odds Ratio (log scale)",
-    y = NULL
+    x = NULL, y = "Share",
+    fill = "Rupture",
   ) +
-  guides(color="none") +
-  theme_minimal()
-```
-
-
-```{r}
-#| label: fig-rupture-perception_avenir
-#| fig-cap: "Number of volunteers with a negative rupture, as a function of their confidence in their future."
-
-combined |> 
-  drop_na(perception_avenir) |> 
-  group_by(rupture_negative, perception_avenir) |> 
-  summarise(
-    count = n_distinct(id_jeune)
-  ) |> 
-  group_by(perception_avenir) |> 
-  mutate(share = round(count / sum(count), 3)
-         ) |> 
-  ggplot(aes(x = perception_avenir, y = share, fill = rupture_negative)) +
-  geom_col(position = "dodge") +
-  scale_fill_viridis_d(option = "rocket", begin = 0.2, end = 0.8) +
-  geom_text(aes(label = paste0(share*100, "%")), 
-            position = position_dodge(width = 0.9),,
-            vjust = -0.5, size = 3) +
-  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.1))) +
-  labs(
-    x = "Perception Avenir",
-    y = "Share of volunteers", 
-    fill = "Rupture"
-  ) +
-  plot_theme 
-  
+  scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct) * 1.2)) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1), 
+        legend.position = "top")
 ```
 
 # Satisfaction {#sec-satisfaction}
 
-In this section, we look at satisfaction ("D'une manière générale, diriez-vous que votre Service Civique s'est déroulé de façon..." with levels 1, "pas du tout satisfaisainte", to 4, "très satisfaisante")^[In all analyses we treat this as a continuous variable]. As shown in @fig-satisfaction-descriptive, taking all cohorts together, the majority of volunteers thinks their experience is "très satisfaisant". 
+In this section, we look at satisfaction ("D'une manière générale, diriez-vous que votre Service Civique s'est déroulé de façon..." with levels 1, "pas du tout satisfaisainte", to 4, "très satisfaisante")^[In all analyses we treat this as a continuous variable]. As shown in @fig-satisfaction-overview, taking all cohorts together, the majority of volunteers thinks their experience is "très satisfaisant". 
 
 ```{r}
-#| label: fig-satisfaction-descriptive
+#| label: fig-satisfaction-overview
 #| fig-cap: "Répartition des niveaux de satisfaction" 
 #| fig-subcap:
 #|   - "(absolute numbers)"
@@ -2049,7 +2537,7 @@ combined |>
 
 ## Change in Satisfaction
 
-@fig-satisfaction shows how satisfaction with the service civique has changed over time, between the different cohorts. The share of volunteers who are "very satisfied" has decreased over time, but the shares of those who are not or little satisfied have remained broadly stable. 
+@fig-satisfaction shows how satisfaction with the service civique has changed over time, between the different cohorts. The share of volunteers who are "very satisfied" has decreased over time, but the shares of those who are "not" or "little" satisfied have remained broadly stable. 
 
 ```{r}
 #| label: fig-satisfaction
@@ -2097,18 +2585,14 @@ combined |>
   facet_wrap(~promo) +  # Facet by promo
   plot_theme +
   theme(
-    axis.text.x = element_text(angle = 15, hjust = 1)  # Rotate x-axis labels
+    axis.text.x = element_text(angle = 20, hjust = 1)  # Rotate x-axis labels
   )
 
 ```
 
 ## What predicts whether volunteers are more satisfied ?
 
-For analyses on what predicts satisfaction, we treat satisfaction as a continuous variable (from 1, "Pas du tout satisfaisante", to 4, "Très satisfaisante"). Because this outcome is continuous, we run linear regressions (and not logistic regressions, as before) on it. The results for demographic variables are displayed in @fig-rupture-model-demographic, for other variables in @fig-rupture-model-other. 
-
-### Demographic factors
-
-The results of the linear regressions are more straightforward to interpret. For categorical predictors (i.e., all demographic variables), the estimate is simply the average difference between the shown category and the (again, omitted) baseline category. For example, as shown with the variable `refugie`, refugees tend to be, on average, more satisfied by 0.2 points (on the 4-point satisfaction scale) than non-refugees.
+Statistical models on satisfaction can be found in the Appendix (@sec-appendix-satisfaction). Here, we only report the variables that were statistically significant in these models. 
 
 ```{r}
 # non-demographic variables 
@@ -2131,7 +2615,7 @@ satisfaction_data <- combined |>
   ungroup()
 
 # Fit one model per other variable
-model_results_other_variables <- factors_for_satisfaction %>%
+model_results_satisfaction_other_variables <- factors_for_satisfaction %>%
   map_dfr(function(var) {
     df <- satisfaction_data %>%
       select(satisfaction_num, !!sym(var)) %>%
@@ -2147,11 +2631,12 @@ model_results_other_variables <- factors_for_satisfaction %>%
 
     tidy(model, conf.int = TRUE) %>%
       filter(term != "(Intercept)") %>%
-      mutate(variable = var)
+      mutate(variable = var,
+             significant = ifelse(p.value <= 0.05, TRUE, FALSE))
   })
 
 # Fit one model per demographic variable
-model_results_demographic_variables <- demographic_variables %>%
+model_results_satisfaction_demographic_variables <- demographic_variables %>%
   map_dfr(function(var) {
     df <- satisfaction_data %>%
       select(satisfaction_num, !!sym(var)) %>%
@@ -2167,83 +2652,206 @@ model_results_demographic_variables <- demographic_variables %>%
 
     tidy(model, conf.int = TRUE) %>%
       filter(term != "(Intercept)") %>%
-      mutate(variable = var)
+      mutate(variable = var,
+             significant = ifelse(p.value <= 0.05, TRUE, FALSE))
   })
 
 
 # check
-# model_results_other_variables
+# model_results_satisfaction_demographic_variables |> 
+#   filter(significant)
+# 
+# model_results_satisfaction_other_variables |> 
+#   filter(significant)
+
 ```
 
+### Demographic factors
+
+As shown in @fig-satisfaction-descriptive, older volunteers tend to be more satisfied than younger ones; more educated volunteers tend to be more satisfied than less educated; refugees tend to have less ruptures than non-refugees; volunteers in the "Relai" program tend to be more satisfied than volunteers in the "Coeur" program; probably unsurprisingly, volunteers who have a rupture tend to be less satisfied than volunteers who don't. 
+
 ```{r}
-#| label: fig-satisfaction-demographic-variables 
-#| fig-cap: Effects of demographic factors on satisfaction.
+#| label: fig-satisfaction-descriptive 
+#| fig-cap: Share of volunteers responding to the different satisfaction levels, grouped by different variables.
 
+plot_variables <- c("rupture", "age_categorie", "type_volontaire", "niveau_etudes")
 
-model_results <- model_results_demographic_variables %>%
-  mutate(
-    label = round(estimate, digits = 2)
-  )
+plot_data <- combined %>%
+  mutate(across(all_of(plot_variables), as.character)) %>%
+  pivot_longer(cols = all_of(plot_variables), names_to = "variable", values_to = "level") %>%
+  drop_na(level) |> 
+  drop_na(satisfaction) |> 
+  group_by(variable, level, satisfaction) |> 
+  summarize(n = n_distinct(id_jeune)) |> 
+  group_by(variable, level) %>%
+  mutate(pct = n / sum(n) * 100) |> 
+  ungroup()
 
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
-  geom_point() +
+# add correct levels for order
+level_orders <- lapply(combined[plot_variables], levels)
+
+plot_data <- plot_data %>%
+  group_by(variable) %>%
+  mutate(level = factor(level, levels = level_orders[[unique(variable)]])) %>%
+  ungroup()
+
+# set colours
+ggplot(plot_data, aes(x = level, y = pct, fill = factor(satisfaction))) +
+  geom_col(position = position_dodge(width = 0.9)) +
   geom_text(
-    aes(label = label),
-    vjust = -0.4,  # just slightly to the right of the point
-    size = 3,
-    check_overlap = TRUE  # avoid overlapping labels
+    aes(label = sprintf("%.1f%%", pct)),
+    position = position_dodge(width = 0.9),
+    vjust = -0.3,
+    size = 3
   ) +
-  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
-  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  scale_fill_brewer(palette = "Blues") +
+  facet_wrap(~ variable, scales = "free_x") +
   labs(
-    x = "Estimate (on a scale from 1 to 4)",
-    y = NULL
+    x = NULL, y = "Share",
+    fill = "Satisfaction",
   ) +
-  guides(color="none") +
-  theme_minimal()
+  scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  plot_theme +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1), 
+        legend.position = "top")
 ```
 
 ### Other factors
 
-Some of the non-demographic variables are numeric^[All variable names that end with `_num` have been treated as numeric for the present analyses], for example, `confiance_en_soi_num` (Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ? 1 - Non, pas du tout; 2 - Non, pas vraiment; 3 - Oui, assez; 4 - Oui, beaucoup). 
+The following variables are statistically associated with satisfaction (@fig-satisfaction-other): 
 
-For numeric variables, the estimates represent how much satisfaction increases or decreases with a one-unit increase in the predictor variable. For example, for `confiance_en_soi_num`, the estimate is 0.33. `confiance_en_soi_num` takes values on a 4-point scale (from 1, "Non, pas du tout", to 4, "Oui, beaucoup"). This means that, on average, a one unit increase in `confiance_en_soi_num` is associated with a 0.33 point in crease in satisfaction (4-point scale). 
+- `comparaison_utilite_autres` ["Diriez-vous que votre Service Civique a été...? 	Plus utile à vous qu'aux autres; Autant utile à vous qu'aux autres; Moins utile à vous qu'aux autres"]. Probably unsurprisingly, volunteers who believe the service civique was less useful for them than for others tend to be less satisfied than those who think it was more usefult to them 
+- `fierte` ["Vous sentez-vous fier de ce que vous avez accompli pendant votre Service Civique ? 	Oui, tout à fait; Oui, un peu; Non, pas vraiment; Non, pas du tout"]. Volunteers who are more proud with what they have achieved during their service civique also tend to be more satisfied. 
+- `confiance_en_soi` ["Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ? 	Oui, beaucoup; Oui, assez; Non, pas vraiment; Non, pas du tout; Je ne sais pas"] Volunteers who have gained confidence also tend to be more satisfied.
+- `confiance_avenir_personnel` ["Concernant votre avenir personnel, êtes-vous...? 	Très confiant.e; Assez confiant.e; Peu confiant.e; Pas du tout confiant.e"] Volunteers who are more confident about their future also tend to be more satisfied. 
 
 ```{r}
-#| label: fig-satisfaction-other-variables 
-#| fig-cap: Effects of other, non-demographic factors on satisfaction.
+#| label: fig-satisfaction-other
+#| fig-cap: Share of volunteers responding to the different satisfaction levels, grouped by different variables.
 
-model_results <- model_results_other_variables %>%
-  mutate(
-    label = round(estimate, digits = 2)
-  )
+plot_variables <- c(
+  "comparaison_utilite_autres",
+  "fierte",
+  "confiance_en_soi",
+  "confiance_avenir_personnel"
+)
 
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
-  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
-  geom_point() +
+plot_data <- combined %>%
+  mutate(across(all_of(plot_variables), as.character)) %>%
+  pivot_longer(cols = all_of(plot_variables), names_to = "variable", values_to = "level") %>%
+  drop_na(level) |> 
+  drop_na(satisfaction) |> 
+  group_by(variable, level, satisfaction) |> 
+  summarize(n = n_distinct(id_jeune)) |> 
+  group_by(variable, level) %>%
+  mutate(pct = n / sum(n) * 100) |> 
+  ungroup()
+
+# add correct levels for order
+level_orders <- lapply(combined[plot_variables], levels)
+
+plot_data <- plot_data %>%
+  group_by(variable) %>%
+  mutate(level = factor(level, levels = level_orders[[unique(variable)]])) %>%
+  ungroup()
+
+# set colours
+ggplot(plot_data, aes(x = level, y = pct, fill = factor(satisfaction))) +
+  geom_col(position = position_dodge(width = 0.9)) +
   geom_text(
-    aes(label = label),
-    vjust = -0.4,  # just slightly to the right of the point
-    size = 3,
-    check_overlap = TRUE  # avoid overlapping labels
+    aes(label = sprintf("%.1f%%", pct)),
+    position = position_dodge(width = 0.9),
+    vjust = -0.3,
+    size = 3
   ) +
-  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
-  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  scale_fill_brewer(palette = "Blues") +
+  facet_wrap(~ variable, scales = "free_x") +
   labs(
-    x = "Estimate (on a scale from 1 to 4)",
-    y = NULL
+    x = NULL, y = "Share",
+    fill = "Satisfaction",
   ) +
-  guides(color="none") +
-  theme_minimal()
+  scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  plot_theme +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1), 
+        legend.position = "top")
+```
+
+## Differences between key programs
+
+@fig-satisfaction-programs shows descriptive differences in satisfaction between different key programs. 
+
+```{r}
+#| label: fig-satisfaction-programs
+#| fig-cap: "Share of volunteers responding to the different satisfaction levels, grouped by which program they were in. Note that we focus only on key programs here. All other programs appear under 'NA' in the plot."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+plot_data <- combined %>%
+  drop_na(satisfaction) |> 
+  group_by(programme_cle, satisfaction) |> 
+  summarize(n = n_distinct(id_jeune)) |> 
+  group_by(programme_cle) %>%
+  mutate(pct = n / sum(n) * 100) |> 
+  ungroup()
+
+# absolute numbers
+ggplot(plot_data, aes(x = satisfaction, y = n, fill = factor(satisfaction))) +
+  geom_col(position = position_dodge(width = 0.9)) +
+  geom_text(
+    aes(label = n),
+    position = position_dodge(width = 0.9),
+    vjust = -0.3,
+    size = 3
+  ) +
+  scale_fill_brewer(palette = "Blues") +
+  facet_wrap(~ variable, scales = "free_x") +
+  labs(
+    x = NULL, 
+    y = "Number of volunteers",
+    fill = "Satisfaction",
+  ) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.2))) +
+  plot_theme +
+  theme(axis.text.x = element_blank(), 
+        legend.position = "top") +
+  facet_wrap(~programme_cle)
+
+
+# percentages
+ggplot(plot_data, aes(x = satisfaction, y = pct, fill = factor(satisfaction))) +
+  geom_col(position = position_dodge(width = 0.9)) +
+  geom_text(
+    aes(label = sprintf("%.1f%%", pct)),
+    position = position_dodge(width = 0.9),
+    vjust = -0.3,
+    size = 3
+  ) +
+  scale_fill_brewer(palette = "Blues") +
+  facet_wrap(~ variable, scales = "free_x") +
+  labs(
+    x = NULL, 
+    y = "Share of volunteers",
+    fill = "Satisfaction",
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  plot_theme +
+  theme(axis.text.x = element_blank(), 
+        legend.position = "top") +
+  facet_wrap(~programme_cle)
+
 ```
 
 # Confidence in one's future
 
-In this section, we look at confidence in one's future (`perception_avenir`: "Concernant votre avenir, êtes-vous...?" with levels 1, "Pas du tout confiant.e", to 4, "Très confiant.e")^[In all analyses we treat this as a continuous variable]. As shown in @fig-perception-avenir-descriptive, taking all cohorts together, the majority of volunteers are "assez confiant.e". 
+In this section, we look at confidence in one's future (`perception_avenir`: "Concernant votre avenir, êtes-vous...?" with levels 1, "Pas du tout confiant.e", to 4, "Très confiant.e")^[In all analyses we treat this as a continuous variable]. As shown in @fig-perception-avenir-overview, taking all cohorts together, the majority of volunteers are "assez confiant.e". 
 
 ```{r}
-#| label: fig-perception-avenir-descriptive
+#| label: fig-perception-avenir-overview
 #| fig-cap: "Confidence in one's future, pooled across all cohorts." 
 #| fig-subcap:
 #|   - "(absolute numbers)"
@@ -2293,8 +2901,6 @@ combined |>
 
 ```
 
-
-
 ## Change in confidence in one's future
 
 @fig-perception_avenir shows how confidence in one's future has changed over time, between the different cohorts. The results are very stable, with a majority of volunteers being "assez confiant.e" in all cohorts.
@@ -2335,14 +2941,9 @@ combined |>
 
 ```
 
-
 ## What predicts whether volunteers are more confident in their future ? {#sec-perception-avenir}
 
-As for satisfaction above, for analyses on what predicts confident in their future, we treat it as a continuous variable (1, "Pas du tout confiant.e", to 4, "Très confiant.e"). As for satisfaction, because this outcome is continuous, we run linear regressions on it. The results for demographic variables are displayed in @fig-perception-avenir-demographic-variables, for other variables in @fig-perception-avenir-other-variables. 
-
-### Demographic factors
-
-The results suggest that, compared to (the omitted category of 16 to 17 year-olds), 18 to 20 as well as 21 to 23 year-olds are slightly less confident, while 24 to 30 year olds are slightly more confident. Refugees are considerably more competent (0.45, on the 4-point scale) than non-refugees. Male volunteers are also more likely to be confident about their future (0.21), as are volunteers in the "Relais" program (0.13, compared to the "Coeur" program). 
+Statistical models on volunteers' confidence in their future can be found in the Appendix (@sec-appendix-perception-avenir). Here, we only report the variables that were statistically significant in these models. 
 
 ```{r}
 # non-demographic variables 
@@ -2365,7 +2966,7 @@ perception_avenir_data <- combined |>
   ungroup()
 
 # Fit one model per other variable
-model_results_other_variables <- factors_for_perception_avenir %>%
+model_results_perception_other_variables <- factors_for_perception_avenir %>%
   map_dfr(function(var) {
     df <- perception_avenir_data %>%
       select(perception_avenir_num, !!sym(var)) %>%
@@ -2381,11 +2982,12 @@ model_results_other_variables <- factors_for_perception_avenir %>%
 
     tidy(model, conf.int = TRUE) %>%
       filter(term != "(Intercept)") %>%
-      mutate(variable = var)
+      mutate(variable = var,
+             significant = ifelse(p.value <= 0.05, TRUE, FALSE))
   })
 
 # Fit one model per demographic variable
-model_results_demographic_variables <- demographic_variables %>%
+model_results_perception_demographic_variables <- demographic_variables %>%
   map_dfr(function(var) {
     df <- perception_avenir_data %>%
       select(perception_avenir_num, !!sym(var)) %>%
@@ -2401,20 +3003,805 @@ model_results_demographic_variables <- demographic_variables %>%
 
     tidy(model, conf.int = TRUE) %>%
       filter(term != "(Intercept)") %>%
-      mutate(variable = var)
+      mutate(variable = var,
+             significant = ifelse(p.value <= 0.05, TRUE, FALSE))
   })
 
 
 # check
-# model_results_other_variables
+# model_results_perception_demographic_variables |>
+#   filter(significant)
+# 
+# model_results_perception_other_variables |>
+#   filter(significant)
 ```
+
+### Demographic factors
+
+As shown in @fig-perception-avenir-descriptive, volunteers in the "Relai" program tend to be more confident about their future than volunteers in the "Coeur" program; male volunteers tend to be more confident than female ones; refugees tend to be more confident than non-refugees; compared to volunteers from urban residential zones, volunteers from "QPV" zones tend to be slightly more confident, while volunteers from "ZRR" zones tend to be slightly less confident; the more educated volunteers, the less confident they tend to be. For age, the pattern appears non-linear: volunteers from the age group "16-17" tend to be more confident than volunteers from the age groups "18-20" and "21-23", but the most confident on average tend to be volunteers from the age group "24-30". 
+
+```{r}
+#| label: fig-perception-avenir-descriptive
+#| fig-cap: Share of volunteers according to their confidence in their future, grouped by different variables.
+
+plot_variables <- c("rupture", "age_categorie", "type_volontaire", "niveau_etudes")
+
+plot_data <- combined %>%
+  mutate(across(all_of(plot_variables), as.character)) %>%
+  pivot_longer(cols = all_of(plot_variables), names_to = "variable", values_to = "level") %>%
+  drop_na(level) |> 
+  drop_na(perception_avenir) |> 
+  group_by(variable, level, perception_avenir) |> 
+  summarize(n = n_distinct(id_jeune)) |> 
+  group_by(variable, level) %>%
+  mutate(pct = n / sum(n) * 100) |> 
+  ungroup()
+
+# add correct levels for order
+level_orders <- lapply(combined[plot_variables], levels)
+
+plot_data <- plot_data %>%
+  group_by(variable) %>%
+  mutate(level = factor(level, levels = level_orders[[unique(variable)]])) %>%
+  ungroup()
+
+# set colours
+ggplot(plot_data, aes(x = level, y = pct, fill = factor(perception_avenir))) +
+  geom_col(position = position_dodge(width = 0.9)) +
+  geom_text(
+    aes(label = sprintf("%.1f%%", pct)),
+    position = position_dodge(width = 0.9),
+    vjust = -0.3,
+    size = 3
+  ) +
+  scale_fill_brewer(palette = "Purples") +
+  facet_wrap(~ variable, scales = "free_x") +
+  labs(
+    x = NULL, y = "Share",
+    fill = "Confidence in Future",
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  plot_theme +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1), 
+        legend.position = "top")
+```
+
+### Other factors
+
+The only factor which we could statistically relate to confidence in one's future is `action_individuelle_societe` ("En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?" Oui; Pas vraiment; Non). As shown in @fig-perception-avenir-other, volunteers who think they can contribute to society tend to have more confidence in their future than volunteers who don't. 
+
+```{r}
+#| label: fig-perception-avenir-other
+#| fig-cap: Share of volunteers according to their confidence in their future, as a function of whether they think their individual action can contribute to society.
+
+plot_variables <- c("action_individuelle_societe")
+
+plot_data <- combined %>%
+  mutate(across(all_of(plot_variables), as.character)) %>%
+  pivot_longer(cols = all_of(plot_variables), names_to = "variable", values_to = "level") %>%
+  drop_na(level) |> 
+  drop_na(perception_avenir) |> 
+  group_by(variable, level, perception_avenir) |> 
+  summarize(n = n_distinct(id_jeune)) |> 
+  group_by(variable, level) %>%
+  mutate(pct = n / sum(n) * 100) |> 
+  ungroup()
+
+# add correct levels for order
+level_orders <- lapply(combined[plot_variables], levels)
+
+plot_data <- plot_data %>%
+  group_by(variable) %>%
+  mutate(level = factor(level, levels = level_orders[[unique(variable)]])) %>%
+  ungroup()
+
+# set colours
+ggplot(plot_data, aes(x = level, y = pct, fill = factor(perception_avenir))) +
+  geom_col(position = position_dodge(width = 0.9)) +
+  geom_text(
+    aes(label = sprintf("%.1f%%", pct)),
+    position = position_dodge(width = 0.9),
+    vjust = -0.3,
+    size = 3
+  ) +
+  scale_fill_brewer(palette = "Purples") +
+  facet_wrap(~ variable, scales = "free_x") +
+  labs(
+    x = NULL, y = "Share",
+    fill = "Confidence in Future",
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  plot_theme +
+  theme(axis.text.x = element_text(angle = 40, hjust = 1), 
+        legend.position = "top")
+```
+
+## Differences between key programs
+
+@fig-perception-avenir-programs shows descriptive differences in volunteers' confidence in their future between different key programs. 
+
+```{r}
+#| label: fig-perception-avenir-programs
+#| fig-cap: "Number of volunteers responding with different levels of confidence in their future, grouped by which program they were in. Note that we focus only on key programs here. All other programs appear under 'NA' in the plot."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+plot_data <- combined %>%
+  drop_na(perception_avenir) |> 
+  group_by(programme_cle, perception_avenir) |> 
+  summarize(n = n_distinct(id_jeune)) |> 
+  group_by(programme_cle) %>%
+  mutate(pct = n / sum(n) * 100) |> 
+  ungroup()
+
+# absolute numbers
+ggplot(plot_data, aes(x = perception_avenir, y = n, fill = factor(perception_avenir))) +
+  geom_col(position = position_dodge(width = 0.9)) +
+  geom_text(
+    aes(label = n),
+    position = position_dodge(width = 0.9),
+    vjust = -0.3,
+    size = 3
+  ) +
+  scale_fill_brewer(palette = "Purples") +
+  facet_wrap(~ variable, scales = "free_x") +
+  labs(
+    x = NULL, 
+    y = "Number of volunteers",
+    fill = "Confidence in Future",
+  ) +
+  scale_y_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.2))) +
+  plot_theme +
+  theme(axis.text.x = element_blank(), 
+        legend.position = "top") +
+  facet_wrap(~programme_cle)
+
+
+# percentages
+ggplot(plot_data, aes(x = perception_avenir, y = pct, fill = factor(perception_avenir))) +
+  geom_col(position = position_dodge(width = 0.9)) +
+  geom_text(
+    aes(label = sprintf("%.1f%%", pct)),
+    position = position_dodge(width = 0.9),
+    vjust = -0.3,
+    size = 3
+  ) +
+  scale_fill_brewer(palette = "Purples") +
+  facet_wrap(~ variable, scales = "free_x") +
+  labs(
+    x = NULL, 
+    y = "Share of volunteers",
+    fill = "Satisfaction",
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  plot_theme +
+  theme(axis.text.x = element_blank(), 
+        legend.position = "top") +
+  facet_wrap(~programme_cle)
+
+
+```
+
+# Differences between programs {#sec-programs}
+
+```{r}
+program_count <- combined |> 
+  drop_na(programme_1, programme_grouped, programme_cle) |> 
+  summarize(n_programs = n_distinct(programme_1), 
+            n_program_categories = n_distinct(programme_grouped),
+            n_key_programs = n_distinct(programme_cle))
+
+key_programs <- combined |>
+  drop_na(programme_cle) |>
+  distinct(programme_cle) |>
+  pull(programme_cle) |>
+  unique() |>
+  paste(collapse = "; ")
+```
+
+```{r}
+# define non-demographic variables to include in comparison
+factors_for_program_comparison <- c(
+  "satisfaction_num",
+  "perception_avenir_num",
+  "action_individuelle_societe",
+  "comparaison_utilite_autres",
+  "fierte_num",
+  "confiance_en_soi_num",
+  "confiance_avenir_personnel_num",
+  "impact_situation_actuelle"
+)
+```
+
+There are `r program_count$n_programs` different programs, which can be sorted into `r program_count$n_program_categories` different categories (see [Tables](tables.qmd)). Here, we only distinguish between `r program_count$n_key_programs` key program categories, namely: `r key_programs`. @fig-programs-overview provides an overview of the number of volunteers in the different key programs, across promotions.
+
+In the following sections, we look at how volunteers differ demographically between the different key programs. Statistical models on program differences can be found in the Appendix (@sec-appendix-programs). Here, we only descriptively show the differences between programs for those variables that were statistically significant in these models. 
+Each of the following sections focuses on one key program. For relevant variables, we show how the average in the respective key program differs compared to the average of all other key programs combined.
+
+```{r}
+#| label: fig-programs-overview
+#| fig-cap: "Number of volunteers per key program, within the different promos. Note that, in the percentage plot, the percentages are relative to all volunteers from the respective promo. All volunteers who were not included in any of the key programs appear in the plot under 'NA'."
+#| fig-subcap:
+#|   - "(absolute numbers)"
+#|   - "(percentages)" 
+#| layout-ncol: 2
+
+# ABSOLUTE NUMBERS
+
+# Prepare data: Count unique participants per source
+plot_data <- combined |> 
+  group_by(promo, programme_cle) |> 
+  summarise(n_participants = n_distinct(id_jeune)) |> 
+  group_by(promo) |> 
+  mutate(share = n_participants/sum(n_participants)) |> 
+  ungroup()
+
+
+# Plot attrition trend across sources
+ggplot(plot_data, aes(y = programme_cle, x = n_participants, fill = programme_cle)) +
+geom_col() +
+  geom_text(aes(label = n_participants), hjust = -0.5, size = 3) +
+  scale_fill_manual(values = program_colours) +
+  scale_x_continuous(limits = c(0, NA), expand = expansion(mult = c(0, 0.3))) +
+  theme_minimal() +
+  labs(
+    x = "Program",
+    y = "Number of volunteers"
+  ) + 
+  guides(fill = "none") + 
+  plot_theme +
+  facet_wrap(~promo)
+
+# PERCENTAGES
+
+ggplot(plot_data,
+       aes(y = programme_cle, x = share, fill = programme_cle)) +
+  geom_col() +
+  scale_fill_manual(values = program_colours) +
+  geom_text(aes(label = paste0(round(share*100, 1), "%")), hjust = -0.5, size = 3) +
+  scale_x_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.3))) +
+  labs(
+    x = "Program",
+    y = "Share of volunteers"
+  ) +
+  guides(fill = "none") + 
+  plot_theme +
+  facet_wrap(~promo)
+```
+
+## Solidarité Aidants {#sec-ecovolonterre}
+
+```{r}
+# Run on Solidarité Aidants data
+model_results_solidarite_aidants <- run_program_models(
+  data = combined,
+  outcome_var = programme_solidarite_aidants_binary,
+  predictor_sets = demographic_variables
+) 
+
+# check
+# model_results_solidarite_aidants |> 
+#   filter(significant)
+```
+
+Compared to all other programs combined, among the volunteers in the "Solidarité Aidants" program, there tend to be: more female volunteers; less refugees; fewer volunteers in the "16-17" and "24-30" age groups, but more refugees in the age groups "18-20" and "21-23"; more volunteers in rural, "QPV" and "ZRR" residential zones compared to urban ones; more educated volunteers, in particular in the "bac2" category; slightly more volunteers with a declared handicap.
+
+```{r}
+#| label: fig-solidarite-aidants-descriptive
+#| fig-cap: Differences in Solidarité Aidants vs. other programs along demographic factors.
+
+plot_variables <- c(
+  "sexe",
+  "refugie",
+  "age_categorie",
+  "zone_residence",
+  "niveau_etudes",
+  "handicap_auto_declare"
+)
+
+plot_faceted_distribution(
+  data = combined,
+  plot_variables = plot_variables, 
+  fill_var = programme_solidarite_aidants_binary,
+  program_colour = program_colours[1]
+)
+
+```
+
+## Cinéma & Citoyenneté {#sec-cine}
+
+```{r}
+# Run model
+model_results_cine <- run_program_models(
+  data = combined,
+  outcome_var = programme_cine_binary,
+  predictor_sets = demographic_variables
+) 
+
+# check
+# model_results_cine |> 
+#   filter(significant)
+```
+
+Compared to all other programs combined, among the volunteers in the "Cinéma & Citoyenneté" program, there tend to be: more male volunteers; more older volunteers; more volunteers in urbain and "ZRR" residential zones; more educated volunteers; slighly fewer handicaped volunteers; fewer volunteers who have a rupture. 
+
+```{r}
+#| label: fig-cine-descriptive
+#| fig-cap: Differences in Cinéma & Citoyennetévs vs. other programs along demographic factors.
+
+plot_variables <- c(
+  "sexe",
+  "age_categorie",
+  "zone_residence",
+  "niveau_etudes",
+  "rupture" 
+)
+
+plot_faceted_distribution(
+  data = combined,
+  plot_variables = plot_variables, 
+  fill_var = programme_cine_binary,
+  program_colour = program_colours[2]
+)
+```
+
+## Booster {#sec-booster}
+
+```{r}
+# Run model
+model_results_booster <- run_program_models(
+  data = combined,
+  outcome_var = programme_booster_binary,
+  predictor_sets = demographic_variables
+) 
+
+# check
+# model_results_booster |> 
+#   filter(significant)
+```
+
+Compared to all other programs combined, among the volunteers in the "Booster" program, there tend to be: more male volunteers; considerably more younger volunteers; more volunteers in "QPV" residential zones; less educated volunteers; fewer volunteers with a declared and an adimistrative handicap; more volunteers who have a rupture.
+
+```{r}
+#| label: fig-booster-descriptive
+#| fig-cap: Differences in Booster vs. other programs along demographic factors.
+
+plot_variables <- c(
+  "sexe",
+  "age_categorie",
+  "zone_residence",
+  "niveau_etudes",
+  "handicap_auto_declare",
+  "handicap_administratif",
+  "rupture" 
+)
+
+plot_faceted_distribution(
+  data = combined,
+  plot_variables = plot_variables, 
+  fill_var = programme_booster_binary,
+  program_colour = program_colours[3]
+)
+```
+
+## Ecovolonterre {#sec-ecovolonterre}
+
+```{r}
+# Run model
+model_results_ecovolonterre <- run_program_models(
+  data = combined,
+  outcome_var = programme_ecovolonterre_binary,
+  predictor_sets = demographic_variables
+) 
+
+# check
+# model_results_ecovolonterre |> 
+#   filter(significant)
+```
+
+Compared to all other programs combined, among the volunteers in the "Ecovolonterre" program, there tend to be: more male volunteers; considerably more refugees; more  volunteers in the "21-23" age category; more volunteers in urbain and fewer in "QPV" residential zones; more educated volunteers, in particular far more volunteers in the "bac+3" category; fewer handicapped volunteers; less volunteers who have a rupture.
+
+```{r}
+#| label: fig-ecovolonterre-descriptive
+#| fig-cap: Differences in Ecovolonterre vs. other programs along demographic factors.
+
+plot_variables <- c(
+  "sexe",
+  "refugie",
+  "age_categorie",
+  "zone_residence",
+  "niveau_etudes",
+  "rupture" 
+)
+
+plot_faceted_distribution(
+  data = combined,
+  plot_variables = plot_variables, 
+  fill_var = programme_ecovolonterre_binary,
+  program_colour = program_colours[4]
+)
+```
+
+## Médiaterre {#sec-mediaterre}
+
+```{r}
+# Run model
+model_results_mediaterre <- run_program_models(
+  data = combined,
+  outcome_var = programme_mediaterre_binary,
+  predictor_sets = demographic_variables
+) 
+
+# check
+# model_results_mediaterre |> 
+#   filter(significant)
+```
+
+Compared to all other programs combined, among the volunteers in the "Médiaterre" program, there tend to be: more male volunteers; more older volunteers; considerably more volunteers in "ZRR" residential zones; more educated volunteers.
+
+```{r}
+#| label: fig-mediaterre-descriptive
+#| fig-cap: Differences in Ecovolonterre vs. other programs along demographic factors.
+
+plot_variables <- c(
+  "sexe",
+  "age_categorie",
+  "zone_residence",
+  "niveau_etudes"
+)
+
+plot_faceted_distribution(
+  data = combined,
+  plot_variables = plot_variables, 
+  fill_var = programme_mediaterre_binary,
+  program_colour = program_colours[5]
+)
+```
+
+## ASM {#sec-asm}
+
+```{r}
+# Run model
+model_results_asm <- run_program_models(
+  data = combined,
+  outcome_var = programme_asm_binary,
+  predictor_sets = demographic_variables
+) 
+
+# check
+# model_results_asm |> 
+#   filter(significant)
+```
+
+Compared to all other programs combined, among the volunteers in the "ASM" program, there tend to be: more female volunteers; more  older volunteers, particular in the "21-23" age category; more volunteers in urbain and rural, considerably fewer in "QPV", and none in "ZRR" residential zones; more educated volunteers, in particular far more volunteers in the "bac+3" category; less volunteers who have a rupture.
+
+```{r}
+#| label: fig-asm-descriptive
+#| fig-cap: Differences in ASM vs. other programs along demographic factors.
+
+plot_variables <- c(
+  "sexe",
+  "age_categorie",
+  "zone_residence",
+  "niveau_etudes",
+  "rupture" 
+)
+
+plot_faceted_distribution(
+  data = combined,
+  plot_variables = plot_variables, 
+  fill_var = programme_asm_binary,
+  program_colour = program_colours[6]
+)
+```
+
+## Solidarité Séniors {#sec-solidarite-seniors}
+
+```{r}
+# Run model
+model_results_solidarite_seniors <- run_program_models(
+  data = combined,
+  outcome_var = programme_solidarite_seniors_binary,
+  predictor_sets = demographic_variables
+) 
+
+# check
+# model_results_solidarite_seniors |> 
+#   filter(significant)
+```
+
+Compared to all other programs combined, among the volunteers in the "Solidarité Séniors" program, there tend to be: more female volunteers; more younger volunteers, in particular in the "18-20" age category; more volunteers in rural and in "QPV", but fewer in "ZRR" residential zones; less educated volunteers, in particular fewer volunteers in the "bac+3" category; more volunteers with a declared and with a administrative handicap; more volunteers who have a rupture.
+
+```{r}
+#| label: fig-solidarite-seniors-descriptive
+#| fig-cap: Differences in Solidarité Séniors vs. other programs along demographic factors.
+
+plot_variables <- c(
+  "sexe",
+  "age_categorie",
+  "zone_residence",
+  "niveau_etudes",
+  "handicap_auto_declare",
+  "handicap_administratif",
+  "rupture" 
+)
+
+plot_faceted_distribution(
+  data = combined,
+  plot_variables = plot_variables, 
+  fill_var = programme_solidarite_seniors_binary,
+  program_colour = program_colours[7]
+)
+```
+
+# Conclusion: Some methodological notes
+
+This report can only provide snapshots of the extensive questionnaire data collected by Cités Unies. We aimed to cover a broad range of topics and variables in order to reveal potentially informative patterns and trends. Rather than summarizing these patterns once more, we conclude with several methodological notes that highlight opportunities to improve future impact evaluations based on the questionnaires.
+
+First, the questionnaires could likely be shorter. Reducing the number of questions would probably decrease attrition: volunteers who respond to a very long questionnaire at q1 may be less motivated to complete another long questionnaire at q2, let alone q3. Shorter questionnaires could also improve response quality. When questionnaires are lengthy, respondents may become tired or bored and begin answering quickly and without much attention. Another option to improve response quality would be to include attention checks. That said, because volunteers are not required to take the survey, it is reasonable to assume that those who do participate are generally motivated to complete it in good faith.
+
+Another potential improvement would be to make the questionnaires at different time points more similar. Asking the same questions across multiple waves makes it possible to track how individual volunteers change over the course of their service civique (as done in @sec-within-change).
+
+On a minor note, it may be more informative to ask volunteers about their voting intentions rather than their past voting behavior. There are indications that some volunteers may not interpret the current question about past voting behavior as intended (@fig-vote_derniers_elections-youngest). In addition, changes in past voting behavior are inherently dependent on whether elections happen to occur for a particular cohort during their year of service civique.
+
+Finally, I would like to reiterate a point already raised in the introduction: the questionnaire data are purely observational, and none of the associations presented in this report support specific causal interpretations. For example, in the section on demographic differences between programs (@sec-programs), programs with older volunteers also tend to have more highly educated volunteers. These observations are likely related, since older participants have simply had more time to pursue education. As another example, @fig-satisfaction-programs suggests that fewer volunteers report being "very satisfied" in key programs compared to other programs (listed in the figure under "NA"). However, key programs have attracted an increasing number of volunteers over time (@fig-programs-overview), and some of them are relatively recent. At the same time, the share of volunteers who report being "very satisfied" has declined slightly across cohorts (@fig-satisfaction). It is therefore unclear whether the observed differences are driven by the programs themselves, broader cohort trends in satisfaction, or other unobserved factors.
+
+
+# Appendix 
+
+## Voting {#sec-appendix-voting}
+
+@fig-vote-change-model shows how different demographic variables predict changes in voting behavior. For this analysis, we look at all cohorts together. The outcome, changes in voting behavior, is binary (changed to no vs. changed to yes)^[I.e. ignoring all volunteers who did not change]. 
+
+Plotted on the y-axis are the demographic variables, taken to predict change in voting behavior. For each categorical demographic variable, different levels are shown. For example, for the variable `age_category`, the plot shows three levels: `age_categorie18-20`, `age_categorie21-23`, `age_categorie24-30`. Each of these categories has an estimate (x-axis). These estimates are the results logistic regressions^[For each variable, a separate logistic regression has been run. The estimates from the logistic regression are exponantiated, so that the reported estimates can be interpreted as odds ratios (ORs).]. They indicate how being part of a certain category (e.g. being between 18 and 20 years old) predicts the chances of changing one's voting behavior. The estimates are "odds ratios", which can be conceived of as probabilities: An odds ratio of 1 means that this group has the same chance changing to "no" as changing to "yes". More than 1 means that this group is more likely to change to "yes". For example, an odds ratio of 2.0 means twice as likely. Less than 1 means that this group is more likely to change to "no". An odds ratio of 0.5 means half as likely. 
+
+For each categorical variable, one category is chosen as the baseline (or reference) category. The odds ratios of all other categories are relative to that baseline. For example, for the variable `age_category`, the category "16-17" is not appearing in the graph, because it is the (invisible) baseline category. If the odds ratio for `age_category18–20` is 1.43, this means that 18 to 20 year-olds are more likely to change their vote towards "Yes", compared to 16 to 17 year-olds. More specifically, the odds of changing towards “Yes” among 18–20-year-olds are about 43% higher than among 16–17-year-olds. 
+
+```{r}
+#| label: fig-vote-change-model 
+#| fig-cap: Effects of demographic factors on change in voting behavior. The outcome is binary (changed to no vs. changed to yes). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+
+model_results <- model_results_voting_demographic %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  scale_x_log10() +
+  labs(
+    x = "Odds Ratio (log scale)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+To understand this odds ratio, take @fig-vote_derniers_elections-age: it shows that among the 16 to 17 year-olds, 285 have changed towards "No", while only 238 have changed towards "Yes". That makes the odds of changing towards yes for the youngest age group, chosen as the baseline category in the model, `238:285 = ~0.84`. By contrast, among the 18 to 20 year-olds, the odds were `784:658 = ~1.19`. The odds ratio for the 18 to 20 year-olds compares their odds to those of the 16 to 17 year-olds `odds ratio = 1.19:0.84 = 1.4`. @fig-vote_derniers_elections-age also allows to compare the odds ratios to the percentages for the different age groups. Just like for absolute numbers, the odds ratios can be calculated from the percentages. For example, among the 16 to 17 year-olds, 13.8% have changed towards "No", while 11.5% have changed towards "Yes", making the odds of changing to "Yes", as above, `0.115:0.138 = ~0.83`^[Note that in this illustration, we obtain a slightly different value compared to 0.84 above due to rounding imprecision.]. Among the 18 to 20 year-olds, accordingly, the odds were, as above, `0.174:0.146 = ~1.19`, resulting in the same odds ratio of ~1.4. 
+
+## Individual action for society {#sec-appendix-individual-action}
+
+@fig-action-change-model shows how different demographic variables predict changes in perceptions of one's individual contribution to society. For this analysis, we look at all cohorts together. The outcome, changes in perceptions of one's individual contribution to society, collapsed into a binary measure ("vers Non/Pas vraiment" vs. "vers Oui"). The plots can be interpreted as described above in the section on voting behavior (@sec-appendix-voting). An odds ratio of 1 means that a certain group has the same chance of changing to "Non/Pas vraiment" as changing to "Oui", compared to the baseline group. More than 1 means that this group is more likely to change to "Oui". Less than 1 means that this group is more likely to change to "Non/Pas vraiment". 
+
+```{r}
+#| label: fig-action-change-model 
+#| fig-cap: Effects of demographic factors on change in perceptions of how one's individual actions can contribute to society. The outcome is binary ("vers Non/Pas vraiment" vs. "vers Oui"). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+
+model_results <- model_results_action %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  scale_x_log10() +
+  scale_y_discrete(expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    x = "Odds Ratio (log scale)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal() 
+```
+
+## Rupture {#sec-appendix-rupture}
+
+For analyses on what predicts ruptures, we focus only on volunteers who ended their contract early for apparently *negative* reasons. We used a binary outcome measure (no negative rupture vs. negative rupture) and ran separate logistic regressions with demographic variables (@fig-rupture-model-demographic) a selection of other variables (@fig-rupture-model-other). 
+
+An odds ratio of 1 means that a certain group has the same chance of having a rupture, compared to the baseline group. More than 1 means that this group is more likely to have a rupture. Less than 1 means that this group is less likely to have a rupture.
+
+### Demographics
+
+```{r}
+#| label: fig-rupture-model-demographic 
+#| fig-cap: Effects of demographic factors on negative ruptures. The outcome is binary (no negative rupture vs. negative rupture). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+
+
+model_results <- model_results_rupture_demographic_variables %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  scale_x_log10() +
+  labs(
+    x = "Odds Ratio (log scale)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+### Other factors
+
+@fig-rupture-model-other shows how the two relevant variables predict rupture. The variable `action_individuelle_societe` is categorical and can be interpreted like the demographic variables in the previous results: one category serves as the reference (omitted) category, and the reported odds ratios represent how the odds of rupture differ relative to that reference. The variable `perception_avenir_num` is numeric (on a scale from 1 to 4)^[Note `_num` in the variable name stands for 'numeric': we use a numeric version, from "Pas du tout confiant(e)" = 1, to "Très confiant(e)" = 4.]. For numeric predictors, the estimated odds ratio indicates how much the odds of rupture change, on average, for each one-unit increase on the scale. For example, the resulting estimate of 1.14 in @fig-rupture-model-other for `perception_avenir_num` means that, on average, a one point increase in confidence about one's future corresponds to 14% higher odds of rupture. In other words, the results suggest that, the more confident volunteers are about their future, the more likely they are to have a rupture, on average. @fig-perception-avenir-descriptive suggests that this average effect is mostly driven by those volunteers who are "very confident". 
+
+```{r}
+#| label: tbl-rupture-candidates
+#| tbl-cap: Candidate variables to evaluating their association with rupture.
+
+factors_for_rupture <- c("perception_avenir", 
+                         "projet_avenir_concret", "action_individuelle_societe", 
+                         "comparaison_utilite_autres", "fierte",
+                         "confiance_en_soi", "confiance_avenir_personnel",
+                         "impact_situation_actuelle", "integration")
+
+
+combined |> 
+  pivot_longer(all_of(factors_for_rupture), 
+               names_to = "variable", 
+               values_to = "value") |> 
+  drop_na(value) |> 
+  distinct(variable, source) |> 
+  kbl()
+```
+
+```{r}
+#| label: fig-rupture-model-other 
+#| fig-cap: Effects of demographic factors on negative ruptures. The outcome is binary (no negative rupture vs. negative rupture). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+
+
+model_results <- model_results_rupture_other_variables %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  scale_x_log10() +
+  labs(
+    x = "Odds Ratio (log scale)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+## Satisfaction {#sec-appendix-satisfaction}
+
+For analyses on what predicts satisfaction, we treat satisfaction as a continuous variable (from 1, "Pas du tout satisfaisante", to 4, "Très satisfaisante"). Because this outcome is continuous, we run linear regressions (and not logistic regressions, as before) on it. The results for demographic variables are displayed in @fig-rupture-model-demographic, for other variables in @fig-rupture-model-other. 
+
+### Demographic factors
+
+The results of the linear regressions are more straightforward to interpret. For categorical predictors (i.e., all demographic variables), the estimate is simply the average difference between the shown category and the (again, omitted) baseline category. For example, as shown with the variable `refugie`, refugees tend to be, on average, more satisfied by 0.2 points (on the 4-point satisfaction scale) than non-refugees.
+
+```{r}
+#| label: fig-satisfaction-demographic-variables 
+#| fig-cap: Effects of demographic factors on satisfaction.
+
+
+model_results <- model_results_satisfaction_demographic_variables %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  labs(
+    x = "Estimate (on a scale from 1 to 4)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+### Other factors
+
+Some of the non-demographic variables are numeric^[All variable names that end with `_num` have been treated as numeric for the present analyses], for example, `confiance_en_soi_num` (Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ? 1 - Non, pas du tout; 2 - Non, pas vraiment; 3 - Oui, assez; 4 - Oui, beaucoup). 
+
+For numeric variables, the estimates represent how much satisfaction increases or decreases with a one-unit increase in the predictor variable. For example, for `confiance_en_soi_num`, the estimate is 0.33. `confiance_en_soi_num` takes values on a 4-point scale (from 1, "Non, pas du tout", to 4, "Oui, beaucoup"). This means that, on average, a one unit increase in `confiance_en_soi_num` is associated with a 0.33 point in crease in satisfaction (4-point scale). 
+
+```{r}
+#| label: fig-satisfaction-other-variables 
+#| fig-cap: Effects of other, non-demographic factors on satisfaction.
+
+model_results <- model_results_satisfaction_other_variables %>%
+  mutate(
+    label = round(estimate, digits = 2)
+  )
+
+ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  labs(
+    x = "Estimate (on a scale from 1 to 4)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+## Confidence in one's future {#sec-appendix-perception-avenir}
+
+As for satisfaction above, for analyses on what predicts confident in their future, we treat it as a continuous variable (1, "Pas du tout confiant.e", to 4, "Très confiant.e"). As for satisfaction, because this outcome is continuous, we run linear regressions on it. The results for demographic variables are displayed in @fig-perception-avenir-demographic-variables, for other variables in @fig-perception-avenir-other-variables. 
+
+### Demographic factors
 
 ```{r}
 #| label: fig-perception-avenir-demographic-variables 
 #| fig-cap: Effects of demographic factors on confidence in one's future.
 
 
-model_results <- model_results_demographic_variables %>%
+model_results <- model_results_perception_demographic_variables %>%
   mutate(
     label = round(estimate, digits = 2)
   )
@@ -2446,7 +3833,7 @@ The only other variable we consider here is `action_individuelle_societe` ("En g
 #| label: fig-perception-avenir-other-variables 
 #| fig-cap: Effects of other, non-demographic factors on confidence in one's future.
 
-model_results <- model_results_other_variables %>%
+model_results <- model_results_perception_other_variables %>%
   mutate(
     label = round(estimate, digits = 2)
   )
@@ -2470,57 +3857,17 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   theme_minimal()
 ```
 
-# Differences between programs {#sec-programs}
-
-This section looks at how demographics of volunteers differe between programs. 
-
-```{r}
-program_count <- combined |> 
-  drop_na(programme_1, programme_grouped, programme_cle) |> 
-  summarize(n_programs = n_distinct(programme_1), 
-            n_program_categories = n_distinct(programme_grouped),
-            n_key_programs = n_distinct(programme_cle))
-
-key_programs <- combined |>
-  drop_na(programme_cle) |>
-  distinct(programme_cle) |>
-  pull(programme_cle) |>
-  unique() |>
-  paste(collapse = "; ")
-```
-
-```{r}
-# define non-demographic variables to include in comparison
-factors_for_program_comparison <- c(
-  "satisfaction_num",
-  "perception_avenir_num",
-  "action_individuelle_societe",
-  "comparaison_utilite_autres",
-  "fierte_num",
-  "confiance_en_soi_num",
-  "confiance_avenir_personnel_num",
-  "impact_situation_actuelle"
-)
-```
-
-There are `r program_count$n_programs` different programs, which can be sorted into `r program_count$n_program_categories` different categories (see [Tables](tables.qmd)). Here, we only distinguish between `r program_count$n_key_programs` key program categories, namely: `r key_programs`. 
+## Differences between programs {#sec-appendix-programs}
 
 The following sections show, for each key program category, how the volunteers of that program differ compared to all the other key program categories combined, in terms of demographic variables. The results are expressed in odds ratios, which can be interpreted as above: If the odds ratio is *larger than 1*, then a certain group is *more likely* to be represented in the target key program category, compared to all other programs. For example, in @fig-solidarite-aidants-demographic-variables, there are more 18 to 20 year-olds (odds ratio = 1.18, compared to the omitted baseline, 16 to 17 year-olds) in the "Solidarité Aidants" program, than in the other programs, on average. If the odds ratio *is below 1*, this means that a certain group is *less likely* to be represented in the target key program category. For example, refugees are considerably less likely (odds ratio = 0.17, compared to the omitted baseline, non-refugees) to be in the "Solidarité Aidants" program, compared to all other programs, on average. 
 
-## Solidarité Aidants {#sec-ecovolonterre}
+### Solidarité Aidants 
 
 ```{r}
 #| label: fig-solidarite-aidants-demographic-variables 
 #| fig-cap: Differences in Solidarité Aidants vs. other programs along demographic factors.
 
-# Run on Solidarité Aidants data
-model_results <- run_program_models(
-  data = combined,
-  outcome_var = programme_solidarite_aidants_binary,
-  predictor_sets = demographic_variables
-) 
-
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+ggplot(model_results_solidarite_aidants , aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
   geom_point() +
   geom_text(
@@ -2540,23 +3887,13 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   theme_minimal()
 ```
 
-## Cinéma & Citoyenneté {#sec-cine}
-
-Volunteers who work in cine-related projects tend to be older and more educated. Refugees are less likely to be cine volunteers. If there is a preliminary end to the contract, cine volunteers are more likely to do so because they were offered a CDD of less than 6 months. Refugees are less likely to be cine volunteers, and women, as well as people from urban areas are more likely.
+### Cinéma & Citoyenneté
 
 ```{r}
 #| label: fig-cine-demographic-variables 
 #| fig-cap: Differences in Cinéma & Citoyennetévs vs. other programs along demographic factors
 
-# Run on Cinéma & Citoyenneté data
-model_results <- run_program_models(
-  data = combined,
-  outcome_var = programme_cine_binary,
-  predictor_sets = demographic_variables
-) 
-
-
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+ggplot(model_results_cine, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
   geom_point() +
   geom_text(
@@ -2576,20 +3913,13 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   theme_minimal()
 ```
 
-## Booster {#sec-booster}
+### Booster
 
 ```{r}
 #| label: fig-booster-demographic-variables 
 #| fig-cap: Differences in Booster vs. other programs along demographic factors.
 
-# Run on Booster data
-model_results <- run_program_models(
-  data = combined,
-  outcome_var = programme_booster_binary,
-  predictor_sets = demographic_variables
-) 
-
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+ggplot(model_results_booster, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
   geom_point() +
   geom_text(
@@ -2609,22 +3939,13 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   theme_minimal()
 ```
 
-## Ecovolonterre {#sec-ecovolonterre}
-
-Ecovolonterres tend to be older (mostly in the 21 to 23 agegroup) and more educated than other volunteers. They tend to plan for longer volunteer programs. Ecovolonterres tend to be from more rural but also urban ares (compared to QVP).
+### Ecovolonterre
 
 ```{r}
 #| label: fig-ecovolonterre-demographic-variables 
 #| fig-cap: Differences in Ecovolonterre vs. other programs along demographic factors.
 
-# Run on Ecovolonterre data
-model_results <- run_program_models(
-  data = combined,
-  outcome_var = programme_ecovolonterre_binary,
-  predictor_sets = demographic_variables
-) 
-
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+ggplot(model_results_ecovolonterre, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
   geom_point() +
   geom_text(
@@ -2644,20 +3965,13 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   theme_minimal()
 ```
 
-## Médiaterre {#sec-mediaterre}
+### Médiaterre
 
 ```{r}
 #| label: fig-mediaterre-demographic-variables 
 #| fig-cap: Differences in Médiaterre vs. other programs along demographic factors.
 
-# Run on Médiaterre data
-model_results <- run_program_models(
-  data = combined,
-  outcome_var = programme_mediaterre_binary,
-  predictor_sets = demographic_variables
-) 
-
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+ggplot(model_results_mediaterre , aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
   geom_point() +
   geom_text(
@@ -2677,20 +3991,13 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   theme_minimal()
 ```
 
-## ASM {#sec-asm}
+### ASM 
 
 ```{r}
 #| label: fig-asm-demographic-variables 
 #| fig-cap: Differences in ASM vs. other programs along demographic factors.
 
-# Run on Médiaterre data
-model_results <- run_program_models(
-  data = combined,
-  outcome_var = programme_asm_binary,
-  predictor_sets = demographic_variables
-) 
-
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+ggplot(model_results_asm, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
   geom_point() +
   geom_text(
@@ -2710,20 +4017,13 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   theme_minimal()
 ```
 
-## Solidarité Séniors {#sec-solidarite-seniors}
+### Solidarité Séniors
 
 ```{r}
 #| label: fig-solidarite-seniors-demographic-variables 
 #| fig-cap: Differences in Solidarité Séniors vs. other programs along demographic factors.
 
-# Run on Médiaterre data
-model_results <- run_program_models(
-  data = combined,
-  outcome_var = programme_solidarite_seniors_binary,
-  predictor_sets = demographic_variables
-) 
-
-ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
+ggplot(model_results_solidarite_seniors, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
   geom_point() +
   geom_text(
@@ -2743,11 +4043,6 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   theme_minimal()
 ```
 
-# Conclusion: Some methodological notes
 
-This report can only provide snapshots into the extensive survey data that has been collected by Cité Unis. In general, the questionnaires could probably be shorter. Fewer questions would probably reduce attrition---if volunteers respond to a very long questionnaire at q1, they might not be motivated to again fill out another very long questionnaire at q2, let alone q3. Including fewer questions would probably also improve the quality of responses, as volunteers might get tired or bored with long questionnaires, thus clicking through very quickly and thoughtlessly at some point. Another option to improve quality in responses could be to add attention checks. However, since volunteers are not forced to take the survey, we can probably assume that those who take it are motivated to fill it out faithfully. 
 
-Another lever for improvement is making the questionnaires at different time points more similar. Asking the same questions at all the different time points allow to track how individual volunteers change throughout their service civique (as in @sec-within-change). 
-
-On a minor note, it might be more interesting to ask volunteers about their voting intentions, rather than their past voting behavior. There is reason to believe that some volunteers do not answer the current question on past behavior as intended (@fig-vote_derniers_elections-youngest). Also, observing change regarding past voting behavior is very dependend on whether elecitons happen to take place for a particular cohort during their year of service civique. 
 

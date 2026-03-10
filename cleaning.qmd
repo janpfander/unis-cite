@@ -507,12 +507,20 @@ combined_data |>
 
 ## Type volontaire
 
-There is one case for which matchin was not possible. Remove this case. 
+There is one case for which matching was not possible. Remove this case. 
 
 ```{r}
 combined_data <- combined_data |> 
   filter(type_volontaire != "Matching non possible")
 ```
+
+Also, make a factor variable.
+
+```{r}
+combined_data <- combined_data |> 
+  mutate(type_volontaire = factor(type_volontaire))
+```
+
 
 ## Satisfaction
 
@@ -529,8 +537,7 @@ combined_data <- combined_data |>
         "Peu satisfaisante",
         "Assez satisfaisante",
         "Très satisfaisante"
-      ),
-      ordered = TRUE
+      )
     ),
     satisfaction_num = as.numeric(satisfaction)
   )
@@ -550,6 +557,16 @@ combined_data <- combined_data %>%
       "Oui, assez"          = 3,
       "Oui, beaucoup"       = 4,
       "Je ne sais pas"      = NA_real_  # treat as missing
+    ),
+    confiance_en_soi = factor(
+      confiance_en_soi,
+      levels = c(
+        "Non, pas du tout",
+        "Non, pas vraiment",
+        "Oui, assez",
+        "Oui, beaucoup",
+        "Je ne sais pas"
+      )
     )
   )
 ```
@@ -564,6 +581,31 @@ combined_data <- combined_data %>%
       "Peu confiant.e"         = 2,
       "Assez confiant.e"       = 3,
       "Très confiant.e"        = 4
+    ),
+    confiance_avenir_personnel = factor(
+      confiance_avenir_personnel,
+      levels = c(
+        "Pas du tout confiant.e",
+        "Peu confiant.e",
+        "Assez confiant.e",
+        "Très confiant.e"
+      )
+    )
+  )
+```
+
+## Comparaison utlie autres
+
+```{r}
+combined_data <- combined_data %>%
+  mutate(
+    comparaison_utilite_autres = factor(
+      comparaison_utilite_autres,
+      levels = c(
+        "Moins utile à vous qu'aux autres",
+        "Autant utile à vous qu'aux autres",
+        "Plus utile à vous qu'aux autres"
+      )
     )
   )
 ```
@@ -574,10 +616,19 @@ combined_data <- combined_data %>%
 combined_data <- combined_data %>%
   mutate(
     fierte_num = recode(fierte,
-      "Non, pas du tout"   = 1,
-      "Non, pas vraiment"  = 2,
-      "Oui, un peu"        = 3,
-      "Oui, tout à fait"   = 4
+                        "Non, pas du tout"   = 1,
+                        "Non, pas vraiment"  = 2,
+                        "Oui, un peu"        = 3,
+                        "Oui, tout à fait"   = 4
+    ),
+    fierte = factor(
+      fierte,
+      levels = c(
+        "Non, pas du tout",
+        "Non, pas vraiment",
+        "Oui, un peu",
+        "Oui, tout à fait"
+      )
     )
   )
 ```
@@ -597,8 +648,7 @@ combined_data  <- combined_data  |>
       "Peu confiant(e)",
       "Assez confiant(e)",
       "Très confiant(e)"
-      ),
-      ordered = TRUE
+      )
     )
   )
 ```
@@ -618,6 +668,35 @@ combined_data <- combined_data %>%
   )
 ```
 
+## Individual action
+
+```{r}
+combined_data <- combined_data |> 
+  mutate(action_individuelle_societe = factor(
+      action_individuelle_societe,
+      levels = c(
+      "Non",
+      "Pas vraiment",
+      "Oui")
+      )
+      )
+```
+
+## Zone residence
+
+```{r}
+combined_data <- combined_data |> 
+  mutate(zone_residence = factor(
+      zone_residence,
+      levels = c(
+      "Urbaine",
+      "Rurale",
+      "QPV", 
+      "ZRR")
+      )
+      )
+```
+
 ## Education
 
 Make factor and order levels. 
@@ -633,8 +712,7 @@ combined_data <- combined_data |>
     ),
     niveau_etudes = factor(
       niveau_etudes,
-      levels = c("infra_bac", "bac_bac2", "bac3_plus"),
-      ordered = TRUE
+      levels = c("infra_bac", "bac_bac2", "bac3_plus")
     )
   )
 ```
@@ -651,6 +729,28 @@ combined_data  <- combined_data  |>
                   "M" = "male"),
     sexe = factor(sexe, levels = c("female", "male"))
   )
+```
+
+## Age
+
+```{r}
+combined_data <- combined_data |> 
+  mutate(age_categorie = factor(
+      age_categorie,
+      levels = c(
+      "16-17",
+      "18-20",
+      "21-23",
+      "24-30")
+      )
+      )
+```
+
+## Refugie
+
+```{r}
+combined_data <- combined_data |> 
+  mutate(refugie = factor(refugie))
 ```
 
 ## Programme grouped
@@ -779,6 +879,19 @@ combined_data  <- combined_data  %>%
         !str_detect(programme_1, regex("Re'pairs Santé Mentale", ignore_case = TRUE)) ~ "ASM",
       str_detect(programme_1, regex("Solidarité Sén", ignore_case = TRUE)) ~ "Solidarité Séniors",
       TRUE ~ NA_character_
+    ),
+    # make it a factor in the desired order
+    programme_cle = factor(
+      programme_cle,
+      levels = c(
+        "Solidarité Aidants",
+        "Cinéma & Citoyenneté",
+        "Booster",
+        "Ecovolonterre",
+        "Médiaterre",
+        "ASM",
+        "Solidarité Séniors"
+      )
     )
   )
 
