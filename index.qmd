@@ -3552,7 +3552,7 @@ On a minor note, it may be more informative to ask volunteers about their voting
 Finally, I would like to reiterate a point already raised in the introduction: the questionnaire data are purely observational, and none of the associations presented in this report support specific causal interpretations. For example, in the section on demographic differences between programs (@sec-programs), programs with older volunteers also tend to have more highly educated volunteers. These observations are likely related, since older participants have simply had more time to pursue education. As another example, @fig-satisfaction-programs suggests that fewer volunteers report being "very satisfied" in key programs compared to other programs (listed in the figure under "NA"). However, key programs have attracted an increasing number of volunteers over time (@fig-programs-overview), and some of them are relatively recent. At the same time, the share of volunteers who report being "very satisfied" has declined slightly across cohorts (@fig-satisfaction). It is therefore unclear whether the observed differences are driven by the programs themselves, broader cohort trends in satisfaction, or other unobserved factors.
 
 
-# Appendix 
+# Supplemental materials: Appendix 
 
 ## Voting {#sec-appendix-voting}
 
