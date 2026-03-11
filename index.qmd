@@ -365,7 +365,7 @@ ggplot(sex_data,
 
 # Attrition {#sec-attrition}
 
-As part of their service civique, each volunteer is asked to fill out three different questionnaires: the first one at the onset of their service civique (later on referred to as "q1"), the second one at the end ("q2"), and the third one six months after their service civique ("q1"). Answering these questionnaires is voluntary, and response rates typically decline considerably from the first to the third questionnaire. These declining response rates are referred to as "attrition". Some volunteers do not even respond to any one questionnaire^[Cité Unis nevertheless has some administrative data on volunteers who did not respond to a single questionnaire, for example which program they have been in. In some of the plots in this report, notably in @sec-attrition, these volunteers appear under the label "q0".]. 
+As part of their service civique, each volunteer is asked to fill out three different questionnaires: the first one at the onset of their service civique (later on referred to as "q1"), the second one at the end ("q2"), and the third one six months after their service civique ("q3"). Answering these questionnaires is voluntary, and response rates typically decline considerably from the first to the third questionnaire. These declining response rates are referred to as "attrition". Some volunteers do not even respond to any one questionnaire^[Cité Unis nevertheless has some administrative data on volunteers who did not respond to a single questionnaire, for example which program they have been in. In some of the plots in this report, notably in @sec-attrition, these volunteers appear under the label "q0".]. 
 
 Attrition can can have many causes. Here we distinguish between two explanations: ruptures, i.e. volunteers ending their service civique early (@sec-rupture) and survey fatigue, i.e. volunteers who continue their service civique but do not fill out the questionnaires (@fig-attrition-norupture). 
 
@@ -2668,7 +2668,7 @@ model_results_satisfaction_demographic_variables <- demographic_variables %>%
 
 ### Demographic factors
 
-As shown in @fig-satisfaction-descriptive, older volunteers tend to be more satisfied than younger ones; more educated volunteers tend to be more satisfied than less educated; refugees tend to have less ruptures than non-refugees; volunteers in the "Relai" program tend to be more satisfied than volunteers in the "Coeur" program; probably unsurprisingly, volunteers who have a rupture tend to be less satisfied than volunteers who don't. 
+As shown in @fig-satisfaction-descriptive, older volunteers tend to be more satisfied than younger ones; more educated volunteers tend to be more satisfied than less educated; volunteers in the "Relai" program tend to be more satisfied than volunteers in the "Coeur" program; probably unsurprisingly, volunteers who have a rupture tend to be less satisfied than volunteers who don't. 
 
 ```{r}
 #| label: fig-satisfaction-descriptive 
@@ -3332,7 +3332,7 @@ Compared to all other programs combined, among the volunteers in the "Cinéma & 
 
 ```{r}
 #| label: fig-cine-descriptive
-#| fig-cap: Differences in Cinéma & Citoyennetévs vs. other programs along demographic factors.
+#| fig-cap: Differences in Cinéma & Citoyenneté vs. other programs along demographic factors.
 
 plot_variables <- c(
   "sexe",
@@ -3891,7 +3891,7 @@ ggplot(model_results_solidarite_aidants , aes(x = estimate, y = fct_rev(term), c
 
 ```{r}
 #| label: fig-cine-demographic-variables 
-#| fig-cap: Differences in Cinéma & Citoyennetévs vs. other programs along demographic factors
+#| fig-cap: Differences in Cinéma & Citoyenneté vs. other programs along demographic factors
 
 ggplot(model_results_cine, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +

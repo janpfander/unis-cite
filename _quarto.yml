@@ -5,7 +5,7 @@ project:
     - "*.qmd"
     - "!simulation.qmd"
     - "!cleaning.qmd"
-    - "!index.fr.qmd"
+    # - "!index.fr.qmd"
     
 website:
   title: "Cité-Unis"
@@ -15,8 +15,8 @@ website:
         menu:
           - href: index.qmd
             text: "English"
-          # - href: index.fr.qmd
-          #   text: "Français"
+          - href: index.fr.qmd
+            text: "Français"
       - href: tables.qmd
         text: "Tables"
       - href: codebook.qmd

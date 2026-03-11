@@ -6,8 +6,7 @@ author:
   corresponding: true
   email: janlukas.pfaender@gmail.com
   affiliations: Paris
-abstract: This report analyzes survey data for four different cohorts of Cité-Unis
-  volunteers who did their service civique (2020-2024).
+abstract: Ce rapport analyse les données d’enquête de quatre cohortes différentes de volontaires de Cité-Unis ayant effectué leur service civique (2020-2024).
 mask: true
 format:
   html: default
@@ -81,29 +80,30 @@ program_colours <- c(
 )
 ```
 
-\\page d'accueil
+\clearpage
 
 # Introduction
 
-Ce rapport analyse les données d'enquête de quatre cohortes différentes de volontaires de Cité Unis qui ont effectué leur service civique en France entre 2020 et 2024.
+Ce rapport analyse les données d’enquête de quatre cohortes différentes de volontaires de Cité Unis ayant effectué leur service civique en France entre 2020 et 2024.
 
-@sec-qui fournit des informations sur l'identité des volontaires, en termes d'âge, de sexe, de niveau d'études et de localisation géographique. @sec-attrition donne un aperçu du nombre de volontaires ayant répondu aux questionnaires à différentes étapes de leur service civique (chaque volontaire est invité à remplir trois questionnaires au total).
+La @sec-who fournit des informations sur le profil des volontaires, notamment en termes d’âge, de sexe, de niveau d’éducation et de localisation géographique. La @sec-attrition présente un aperçu du nombre de volontaires ayant répondu aux questionnaires aux différentes étapes de leur service civique (chaque volontaire est invité à remplir trois questionnaires au total).
 
-Dans @sec-within-change, nous examinons comment les volontaires ont changé certaines attitudes et opinions au cours de leur service civique, et quels facteurs démographiques et autres sont associés à ces changements.
+Dans la @sec-within-change, nous examinons comment certaines attitudes et opinions des volontaires ont évolué au cours de leur service civique, ainsi que les facteurs démographiques et autres associés à ces changements.
 
-Nous examinons ensuite en détail plusieurs résultats intéressants, à savoir si les volontaires mettent fin à leur contrat avant terme (@sec-rupture), s'ils sont satisfaits (@sec-satisfaction) et s'ils ont confiance en leur avenir (@sec-perception-avenir). Pour ces résultats, nous analysons s'il existe des tendances entre les différentes cohortes et si les résultats sont associés à des facteurs démographiques et autres.
+Nous examinons ensuite en détail plusieurs résultats d’intérêt, à savoir si les volontaires mettent fin à leur contrat de manière anticipée (@sec-rupture), leur niveau de satisfaction (@sec-satisfaction) et leur degré de confiance dans leur avenir (@sec-perception-avenir). Pour ces résultats, nous analysons s’il existe des tendances entre les différentes cohortes et si ces résultats sont associés à des facteurs démographiques ou autres.
 
-Dans @sec-programmes, nous étudions les différences démographiques entre les différents programmes clés proposés par Cité Unis à ses volontaires.
+Dans la @sec-programs, nous étudions les différences démographiques entre les principaux programmes proposés par Cité Unis à ses volontaires.
 
-Le rapport se termine par une brève conclusion sur les notes méthodologiques pour les futurs questionnaires.
+Le rapport se termine par une brève conclusion contenant des remarques méthodologiques pour les questionnaires futurs.
 
-Pour ces analyses, nous nous appuyons sur les questionnaires collectés par Cité Unis pour quatre cohortes différentes de volontaires ayant effectué leur service civique pendant un an (2020-2021 ; 2021-2022 ; 2022-2023 ; 2023-2024). Ces questionnaires sont très complets. Pour les présentes analyses, nous avons sélectionné un sous-ensemble de questions clés (la liste complète se trouve dans le... [codebook](codebook.qmd) )^ [Note que les questions ont été sélectionnées sur la base du questionnaire de la première cohorte (2020/21). Par conséquent, les variables potentiellement intéressantes qui n'apparaissent que dans les questionnaires ultérieurs ne figureront pas ici.] .
+Pour ces analyses, nous nous appuyons sur les questionnaires collectés par Cité Unis auprès de quatre cohortes différentes de volontaires ayant effectué un service civique d’un an (2020-2021 ; 2021-2022 ; 2022-2023 ; 2023-2024). Ces questionnaires sont très détaillés. Pour les analyses présentées ici, nous avons sélectionné un sous-ensemble de questions clés (une liste complète est disponible dans le codebook
+)^[Notez que les questions ont été sélectionnées sur la base du questionnaire de la première cohorte (2020/21). Par conséquent, certaines variables potentiellement intéressantes qui n’apparaissent que dans des questionnaires ultérieurs ne figurent pas ici.].
 
-Avant de plonger dans les résultats, il convient de faire preuve de prudence dans l'interprétation des résultats présentés dans ce rapport : Chaque fois que nous parlons de "prédictions", il s'agit simplement d'associations statistiques - c'est-à-dire d'observations de différences entre les groupes. Ce rapport ne **pas** ne fournit pas de preuves qui justifieraient des conclusions causales - des réponses à des questions sur la nature du problème et sur la façon dont il a été résolu. **pourquoi** nous observons ces différences.
+Avant de présenter les résultats, une remarque importante concernant l’interprétation des résultats présentés dans ce rapport : lorsque nous parlons de « prédictions », il s’agit simplement d’associations statistiques — de simples observations de différences entre groupes. Ce rapport ne fournit aucune preuve permettant de tirer des conclusions causales — c’est-à-dire des réponses quant aux raisons pour lesquelles nous observons ces différences.
 
-Parce que les données qui sous-tendent ce rapport sont des données d'observation et - pour la plupart - ne permettent pas de suivre les changements d'opinion (parce que la plupart des questions n'ont été posées qu'une seule fois par cohorte), l'objectif principal de ce rapport n'est pas de fournir des réponses spécifiques et définitives. Au contraire, le but de ce rapport est d'aider Cité Unis à identifier des modèles et à susciter des questions susceptibles d'inspirer de nouvelles procédures d'évaluation. Les résultats quantitatifs présentés ici peuvent servir de points de repère, mais ils ne constituent pas des diagnostics de problèmes. Ils doivent toujours être accompagnés d'évaluations qualitatives des éléments suivants *pourquoi* pourquoi nous observons certaines différences, et ce qui pourrait ou ne pourrait pas être fait pour y remédier.
+Étant donné que les données sur lesquelles repose ce rapport sont observationnelles et — pour la plupart — ne permettent pas de suivre l’évolution des opinions (car la majorité des questions n’ont été posées qu’une seule fois par cohorte), l’objectif principal de ce rapport n’est pas de fournir des réponses spécifiques et définitives. L’objectif est plutôt d’aider Cité Unis à identifier des tendances et à faire émerger des questions susceptibles d’orienter de nouvelles procédures d’évaluation. Les résultats quantitatifs présentés ici peuvent servir d’indications, mais ils ne constituent pas des diagnostics de problèmes. Ils doivent toujours être accompagnés d’analyses qualitatives permettant de comprendre pourquoi nous observons certaines différences, et ce qui pourrait — ou non — être fait pour y répondre.
 
-# Qui sont les bénévoles ? {#sec-who}
+# Qui sont les volontaires ? {#sec-who}
 
 Dans cette section, nous examinons en détail certaines variables démographiques. Un tableau récapitulatif détaillé des données démographiques de l'échantillon pour les différentes cohortes se trouve à l'adresse suivante [Tableaux](tables.qmd).
 
@@ -146,9 +146,9 @@ trend_per_year <- lm(n ~ year, data = n_per_promo) |>
 
 ```
 
-Les bénévoles viennent de `r n_departments` différents départements (voir @fig-map-repartition). En moyenne, dans les différentes cohortes, la plupart des bénévoles venaient de `r participants_per_year_department$NOM[1]` (n = `r participants_per_year_department$n[1]`), suivis par `r participants_per_year_department$NOM[2]` (n = `r participants_per_year_department$n[2]`) et `r participants_per_year_department$NOM[3]` (n = `r participants_per_year_department$n[3]`).
+Les volontaires viennent de `r n_departments` différents départements (voir @fig-map-repartition). En moyenne, dans les différentes cohortes, la plupart des volontaires venaient de `r participants_per_year_department$NOM[1]` (n = `r participants_per_year_department$n[1]`), suivis du `r participants_per_year_department$NOM[2]` (n = `r participants_per_year_department$n[2]`) et `r participants_per_year_department$NOM[3]` (n = `r participants_per_year_department$n[3]`).
 
-Dans l'ensemble, il y a eu une augmentation constante du nombre de bénévoles, de `r first(n_per_promo$n)` en `r first(n_per_promo$promo)` à `r last(n_per_promo$n)` en `r last(n_per_promo$promo)` et une augmentation moyenne de `r trend_per_year$year$estimate` par an. Depuis le `r first(n_per_promo$promo)` cohorte, chaque département a augmenté en moyenne de `r trend_department$mean_trend`. Il y avait `r trend_department$trend_positive` départements qui ont connu une augmentation, et `r trend_department$trend_negative` qui ont connu une diminution (voir @fig-map-trend). Pour plus de détails sur la tendance de chaque département, voir [Tableaux](tables.qmd).
+Dans l'ensemble, il y a eu une augmentation constante du nombre de volontaires, de `r first(n_per_promo$n)` en `r first(n_per_promo$promo)` à `r last(n_per_promo$n)` en `r last(n_per_promo$promo)` et une augmentation moyenne de `r trend_per_year$year$estimate` par an. Depuis la cohorte `r first(n_per_promo$promo)`, le nombre de bénévoles par département a augmenté en moyenne de `r trend_department$mean_trend`. Il y avait `r trend_department$trend_positive` départements qui ont connu une augmentation, et `r trend_department$trend_negative` qui ont connu une diminution (voir @fig-map-trend). Pour plus de détails sur la tendance de chaque département, voir [Tableaux](tables.qmd).
 
 ```{r}
 #| label: fig-map-repartition
@@ -191,7 +191,7 @@ ggplot() +
 
 ## Âge
 
-Comme le montre @fig-age, sur l'ensemble des promos, la majorité des bénévoles a entre 18 et 20 ans. La part de la tranche d'âge des 16-17 ans a augmenté rapidement, doublant à peu près de 13 % en 2020 à 24 % en 2024.
+Comme le montre @fig-age, sur l'ensemble des promos, la majorité des volontaires a entre 18 et 20 ans. La part de la tranche d'âge des 16-17 ans a augmenté rapidement, doublant à peu près de 13 % en 2020 à 24 % en 2024.
 
 ```{r}
 #| label: fig-age
@@ -246,7 +246,7 @@ ggplot(age_data,
 
 ## Éducation
 
-@fig-education montre que les volontaires ayant un "Bac + 3 et plus" sont relativement rares, par rapport aux autres niveaux d'études. La part des bénévoles ayant un "Bac à Bac + 2" est en constante diminution, passant de 48% en 2020-21 à 40% en 2023-24. En revanche, les bénévoles "Infra-bac", sont en augmentation, passant de 32% en 2020-21 à 43% en 2023-24.
+@fig-education montre que les volontaires ayant un "Bac + 3 et plus" sont relativement rares, par rapport aux autres niveaux d'études. La part des volontaires ayant un "Bac à Bac + 2" est en constante diminution, passant de 48% en 2020-21 à 40% en 2023-24. En revanche, les volontaires "Infra-bac" sont en augmentation, passant de 32% en 2020-21 à 43% en 2023-24.
 
 ```{r}
 #| label: fig-education
@@ -357,7 +357,7 @@ ggplot(sex_data,
 
 # Attrition {#sec-attrition}
 
-Dans le cadre de son service civique, chaque volontaire est invité à remplir trois questionnaires différents : le premier au début de son service civique (appelé par la suite "q1"), le deuxième à la fin ("q2"), et le troisième six mois après son service civique ("q1"). La réponse à ces questionnaires est volontaire, et les taux de réponse diminuent généralement de façon considérable entre le premier et le troisième questionnaire. Cette baisse du taux de réponse est appelée "attrition". Certains volontaires ne répondent même pas à un seul questionnaire^ [Cité Unis dispose néanmoins de quelques données administratives sur les volontaires qui n'ont pas répondu à un seul questionnaire, par exemple à quel programme ils ont participé. Dans certains graphiques de ce rapport, notamment dans @sec-attrition, ces volontaires apparaissent sous l'étiquette "q0".] .
+Dans le cadre de son service civique, chaque volontaire est invité à remplir trois questionnaires différents : le premier au début de son service civique (appelé par la suite "q1"), le deuxième à la fin ("q2"), et le troisième six mois après son service civique ("q3"). La réponse à ces questionnaires est volontaire, et les taux de réponse diminuent généralement de façon considérable entre le premier et le troisième questionnaire. Cette baisse du taux de réponse est appelée "attrition". Certains volontaires ne répondent même pas à un seul questionnaire^[Cité Unis dispose néanmoins de quelques données administratives sur les volontaires qui n'ont pas répondu à un seul questionnaire, par exemple à quel programme ils ont participé. Dans certains graphiques de ce rapport, notamment dans @sec-attrition, ces volontaires apparaissent sous l'étiquette "q0".].
 
 L'attrition peut avoir de nombreuses causes. Nous distinguons ici deux explications : les ruptures, c'est-à-dire les volontaires qui mettent fin prématurément à leur service civique (@sec-rupture) et la lassitude face à l'enquête, c'est-à-dire les volontaires qui poursuivent leur service civique mais ne remplissent pas les questionnaires (@fig-attrition-norupture).
 
@@ -502,7 +502,7 @@ ggplot(attrition_percent |>
   facet_wrap(~promo)
 ```
 
-# Comment les bénévoles ont-ils changé d'attitude ? {#sec-within-change}
+# Comment les volontaires ont-ils changé d'attitude ? {#sec-within-change}
 
 Dans la sélection des variables faite pour ce rapport, il n'y a que deux questions qui ont été posées aux volontaires à plusieurs moments de leur service civique :
 
@@ -512,7 +512,7 @@ Dans la sélection des variables faite pour ce rapport, il n'y a que deux questi
 
 ## Vote {#sec-vote}
 
-Dans cette section, nous examinons comment les bénévoles ont changé en ce qui concerne leur comportement de vote. Le comportement électoral a été mesuré à l'aide de la question : "Avez-vous voté lors des dernières élections (locales ou nationales) ?", qui a été posée aux points temporels q1 et q2. @fig-vote\_derniers\_elections-overview montre que, si l'on fait la moyenne de toutes les cohortes et de tous les points dans le temps, la majorité des volontaires déclare avoir voté.
+Dans cette section, nous examinons comment les volontaires ont changé en ce qui concerne leur comportement de vote. Le comportement électoral a été mesuré à l'aide de la question : "Avez-vous voté lors des dernières élections (locales ou nationales) ?", qui a été posée aux points temporels q1 et q2. @fig-vote_derniers_elections-overview montre que, si l'on fait la moyenne de toutes les cohortes et de tous les points dans le temps, la majorité des volontaires déclare avoir voté.
 
 ```{r}
 #| label: fig-vote_derniers_elections-overview
@@ -569,15 +569,15 @@ scale_fill_manual(values = wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 
   plot_theme 
 ```
 
-Dans les sections suivantes, nous étudions comment les volontaires ont changé en répondant à cette question, tout au long de leur service civique. Pour ces analyses, nous ne prenons en compte que les volontaires qui ont répondu à la question aux deux moments, q1 et q2. Les changements vers "Oui" ou "Non" peuvent s'être produits soit à partir de l'autre option respective, soit à partir de la troisième option de réponse : "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales", qui est abrégé dans les graphiques ci-dessous par "Pas sur les listes". Nous examinons les différentes cohortes séparément (promo 2020-21, @fig-vote\_derniers\_elections-2020 ; promo 2021-22, @fig-vote\_derniers\_elections-2021 ; 2022-23, @fig-vote\_derniers\_elections-2022 ; 2023-24, @fig-vote\_derniers\_elections-2023).
+Dans les sections suivantes, nous étudions comment les volontaires ont changé en répondant à cette question, tout au long de leur service civique. Pour ces analyses, nous ne prenons en compte que les volontaires qui ont répondu à la question aux deux moments, q1 et q2. Les changements vers "Oui" ou "Non" peuvent s'être produits soit à partir de l'autre option respective, soit à partir de la troisième option de réponse : "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales", qui est abrégé dans les graphiques ci-dessous par "Pas sur les listes". Nous examinons les différentes cohortes séparément (promo 2020-21, @fig-vote_derniers_elections-2020; promo 2021-22, @fig-vote_derniers_elections-2021; 2022-23, @fig-vote_derniers_elections-2022; 2023-24, @fig-vote_derniers_elections-2023).
 
-Les sections suivantes révèlent des différences considérables entre les cohortes. Par exemple, en 2020-21 et 2021-22, de nombreux bénévoles ont signalé des changements dans leur comportement de vote, mais dans des directions opposées : En 2020-21, 24 % des bénévoles ont changé vers le "Non", dépassant de loin ceux qui ont changé vers le "Oui" (6 %). Inversement, en 2021-22, 35 % des bénévoles ont changé vers le "Oui", tandis que seulement 8 % ont changé vers le "Non".
+Les sections suivantes révèlent des différences considérables entre les cohortes. Par exemple, en 2020-21 et 2021-22, de nombreux volontaires ont signalé des changements dans leur comportement de vote, mais dans des directions opposées : En 2020-21, 24 % des volontaires ont changé vers le "Non", dépassant de loin ceux qui ont changé vers le "Oui" (6 %). Inversement, en 2021-22, 35 % des volontaires ont changé vers le "Oui", tandis que seulement 8 % ont changé vers le "Non".
 
-On ne sait pas exactement pourquoi on observe ces différences. Une explication pourrait être que les bénévoles se soucient davantage des élections nationales que des élections locales (ou vice versa). Si c'est le cas, on pourrait s'attendre à ce que les changements dans le comportement électoral dépendent du fait que des élections nationales ou locales ont eu lieu pendant l'année du service civique d'une cohorte.
+On ne sait pas exactement pourquoi on observe ces différences. Une explication pourrait être que les volontaires se soucient davantage des élections nationales que des élections locales (ou vice versa). Si c'est le cas, on pourrait s'attendre à ce que les changements dans le comportement électoral dépendent du fait que des élections nationales ou locales ont eu lieu pendant l'année du service civique d'une cohorte.
 
 ### Promo 2020-21
 
-@fig-vote\_derniers\_elections-2020 montre l'évolution du comportement de vote déclaré par les bénévoles pour la promo "2020-21".
+@fig-vote_derniers_elections-2020 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2020-21".
 
 ```{r}
 #| label: fig-vote_derniers_elections-2020
@@ -736,7 +736,7 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Promo 2021-22
 
-@fig-vote\_derniers\_elections-2021 montre l'évolution du comportement de vote déclaré par les bénévoles pour la promo "2021-22".
+@fig-vote_derniers_elections-2021 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2021-22".
 
 ```{r}
 #| label: fig-vote_derniers_elections-2021
@@ -832,7 +832,7 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Promo 2022-23
 
-@fig-vote\_derniers\_elections-2022 montre l'évolution du comportement de vote déclaré par les bénévoles pour la promo "2022-23".
+@fig-vote_derniers_elections-2022 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2022-23".
 
 ```{r}
 #| label: fig-vote_derniers_elections-2022
@@ -927,7 +927,7 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Promo 2023-24
 
-@fig-vote\_derniers\_elections-2023 montre l'évolution du comportement de vote déclaré par les bénévoles pour la promo "2023-24".
+@fig-vote_derniers_elections-2023 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2023-24".
 
 ```{r}
 #| label: fig-vote_derniers_elections-2023
@@ -1074,7 +1074,7 @@ model_results_voting_demographic <- factors_for_model  %>%
 
 #### Sexe
 
-Comme le montre la @fig-vote\_derniers\_elections-sexe, les bénévoles féminins ont été plus nombreux à changer vers le "Oui" que vers le "Non". Chez les volontaires masculins, c'est l'inverse qui s'est produit.
+Comme le montre la @fig-vote_derniers_elections-sex, les volontaires féminins ont été plus nombreux à changer vers le "Oui" que vers le "Non". Chez les volontaires masculins, c'est l'inverse qui s'est produit.
 
 ```{r}
 #| label: fig-vote_derniers_elections-sex
@@ -1176,7 +1176,7 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 #### L'âge
 
-@fig-vote\_derniers\_elections-age compare les changements de comportement électoral entre les groupes d'âge. Parmi les 18 à 20 ans, la part des volontaires ayant changé en faveur du "Oui" est la plus élevée. Une interprétation pourrait être que le service civique pourrait encourager ce groupe d'âge en particulier à voter. Cependant, une autre explication pourrait être que ce groupe pourrait voter pour la première fois pendant leur service civique, étant donné que l'âge légal pour voter en France est de 18 ans.
+@fig-vote_derniers_elections-age compare les changements de comportement électoral entre les groupes d'âge. Parmi les 18 à 20 ans, la part des volontaires ayant changé en faveur du "Oui" est la plus élevée. Une interprétation pourrait être que le service civique pourrait encourager ce groupe d'âge en particulier à voter. Cependant, une autre explication pourrait être que ce groupe pourrait voter pour la première fois pendant leur service civique, étant donné que l'âge légal pour voter en France est de 18 ans.
 
 ```{r}
 #| label: fig-vote_derniers_elections-age
@@ -1278,7 +1278,7 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
   theme(axis.text.x = element_text(angle = 20, hjust = 1))
 ```
 
-Accessoirement, en regardant les tranches d'âge de 16 à 17 ans, on s'aperçoit que certaines réponses étaient erronées. En France, l'âge légal pour voter est de 18 ans. Par conséquent, les jeunes de 16 à 17 ans, du moins au début de leur service civique (q0/q1), n'ont jamais été inscrits sur une liste électorale auparavant. Cependant, comme le montre @fig-vote\_derniers\_elections-jeunes, il y a 443 volontaires qui ont répondu "Non" à q0/q1 (ce qui est techniquement vrai, mais n'est pas l'option de réponse la plus spécifique), et 20 qui ont répondu "Oui" (probablement en ne lisant pas la question attentivement ou en cliquant accidentellement sur la mauvaise réponse).
+Accessoirement, en regardant les tranches d'âge de 16 à 17 ans, on s'aperçoit que certaines réponses étaient erronées. En France, l'âge légal pour voter est de 18 ans. Par conséquent, les jeunes de 16 à 17 ans, du moins au début de leur service civique (q0/q1), n'ont jamais été inscrits sur une liste électorale auparavant. Cependant, comme le montre @fig-vote_derniers_elections-youngest, il y a 443 volontaires qui ont répondu "Non" à q0/q1 (ce qui est techniquement vrai, mais n'est pas l'option de réponse la plus spécifique), et 20 qui ont répondu "Oui" (probablement en ne lisant pas la question attentivement ou en cliquant accidentellement sur la mauvaise réponse).
 
 ```{r}
 #| label: fig-vote_derniers_elections-youngest
@@ -1317,7 +1317,7 @@ combined |>
 
 #### Zone de résidence
 
-@fig-vote\_derniers\_elections-residence montre que les volontaires des zones résidentielles "QPV" et ZRR" ont une plus grande tendance à changer vers le "Non", par rapport au "Oui". En revanche, en particulier dans les zones rurales, mais aussi légèrement dans les zones urbaines, plus de bénévoles ont changé vers "Oui".
+@fig-vote_derniers_elections-residence montre que les volontaires des zones résidentielles "QPV" et ZRR" ont une plus grande tendance à changer vers le "Non", par rapport au "Oui". En revanche, en particulier dans les zones rurales, mais aussi légèrement dans les zones urbaines, plus de volontaires ont changé vers "Oui".
 
 ```{r}
 #| label: fig-vote_derniers_elections-residence
@@ -1404,7 +1404,7 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 #### L'éducation
 
-Comme le montre @fig-vote\_derniers\_elections-education, la part des volontaires ayant changé vers le "Oui" a été particulièrement élevée chez les personnes ayant un niveau d'études correspondant à "Bac+2". Dans tous les autres segments d'éducation, la part de ceux qui ont changé vers le "Non" était plus élevée.
+Comme le montre @fig-vote_derniers_elections-education, la part des volontaires ayant changé vers le "Oui" a été particulièrement élevée chez les personnes ayant un niveau d'études correspondant à "Bac+2". Dans tous les autres segments d'éducation, la part de ceux qui ont changé vers le "Non" était plus élevée.
 
 ```{r}
 #| label: fig-vote_derniers_elections-education
@@ -1506,13 +1506,13 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 ## L'action individuelle pour la société {#sec-individual-action}
 
-Dans cette section, nous examinons l'évolution des bénévoles en ce qui concerne leur perception sur le fait que leur action individuelle peut contribuer à changer la société. Ceci a été mesuré à l'aide de la question suivante : "En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?", qui a été posée aux points temporels q1 et q3. Nous étudions les différentes cohortes séparément (promo 2020-21, @fig-action\_individuelle\_societe-2020 ; promo 2021-22, @fig-vote\_derniers\_elections-2021 ; 2022-23, @fig-vote\_derniers\_elections-2022 ; 2023-24, @fig-vote\_derniers\_elections-2023).
+Dans cette section, nous examinons l'évolution des volontaires en ce qui concerne leur perception sur le fait que leur action individuelle peut contribuer à changer la société. Ceci a été mesuré à l'aide de la question suivante : "En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?", qui a été posée aux points temporels q1 et q3. Nous étudions les différentes cohortes séparément (promo 2020-21, @fig-action_individuelle_societe-2020 ; promo 2021-22, @fig-vote_derniers_elections-2021 ; 2022-23, @fig-vote_derniers_elections-2022 ; 2023-24, @fig-vote_derniers_elections-2023).
 
 D'un point de vue descriptif, il n'y a pas de tendance positive ou négative claire. En moyenne, toutes cohortes confondues, un peu plus de personnes changent vers "Non" ou "Pas vraiment", par rapport à "Oui".
 
 ### Promo 2020-21
 
-@fig-action\_individuelle\_societe-2020 montre l'évolution de la perception des bénévoles sur le fait que leur action individuelle contribue à changer la société, pour la promo "2020-21".
+@fig-action_individuelle_societe-2020 montre l'évolution de la perception des volontaires sur le fait que leur action individuelle contribue à changer la société, pour la promo "2020-21".
 
 ```{r}
 #| label: fig-action_individuelle_societe-2020
@@ -1598,7 +1598,7 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Promo 2021-22
 
-@fig-action\_individuelle\_societe-2021 montre l'évolution de la perception des bénévoles sur le fait que leur action individuelle contribue à changer la société, pour la promo "2021-22".
+@fig-action_individuelle_societe-2021 montre l'évolution de la perception des volontaires sur le fait que leur action individuelle contribue à changer la société, pour la promo "2021-22".
 
 ```{r}
 #| label: fig-action_individuelle_societe-2021
@@ -1684,7 +1684,7 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Promo 2022-23
 
-@fig-action\_individuelle\_societe-2022 montre l'évolution de la perception des bénévoles sur le fait que leur action individuelle contribue à changer la société, pour la promo "2022-23".
+@fig-action_individuelle_societe-2022 montre l'évolution de la perception des volontaires sur le fait que leur action individuelle contribue à changer la société, pour la promo "2022-23".
 
 ```{r}
 #| label: fig-action_individuelle_societe-2022
@@ -1770,7 +1770,7 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Promo 2023-24
 
-@fig-action\_individuelle\_societe-2023 montre l'évolution de la perception des bénévoles sur le fait que leur action individuelle contribue à changer la société, pour la promo "2023-24".
+@fig-action_individuelle_societe-2023 montre l'évolution de la perception des volontaires sur le fait que leur action individuelle contribue à changer la société, pour la promo "2023-24".
 
 ```{r}
 #| label: fig-action_individuelle_societe-2023
@@ -1856,7 +1856,7 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Quels facteurs démographiques sont associés au changement de perception de sa contribution individuelle à la société ?
 
-Le fait que les bénévoles perçoivent que leur action individuelle peut contribuer à changer la société varie en fonction de différentes variables démographiques. Ces modèles sont expliqués dans l'annexe (@sec-appendix-individual-action). Ici, nous ne signalons que les variables qui étaient statistiquement significatives dans ces modèles.
+Le fait que les volontaires perçoivent que leur action individuelle peut contribuer à changer la société varie en fonction de différentes variables démographiques. Ces modèles sont expliqués dans l'annexe (@sec-appendix-individual-action). Ici, nous ne signalons que les variables qui étaient statistiquement significatives dans ces modèles.
 
 ```{r}
 # remove variables that don't make sense, i.e. the motive and the actual duration (obviously, the longer the duration, the less likely to have a rupture)
@@ -1907,7 +1907,7 @@ model_results_action <- factors_for_model  %>%
 
 #### Zone de résidence
 
-@fig-action\_individuelle\_societe-residence montre qu'en particulier les bénévoles des zones rurales ont une plus grande tendance à changer vers "Oui", par rapport aux changements vers "Non" ou "Pas vraiment".
+@fig-action_individuelle_societe-residence montre qu'en particulier les volontaires des zones rurales ont une plus grande tendance à changer vers "Oui", par rapport aux changements vers "Non" ou "Pas vraiment".
 
 ```{r}
 #| label: fig-action_individuelle_societe-residence
@@ -1988,7 +1988,7 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 #### L'éducation
 
-@fig-action\_individuelle\_societe-education montre que les bénévoles titulaires d'un "Bac+3" ont davantage tendance à évoluer vers le "Oui", par rapport à l'évolution vers le "Non" ou le "Pas vraiment", que les autres groupes.
+@fig-action_individuelle_societe-education montre que les volontaires titulaires d'un "Bac+3" ont davantage tendance à évoluer vers le "Oui", par rapport à l'évolution vers le "Non" ou le "Pas vraiment", que les autres groupes.
 
 ```{r}
 #| label: fig-action_individuelle_societe-education
@@ -2069,7 +2069,7 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 #### Handicap (administratif)
 
-@fig-action\_individuelle\_societe-handicap montre que les bénévoles en situation de handicap (administratif) ont davantage tendance à évoluer vers "Non" ou "Pas vraiment", par rapport à l'évolution vers "Oui".
+@fig-action_individuelle_societe-handicap montre que les volontaires en situation de handicap (administratif) ont davantage tendance à évoluer vers "Non" ou "Pas vraiment", par rapport à l'évolution vers "Oui".
 
 ```{r}
 #| label: fig-action_individuelle_societe-handicap
@@ -2161,7 +2161,7 @@ share_rupture <- combined |>
   split(.$rupture)
 ```
 
-Tous les bénévoles ne travaillent pas jusqu'à la fin de leur contrat. En effet , `r share_rupture$rupture$share` des bénévoles connaissent une "rupture", c'est-à-dire qu'ils mettent fin au contrat de manière anticipée (@fig-rupture-overview). Il existe différents motifs pour mettre fin à son contrat de manière anticipée (@fig-rupture-motive). Tous ne sont pas forcément mauvais, par exemple "Embauche en CDD d'au moins 6 mois ou CDI", et certains sont hors de l'influence des volontaires, par exemple "Fin de validité du Titre de Séjour".
+Tous les volontaires ne travaillent pas jusqu'à la fin de leur contrat. En effet , `r share_rupture$rupture$share` des volontaires connaissent une "rupture", c'est-à-dire qu'ils mettent fin au contrat de manière anticipée (@fig-rupture-overview). Il existe différents motifs pour mettre fin à son contrat de manière anticipée (@fig-rupture-motive). Tous ne sont pas forcément mauvais, par exemple "Embauche en CDD d'au moins 6 mois ou CDI", et certains sont hors de l'influence des volontaires, par exemple "Fin de validité du Titre de Séjour".
 
 ```{r}
 #| label: fig-rupture-overview
@@ -2239,7 +2239,7 @@ combined |>
 
 ## Changement dans la rupture
 
-@fig-rupture illustre le changement concernant le nombre de bénévoles ayant mis fin à leur contrat de manière anticipée (rupture) en comparant les différentes promos. Il n'y a pas de tendance claire avec un peu plus de 20 % des volontaires ayant connu une rupture.
+@fig-rupture illustre le changement concernant le nombre de volontaires ayant mis fin à leur contrat de manière anticipée (rupture) en comparant les différentes promos. Il n'y a pas de tendance claire avec un peu plus de 20 % des volontaires ayant connu une rupture.
 
 ```{r}
 #| label: fig-rupture
@@ -2293,7 +2293,7 @@ combined |>
 
 ## Qu'est-ce qui permet de prédire si les volontaires mettent fin à leur contrat de manière anticipée (rupture) ?
 
-Les modèles statistiques sur la rupture se trouvent en annexe (@sec-appendix-rupture). Ici, nous ne signalons que les variables qui étaient statistiquement significatives dans ces modèles. Toutes les ruptures ne se produisent pas pour des raisons négatives (@fig-rupture-motive). Pour les analyses de cette section, nous nous concentrons sur les raisons négatives : Nous distinguons les volontaires qui ont mis fin à leur contrat de manière anticipée pour des raisons apparemment négatives. *négatives* raisons apparemment négatives, et tous les autres volontaires.
+Les modèles statistiques sur la rupture se trouvent en annexe (@sec-appendix-rupture). Ici, nous ne signalons que les variables qui étaient statistiquement significatives dans ces modèles. Toutes les ruptures ne se produisent pas pour des raisons négatives (@fig-rupture-motive). Pour les analyses de cette section, nous nous concentrons sur les raisons négatives : Nous distinguons les volontaires qui ont mis fin à leur contrat de manière anticipée pour des raisons apparemment *négatives*, et tous les autres volontaires.
 
 ```{r}
 # remove variables that don't make sense, e.g., the motive and the actual duration (obviously, the longer the duration, the less likely to have a rupture)
@@ -2369,7 +2369,7 @@ model_results_rupture_demographic_variables <- reduced_demographic_variables %>%
 
 ### Facteurs démographiques
 
-Comme le montre la @fig-rupture-descriptive, les bénévoles plus âgés ont tendance à avoir moins de ruptures que les plus jeunes ; les bénévoles moins instruits (en particulier les "infra bac") ont tendance à avoir plus de ruptures que ceux qui ont fait des études supérieures ; les réfugiés ont tendance à avoir moins de ruptures que les non-réfugiés ; les bénévoles masculins ont tendance à avoir un peu plus de ruptures que les bénévoles féminins ; les bénévoles du programme "Relai" ont tendance à avoir un peu moins de ruptures que les bénévoles du programme "Coeur" ; les bénévoles des zones résidentielles "QPV" ont tendance à avoir des taux de rupture considérablement plus élevés que les bénévoles des autres zones résidentielles.
+Comme le montre la @fig-rupture-descriptive, les volontaires plus âgés ont tendance à avoir moins de ruptures que les plus jeunes ; les volontaires moins instruits (en particulier les "infra bac") ont tendance à avoir plus de ruptures que ceux qui ont fait des études supérieures ; les réfugiés ont tendance à avoir moins de ruptures que les non-réfugiés ; les volontaires masculins ont tendance à avoir un peu plus de ruptures que les volontaires féminins ; les volontaires du programme "Relai" ont tendance à avoir un peu moins de ruptures que les volontaires du programme "Coeur" ; les volontaires des zones résidentielles "QPV" ont tendance à avoir des taux de rupture considérablement plus élevés que les volontaires des autres zones résidentielles.
 
 ```{r}
 #| label: fig-rupture-descriptive 
@@ -2423,7 +2423,7 @@ Pour les variables non démographiques, l'étude de leur relation avec la ruptur
 1. `perception_avenir` (Concernant votre avenir, êtes-vous... ? 	Très confiant(e) ; Assez confiant(e) ; Peu confiant(e) ; Pas du tout confiant(e))
 2. `action_individuelle_societe` (En général, pensez-vous que votre action individuelle peut contribuer à changer la société ? 	Oui ; Pas vraiment ; Non)
 
-Comme le montre @fig-rupture-autre, sans surprise peut-être, les bénévoles qui ont tendance à penser que leur action individuelle peut contribuer à changer la société ont tendance à moins rompre leur contrat. Il est intéressant de noter que les bénévoles qui sont très confiants quant à leur avenir ont tendance à rompre davantage leur contrat.
+Comme le montre @fig-rupture-other, sans surprise peut-être, les volontaires qui ont tendance à penser que leur action individuelle peut contribuer à changer la société ont tendance à moins rompre leur contrat. Il est intéressant de noter que les volontaires qui sont très confiants quant à leur avenir ont tendance à rompre davantage leur contrat.
 
 ```{r}
 #| label: fig-rupture-other
@@ -2526,7 +2526,7 @@ combined |>
 
 ## Évolution de la satisfaction
 
-@fig-satisfaction montre comment la satisfaction à l'égard du service civique a évolué dans le temps, entre les différentes cohortes. La part des bénévoles "très satisfaits" a diminué au fil du temps, mais les parts de ceux qui ne sont "pas" ou "peu" satisfaits sont restées globalement stables.
+@fig-satisfaction montre comment la satisfaction à l'égard du service civique a évolué dans le temps, entre les différentes cohortes. La part des volontaires "très satisfaits" a diminué au fil du temps, mais les parts de ceux qui ne sont "pas" ou "peu" satisfaits sont restées globalement stables.
 
 ```{r}
 #| label: fig-satisfaction
@@ -2579,7 +2579,7 @@ combined |>
 
 ```
 
-## Qu'est-ce qui permet de prédire si les bénévoles sont plus satisfaits ?
+## Qu'est-ce qui permet de prédire si les volontaires sont plus satisfaits ?
 
 Les modèles statistiques sur la satisfaction se trouvent en annexe (@sec-appendix-satisfaction). Ici, nous ne signalons que les variables qui étaient statistiquement significatives dans ces modèles.
 
@@ -2657,7 +2657,7 @@ model_results_satisfaction_demographic_variables <- demographic_variables %>%
 
 ### Facteurs démographiques
 
-Comme le montre @fig-satisfaction-descriptive, les bénévoles plus âgés ont tendance à être plus satisfaits que les plus jeunes ; les bénévoles plus instruits ont tendance à être plus satisfaits que les moins instruits ; les réfugiés ont tendance à avoir moins de ruptures que les non-réfugiés ; les bénévoles du programme "Relai" ont tendance à être plus satisfaits que les bénévoles du programme "Cœur" ; probablement sans surprise, les bénévoles qui ont une rupture ont tendance à être moins satisfaits que les bénévoles qui n'en ont pas.
+Comme le montre @fig-satisfaction-descriptive, les volontaires plus âgés ont tendance à être plus satisfaits que les plus jeunes ; les volontaires plus instruits ont tendance à être plus satisfaits que les moins instruits ; les volontaires du programme "Relai" ont tendance à être plus satisfaits que les volontaires du programme "Cœur" ; probablement sans surprise, les volontaires qui ont une rupture ont tendance à être moins satisfaits que les volontaires qui n'en ont pas.
 
 ```{r}
 #| label: fig-satisfaction-descriptive 
@@ -2708,12 +2708,12 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(satisfaction))) +
 
 ### Autres facteurs
 
-Les variables suivantes sont statistiquement associées à la satisfaction (@fig-satisfaction-autre) :
+Les variables suivantes sont statistiquement associées à la satisfaction (@fig-satisfaction-other) :
 
 - `comparaison_utilite_autres` ["Diriez-vous que votre Service Civique a été... ? Plus utile à vous qu'aux autres ; Autant utile à vous qu'aux autres ; Moins utile à vous qu'aux autres"] . Sans surprise, les volontaires qui pensent que le service civique leur a été moins utile qu'aux autres ont tendance à être moins satisfaits que ceux qui pensent qu'il leur a été plus utile
 - `fierte` ["Vous sentez-vous fier de ce que vous avez accompli pendant votre Service Civique ? Oui, tout à fait ; Oui, un peu ; Non, pas vraiment ; Non, pas du tout"] . Les volontaires qui sont plus fiers de ce qu'ils ont accompli pendant leur service civique ont également tendance à être plus satisfaits.
 - `confiance_en_soi` ["Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ? Oui, beaucoup ; Oui, assez ; Non, pas vraiment ; Non, pas du tout ; Je ne sais pas".] Les volontaires qui ont gagné en confiance ont également tendance à être plus satisfaits.
-- `confiance_avenir_personnel` ["Concernant votre avenir personnel, êtes-vous... ? Très confiant.e ; Assez confiant.e ; Peu confiant.e ; Pas du tout confiant.e"] Les bénévoles qui ont davantage confiance en leur avenir ont également tendance à être plus satisfaits.
+- `confiance_avenir_personnel` ["Concernant votre avenir personnel, êtes-vous... ? Très confiant.e ; Assez confiant.e ; Peu confiant.e ; Pas du tout confiant.e"] Les volontaires qui ont davantage confiance en leur avenir ont également tendance à être plus satisfaits.
 
 ```{r}
 #| label: fig-satisfaction-other
@@ -2892,7 +2892,7 @@ combined |>
 
 ## Évolution de la confiance en l'avenir
 
-@fig-perception\_avenir montre comment la confiance en son avenir a évolué dans le temps, entre les différentes cohortes. Les résultats sont très stables, avec une majorité de volontaires "assez confiant.e" dans toutes les cohortes.
+@fig-perception_avenir montre comment la confiance en son avenir a évolué dans le temps, entre les différentes cohortes. Les résultats sont très stables, avec une majorité de volontaires "assez confiant.e" dans toutes les cohortes.
 
 ```{r}
 #| label: fig-perception_avenir
@@ -2930,9 +2930,9 @@ combined |>
 
 ```
 
-## Qu'est-ce qui prédit que les bénévoles sont plus confiants dans leur avenir ? {#sec-perception-avenir}
+## Qu'est-ce qui prédit que les volontaires sont plus confiants dans leur avenir ? {#sec-perception-avenir}
 
-Les modèles statistiques sur la confiance des bénévoles en leur avenir se trouvent en annexe (@sec-appendix-perception-avenir). Ici, nous ne signalons que les variables qui étaient statistiquement significatives dans ces modèles.
+Les modèles statistiques sur la confiance des volontaires en leur avenir se trouvent en annexe (@sec-appendix-perception-avenir). Ici, nous ne signalons que les variables qui étaient statistiquement significatives dans ces modèles.
 
 ```{r}
 # non-demographic variables 
@@ -3007,7 +3007,7 @@ model_results_perception_demographic_variables <- demographic_variables %>%
 
 ### Facteurs démographiques
 
-Comme le montre @fig-perception-avenir-descriptive, les bénévoles du programme " Relai " ont tendance à être plus confiants dans leur avenir que les bénévoles du programme " Cœur " ; les hommes bénévoles ont tendance à être plus confiants que les femmes ; les réfugiés ont tendance à être plus confiants que les non-réfugiés ; par rapport aux bénévoles des zones résidentielles urbaines, les bénévoles des zones " QPV " ont tendance à être légèrement plus confiants, tandis que les bénévoles des zones " ZRR " ont tendance à être légèrement moins confiants ; plus les bénévoles sont éduqués, moins ils ont tendance à être confiants. En ce qui concerne l'âge, la tendance n'est pas linéaire : les bénévoles de la tranche d'âge "16-17" ont tendance à être plus confiants que les bénévoles des tranches d'âge "18-20" et "21-23", mais les plus confiants en moyenne ont tendance à être les bénévoles de la tranche d'âge "24-30".
+Comme le montre @fig-perception-avenir-descriptive, les volontaires du programme " Relai " ont tendance à être plus confiants dans leur avenir que les volontaires du programme " Cœur " ; les hommes volontaires ont tendance à être plus confiants que les femmes ; les réfugiés ont tendance à être plus confiants que les non-réfugiés ; par rapport aux volontaires des zones résidentielles urbaines, les volontaires des zones " QPV " ont tendance à être légèrement plus confiants, tandis que les volontaires des zones " ZRR " ont tendance à être légèrement moins confiants ; plus les volontaires sont éduqués, moins ils ont tendance à être confiants. En ce qui concerne l'âge, la tendance n'est pas linéaire : les volontaires de la tranche d'âge "16-17" ont tendance à être plus confiants que les volontaires des tranches d'âge "18-20" et "21-23", mais les plus confiants en moyenne ont tendance à être les volontaires de la tranche d'âge "24-30".
 
 ```{r}
 #| label: fig-perception-avenir-descriptive
@@ -3058,7 +3058,7 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(perception_avenir))) +
 
 ### Autres facteurs
 
-Le seul facteur que nous avons pu statistiquement relier à la confiance en l'avenir est le suivant `action_individuelle_societe` ("En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?" Oui ; Pas vraiment ; Non). Comme le montre @fig-perception-avenir-autre, les bénévoles qui pensent qu'ils peuvent contribuer à la société ont tendance à avoir plus confiance en leur avenir que les bénévoles qui ne le pensent pas.
+Le seul facteur que nous avons pu statistiquement relier à la confiance en l'avenir est le suivant `action_individuelle_societe` ("En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?" Oui ; Pas vraiment ; Non). Comme le montre @fig-perception-avenir-other, les volontaires qui pensent qu'ils peuvent contribuer à la société ont tendance à avoir plus confiance en leur avenir que les volontaires qui ne le pensent pas.
 
 ```{r}
 #| label: fig-perception-avenir-other
@@ -3109,7 +3109,7 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(perception_avenir))) +
 
 ## Différences entre les programmes clés
 
-@fig-perception-avenir-programmes montre les différences descriptives de la confiance des bénévoles en leur avenir entre les différents programmes clés.
+@fig-perception-avenir-programs montre les différences descriptives de la confiance des volontaires en leur avenir entre les différents programmes clés.
 
 ```{r}
 #| label: fig-perception-avenir-programs
@@ -3207,9 +3207,9 @@ factors_for_program_comparison <- c(
 )
 ```
 
-Il existe `r program_count$n_programs` Différents programmes, que l'on peut classer en `r program_count$n_program_categories` différentes catégories (voir [Tableaux](tables.qmd)). Ici, nous ne faisons la distinction qu'entre `r program_count$n_key_programs` catégories de programmes clés, à savoir : `r key_programs`. @fig-programmes-overview donne un aperçu du nombre de bénévoles dans les différents programmes clés, à travers les promotions.
+Il existe `r program_count$n_programs` différents programmes, que l'on peut classer en `r program_count$n_program_categories` différentes catégories (voir [Tableaux](tables.qmd)). Ici, nous ne faisons la distinction qu'entre `r program_count$n_key_programs` catégories de programmes clés, à savoir : `r key_programs`. @fig-programs-overview donne un aperçu du nombre de volontaires dans les différents programmes clés, à travers les promotions.
 
-Dans les sections suivantes, nous examinons les différences démographiques entre les bénévoles des différents programmes clés. Les modèles statistiques sur les différences entre les programmes se trouvent en annexe (@sec-appendix-programs). Ici, nous ne montrons que de manière descriptive les différences entre les programmes pour les variables qui étaient statistiquement significatives dans ces modèles.
+Dans les sections suivantes, nous examinons les différences démographiques entre les volontaires des différents programmes clés. Les modèles statistiques sur les différences entre les programmes se trouvent en annexe (@sec-appendix-programs). Ici, nous ne montrons que de manière descriptive les différences entre les programmes pour les variables qui étaient statistiquement significatives dans ces modèles.
 Chacune des sections suivantes se concentre sur un programme clé. Pour les variables pertinentes, nous montrons comment la moyenne dans le programme clé respectif diffère par rapport à la moyenne de tous les autres programmes clés combinés.
 
 ```{r}
@@ -3278,7 +3278,7 @@ model_results_solidarite_aidants <- run_program_models(
 #   filter(significant)
 ```
 
-Par rapport à tous les autres programmes confondus, parmi les bénévoles du programme "Solidarité Aidants", on trouve généralement : plus de femmes ; moins de réfugiés ; moins de bénévoles dans les tranches d'âge "16-17" et "24-30", mais plus de réfugiés dans les tranches d'âge "18-20" et "21-23" ; plus de bénévoles dans les zones d'habitation rurales, "QPV" et "ZRR" par rapport aux zones urbaines ; des bénévoles plus diplômés, en particulier dans la catégorie "bac2" ; un peu plus de bénévoles ayant un handicap déclaré.
+Par rapport à tous les autres programmes confondus, parmi les volontaires du programme "Solidarité Aidants", on trouve généralement : plus de femmes ; moins de réfugiés ; moins de volontaires dans les tranches d'âge "16-17" et "24-30", mais plus de réfugiés dans les tranches d'âge "18-20" et "21-23" ; plus de volontaires dans les zones d'habitation rurales, "QPV" et "ZRR" par rapport aux zones urbaines ; des volontaires plus diplômés, en particulier dans la catégorie "bac2" ; un peu plus de volontaires ayant un handicap déclaré.
 
 ```{r}
 #| label: fig-solidarite-aidants-descriptive
@@ -3317,11 +3317,11 @@ model_results_cine <- run_program_models(
 #   filter(significant)
 ```
 
-Par rapport à tous les autres programmes confondus, parmi les bénévoles du programme "Cinéma \& Citoyenneté", il y a : plus de bénévoles masculins ; plus de bénévoles âgés ; plus de bénévoles en zone urbaine et en ZRR ; plus de bénévoles diplômés ; un peu moins de bénévoles handicapés ; moins de bénévoles en rupture.
+Par rapport à tous les autres programmes confondus, parmi les volontaires du programme "Cinéma \& Citoyenneté", il y a : plus de volontaires masculins ; plus de volontaires âgés ; plus de volontaires en zone urbaine et en ZRR ; plus de volontaires diplômés ; un peu moins de volontaires handicapés ; moins de volontaires en rupture.
 
 ```{r}
 #| label: fig-cine-descriptive
-#| fig-cap: Differences in Cinéma & Citoyennetévs vs. other programs along demographic factors.
+#| fig-cap: Differences in Cinéma & Citoyenneté vs. other programs along demographic factors.
 
 plot_variables <- c(
   "sexe",
@@ -3354,7 +3354,7 @@ model_results_booster <- run_program_models(
 #   filter(significant)
 ```
 
-Par rapport à tous les autres programmes confondus, parmi les bénévoles du programme "Booster", on trouve : plus de bénévoles masculins ; nettement plus de bénévoles jeunes ; plus de bénévoles dans les zones résidentielles "QPV" ; des bénévoles moins diplômés ; moins de bénévoles avec un handicap déclaré et administratif ; plus de bénévoles en rupture.
+Par rapport à tous les autres programmes confondus, parmi les volontaires du programme "Booster", on trouve : plus de volontaires masculins ; nettement plus de volontaires jeunes ; plus de volontaires dans les zones résidentielles "QPV" ; des volontaires moins diplômés ; moins de volontaires avec un handicap déclaré et administratif ; plus de volontaires en rupture.
 
 ```{r}
 #| label: fig-booster-descriptive
@@ -3393,7 +3393,7 @@ model_results_ecovolonterre <- run_program_models(
 #   filter(significant)
 ```
 
-Par rapport à tous les autres programmes confondus, parmi les bénévoles du programme "Ecovolonterre", il y a généralement : plus de bénévoles masculins ; nettement plus de réfugiés ; plus de bénévoles dans la catégorie d'âge "21-23" ; plus de bénévoles en zone urbaine et moins en zone résidentielle "QPV" ; plus de bénévoles instruits, en particulier beaucoup plus de bénévoles dans la catégorie "bac+3" ; moins de bénévoles handicapés ; moins de bénévoles qui ont une rupture.
+Par rapport à tous les autres programmes confondus, parmi les volontaires du programme "Ecovolonterre", il y a généralement : plus de volontaires masculins ; nettement plus de réfugiés ; plus de volontaires dans la catégorie d'âge "21-23" ; plus de volontaires en zone urbaine et moins en zone résidentielle "QPV" ; plus de volontaires instruits, en particulier beaucoup plus de volontaires dans la catégorie "bac+3" ; moins de volontaires handicapés ; moins de volontaires qui ont une rupture.
 
 ```{r}
 #| label: fig-ecovolonterre-descriptive
@@ -3431,11 +3431,11 @@ model_results_mediaterre <- run_program_models(
 #   filter(significant)
 ```
 
-Par rapport à tous les autres programmes combinés, parmi les bénévoles du programme "Médiaterre", il y a généralement : plus de bénévoles masculins ; plus de bénévoles plus âgés ; beaucoup plus de bénévoles dans les zones résidentielles "ZRR" ; plus de bénévoles éduqués.
+Par rapport à tous les autres programmes combinés, parmi les volontaires du programme "Médiaterre", il y a généralement : plus de volontaires masculins ; plus de volontaires plus âgés ; beaucoup plus de volontaires dans les zones résidentielles "ZRR" ; plus de volontaires éduqués.
 
 ```{r}
 #| label: fig-mediaterre-descriptive
-#| fig-cap: Differences in Ecovolonterre vs. other programs along demographic factors.
+#| fig-cap: Differences in Médiaterre vs. other programs along demographic factors.
 
 plot_variables <- c(
   "sexe",
@@ -3504,7 +3504,7 @@ model_results_solidarite_seniors <- run_program_models(
 #   filter(significant)
 ```
 
-Par rapport à tous les autres programmes confondus, parmi les bénévoles du programme "Solidarité Séniors", il y a plutôt : plus de femmes bénévoles ; plus de bénévoles jeunes, notamment dans la catégorie "18-20 ans" ; plus de bénévoles en milieu rural et dans les "QPV", mais moins dans les zones résidentielles "ZRR" ; des bénévoles moins diplômés, notamment moins de bénévoles dans la catégorie "bac+3" ; plus de bénévoles avec un handicap déclaré et avec un handicap administratif ; plus de bénévoles qui ont une rupture.
+Par rapport à tous les autres programmes confondus, parmi les volontaires du programme "Solidarité Séniors", il y a plutôt : plus de femmes volontaires ; plus de volontaires jeunes, notamment dans la catégorie "18-20 ans" ; plus de volontaires en milieu rural et dans les "QPV", mais moins dans les zones résidentielles "ZRR" ; des volontaires moins diplômés, notamment moins de volontaires dans la catégorie "bac+3" ; plus de volontaires avec un handicap déclaré et avec un handicap administratif ; plus de volontaires qui ont une rupture.
 
 ```{r}
 #| label: fig-solidarite-seniors-descriptive
@@ -3530,15 +3530,15 @@ plot_faceted_distribution(
 
 # Conclusion : Quelques remarques méthodologiques.
 
-Ce rapport ne peut fournir que des instantanés des nombreuses données du questionnaire recueillies par Cités Unies. Nous avons cherché à couvrir un large éventail de sujets et de variables afin de révéler des schémas et des tendances potentiellement instructifs. Plutôt que de résumer ces schémas une fois de plus, nous concluons par plusieurs notes méthodologiques qui soulignent les possibilités d'améliorer les futures évaluations d'impact basées sur les questionnaires.
+Ce rapport ne peut fournir que des instantanés des nombreuses données du questionnaire recueillies par Cités Unis. Nous avons cherché à couvrir un large éventail de sujets et de variables afin de révéler des schémas et des tendances potentiellement instructifs. Plutôt que de résumer ces schémas une fois de plus, nous concluons par plusieurs notes méthodologiques qui soulignent les possibilités d'améliorer les futures évaluations d'impact basées sur les questionnaires.
 
-Tout d'abord, les questionnaires pourraient probablement être plus courts. La réduction du nombre de questions diminuerait probablement l'attrition : les volontaires qui répondent à un très long questionnaire à q1 peuvent être moins motivés pour répondre à un autre long questionnaire à q2, et encore moins à q3. Des questionnaires plus courts pourraient également améliorer la qualité des réponses. Lorsque les questionnaires sont longs, les personnes interrogées peuvent se fatiguer ou s'ennuyer et commencer à répondre rapidement et sans grande attention. Une autre option pour améliorer la qualité des réponses serait d'inclure des contrôles d'attention. Cela dit, comme les bénévoles ne sont pas obligés de répondre à l'enquête, on peut raisonnablement supposer que ceux qui y participent sont généralement motivés pour y répondre de bonne foi.
+Tout d'abord, les questionnaires pourraient probablement être plus courts. La réduction du nombre de questions diminuerait probablement l'attrition : les volontaires qui répondent à un très long questionnaire à q1 peuvent être moins motivés pour répondre à un autre long questionnaire à q2, et encore moins à q3. Des questionnaires plus courts pourraient également améliorer la qualité des réponses. Lorsque les questionnaires sont longs, les personnes interrogées peuvent se fatiguer ou s'ennuyer et commencer à répondre rapidement et sans grande attention. Une autre option pour améliorer la qualité des réponses serait d'inclure des contrôles d'attention. Cela dit, comme les volontaires ne sont pas obligés de répondre à l'enquête, on peut raisonnablement supposer que ceux qui y participent sont généralement motivés pour y répondre de bonne foi.
 
-Une autre amélioration potentielle consisterait à rendre les questionnaires plus similaires à différents moments. Le fait de poser les mêmes questions à plusieurs reprises permet de suivre l'évolution des bénévoles au cours de leur service civique (comme le fait @sec-within-change).
+Une autre amélioration potentielle consisterait à rendre les questionnaires plus similaires à différents moments. Le fait de poser les mêmes questions à plusieurs reprises permet de suivre l'évolution des volontaires au cours de leur service civique (comme le fait @sec-within-change).
 
-Sur une note mineure, il peut être plus instructif de demander aux volontaires leurs intentions de vote plutôt que leur comportement de vote passé. Il semblerait que certains volontaires n'interprètent pas la question actuelle sur le comportement de vote passé comme prévu (@fig-vote\_derniers\_elections-youngest). En outre, les changements dans le comportement de vote passé dépendent intrinsèquement du fait que des élections se produisent pour une cohorte particulière au cours de leur année de service civique.
+Sur une note mineure, il peut être plus instructif de demander aux volontaires leurs intentions de vote plutôt que leur comportement de vote passé. Il semblerait que certains volontaires n'interprètent pas la question actuelle sur le comportement de vote passé comme prévu (@fig-vote_derniers_elections-youngest). En outre, les changements dans le comportement de vote passé dépendent intrinsèquement du fait que des élections se produisent pour une cohorte particulière au cours de leur année de service civique.
 
-Enfin, j'aimerais réitérer un point déjà soulevé dans l'introduction : les données du questionnaire sont purement observationnelles, et aucune des associations présentées dans ce rapport ne soutient d'interprétations causales spécifiques. Par exemple, dans la section sur les différences démographiques entre les programmes (@sec-programmes), les programmes dont les bénévoles sont plus âgés ont également tendance à avoir des bénévoles plus instruits. Ces observations sont probablement liées, puisque les participants plus âgés ont tout simplement eu plus de temps pour poursuivre leurs études. Autre exemple, @fig-satisfaction-programs suggère que moins de bénévoles se déclarent " très satisfaits " dans les programmes clés que dans les autres programmes (listés dans la figure sous " NA "). Cependant, les programmes clés ont attiré un nombre croissant de bénévoles au fil du temps (@fig-programmes-overview), et certains d'entre eux sont relativement récents. Dans le même temps, la part des bénévoles qui se déclarent "très satisfaits" a légèrement diminué dans les différentes cohortes (@fig-satisfaction). Il est donc difficile de savoir si les différences observées sont dues aux programmes eux-mêmes, aux tendances plus générales des cohortes en matière de satisfaction ou à d'autres facteurs non observés.
+Enfin, j'aimerais réitérer un point déjà soulevé dans l'introduction : les données du questionnaire sont purement observationnelles, et aucune des associations présentées dans ce rapport ne soutient d'interprétations causales spécifiques. Par exemple, dans la section sur les différences démographiques entre les programmes (@sec-programs), les programmes dont les volontaires sont plus âgés ont également tendance à avoir des volontaires plus instruits. Ces observations sont probablement liées, puisque les participants plus âgés ont tout simplement eu plus de temps pour poursuivre leurs études. Autre exemple, @fig-satisfaction-programs suggère que moins de volontaires se déclarent "très satisfaits" dans les programmes clés que dans les autres programmes (listés dans la figure sous "NA"). Cependant, les programmes clés ont attiré un nombre croissant de volontaires au fil du temps (@fig-programs-overview), et certains d'entre eux sont relativement récents. Dans le même temps, la part des volontaires qui se déclarent "très satisfaits" a légèrement diminué dans les différentes cohortes (@fig-satisfaction). Il est donc difficile de savoir si les différences observées sont dues aux programmes eux-mêmes, aux tendances plus générales des cohortes en matière de satisfaction ou à d'autres facteurs non observés.
 
 # Matériel supplémentaire : Annexe
 
@@ -3579,7 +3579,7 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   theme_minimal()
 ```
 
-Pour comprendre ce rapport de chances, prends @fig-vote\_derniers\_elections-age : il montre que parmi les 16 à 17 ans, 285 ont changé vers le "Non", alors que seulement 238 ont changé vers le "Oui". Ce qui fait que les chances de changer vers le oui pour la tranche d'âge la plus jeune, choisie comme catégorie de référence dans le modèle, `238:285 = ~0.84`. En revanche, chez les 18-20 ans, les chances sont de . `784:658 = ~1.19`. Le rapport de cotes pour les 18 à 20 ans compare leurs cotes à celles des 16 à 17 ans. `odds ratio = 1.19:0.84 = 1.4`. @fig-vote\_derniers\_elections-age permet également de comparer les odds ratios aux pourcentages pour les différentes tranches d'âge. Tout comme pour les nombres absolus, les odds ratios peuvent être calculés à partir des pourcentages. Par exemple, parmi les jeunes de 16 à 17 ans, 13,8 % ont changé vers le "Non", tandis que 11,5 % ont changé vers le "Oui", ce qui fait que les chances de changer vers le "Oui", comme ci-dessus, `0.115:0.138 = ~0.83` ^ [Note que dans cette illustration, nous obtenons une valeur légèrement différente par rapport à 0,84 ci-dessus en raison de l'imprécision des arrondis.] . Chez les jeunes de 18 à 20 ans, en conséquence, les probabilités étaient, comme ci-dessus,`0.174:0.146 = ~1.19` ce qui donne le même rapport de cotes de ~1,4.
+Pour comprendre ce rapport de chances, prends @fig-vote_derniers_elections-age : il montre que parmi les 16 à 17 ans, 285 ont changé vers le "Non", alors que seulement 238 ont changé vers le "Oui". Ce qui fait que les chances de changer vers le oui pour la tranche d'âge la plus jeune, choisie comme catégorie de référence dans le modèle, `238:285 = ~0.84`. En revanche, chez les 18-20 ans, les chances sont de . `784:658 = ~1.19`. Le rapport de cotes pour les 18 à 20 ans compare leurs cotes à celles des 16 à 17 ans. `odds ratio = 1.19:0.84 = 1.4`. @fig-vote_derniers_elections-age permet également de comparer les odds ratios aux pourcentages pour les différentes tranches d'âge. Tout comme pour les nombres absolus, les odds ratios peuvent être calculés à partir des pourcentages. Par exemple, parmi les jeunes de 16 à 17 ans, 13,8 % ont changé vers le "Non", tandis que 11,5 % ont changé vers le "Oui", ce qui fait que les chances de changer vers le "Oui", comme ci-dessus, `0.115:0.138 = ~0.83` ^ [Note que dans cette illustration, nous obtenons une valeur légèrement différente par rapport à 0,84 ci-dessus en raison de l'imprécision des arrondis.] . Chez les jeunes de 18 à 20 ans, en conséquence, les probabilités étaient, comme ci-dessus,`0.174:0.146 = ~1.19` ce qui donne le même rapport de cotes de ~1,4.
 
 ## Action individuelle pour la société {#sec-appendix-individual-action}
 
@@ -3655,7 +3655,7 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
 
 ### Autres facteurs
 
-@fig-rupture-model-other montre comment les deux variables pertinentes prédisent la rupture. La variable `action_individuelle_societe` est catégorique et peut être interprétée comme les variables démographiques dans les résultats précédents : une catégorie sert de référence (omise) et les rapports de cotes rapportés représentent la façon dont les cotes de rupture diffèrent par rapport à cette référence. La variable `perception_avenir_num` est numérique (sur une échelle de 1 à 4)^\[Note `_num` dans le nom de la variable signifie "numérique" : nous utilisons une version numérique, de "Pas du tout confiant(e)" = 1, à "Très confiant(e)" = 4.\]. Pour les prédicteurs numériques, le rapport de cotes estimé indique de combien les chances de rupture changent, en moyenne, pour chaque augmentation d'une unité sur l'échelle. Par exemple, l'estimation résultante de 1,14 dans @fig-rupture-model-other pour les prédicteurs numériques indique combien les chances de rupture changent, en moyenne, pour chaque augmentation d'une unité sur l'échelle. `perception_avenir_num` signifie qu'en moyenne, une augmentation d'un point de la confiance en l'avenir correspond à une augmentation de 14 % des chances de rupture. En d'autres termes, les résultats suggèrent que, plus les bénévoles sont confiants dans leur avenir, plus ils ont de chances d'avoir une rupture, en moyenne. @fig-perception-avenir-descriptive suggère que cet effet moyen est principalement dû aux bénévoles qui sont "très confiants".
+@fig-rupture-model-other montre comment les deux variables pertinentes prédisent la rupture. La variable `action_individuelle_societe` est catégorique et peut être interprétée comme les variables démographiques dans les résultats précédents : une catégorie sert de référence (omise) et les rapports de cotes rapportés représentent la façon dont les cotes de rupture diffèrent par rapport à cette référence. La variable `perception_avenir_num` est numérique (sur une échelle de 1 à 4)^[Note `_num` dans le nom de la variable signifie "numérique" : nous utilisons une version numérique, de "Pas du tout confiant(e)" = 1, à "Très confiant(e)" = 4.]. Pour les prédicteurs numériques, le rapport de cotes estimé indique de combien les chances de rupture changent, en moyenne, pour chaque augmentation d'une unité sur l'échelle. Par exemple, l'estimation résultante de 1,14 dans @fig-rupture-model-other pour les prédicteurs numériques indique combien les chances de rupture changent, en moyenne, pour chaque augmentation d'une unité sur l'échelle. `perception_avenir_num` signifie qu'en moyenne, une augmentation d'un point de la confiance en l'avenir correspond à une augmentation de 14 % des chances de rupture. En d'autres termes, les résultats suggèrent que, plus les volontaires sont confiants dans leur avenir, plus ils ont de chances d'avoir une rupture, en moyenne. @fig-perception-avenir-descriptive suggère que cet effet moyen est principalement dû aux volontaires qui sont "très confiants".
 
 ```{r}
 #| label: tbl-rupture-candidates
@@ -3746,7 +3746,7 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
 
 ### Autres facteurs
 
-Certaines des variables non démographiques sont numériques^\[Tous les noms de variables qui se terminent par `_num` ont été traités comme des variables numériques pour les présentes analyses\], par exemple, `confiance_en_soi_num` (Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ? 1 - Non, pas du tout ; 2 - Non, pas vraiment ; 3 - Oui, assez ; 4 - Oui, beaucoup).
+Certaines des variables non démographiques sont numériques^[Tous les noms de variables qui se terminent par `_num` ont été traités comme des variables numériques pour les présentes analyses], par exemple, `confiance_en_soi_num` (Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ? 1 - Non, pas du tout ; 2 - Non, pas vraiment ; 3 - Oui, assez ; 4 - Oui, beaucoup).
 
 Pour les variables numériques, les estimations représentent l'augmentation ou la diminution de la satisfaction avec une augmentation d'une unité de la variable prédictive. Par exemple, pour `confiance_en_soi_num` l'estimation est de 0,33. `confiance_en_soi_num` prend des valeurs sur une échelle de 4 points (de 1, "Non, pas du tout", à 4, "Oui, beaucoup"). Cela signifie qu'en moyenne, une augmentation d'une unité de `confiance_en_soi_num` est associée à une augmentation de 0,33 point de la satisfaction (échelle de 4 points).
 
@@ -3780,7 +3780,7 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
 
 ## Confiance en l'avenir {#sec-appendix-perception-avenir}
 
-Comme pour la satisfaction ci-dessus, pour les analyses sur ce qui prédit la confiance en leur avenir, nous la traitons comme une variable continue (1, "Pas du tout confiant.e", à 4, "Très confiant.e"). En ce qui concerne la satisfaction, comme ce résultat est continu, nous effectuons des régressions linéaires. Les résultats pour les variables démographiques sont affichés dans @fig-perception-avenir-demographic-variables, pour les autres variables dans @fig-perception-avenir-autres-variables.
+Comme pour la satisfaction ci-dessus, pour les analyses sur ce qui prédit la confiance en leur avenir, nous la traitons comme une variable continue (1, "Pas du tout confiant.e", à 4, "Très confiant.e"). En ce qui concerne la satisfaction, comme ce résultat est continu, nous effectuons des régressions linéaires. Les résultats pour les variables démographiques sont affichés dans @fig-perception-avenir-demographic-variables, pour les autres variables dans @fig-perception-avenir-other-variables.
 
 ### Facteurs démographiques
 
@@ -3815,7 +3815,7 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
 
 ### Autres facteurs
 
-La seule autre variable que nous prenons en compte ici est `action_individuelle_societe` ("En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?" Oui ; Pas vraiment ; Non). @fig-perception-avenir-autres-variables montre que les bénévoles qui ne pensent pas qu'ils peuvent contribuer individuellement à changer la société (la catégorie de base omise) sont les moins confiants dans leur avenir : les bénévoles qui sont légèrement moins pessimistes (ayant répondu "Pas vraiment") et les bénévoles qui pensent qu'ils peuvent contribuer (ayant répondu "Oui") sont plus susceptibles d'être confiants, ceux qui ont répondu "Oui" étant les plus confiants.
+La seule autre variable que nous prenons en compte ici est `action_individuelle_societe` ("En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?" Oui ; Pas vraiment ; Non). @fig-perception-avenir-other-variables montre que les volontaires qui ne pensent pas qu'ils peuvent contribuer individuellement à changer la société (la catégorie de base omise) sont les moins confiants dans leur avenir : les volontaires qui sont légèrement moins pessimistes (ayant répondu "Pas vraiment") et les volontaires qui pensent qu'ils peuvent contribuer (ayant répondu "Oui") sont plus susceptibles d'être confiants, ceux qui ont répondu "Oui" étant les plus confiants.
 
 ```{r}
 #| label: fig-perception-avenir-other-variables 
@@ -3847,7 +3847,7 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
 
 ## Différences entre les programmes {#sec-appendix-programs}
 
-Les sections suivantes montrent, pour chaque catégorie de programme clé, comment les bénévoles de ce programme diffèrent par rapport à toutes les autres catégories de programmes clés combinées, en termes de variables démographiques. Les résultats sont exprimés sous forme de rapports de cotes, qui peuvent être interprétés comme ci-dessus : Si le rapport de cotes est *supérieur à 1* alors un certain groupe est *plus probable* d'être représenté dans la catégorie du programme clé ciblé, par rapport à tous les autres programmes. Par exemple, dans @fig-solidarite-aidants-demographic-variables, il y a plus de jeunes de 18 à 20 ans (odds ratio = 1,18, par rapport à la base omise, les 16 à 17 ans) dans le programme "Solidarité Aidants", que dans les autres programmes, en moyenne. Si l'odds ratio *est inférieur à 1* cela signifie qu'un certain groupe est *moins probable* d'être représenté dans la catégorie de programme clé ciblée. Par exemple, les réfugiés sont considérablement moins susceptibles (rapport de cotes = 0,17, par rapport à la base omise, les non-réfugiés) d'être dans le programme "Solidarité Aidants", par rapport à tous les autres programmes, en moyenne.
+Les sections suivantes montrent, pour chaque catégorie de programme clé, comment les volontaires de ce programme diffèrent par rapport à toutes les autres catégories de programmes clés combinées, en termes de variables démographiques. Les résultats sont exprimés sous forme de rapports de cotes, qui peuvent être interprétés comme ci-dessus : Si le rapport de cotes est *supérieur à 1* alors un certain groupe est *plus probable* d'être représenté dans la catégorie du programme clé ciblé, par rapport à tous les autres programmes. Par exemple, dans @fig-solidarite-aidants-demographic-variables, il y a plus de jeunes de 18 à 20 ans (odds ratio = 1,18, par rapport à la base omise, les 16 à 17 ans) dans le programme "Solidarité Aidants", que dans les autres programmes, en moyenne. Si l'odds ratio *est inférieur à 1* cela signifie qu'un certain groupe est *moins probable* d'être représenté dans la catégorie de programme clé ciblée. Par exemple, les réfugiés sont considérablement moins susceptibles (rapport de cotes = 0,17, par rapport à la base omise, les non-réfugiés) d'être dans le programme "Solidarité Aidants", par rapport à tous les autres programmes, en moyenne.
 
 ### Solidarité Aidants
 
@@ -3879,7 +3879,7 @@ ggplot(model_results_solidarite_aidants , aes(x = estimate, y = fct_rev(term), c
 
 ```{r}
 #| label: fig-cine-demographic-variables 
-#| fig-cap: Differences in Cinéma & Citoyennetévs vs. other programs along demographic factors
+#| fig-cap: Differences in Cinéma & Citoyenneté vs. other programs along demographic factors
 
 ggplot(model_results_cine, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
