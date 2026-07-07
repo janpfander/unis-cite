@@ -2003,9 +2003,8 @@ Table&nbsp;5: Programs of key interest and the number of volunteers.
 // rewrites links, so it can never cause navigation loops (and degrades
 // gracefully if localStorage is unavailable, e.g. in private windows).
 //
-// The site's default language is French: the homepage (index.html) is the
-// French summary, the English summary is index.en.html; the full report is
-// English at report.html, French at report.fr.html.
+// The site's default language is French: index.html and report.html are the
+// French versions, the English ones live at index.en.html and report.en.html.
 //
 // "Mode" is the language of the last bilingual page visited (kept in
 // localStorage, French by default). Monolingual pages (Tables, Codebook)
@@ -2014,7 +2013,7 @@ Table&nbsp;5: Programs of key interest and the number of volunteers.
 document.addEventListener("DOMContentLoaded", function () {
   var pairs = {
     index: { fr: "index.html", en: "index.en.html" },
-    report: { fr: "report.fr.html", en: "report.html" }
+    report: { fr: "report.html", en: "report.en.html" }
   };
 
   var file = window.location.pathname.split("/").pop();

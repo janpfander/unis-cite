@@ -8,9 +8,8 @@ A consulting project analyzing survey data for **Unis-Cité**, a French NGO orga
 
 ## Repository layout
 
-- `index.qmd` (**French**) / `index.en.qmd` (English) — bilingual executive summary; the homepage is the French version (French is the site's default language). Pure prose, no R chunks; hardcoded numbers taken from the report prose — update by hand if the underlying results change. Links into report sections via `report.fr.qmd#sec-...` / `report.qmd#sec-...`.
-- `report.qmd` — the main report (English; formerly `index.qmd`). ~3900 lines, mostly R chunks.
-- `report.fr.qmd` — full French translation of `report.qmd`. **Kept in sync manually**: code chunks are identical, only prose/captions are translated. Any change to `report.qmd` must be mirrored here.
+- `index.qmd` (**French**) / `index.en.qmd` (English) — bilingual executive summary; the homepage is the French version. Pure prose, no R chunks; hardcoded numbers taken from the report prose — update by hand if the underlying results change. Links into report sections via `report.qmd#sec-...` / `report.en.qmd#sec-...`.
+- `report.qmd` (**French**) / `report.en.qmd` (English) — the full report (~3900 lines, mostly R chunks). **French is the site's default language**, so the default URLs (`index.html`, `report.html`, `report.pdf`…) are the French versions; English lives at `*.en.*`. **The English `report.en.qmd` is the content master**; mirror every change into `report.qmd` (translate prose, keep code identical).
 - `language-toggle.html` — JS included after body on every HTML page (via `_quarto.yml`). **Never redirects — link rewriting only** (a redirect-based version looped when localStorage was blocked, e.g. Safari private windows). "Mode" = language of the last bilingual page visited (localStorage `site-lang`, default French); navbar links and the injected navbar toggle follow the mode. New bilingual pages must be added to its `pairs` map.
 - `tables.qmd` — supplementary tables (demographics via `gtsummary`, repeated questions, geographic trends, programs).
 - `codebook.qmd` — renders `data/codebook.csv` as a table.
@@ -24,8 +23,8 @@ A consulting project analyzing survey data for **Unis-Cité**, a French NGO orga
 ## Build
 
 - Quarto website project, `output-dir: docs`, `freeze: auto`, `echo: false`.
-- Render: `quarto render` (renders `index.qmd`, `index.fr.qmd`, `report.qmd`, `report.fr.qmd`, `tables.qmd`, `codebook.qmd`).
-- `report.qmd` / `report.fr.qmd` output three formats: `html`, `apaquarto-docx`, `apaquarto-pdf` (documentmode: doc).
+- Render: `quarto render` (renders `index.qmd`, `index.en.qmd`, `report.qmd`, `report.en.qmd`, `tables.qmd`, `codebook.qmd`).
+- `report.qmd` / `report.en.qmd` output three formats: `html`, `apaquarto-docx`, `apaquarto-pdf` (documentmode: doc).
 - R packages: tidyverse, readxl, labelled, sjlabelled, ggalluvial, sf, rmapshaper, wesanderson, kableExtra, broom, gtsummary, flextable, gt, ggpubr, DescTools. (`brms` commented out everywhere — Bayesian models were drafted but not used.)
 
 ## Data pipeline
@@ -35,7 +34,7 @@ A consulting project analyzing survey data for **Unis-Cité**, a French NGO orga
 3. Cleaning uses the codebook to rename/select; output is `cleaned_promo_combined.RData` → object `combined_data`, long by wave (`source` column: q0/q1/q2/q3; `promo` column for cohort).
 4. Duplicate-question caveat: volunteers in two programs saw some questions twice; identified by hand in the codebook.
 
-## Report structure (report.qmd)
+## Report structure (report.en.qmd / report.qmd)
 
 1. **Introduction** — explicitly frames all results as associations, *not* causal.
 2. **Who are the volunteers?** (`#sec-who`) — geography (sf maps by département), age, education, sex.
@@ -50,7 +49,7 @@ A consulting project analyzing survey data for **Unis-Cité**, a French NGO orga
 
 ## Conventions & gotchas
 
-- The setup chunk (libraries, data load, `demographic_variables`, `demographic_variables_not_reported`, `program_colours`) is **duplicated** across `report.qmd`, `report.fr.qmd`, `tables.qmd`, `codebook.qmd` — keep them consistent when editing. (Note: `tables.qmd`/`codebook.qmd` use `motif_rupture` in `demographic_variables` where `report.qmd` uses `rupture`.)
+- The setup chunk (libraries, data load, `demographic_variables`, `demographic_variables_not_reported`, `program_colours`) is **duplicated** across `report.qmd`, `report.en.qmd`, `tables.qmd`, `codebook.qmd` — keep them consistent when editing. (Note: `tables.qmd`/`codebook.qmd` use `motif_rupture` in `demographic_variables` where `report.qmd` uses `rupture`.)
 - Modeling approach throughout: one simple (logistic) regression per predictor, significance-flagged, displayed via forest-style plots and appendix tables — deliberately descriptive, not multivariate.
 - Repeated plot pattern: paired absolute-numbers + percentages plots with `fig-subcap` and `layout-ncol: 2`.
 - `program_colours`: 7-color custom palette defined in the setup chunk; `wesanderson` also used.
@@ -61,13 +60,13 @@ A consulting project analyzing survey data for **Unis-Cité**, a French NGO orga
 ## Working practices (per Jan)
 
 - Keep code parsimonious: when touching duplicated chunk code, factor it into `functions/functions.R` instead of patching copies. Verify refactors by re-rendering and hash-comparing the output figures (`md5 -q docs/index_files/figure-html/<fig>.png`).
-- `report.qmd` (EN) is the master; mirror every change into `report.fr.qmd` (translate prose, keep code identical). Bulk mechanical edits across both files are done with Python scripts using literal replacements + count assertions. The executive summaries (`index.qmd` FR / `index.en.qmd` EN) are likewise a pair to keep in sync.
+- `report.en.qmd` (EN) is the content master; mirror every change into `report.qmd` (FR; translate prose, keep code identical). Bulk mechanical edits across both files are done with Python scripts using literal replacements + count assertions. The executive summaries (`index.qmd` FR / `index.en.qmd` EN) are likewise a pair to keep in sync.
 - Quick verification render: `quarto render report.qmd --to html` (a few minutes). PDF/DOCX only via full render before submissions.
 - Report sections follow a repeating pattern (overview → trend across promos → predictors → key-program differences); new sections should match it.
 
 ## Status (2026-07-07)
 
-Site restructured: report moved to `report.qmd`/`report.fr.qmd` (freeze caches moved with `git mv`, no re-execution), new bilingual executive-summary homepage (French `index.qmd` is the site root, English at `index.en.qmd`), navbar EN/FR toggle via `language-toggle.html` (link rewriting only, no redirects). Full render done (all formats, both languages); cross-refs verified in HTML and PDFs. All uncommitted on `main`.
+Site restructured; after several iterations, **French holds the default filenames** (`index.qmd`, `report.qmd`; English at `index.en.qmd`, `report.en.qmd` — freeze caches moved with `git mv` + path sed, no re-execution). New bilingual executive-summary homepage; navbar EN/FR toggle via `language-toggle.html` (link rewriting only, no redirects — an earlier redirect design looped when localStorage was blocked). NGO masking dropped the same day: prose now says "Unis-Cité" (mind the French elision: d'Unis-Cité). Full render done (all formats, both languages); cross-refs verified in HTML and PDFs. All uncommitted on `main`.
 
 Gotchas learned: (1) when renaming a `.qmd`, moving `_freeze/<name>` is not enough — the execute-results JSONs embed `<name>_files/...` figure paths, which must be sed-rewritten to the new stem, or the rendered HTML points at nonexistent figure dirs. (2) apaquarto renders emit `(W) Cannot find @sec-...` warnings that are spurious — refs resolve fine in the outputs. (3) A project-wide `quarto render --to html` **deletes** the PDF/DOCX outputs from `docs/` (project renders prune outputs they didn't produce); to refresh HTML without losing them, render single files, or re-render PDFs afterwards via `quarto render report.qmd --to apaquarto-pdf,apaquarto-docx` (fast thanks to freeze, only LaTeX/pandoc re-run).
 

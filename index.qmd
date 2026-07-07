@@ -1,11 +1,11 @@
 ---
-title: "Rapport sur les volontaires de Unis-Cité"
+title: "Rapport sur les volontaires d'Unis-Cité"
 subtitle: "Synthèse"
 lang: fr
 ---
 
 ::: {.callout-note appearance="simple"}
-Cette page résume les principaux résultats. L'analyse complète, avec toutes les figures et les détails méthodologiques, se trouve dans le [rapport complet](report.fr.qmd) (également disponible [in English](report.qmd)).
+Cette page résume les principaux résultats. L'analyse complète, avec toutes les figures et les détails méthodologiques, se trouve dans le [rapport complet](report.qmd) (également disponible [in English](report.en.qmd)).
 :::
 
 ## De quoi s'agit-il ?
@@ -16,7 +16,7 @@ Une mise en garde s'applique à tout ce qui suit : les données sont purement ob
 
 ## Qui sont les volontaires ?
 
-Le nombre de volontaires a augmenté régulièrement au fil des quatre cohortes, et leur profil a évolué ([Section : Qui sont les volontaires ?](report.fr.qmd#sec-who)) :
+Le nombre de volontaires a augmenté régulièrement au fil des quatre cohortes, et leur profil a évolué ([Section : Qui sont les volontaires ?](report.qmd#sec-who)) :
 
 - Environ 60 % des volontaires sont des femmes, une part stable (voire en légère augmentation).
 - La plupart des volontaires ont entre 18 et 20 ans, mais la part des mineur·e·s (16-17 ans) a environ doublé, passant de 13 % en 2020-21 à 24 % en 2023-24.
@@ -24,37 +24,37 @@ Le nombre de volontaires a augmenté régulièrement au fil des quatre cohortes,
 
 ## Les volontaires répondent-ils aux questionnaires ?
 
-Les taux de réponse chutent considérablement entre le premier questionnaire et le troisième ([Section : Attrition](report.fr.qmd#sec-attrition)). Cela s'explique en partie par les ruptures de contrat, en partie par la lassitude face aux enquêtes --- même si cette lassitude montre une légère tendance à l'amélioration pour les deux premiers questionnaires. Point important : les volontaires qui continuent de répondre sont un peu plus satisfaits que ceux qui abandonnent. Les résultats fondés sur les derniers questionnaires dressent donc probablement un tableau *légèrement* trop positif --- mais pas fondamentalement trompeur ([Section : Une mise en garde](report.fr.qmd#sec-attrition-bias)).
+Les taux de réponse chutent considérablement entre le premier questionnaire et le troisième ([Section : Attrition](report.qmd#sec-attrition)). Cela s'explique en partie par les ruptures de contrat, en partie par la lassitude face aux enquêtes --- même si cette lassitude montre une légère tendance à l'amélioration pour les deux premiers questionnaires. Point important : les volontaires qui continuent de répondre sont un peu plus satisfaits que ceux qui abandonnent. Les résultats fondés sur les derniers questionnaires dressent donc probablement un tableau *légèrement* trop positif --- mais pas fondamentalement trompeur ([Section : Une mise en garde](report.qmd#sec-attrition-bias)).
 
 ## Les volontaires changent-ils d'attitude ?
 
-Seules deux questions ont été posées à plusieurs moments : sur le vote et sur la conviction que son action individuelle peut changer la société ([Section : Changements d'attitude](report.fr.qmd#sec-within-change)).
+Seules deux questions ont été posées à plusieurs moments : sur le vote et sur la conviction que son action individuelle peut changer la société ([Section : Changements d'attitude](report.qmd#sec-within-change)).
 
 - **Le vote.** Dans chaque cohorte, la plupart des volontaires déclarent le même comportement de vote avant et après leur service. Parmi la minorité qui change, la direction varie fortement d'une cohorte à l'autre et semble suivre le calendrier électoral : par exemple, dans la cohorte 2021-22 --- dont l'année de service s'est terminée autour de l'élection présidentielle de 2022 --- 35 % ont changé vers « Oui, j'ai voté », tandis que la cohorte 2022-23, sans élection nationale pendant son année de service, a été de loin la plus stable (88 % sans changement).
 - **L'action individuelle.** Le principal résultat est la stabilité : 65 % des volontaires pensent déjà au début de leur service que leur action individuelle peut contribuer à changer la société, et la plupart le pensent encore six mois après la fin de leur service. Il n'y a pas de tendance claire, ni positive ni négative.
 
 ## Les ruptures : qui part tôt, et quand ?
 
-Un peu plus de 20 % des volontaires mettent fin à leur contrat avant terme, une part stable au fil des cohortes --- et pas toujours pour des raisons négatives (certains partent par exemple parce qu'ils ont trouvé un emploi). Deux résultats ressortent ([Section : Rupture](report.fr.qmd#sec-rupture)) :
+Un peu plus de 20 % des volontaires mettent fin à leur contrat avant terme, une part stable au fil des cohortes --- et pas toujours pour des raisons négatives (certains partent par exemple parce qu'ils ont trouvé un emploi). Deux résultats ressortent ([Section : Rupture](report.qmd#sec-rupture)) :
 
 - Les ruptures surviennent surtout au début : environ un tiers de ceux qui partent le font dans leurs trois premiers mois, et la moitié dans les cinq premiers. L'accompagnement visant à prévenir les ruptures négatives compte donc surtout au début du service.
 - Le facteur de risque le plus net est un faible niveau d'éducation : les volontaires sans bac mettent fin à leur contrat pour des raisons négatives nettement plus souvent que les volontaires ayant le bac ou plus --- et cela reste vrai quand on compare des volontaires de même âge, sexe et lieu de résidence. Les volontaires des quartiers prioritaires (« QPV ») partent aussi plus souvent à première vue, mais cette différence disparaît une fois le niveau d'éducation pris en compte : elle tient en grande partie au fait que les volontaires des QPV sont en moyenne moins diplômés, et non à leur lieu de résidence.
 
 ## La satisfaction
 
-La plupart des volontaires jugent leur service civique « très satisfaisant ». Cependant, la part des volontaires très satisfaits a diminué au fil des quatre cohortes ([Section : La satisfaction](report.fr.qmd#sec-satisfaction)). On pourrait soupçonner que cette baisse reflète simplement l'évolution du profil des volontaires (plus jeunes, moins diplômés). Les données suggèrent le contraire : la baisse apparaît *au sein* de pratiquement tous les groupes d'âge et niveaux d'éducation --- quelque chose dans l'expérience elle-même semble donc avoir changé. Les volontaires les plus satisfaits sont ceux qui sont fiers de ce qu'ils ont accompli, qui ont le sentiment d'avoir gagné en confiance en eux pendant leur service, et qui estiment que le service leur a été utile à eux personnellement (pas seulement aux autres) ; les volontaires plus âgés sont aussi plus satisfaits que les plus jeunes.
+La plupart des volontaires jugent leur service civique « très satisfaisant ». Cependant, la part des volontaires très satisfaits a diminué au fil des quatre cohortes ([Section : La satisfaction](report.qmd#sec-satisfaction)). On pourrait soupçonner que cette baisse reflète simplement l'évolution du profil des volontaires (plus jeunes, moins diplômés). Les données suggèrent le contraire : la baisse apparaît *au sein* de pratiquement tous les groupes d'âge et niveaux d'éducation --- quelque chose dans l'expérience elle-même semble donc avoir changé. Les volontaires les plus satisfaits sont ceux qui sont fiers de ce qu'ils ont accompli, qui ont le sentiment d'avoir gagné en confiance en eux pendant leur service, et qui estiment que le service leur a été utile à eux personnellement (pas seulement aux autres) ; les volontaires plus âgés sont aussi plus satisfaits que les plus jeunes.
 
 ## La confiance en l'avenir
 
-La confiance des volontaires en leur avenir est remarquablement stable d'une cohorte à l'autre, la plupart des volontaires étant « assez confiant·e·s » ([Section : Confiance en l'avenir](report.fr.qmd#sec-perception-avenir)). Les hommes, les réfugié·e·s et les volontaires de type « RELAIS » tendent à être plus confiants. Les volontaires qui pensent que leur action individuelle peut changer la société sont aussi plus confiants en leur propre avenir.
+La confiance des volontaires en leur avenir est remarquablement stable d'une cohorte à l'autre, la plupart des volontaires étant « assez confiant·e·s » ([Section : Confiance en l'avenir](report.qmd#sec-perception-avenir)). Les hommes, les réfugié·e·s et les volontaires de type « RELAIS » tendent à être plus confiants. Les volontaires qui pensent que leur action individuelle peut changer la société sont aussi plus confiants en leur propre avenir.
 
 ## Les différences entre programmes
 
-Les programmes phares attirent des volontaires aux profils nettement différents ([Section : Programmes](report.fr.qmd#sec-programs)). Par exemple, « Booster » attire des volontaires nettement plus jeunes et moins diplômés, plus souvent issus des quartiers prioritaires, et connaît plus de ruptures ; « Ecovolonterre » et « ASM » attirent des volontaires plus diplômés ; « Cinéma & Citoyenneté » attire des volontaires plus âgés, avec moins de ruptures. Ces profils comptent lorsqu'on compare les résultats entre programmes : des différences apparentes entre programmes peuvent simplement refléter qui s'y inscrit.
+Les programmes phares attirent des volontaires aux profils nettement différents ([Section : Programmes](report.qmd#sec-programs)). Par exemple, « Booster » attire des volontaires nettement plus jeunes et moins diplômés, plus souvent issus des quartiers prioritaires, et connaît plus de ruptures ; « Ecovolonterre » et « ASM » attirent des volontaires plus diplômés ; « Cinéma & Citoyenneté » attire des volontaires plus âgés, avec moins de ruptures. Ces profils comptent lorsqu'on compare les résultats entre programmes : des différences apparentes entre programmes peuvent simplement refléter qui s'y inscrit.
 
 ## Recommandations pour les futurs questionnaires
 
-Le rapport se conclut par des suggestions méthodologiques ([Conclusion](report.fr.qmd#conclusion-quelques-remarques-méthodologiques)) :
+Le rapport se conclut par des suggestions méthodologiques ([Conclusion](report.qmd#conclusion-quelques-remarques-méthodologiques)) :
 
 1. **Des questionnaires plus courts** réduiraient probablement l'attrition et amélioreraient la qualité des réponses.
 2. **Poser les mêmes questions à chaque moment de mesure** permettrait de suivre l'évolution individuelle des volontaires --- actuellement, seules deux questions le permettent.

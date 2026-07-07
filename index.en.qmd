@@ -5,7 +5,7 @@ lang: en
 ---
 
 ::: {.callout-note appearance="simple"}
-This page summarizes the main findings. The full analysis, with all figures and methodological detail, is in the [complete report](report.qmd) (also available [en français](report.fr.qmd)).
+This page summarizes the main findings. The full analysis, with all figures and methodological detail, is in the [complete report](report.en.qmd) (also available [en français](report.qmd)).
 :::
 
 ## What this is about
@@ -16,7 +16,7 @@ One caveat applies to everything below: the data are purely observational. When 
 
 ## Who are the volunteers?
 
-The number of volunteers has grown steadily across the four cohorts, and their profile has been shifting ([Section: Who are the volunteers?](report.qmd#sec-who)):
+The number of volunteers has grown steadily across the four cohorts, and their profile has been shifting ([Section: Who are the volunteers?](report.en.qmd#sec-who)):
 
 - About 60% of volunteers are women, a share that is stable (if anything, slightly increasing).
 - Most volunteers are between 18 and 20 years old, but the share of minors (16--17) has roughly doubled, from 13% in 2020-21 to 24% in 2023-24.
@@ -24,37 +24,37 @@ The number of volunteers has grown steadily across the four cohorts, and their p
 
 ## Do volunteers answer the questionnaires?
 
-Response rates drop considerably from the first questionnaire to the third ([Section: Attrition](report.qmd#sec-attrition)). Part of this is due to volunteers ending their contract early, part to survey fatigue --- though fatigue shows a slightly positive trend for the first two questionnaires. Importantly, the volunteers who keep answering are somewhat more satisfied than those who drop out, so results based on the later questionnaires likely paint a *slightly* too positive picture --- but not a fundamentally misleading one ([Section: A word of caution](report.qmd#sec-attrition-bias)).
+Response rates drop considerably from the first questionnaire to the third ([Section: Attrition](report.en.qmd#sec-attrition)). Part of this is due to volunteers ending their contract early, part to survey fatigue --- though fatigue shows a slightly positive trend for the first two questionnaires. Importantly, the volunteers who keep answering are somewhat more satisfied than those who drop out, so results based on the later questionnaires likely paint a *slightly* too positive picture --- but not a fundamentally misleading one ([Section: A word of caution](report.en.qmd#sec-attrition-bias)).
 
 ## Do volunteers change their attitudes?
 
-Only two questions were asked at several time points, on voting and on the belief that one's individual action can change society ([Section: Attitude change](report.qmd#sec-within-change)).
+Only two questions were asked at several time points, on voting and on the belief that one's individual action can change society ([Section: Attitude change](report.en.qmd#sec-within-change)).
 
 - **Voting.** In every cohort, most volunteers report the same voting behavior before and after their service. Among the minority who change, the direction differs strongly between cohorts and appears to follow the election calendar: for example, in the 2021-22 cohort --- whose service year ended around the 2022 presidential election --- 35% changed towards "Yes, I voted", while the 2022-23 cohort, with no nationwide election during its service year, was by far the most stable (88% unchanged).
 - **Individual action.** The main result is stability: 65% of volunteers already believe at the start that their individual action can contribute to changing society, and most still do six months after their service ends. There is no clear positive or negative trend.
 
 ## Ruptures: who leaves early, and when?
 
-Slightly more than 20% of volunteers end their contract early, a share that is stable across cohorts --- and not always for negative reasons (some leave because they found a job, for instance). Two findings stand out ([Section: Rupture](report.qmd#sec-rupture)):
+Slightly more than 20% of volunteers end their contract early, a share that is stable across cohorts --- and not always for negative reasons (some leave because they found a job, for instance). Two findings stand out ([Section: Rupture](report.en.qmd#sec-rupture)):
 
 - Ruptures happen disproportionately early: about a third of those who leave do so within their first three months, and half within five. Support aimed at preventing negative ruptures therefore matters most at the start of the service.
 - The clearest risk factor is a low level of education: volunteers without a bac end their contract early for negative reasons considerably more often than volunteers with a bac or more --- and this holds when comparing volunteers of the same age, sex, and place of residence. Volunteers from priority urban neighborhoods ("QPV") also leave more often at first glance, but this difference disappears once education is taken into account: it is largely because QPV volunteers are less educated on average, not because of where they live.
 
 ## Satisfaction
 
-Most volunteers rate their service civique as "très satisfaisante". However, the share of very satisfied volunteers has declined across the four cohorts ([Section: Satisfaction](report.qmd#sec-satisfaction)). A natural suspicion is that this decline simply reflects the changing profile of volunteers (younger, less educated). The data suggest otherwise: the decline appears *within* practically every age group and education level, so something about the experience itself seems to have changed. The most satisfied volunteers are those who feel proud of what they accomplished, feel they gained self-confidence during their service, and feel the service was useful to them personally (not only to others); older volunteers are also more satisfied than younger ones.
+Most volunteers rate their service civique as "très satisfaisante". However, the share of very satisfied volunteers has declined across the four cohorts ([Section: Satisfaction](report.en.qmd#sec-satisfaction)). A natural suspicion is that this decline simply reflects the changing profile of volunteers (younger, less educated). The data suggest otherwise: the decline appears *within* practically every age group and education level, so something about the experience itself seems to have changed. The most satisfied volunteers are those who feel proud of what they accomplished, feel they gained self-confidence during their service, and feel the service was useful to them personally (not only to others); older volunteers are also more satisfied than younger ones.
 
 ## Confidence in one's future
 
-Volunteers' confidence in their future is remarkably stable across cohorts, with most volunteers "assez confiant(e)" ([Section: Confidence](report.qmd#sec-perception-avenir)). Male volunteers, refugees, and "RELAIS"-type volunteers tend to be more confident. Volunteers who believe their individual action can change society are also more confident about their own future.
+Volunteers' confidence in their future is remarkably stable across cohorts, with most volunteers "assez confiant(e)" ([Section: Confidence](report.en.qmd#sec-perception-avenir)). Male volunteers, refugees, and "RELAIS"-type volunteers tend to be more confident. Volunteers who believe their individual action can change society are also more confident about their own future.
 
 ## Differences between programs
 
-The key programs attract markedly different volunteers ([Section: Programs](report.qmd#sec-programs)). For example, "Booster" draws considerably younger and less educated volunteers, more often from priority urban neighborhoods, and sees more ruptures; "Ecovolonterre" and "ASM" attract more educated volunteers; "Cinéma & Citoyenneté" attracts older volunteers with fewer ruptures. These profiles matter when comparing outcomes between programs: apparent program differences may simply reflect who signs up.
+The key programs attract markedly different volunteers ([Section: Programs](report.en.qmd#sec-programs)). For example, "Booster" draws considerably younger and less educated volunteers, more often from priority urban neighborhoods, and sees more ruptures; "Ecovolonterre" and "ASM" attract more educated volunteers; "Cinéma & Citoyenneté" attracts older volunteers with fewer ruptures. These profiles matter when comparing outcomes between programs: apparent program differences may simply reflect who signs up.
 
 ## Recommendations for future questionnaires
 
-The report concludes with methodological suggestions ([Conclusion](report.qmd#conclusion-some-methodological-notes)):
+The report concludes with methodological suggestions ([Conclusion](report.en.qmd#conclusion-some-methodological-notes)):
 
 1. **Shorter questionnaires** would likely reduce attrition and improve response quality.
 2. **Asking the same questions at every time point** would make it possible to track how individual volunteers change --- currently only two questions allow this.
