@@ -1,5 +1,5 @@
 ---
-title: Rapport de bénévolat Cité-Unis
+title: Rapport sur les volontaires de Cité-Unis
 shorttitle: Cité-Unis
 author:
 - name: Jan Pfänder
@@ -97,7 +97,7 @@ Dans la @sec-programs, nous étudions les différences démographiques entre les
 Le rapport se termine par une brève conclusion contenant des remarques méthodologiques pour les questionnaires futurs.
 
 Pour ces analyses, nous nous appuyons sur les questionnaires collectés par Cité Unis auprès de quatre cohortes différentes de volontaires ayant effectué un service civique d’un an (2020-2021 ; 2021-2022 ; 2022-2023 ; 2023-2024). Ces questionnaires sont très détaillés. Pour les analyses présentées ici, nous avons sélectionné un sous-ensemble de questions clés (une liste complète est disponible dans le codebook
-)^[Notez que les questions ont été sélectionnées sur la base du questionnaire de la première cohorte (2020/21). Par conséquent, certaines variables potentiellement intéressantes qui n’apparaissent que dans des questionnaires ultérieurs ne figurent pas ici.].
+)^[Notez que les questions ont été sélectionnées sur la base du questionnaire de la première cohorte (2020/21). Par conséquent, certaines variables potentiellement intéressantes qui n’apparaissent que dans des questionnaires ultérieurs ne figurent pas ici. En outre, quelques questions dont la formulation a changé dans les cohortes ultérieures n’ont pas pu être appariées dans toutes les cohortes ; les variables correspondantes sont manquantes pour ces cohortes.].
 
 Avant de présenter les résultats, une remarque importante concernant l’interprétation des résultats présentés dans ce rapport : lorsque nous parlons de « prédictions », il s’agit simplement d’associations statistiques — de simples observations de différences entre groupes. Ce rapport ne fournit aucune preuve permettant de tirer des conclusions causales — c’est-à-dire des réponses quant aux raisons pour lesquelles nous observons ces différences.
 
@@ -105,7 +105,7 @@ Avant de présenter les résultats, une remarque importante concernant l’inter
 
 # Qui sont les volontaires ? {#sec-who}
 
-Dans cette section, nous examinons en détail certaines variables démographiques. Un tableau récapitulatif détaillé des données démographiques de l'échantillon pour les différentes cohortes se trouve à l'adresse suivante [Tableaux](tables.qmd).
+Dans cette section, nous examinons en détail certaines variables démographiques. Un tableau récapitulatif détaillé des données démographiques de l'échantillon pour les différentes cohortes se trouve dans les [Tableaux](tables.qmd).
 
 ## Situation géographique
 
@@ -144,15 +144,25 @@ trend_per_year <- lm(n ~ year, data = n_per_promo) |>
   tidy() %>%
   split(.$term)
 
+# volunteers who cannot be shown on the metropolitan map
+n_reunion <- combined |>
+  filter(region == "REU") |>
+  summarise(n = n_distinct(id_jeune)) |>
+  pull(n)
+
+n_site_unknown <- combined |>
+  filter(str_detect(site, "Manche Nord")) |>
+  summarise(n = n_distinct(id_jeune)) |>
+  pull(n)
 ```
 
-Les volontaires viennent de `r n_departments` différents départements (voir @fig-map-repartition). En moyenne, dans les différentes cohortes, la plupart des volontaires venaient de `r participants_per_year_department$NOM[1]` (n = `r participants_per_year_department$n[1]`), suivis du `r participants_per_year_department$NOM[2]` (n = `r participants_per_year_department$n[2]`) et `r participants_per_year_department$NOM[3]` (n = `r participants_per_year_department$n[3]`).
+Les volontaires viennent de `r n_departments` différents départements (voir @fig-map-repartition). Notez que les cartes de cette section ne couvrent que la France métropolitaine : les `r n_reunion` volontaires des sites de La Réunion, ainsi que `r n_site_unknown` volontaires d'un site n'ayant pas pu être localisé (« Manche Nord »), n'y figurent pas. En moyenne, dans les différentes cohortes, la plupart des volontaires venaient de `r participants_per_year_department$NOM[1]` (n = `r participants_per_year_department$n[1]`), suivis du `r participants_per_year_department$NOM[2]` (n = `r participants_per_year_department$n[2]`) et `r participants_per_year_department$NOM[3]` (n = `r participants_per_year_department$n[3]`).
 
-Dans l'ensemble, il y a eu une augmentation constante du nombre de volontaires, de `r first(n_per_promo$n)` en `r first(n_per_promo$promo)` à `r last(n_per_promo$n)` en `r last(n_per_promo$promo)` et une augmentation moyenne de `r trend_per_year$year$estimate` par an. Depuis la cohorte `r first(n_per_promo$promo)`, le nombre de bénévoles par département a augmenté en moyenne de `r trend_department$mean_trend`. Il y avait `r trend_department$trend_positive` départements qui ont connu une augmentation, et `r trend_department$trend_negative` qui ont connu une diminution (voir @fig-map-trend). Pour plus de détails sur la tendance de chaque département, voir [Tableaux](tables.qmd).
+Dans l'ensemble, il y a eu une augmentation constante du nombre de volontaires, de `r first(n_per_promo$n)` en `r first(n_per_promo$promo)` à `r last(n_per_promo$n)` en `r last(n_per_promo$promo)` et une augmentation moyenne de `r trend_per_year$year$estimate` par an. Depuis la cohorte `r first(n_per_promo$promo)`, le nombre de volontaires par département a augmenté en moyenne de `r trend_department$mean_trend`. Il y avait `r trend_department$trend_positive` départements qui ont connu une augmentation, et `r trend_department$trend_negative` qui ont connu une diminution (voir @fig-map-trend). Pour plus de détails sur la tendance de chaque département, voir [Tableaux](tables.qmd).
 
 ```{r}
 #| label: fig-map-repartition
-#| fig-cap: Répartition des volontaires en France à travers le temps. 
+#| fig-cap: Répartition des volontaires en France, pour chaque cohorte. Les cartes ne couvrent que la France métropolitaine ; les volontaires de La Réunion n'y figurent pas.
 
 pal <- wes_palette("Zissou1", 100, type = "continuous")
 
@@ -170,7 +180,7 @@ ggplot() +
 
 ```{r}
 #| label: fig-map-trend
-#| fig-cap: Evolution de recrutement pour la promo de 2023-24 par rapport à 2020-21. 
+#| fig-cap: Évolution du nombre de volontaires par département, promo 2023-24 par rapport à 2020-21. La carte ne couvre que la France métropolitaine.
 #| 
 # make a trend map of volunteers
 map |> 
@@ -191,14 +201,14 @@ ggplot() +
 
 ## Âge
 
-Comme le montre @fig-age, sur l'ensemble des promos, la majorité des volontaires a entre 18 et 20 ans. La part de la tranche d'âge des 16-17 ans a augmenté rapidement, doublant à peu près de 13 % en 2020 à 24 % en 2024.
+Comme le montre @fig-age, sur l'ensemble des promos, la majorité des volontaires a entre 18 et 20 ans. La part de la tranche d'âge des 16-17 ans a augmenté rapidement, passant d'environ 13 % en 2020 à 24 % en 2024, soit près du double.
 
 ```{r}
 #| label: fig-age
-#| fig-cap: "Number of volunteers per age group, within the different promos. Note that, in the percentage plot, the percentages are relative to all volunteers from the respective promo."
+#| fig-cap: "Nombre de volontaires par tranche d'âge, au sein des différentes promos. Notez que, dans le graphique des pourcentages, les pourcentages sont relatifs à l'ensemble des volontaires de la promo respective."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -250,10 +260,10 @@ ggplot(age_data,
 
 ```{r}
 #| label: fig-education
-#| fig-cap: "Number of volunteers per education level, within the different promos. Note that in the percentage plot, the percentages are relative to all volunteers from the respective promo."
+#| fig-cap: "Nombre de volontaires par niveau d'études, au sein des différentes promos. Notez que, dans le graphique des pourcentages, les pourcentages sont relatifs à l'ensemble des volontaires de la promo respective."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -305,10 +315,10 @@ En moyenne, plus de femmes (~60%) sont volontaires que d'hommes. Cette différen
 
 ```{r}
 #| label: fig-sex
-#| fig-cap: "Number of male and female volunteers, within the different promos. Note that in the percentage plot, the percentages are relative to all volunteers from the respective promo."
+#| fig-cap: "Nombre de volontaires masculins et féminins, au sein des différentes promos. Notez que, dans le graphique des pourcentages, les pourcentages sont relatifs à l'ensemble des volontaires de la promo respective."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -361,14 +371,14 @@ Dans le cadre de son service civique, chaque volontaire est invité à remplir t
 
 L'attrition peut avoir de nombreuses causes. Nous distinguons ici deux explications : les ruptures, c'est-à-dire les volontaires qui mettent fin prématurément à leur service civique (@sec-rupture) et la lassitude face à l'enquête, c'est-à-dire les volontaires qui poursuivent leur service civique mais ne remplissent pas les questionnaires (@fig-attrition-norupture).
 
-@fig-attrition montre l'attrition en général, tandis que @fig-attrition-norupture exclut les ruptures, donnant ainsi une estimation de la fatigue de l'enquête. Ce dernier chiffre montre que la fatigue de l'enquête est un problème, mais suggère également qu'il existe une tendance légèrement positive vers une réduction de la fatigue de l'enquête : de plus en plus de volontaires semblent répondre aux questionnaires au moins pour les deux premiers questionnaires (q1 et q2), mais moins pour le troisième questionnaire (q3).
+@fig-attrition montre l'attrition en général, tandis que @fig-attrition-norupture exclut les ruptures, donnant ainsi une estimation de la lassitude face à l'enquête. Cette dernière figure montre que cette lassitude est un réel problème, mais suggère aussi une légère tendance à l'amélioration : de plus en plus de volontaires semblent répondre au moins aux deux premiers questionnaires (q1 et q2), mais moins au troisième (q3).
 
 ```{r}
 #| label: fig-attrition
-#| fig-cap: "Number of volunteers per survey time point. Volunteers who appear under 'q0' have participated in the program but have not even filled out the first questionnaire (q1). Note that in the percentage plot, the percentages are relative to all volunteers from the respective promo. This plot **includes** ruptures."
+#| fig-cap: "Nombre de volontaires par point temporel de l'enquête. Les volontaires qui apparaissent sous 'q0' ont participé au programme mais n'ont même pas rempli le premier questionnaire (q1). Notez que, dans le graphique des pourcentages, les pourcentages sont relatifs à l'ensemble des volontaires de la promo respective. Ce graphique **inclut** les ruptures."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -433,10 +443,10 @@ ggplot(attrition_percent |>
 
 ```{r}
 #| label: fig-attrition-norupture
-#| fig-cap: "Number of volunteers per survey time point,  **excluding** ruptures. Volunteers who appear under 'q0' have participated in the program but have not even filled out the first questionnaire (q1). Note that in the percentage plot, the percentages are relative to all volunteers from the respective promo."
+#| fig-cap: "Nombre de volontaires par point temporel de l'enquête, **hors** ruptures. Les volontaires qui apparaissent sous 'q0' ont participé au programme mais n'ont même pas rempli le premier questionnaire (q1). Notez que, dans le graphique des pourcentages, les pourcentages sont relatifs à l'ensemble des volontaires de la promo respective."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -502,6 +512,55 @@ ggplot(attrition_percent |>
   facet_wrap(~promo)
 ```
 
+## Quels volontaires répondent aux questionnaires ? Une mise en garde {#sec-attrition-bias}
+
+L'attrition n'est pas seulement regrettable parce qu'elle signifie moins de données---elle peut aussi fausser les résultats. Les volontaires qui continuent à répondre aux questionnaires ne sont pas nécessairement le même type de personnes que ceux qui arrêtent de répondre. Imaginons, comme exemple extrême, que seuls les volontaires les plus heureux remplissent le dernier questionnaire : les résultats fondés sur ce questionnaire donneraient alors une image bien plus rose que la réalité, simplement parce que les volontaires insatisfaits manquent dans les données.
+
+Nous pouvons vérifier si un tel phénomène est à l'œuvre, car nous savons comment les volontaires ont répondu aux questionnaires *précédents*. La vérification fonctionne ainsi : prenons tous les volontaires qui ont indiqué leur satisfaction dans le deuxième questionnaire (q2), et séparons-les en deux groupes---ceux qui ont ensuite répondu au troisième questionnaire (q3), et ceux qui n'y ont pas répondu. Si les deux groupes avaient donné des réponses très différentes au q2, alors les volontaires qui répondent au q3 ne sont pas représentatifs de l'ensemble.
+
+```{r}
+# volunteers who answered q3
+q3_responders <- combined |>
+  filter(source == "q3") |>
+  distinct(id_jeune) |>
+  pull(id_jeune)
+
+# satisfaction reported at q2, by whether the volunteer later answered q3
+attrition_bias_data <- combined |>
+  filter(source == "q2") |>
+  drop_na(satisfaction) |>
+  distinct(id_jeune, satisfaction) |>
+  mutate(answered_q3 = ifelse(id_jeune %in% q3_responders,
+                              "A répondu au q3", "N'a pas répondu au q3")) |>
+  group_by(answered_q3) |>
+  summarise(n = n(),
+            pct = 100 * mean(satisfaction == "Très satisfaisante"),
+            .groups = "drop")
+
+# for inline reporting
+attrition_bias_pct <- list(
+  yes = round(attrition_bias_data$pct[attrition_bias_data$answered_q3 == "A répondu au q3"]),
+  no = round(attrition_bias_data$pct[attrition_bias_data$answered_q3 == "N'a pas répondu au q3"])
+)
+```
+
+@fig-attrition-bias montre le résultat de cette vérification : les volontaires qui ont ensuite répondu au q3 étaient effectivement un peu plus satisfaits au q2 (`r attrition_bias_pct$yes` % ont répondu "Très satisfaisante") que les volontaires qui n'ont pas répondu au q3 (`r attrition_bias_pct$no` %). La différence est réelle, mais modérée. Concrètement : les résultats fondés sur le troisième questionnaire---par exemple, les changements de perception dans @sec-individual-action---donnent probablement une image légèrement trop positive, mais il est peu probable qu'ils soient fondamentalement trompeurs. Nous avons effectué la même vérification un questionnaire plus tôt (en comparant les réponses au q1 des volontaires qui ont ensuite répondu ou non au q2) et n'y avons également trouvé que de petites différences.
+
+```{r}
+#| label: fig-attrition-bias
+#| fig-cap: "Part des volontaires se déclarant très satisfaits ('Très satisfaisante') dans le deuxième questionnaire (q2), selon qu'ils ont ensuite répondu ou non au troisième questionnaire (q3). Si les deux barres étaient égales, les volontaires qui répondent au q3 seraient parfaitement représentatifs---du moins en termes de satisfaction---de l'ensemble des volontaires ayant répondu au q2."
+
+ggplot(attrition_bias_data, aes(x = answered_q3, y = pct, fill = answered_q3)) +
+  geom_col() +
+  geom_text(aes(label = paste0(round(pct), "%")), vjust = -0.5, size = 4) +
+  geom_text(aes(label = paste0("N = ", n)), y = 3, size = 3, color = "white") +
+  scale_y_continuous(labels = scales::percent_format(scale = 1), expand = expansion(mult = c(0, 0.1))) +
+  scale_fill_manual(values = wes_palette("Zissou1", 5, type = "discrete")[c(1, 3)]) +
+  guides(fill = "none") +
+  labs(x = NULL, y = "Part 'Très satisfaisante' (au q2)") +
+  plot_theme
+```
+
 # Comment les volontaires ont-ils changé d'attitude ? {#sec-within-change}
 
 Dans la sélection des variables faite pour ce rapport, il n'y a que deux questions qui ont été posées aux volontaires à plusieurs moments de leur service civique :
@@ -510,17 +569,19 @@ Dans la sélection des variables faite pour ce rapport, il n'y a que deux questi
 
 2. "En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?" (@sec-individual-action).
 
+Pour toutes les analyses de cette section, gardez à l'esprit qu'elles ne reposent que sur la minorité de volontaires ayant répondu aux *deux* points temporels concernés (voir @sec-attrition-bias pour ce que cela implique).
+
 ## Vote {#sec-vote}
 
-Dans cette section, nous examinons comment les volontaires ont changé en ce qui concerne leur comportement de vote. Le comportement électoral a été mesuré à l'aide de la question : "Avez-vous voté lors des dernières élections (locales ou nationales) ?", qui a été posée aux points temporels q1 et q2. @fig-vote_derniers_elections-overview montre que, si l'on fait la moyenne de toutes les cohortes et de tous les points dans le temps, la majorité des volontaires déclare avoir voté.
+Dans cette section, nous examinons comment les volontaires ont changé en ce qui concerne leur comportement de vote. Le comportement électoral a été mesuré à l'aide de la question : "Avez-vous voté lors des dernières élections (locales ou nationales) ?", qui a été posée aux points temporels q1 (au début du service civique) et q2 (à la fin). @fig-vote_derniers_elections-overview montre que, si l'on fait la moyenne de toutes les cohortes et de tous les points dans le temps, la majorité des volontaires déclare avoir voté.
 
 ```{r}
 #| label: fig-vote_derniers_elections-overview
 #| fig-cap: |
-#|   Distribution of whether volunteers reported having voted or not during the last elections, averaged across time points and cohorts.
+#|   Répartition des volontaires déclarant avoir voté ou non lors des dernières élections, moyenne sur l'ensemble des points temporels et des cohortes.
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 vote_plot <- combined |> 
@@ -569,106 +630,34 @@ scale_fill_manual(values = wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 
   plot_theme 
 ```
 
-Dans les sections suivantes, nous étudions comment les volontaires ont changé en répondant à cette question, tout au long de leur service civique. Pour ces analyses, nous ne prenons en compte que les volontaires qui ont répondu à la question aux deux moments, q1 et q2. Les changements vers "Oui" ou "Non" peuvent s'être produits soit à partir de l'autre option respective, soit à partir de la troisième option de réponse : "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales", qui est abrégé dans les graphiques ci-dessous par "Pas sur les listes". Nous examinons les différentes cohortes séparément (promo 2020-21, @fig-vote_derniers_elections-2020; promo 2021-22, @fig-vote_derniers_elections-2021; 2022-23, @fig-vote_derniers_elections-2022; 2023-24, @fig-vote_derniers_elections-2023).
+Dans les sections suivantes, nous étudions comment les réponses des volontaires à cette question ont évolué au cours de leur service civique. Pour ces analyses, nous ne prenons en compte que les volontaires qui ont répondu à la question aux deux moments, q1 et q2. Les changements vers "Oui" ou "Non" peuvent s'être produits soit à partir de l'autre option respective, soit à partir de la troisième option de réponse : "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales", qui est abrégée dans les graphiques ci-dessous en "Pas sur les listes". Nous examinons les différentes cohortes séparément (promo 2020-21, @fig-vote_derniers_elections-2020; promo 2021-22, @fig-vote_derniers_elections-2021; 2022-23, @fig-vote_derniers_elections-2022; 2023-24, @fig-vote_derniers_elections-2023).
 
-Les sections suivantes révèlent des différences considérables entre les cohortes. Par exemple, en 2020-21 et 2021-22, de nombreux volontaires ont signalé des changements dans leur comportement de vote, mais dans des directions opposées : En 2020-21, 24 % des volontaires ont changé vers le "Non", dépassant de loin ceux qui ont changé vers le "Oui" (6 %). Inversement, en 2021-22, 35 % des volontaires ont changé vers le "Oui", tandis que seulement 8 % ont changé vers le "Non".
+Avant d'aborder les différences entre les cohortes, notons que, dans chaque cohorte, la plupart des volontaires ont déclaré le même comportement de vote aux deux points temporels. Cette part varie cependant considérablement d'une cohorte à l'autre : de 57 % en 2021-22 à 88 % en 2022-23. Les changements discutés ci-dessous concernent la minorité restante.
 
-On ne sait pas exactement pourquoi on observe ces différences. Une explication pourrait être que les volontaires se soucient davantage des élections nationales que des élections locales (ou vice versa). Si c'est le cas, on pourrait s'attendre à ce que les changements dans le comportement électoral dépendent du fait que des élections nationales ou locales ont eu lieu pendant l'année du service civique d'une cohorte.
+Cela dit, les sections suivantes révèlent des différences considérables entre les cohortes. Par exemple, en 2020-21 et 2021-22, de nombreux volontaires ont signalé des changements dans leur comportement de vote, mais dans des directions opposées : En 2020-21, 24 % des volontaires ont changé vers le "Non", dépassant de loin ceux qui ont changé vers le "Oui" (6 %). Inversement, en 2021-22, 35 % des volontaires ont changé vers le "Oui", tandis que seulement 8 % ont changé vers le "Non". Une explication plausible du changement vers le "Oui" en 2021-22 est que 2022---l'année au cours de laquelle cette cohorte a rempli son deuxième questionnaire---était une année d'élection présidentielle.
+
+Plus généralement, une explication des différences entre cohortes pourrait être que les volontaires se soucient davantage des élections nationales que des élections locales (ou vice versa). Si c'est le cas, on pourrait s'attendre à ce que les changements dans le comportement électoral dépendent du fait que des élections nationales ou locales ont eu lieu pendant l'année du service civique d'une cohorte. Pour référence, le calendrier électoral français pendant la période couverte par ce rapport était le suivant : élections municipales au printemps 2020, élections régionales en juin 2021, élection présidentielle en avril 2022 suivie d'élections législatives en juin 2022, aucune élection nationale en 2023, et élections européennes suivies d'élections législatives anticipées en juin--juillet 2024. Dans les sections ci-dessous, nous indiquons pour chaque cohorte quelles élections avaient eu lieu avant chaque questionnaire. La cohorte 2022-23 illustre bien ce point : aucune élection nationale n'a eu lieu pendant son année de service, et cette cohorte a été de loin la plus stable dans ses réponses (88 % ont déclaré le même comportement de vote aux deux points temporels).
 
 ### Promo 2020-21
 
-@fig-vote_derniers_elections-2020 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2020-21".
+@fig-vote_derniers_elections-2020 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2020-21". Pour cette cohorte, les dernières élections avant le Q1 étaient les élections municipales du printemps 2020 ; les élections régionales de juin 2021 ont eu lieu à peu près au moment où les volontaires remplissaient le Q2.
 
 ```{r}
 #| label: fig-vote_derniers_elections-2020
-#| fig-cap: "Promo 2020-21. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-cap: "Promo 2020-21. Évolution des volontaires déclarant avoir voté ou non lors des dernières élections, entre Q1 (début du service civique) et Q2 (fin du service civique). Notez que cette analyse ne prend en compte que les volontaires ayant répondu à la question aux *deux* points temporels. Les changements vers « Pas sur les listes » sont rares et ne sont pas représentés dans les graphiques de changement."
 #| fig-subcap:
-#|   - "Alluvial plot"
-#|   - "Percentages" 
+#|   - "Diagramme alluvial"
+#|   - "Pourcentages" 
 #| layout-ncol: 2
 
 
-vote_data <- combined %>%
-  filter(promo == "20-21") |> 
-  drop_na(vote_derniers_elections) |>
-  # filter(vote_derniers_elections %in% c("Oui", "Non")) |>
-  mutate(vote_derniers_elections = case_when(
-    vote_derniers_elections == "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales" ~ "Pas sur les listes", 
-    TRUE ~ vote_derniers_elections
-  )
-  ) |> 
-  select(id_jeune, source, vote_derniers_elections) %>%
-  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
-  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
-  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Pas sur les listes", "Non", "Oui"))))
+plots <- plot_vote_change(
+  data = combined,
+  promo_filter = "20-21"
+)
 
-# run mcnemar test
-#mcnemar.test(table(vote_data$vote_q1, vote_data$vote_q2))
-
-# Prepare data for alluvial plot
-vote_long <- vote_data |> 
-  pivot_longer(cols = starts_with("vote_q"), names_to = "time", values_to = "vote") |> 
-  mutate(time = recode(time, "vote_q1" = "q1", "vote_q2" = "q2"))
-
-
-# Proportions
-vote_long_prop <- vote_long |>
-  group_by(time, vote) |>
-  summarise(n = n(), .groups = "drop") |>
-  group_by(time) |>
-  mutate(prop = n / sum(n),
-         # make positioning variable
-         position = sum(n) - n,
-         ) |>
-  ungroup()
-
-pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
-
-# Create alluvial plot
-ggplot(vote_long, 
-       aes(x = time, stratum = vote, alluvium = id_jeune, fill = vote, label = vote)) +
-  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
-  geom_stratum() +
-  scale_fill_manual(values = pal) + 
-  scale_x_discrete(expand = c(0.1, 0.1)) +
-  labs(
-    x = "Temps",
-    y = "Nombre d'individus",
-    fill = "Vote"
-  ) +
-  plot_theme
-
-vote_change_summary <- vote_data |>
-  mutate(change = case_when(
-    vote_q1 == vote_q2 ~ "Pas de changement",
-    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
-    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui", 
-    vote_q1 == "Pas sur les listes" & vote_q2 == "Non" ~ "Changé vers Non",
-    vote_q1 == "Pas sur les listes" & vote_q2 == "Oui" ~ "Changé vers Oui", 
-    TRUE ~ NA_character_
-  )) |>
-  drop_na(change) |> 
-  count(change) |>
-  mutate(prop = n / sum(n))
-
-ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
-  geom_col() +
-  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
-            vjust = -0.5, size = 4) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
-  scale_fill_manual(values = c(
-    #"Pas de changement" = "#E1AF00",
-    "Changé vers Non" = "#F21A00",
-    "Changé vers Oui" = "#3B9AB2"
-  )) +
-  guides(fill = FALSE) +
-  labs(
-    #title = "Changements individuels entre Q1 et Q2",
-    x = NULL,
-    y = "Proportion",
-    fill = NULL
-  ) +
-  plot_theme
+plots$alluvial
+plots$change
 ```
 
 ```{r}
@@ -736,293 +725,73 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 ### Promo 2021-22
 
-@fig-vote_derniers_elections-2021 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2021-22".
+@fig-vote_derniers_elections-2021 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2021-22". Pour cette cohorte, les dernières élections avant le Q1 étaient les élections régionales de juin 2021 ; au moment du Q2, l'élection présidentielle d'avril 2022 (suivie des élections législatives de juin 2022) avait eu lieu.
 
 ```{r}
 #| label: fig-vote_derniers_elections-2021
-#| fig-cap: "Promo 2021-22. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-cap: "Promo 2021-22. Évolution des volontaires déclarant avoir voté ou non lors des dernières élections, entre Q1 (début du service civique) et Q2 (fin du service civique). Notez que cette analyse ne prend en compte que les volontaires ayant répondu à la question aux *deux* points temporels. Les changements vers « Pas sur les listes » sont rares et ne sont pas représentés dans les graphiques de changement."
 #| fig-subcap:
-#|   - "Alluvial plot"
-#|   - "Percentages" 
+#|   - "Diagramme alluvial"
+#|   - "Pourcentages" 
 #| layout-ncol: 2
 
 
-vote_data <- combined %>%
-  filter(promo == "21-22") |> 
-  drop_na(vote_derniers_elections) |>
-  # filter(vote_derniers_elections %in% c("Oui", "Non")) |>
-  mutate(vote_derniers_elections = case_when(
-    vote_derniers_elections == "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales" ~ "Pas sur les listes", 
-    TRUE ~ vote_derniers_elections
-  )
-  ) |> 
-  select(id_jeune, source, vote_derniers_elections) %>%
-  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
-  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
-  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Pas sur les listes", "Non", "Oui"))))
+plots <- plot_vote_change(
+  data = combined,
+  promo_filter = "21-22"
+)
 
-# run mcnemar test
-#mcnemar.test(table(vote_data$vote_q1, vote_data$vote_q2))
-
-# Prepare data for alluvial plot
-vote_long <- vote_data |> 
-  pivot_longer(cols = starts_with("vote_q"), names_to = "time", values_to = "vote") |> 
-  mutate(time = recode(time, "vote_q1" = "q1", "vote_q2" = "q2"))
-
-
-# Proportions
-vote_long_prop <- vote_long |>
-  group_by(time, vote) |>
-  summarise(n = n(), .groups = "drop") |>
-  group_by(time) |>
-  mutate(prop = n / sum(n),
-         # make positioning variable
-         position = sum(n) - n,
-         ) |>
-  ungroup()
-
-pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
-
-# Create alluvial plot
-ggplot(vote_long, 
-       aes(x = time, stratum = vote, alluvium = id_jeune, fill = vote, label = vote)) +
-  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
-  geom_stratum() +
-  scale_fill_manual(values = pal) + 
-  scale_x_discrete(expand = c(0.1, 0.1)) +
-  labs(
-    x = "Temps",
-    y = "Nombre d'individus",
-    fill = "Vote"
-  ) +
-  plot_theme
-
-vote_change_summary <- vote_data |>
-  mutate(change = case_when(
-    vote_q1 == vote_q2 ~ "Pas de changement",
-    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
-    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui", 
-    vote_q1 == "Pas sur les listes" & vote_q2 == "Non" ~ "Changé vers Non",
-    vote_q1 == "Pas sur les listes" & vote_q2 == "Oui" ~ "Changé vers Oui", 
-    TRUE ~ NA_character_
-  )) |>
-  drop_na(change) |> 
-  count(change) |>
-  mutate(prop = n / sum(n))
-
-ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
-  geom_col() +
-  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
-            vjust = -0.5, size = 4) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
-  scale_fill_manual(values = c(
-    #"Pas de changement" = "#E1AF00",
-    "Changé vers Non" = "#F21A00",
-    "Changé vers Oui" = "#3B9AB2"
-  )) +
-  guides(fill = FALSE) +
-  labs(
-    #title = "Changements individuels entre Q1 et Q2",
-    x = NULL,
-    y = "Proportion",
-    fill = NULL
-  ) +
-  plot_theme
+plots$alluvial
+plots$change
 ```
 
 ### Promo 2022-23
 
-@fig-vote_derniers_elections-2022 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2022-23".
+@fig-vote_derniers_elections-2022 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2022-23". Pour cette cohorte, les dernières élections avant le Q1 étaient l'élection présidentielle et les élections législatives du printemps 2022 ; aucune élection nationale n'ayant eu lieu en 2023, ces élections étaient toujours les dernières au moment du Q2.
 
 ```{r}
 #| label: fig-vote_derniers_elections-2022
-#| fig-cap: "Promo 2022-23. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-cap: "Promo 2022-23. Évolution des volontaires déclarant avoir voté ou non lors des dernières élections, entre Q1 (début du service civique) et Q2 (fin du service civique). Notez que cette analyse ne prend en compte que les volontaires ayant répondu à la question aux *deux* points temporels. Les changements vers « Pas sur les listes » sont rares et ne sont pas représentés dans les graphiques de changement."
 #| fig-subcap:
-#|   - "Alluvial plot"
-#|   - "Percentages" 
+#|   - "Diagramme alluvial"
+#|   - "Pourcentages" 
 #| layout-ncol: 2
 
-vote_data <- combined %>%
-  filter(promo == "22-23") |> 
-  drop_na(vote_derniers_elections) |>
-  # filter(vote_derniers_elections %in% c("Oui", "Non")) |>
-  mutate(vote_derniers_elections = case_when(
-    vote_derniers_elections == "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales" ~ "Pas sur les listes", 
-    TRUE ~ vote_derniers_elections
-  )
-  ) |> 
-  select(id_jeune, source, vote_derniers_elections) %>%
-  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
-  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
-  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Pas sur les listes", "Non", "Oui"))))
+plots <- plot_vote_change(
+  data = combined,
+  promo_filter = "22-23"
+)
 
-# run mcnemar test
-#mcnemar.test(table(vote_data$vote_q1, vote_data$vote_q2))
-
-# Prepare data for alluvial plot
-vote_long <- vote_data |> 
-  pivot_longer(cols = starts_with("vote_q"), names_to = "time", values_to = "vote") |> 
-  mutate(time = recode(time, "vote_q1" = "q1", "vote_q2" = "q2"))
-
-
-# Proportions
-vote_long_prop <- vote_long |>
-  group_by(time, vote) |>
-  summarise(n = n(), .groups = "drop") |>
-  group_by(time) |>
-  mutate(prop = n / sum(n),
-         # make positioning variable
-         position = sum(n) - n,
-         ) |>
-  ungroup()
-
-pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
-
-# Create alluvial plot
-ggplot(vote_long, 
-       aes(x = time, stratum = vote, alluvium = id_jeune, fill = vote, label = vote)) +
-  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
-  geom_stratum() +
-  scale_fill_manual(values = pal) + 
-  scale_x_discrete(expand = c(0.1, 0.1)) +
-  labs(
-    x = "Temps",
-    y = "Nombre d'individus",
-    fill = "Vote"
-  ) +
-  plot_theme
-
-vote_change_summary <- vote_data |>
-  mutate(change = case_when(
-    vote_q1 == vote_q2 ~ "Pas de changement",
-    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
-    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui", 
-    vote_q1 == "Pas sur les listes" & vote_q2 == "Non" ~ "Changé vers Non",
-    vote_q1 == "Pas sur les listes" & vote_q2 == "Oui" ~ "Changé vers Oui", 
-    TRUE ~ NA_character_
-  )) |>
-  drop_na(change) |> 
-  count(change) |>
-  mutate(prop = n / sum(n))
-
-ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
-  geom_col() +
-  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
-            vjust = -0.5, size = 4) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
-  scale_fill_manual(values = c(
-    #"Pas de changement" = "#E1AF00",
-    "Changé vers Non" = "#F21A00",
-    "Changé vers Oui" = "#3B9AB2"
-  )) +
-  guides(fill = FALSE) +
-  labs(
-    #title = "Changements individuels entre Q1 et Q2",
-    x = NULL,
-    y = "Proportion",
-    fill = NULL
-  ) +
-  plot_theme
+plots$alluvial
+plots$change
 ```
 
 ### Promo 2023-24
 
-@fig-vote_derniers_elections-2023 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2023-24".
+@fig-vote_derniers_elections-2023 montre l'évolution du comportement de vote déclaré par les volontaires pour la promo "2023-24". Pour cette cohorte, les dernières élections avant le Q1 étaient l'élection présidentielle et les élections législatives de 2022 ; selon le moment où les volontaires ont rempli le Q2, les élections européennes de juin 2024 (suivies des élections législatives anticipées de juin--juillet 2024) ont pu avoir lieu peu avant.
 
 ```{r}
 #| label: fig-vote_derniers_elections-2023
-#| fig-cap: "Promo 2023-24. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-cap: "Promo 2023-24. Évolution des volontaires déclarant avoir voté ou non lors des dernières élections, entre Q1 (début du service civique) et Q2 (fin du service civique). Notez que cette analyse ne prend en compte que les volontaires ayant répondu à la question aux *deux* points temporels. Les changements vers « Pas sur les listes » sont rares et ne sont pas représentés dans les graphiques de changement."
 #| fig-subcap:
-#|   - "Alluvial plot"
-#|   - "Percentages" 
+#|   - "Diagramme alluvial"
+#|   - "Pourcentages" 
 #| layout-ncol: 2
 
-vote_data <- combined %>%
-  filter(promo == "23-24") |> 
-  drop_na(vote_derniers_elections) |>
-  # filter(vote_derniers_elections %in% c("Oui", "Non")) |>
-  mutate(vote_derniers_elections = case_when(
-    vote_derniers_elections == "Vous n'aviez pas l'âge de voter ou vous n'étiez pas inscrit.e sur les listes électorales" ~ "Pas sur les listes", 
-    TRUE ~ vote_derniers_elections
-  )
-  ) |> 
-  select(id_jeune, source, vote_derniers_elections) %>%
-  pivot_wider(names_from = source, values_from = vote_derniers_elections, names_prefix = "vote_") %>%
-  filter(!is.na(vote_q1) & !is.na(vote_q2)) %>%
-  mutate(across(starts_with("vote_"), ~ factor(., levels = c("Pas sur les listes", "Non", "Oui"))))
+plots <- plot_vote_change(
+  data = combined,
+  promo_filter = "23-24"
+)
 
-# run mcnemar test
-#mcnemar.test(table(vote_data$vote_q1, vote_data$vote_q2))
-
-# Prepare data for alluvial plot
-vote_long <- vote_data |> 
-  pivot_longer(cols = starts_with("vote_q"), names_to = "time", values_to = "vote") |> 
-  mutate(time = recode(time, "vote_q1" = "q1", "vote_q2" = "q2"))
-
-
-# Proportions
-vote_long_prop <- vote_long |>
-  group_by(time, vote) |>
-  summarise(n = n(), .groups = "drop") |>
-  group_by(time) |>
-  mutate(prop = n / sum(n),
-         # make positioning variable
-         position = sum(n) - n,
-         ) |>
-  ungroup()
-
-pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
-
-# Create alluvial plot
-ggplot(vote_long, 
-       aes(x = time, stratum = vote, alluvium = id_jeune, fill = vote, label = vote)) +
-  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
-  geom_stratum() +
-  scale_fill_manual(values = pal) + 
-  scale_x_discrete(expand = c(0.1, 0.1)) +
-  labs(
-    x = "Temps",
-    y = "Nombre d'individus",
-    fill = "Vote"
-  ) +
-  plot_theme
-
-vote_change_summary <- vote_data |>
-  mutate(change = case_when(
-    vote_q1 == vote_q2 ~ "Pas de changement",
-    vote_q1 == "Oui" & vote_q2 == "Non" ~ "Changé vers Non",
-    vote_q1 == "Non" & vote_q2 == "Oui" ~ "Changé vers Oui", 
-    vote_q1 == "Pas sur les listes" & vote_q2 == "Non" ~ "Changé vers Non",
-    vote_q1 == "Pas sur les listes" & vote_q2 == "Oui" ~ "Changé vers Oui", 
-    TRUE ~ NA_character_
-  )) |>
-  drop_na(change) |> 
-  count(change) |>
-  mutate(prop = n / sum(n))
-
-ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
-  geom_col() +
-  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
-            vjust = -0.5, size = 4) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
-  scale_fill_manual(values = c(
-    #"Pas de changement" = "#E1AF00",
-    "Changé vers Non" = "#F21A00",
-    "Changé vers Oui" = "#3B9AB2"
-  )) +
-  guides(fill = FALSE) +
-  labs(
-    #title = "Changements individuels entre Q1 et Q2",
-    x = NULL,
-    y = "Proportion",
-    fill = NULL
-  ) +
-  plot_theme
+plots$alluvial
+plots$change
 ```
 
 ### Quels sont les facteurs démographiques associés au changement des intentions de vote ?
 
 Pour déterminer quelles variables démographiques sont associées au changement d'intentions de vote, nous avons exécuté des modèles statistiques. Ces modèles sont expliqués dans l'annexe (@sec-appendix-voting). Ici, nous ne signalons que les variables qui étaient statistiquement significatives dans ces modèles.
+
+Notons que ces analyses regroupent toutes les cohortes. Comme indiqué ci-dessus, les changements de comportement électoral différaient considérablement d'une cohorte à l'autre (probablement en fonction du calendrier électoral) ; les associations présentées ici ne nous disent donc pas quels volontaires ont changé au cours d'une année donnée. Il serait possible de mener ces analyses séparément par cohorte, mais cela allongerait considérablement le rapport.
 
 ```{r}
 # remove variables that don't make sense, i.e. the motive and the actual duration (obviously, the longer the duration, the less likely to have a rupture)
@@ -1074,14 +843,14 @@ model_results_voting_demographic <- factors_for_model  %>%
 
 #### Sexe
 
-Comme le montre la @fig-vote_derniers_elections-sex, les volontaires féminins ont été plus nombreux à changer vers le "Oui" que vers le "Non". Chez les volontaires masculins, c'est l'inverse qui s'est produit.
+Comme le montre la @fig-vote_derniers_elections-sex, les femmes volontaires ont été plus nombreuses à changer vers le "Oui" que vers le "Non". Chez les hommes volontaires, c'est l'inverse qui s'est produit.
 
 ```{r}
 #| label: fig-vote_derniers_elections-sex
-#| fig-cap: "Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their sex. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-cap: "Évolution des volontaires déclarant avoir voté ou non lors des dernières élections, entre Q1 (début du service civique) et Q2 (fin du service civique), selon leur sexe. Notez que cette analyse ne prend en compte que les volontaires ayant répondu à la question aux *deux* points temporels. Les changements vers « Pas sur les listes » sont rares et ne sont pas représentés dans les graphiques de changement."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -1176,14 +945,14 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 #### L'âge
 
-@fig-vote_derniers_elections-age compare les changements de comportement électoral entre les groupes d'âge. Parmi les 18 à 20 ans, la part des volontaires ayant changé en faveur du "Oui" est la plus élevée. Une interprétation pourrait être que le service civique pourrait encourager ce groupe d'âge en particulier à voter. Cependant, une autre explication pourrait être que ce groupe pourrait voter pour la première fois pendant leur service civique, étant donné que l'âge légal pour voter en France est de 18 ans.
+@fig-vote_derniers_elections-age compare les changements de comportement électoral entre les groupes d'âge. Parmi les 18 à 20 ans, la part des volontaires ayant changé en faveur du "Oui" est la plus élevée. Une interprétation serait que le service civique encourage particulièrement cette tranche d'âge à voter. Une autre explication pourrait toutefois être que ces volontaires ont eu l'occasion de voter pour la première fois pendant leur service civique, l'âge légal pour voter en France étant de 18 ans.
 
 ```{r}
 #| label: fig-vote_derniers_elections-age
-#| fig-cap: "Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, for the different age groups. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-cap: "Évolution des volontaires déclarant avoir voté ou non lors des dernières élections, entre Q1 (début du service civique) et Q2 (fin du service civique), selon les tranches d'âge. Notez que cette analyse ne prend en compte que les volontaires ayant répondu à la question aux *deux* points temporels. Les changements vers « Pas sur les listes » sont rares et ne sont pas représentés dans les graphiques de changement."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -1278,14 +1047,14 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
   theme(axis.text.x = element_text(angle = 20, hjust = 1))
 ```
 
-Accessoirement, en regardant les tranches d'âge de 16 à 17 ans, on s'aperçoit que certaines réponses étaient erronées. En France, l'âge légal pour voter est de 18 ans. Par conséquent, les jeunes de 16 à 17 ans, du moins au début de leur service civique (q0/q1), n'ont jamais été inscrits sur une liste électorale auparavant. Cependant, comme le montre @fig-vote_derniers_elections-youngest, il y a 443 volontaires qui ont répondu "Non" à q0/q1 (ce qui est techniquement vrai, mais n'est pas l'option de réponse la plus spécifique), et 20 qui ont répondu "Oui" (probablement en ne lisant pas la question attentivement ou en cliquant accidentellement sur la mauvaise réponse).
+Par ailleurs, l'examen de la tranche d'âge des 16-17 ans révèle que certaines réponses étaient erronées. En France, l'âge légal pour voter est de 18 ans. Par conséquent, les jeunes de 16 à 17 ans, du moins au début de leur service civique (q0/q1), n'ont jamais été inscrits sur une liste électorale auparavant. Cependant, comme le montre @fig-vote_derniers_elections-youngest, il y a 443 volontaires qui ont répondu "Non" à q0/q1 (ce qui est techniquement vrai, mais n'est pas l'option de réponse la plus spécifique), et 20 qui ont répondu "Oui" (probablement en ne lisant pas la question attentivement ou en cliquant accidentellement sur la mauvaise réponse).
 
 ```{r}
 #| label: fig-vote_derniers_elections-youngest
 #| fig-cap: |
-#|   Distribution of whether volunteers reported having voted or not during the last elections,
-#|   at different time points, for the youngest age group (16–17 years old).
-#|   All answers at q0/q1 that are not "Pas sur les listes" are not exactly correct.
+#|   Répartition des volontaires déclarant avoir voté ou non lors des dernières élections,
+#|   aux différents points temporels, pour la tranche d'âge la plus jeune (16–17 ans).
+#|   Toutes les réponses à q0/q1 autres que "Pas sur les listes" ne sont pas tout à fait exactes.
 
 
 combined |> 
@@ -1317,14 +1086,14 @@ combined |>
 
 #### Zone de résidence
 
-@fig-vote_derniers_elections-residence montre que les volontaires des zones résidentielles "QPV" et ZRR" ont une plus grande tendance à changer vers le "Non", par rapport au "Oui". En revanche, en particulier dans les zones rurales, mais aussi légèrement dans les zones urbaines, plus de volontaires ont changé vers "Oui".
+@fig-vote_derniers_elections-residence montre que les volontaires des zones résidentielles "QPV" et "ZRR" ont une plus grande tendance à changer vers le "Non", par rapport au "Oui". En revanche, en particulier dans les zones rurales, mais aussi légèrement dans les zones urbaines, plus de volontaires ont changé vers "Oui". Notons que, comme pour tous les facteurs démographiques dans ce rapport, il s'agit d'associations bivariées, et les groupes se recoupent : par exemple, les volontaires des zones "QPV" sont aussi moins diplômés en moyenne (50 % "infra bac", contre 36 % parmi les volontaires des zones urbaines). Les tendances des variables individuelles ne doivent donc pas être interprétées isolément.
 
 ```{r}
 #| label: fig-vote_derniers_elections-residence
-#| fig-cap: "Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their zone of residence. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-cap: "Évolution des volontaires déclarant avoir voté ou non lors des dernières élections, entre Q1 (début du service civique) et Q2 (fin du service civique), selon leur zone de résidence. Notez que cette analyse ne prend en compte que les volontaires ayant répondu à la question aux *deux* points temporels. Les changements vers « Pas sur les listes » sont rares et ne sont pas représentés dans les graphiques de changement."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -1404,14 +1173,14 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 #### L'éducation
 
-Comme le montre @fig-vote_derniers_elections-education, la part des volontaires ayant changé vers le "Oui" a été particulièrement élevée chez les personnes ayant un niveau d'études correspondant à "Bac+2". Dans tous les autres segments d'éducation, la part de ceux qui ont changé vers le "Non" était plus élevée.
+Comme le montre @fig-vote_derniers_elections-education, la part des volontaires ayant changé vers le "Oui" a été particulièrement élevée chez les personnes ayant un niveau d'études entre "Bac" et "Bac+2". Dans les autres segments d'éducation, la part de ceux qui ont changé vers le "Non" était plus élevée. Notons que les volontaires les plus diplômés ("Bac+3" et plus) étaient aussi les moins susceptibles de changer de réponse : environ 80 % d'entre eux ont déclaré le même comportement de vote aux deux points temporels, contre environ 70 % dans les autres groupes.
 
 ```{r}
 #| label: fig-vote_derniers_elections-education
-#| fig-cap: "Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their level of education. Note that this analysis considers only answers of volunteers who answered either yes or no at *both* time points."
+#| fig-cap: "Évolution des volontaires déclarant avoir voté ou non lors des dernières élections, entre Q1 (début du service civique) et Q2 (fin du service civique), selon leur niveau d'études. Notez que cette analyse ne prend en compte que les volontaires ayant répondu à la question aux *deux* points temporels. Les changements vers « Pas sur les listes » sont rares et ne sont pas représentés dans les graphiques de changement."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -1506,9 +1275,9 @@ ggplot(vote_change_summary, aes(x = change, y = prop, fill = change)) +
 
 ## L'action individuelle pour la société {#sec-individual-action}
 
-Dans cette section, nous examinons l'évolution des volontaires en ce qui concerne leur perception sur le fait que leur action individuelle peut contribuer à changer la société. Ceci a été mesuré à l'aide de la question suivante : "En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?", qui a été posée aux points temporels q1 et q3. Nous étudions les différentes cohortes séparément (promo 2020-21, @fig-action_individuelle_societe-2020 ; promo 2021-22, @fig-vote_derniers_elections-2021 ; 2022-23, @fig-vote_derniers_elections-2022 ; 2023-24, @fig-vote_derniers_elections-2023).
+Dans cette section, nous examinons l'évolution des volontaires en ce qui concerne leur perception sur le fait que leur action individuelle peut contribuer à changer la société. Ceci a été mesuré à l'aide de la question suivante : "En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?", qui a été posée aux points temporels q1 (au début du service civique) et q3 (six mois après la fin). Nous étudions les différentes cohortes séparément (promo 2020-21, @fig-action_individuelle_societe-2020 ; promo 2021-22, @fig-action_individuelle_societe-2021 ; 2022-23, @fig-action_individuelle_societe-2022 ; 2023-24, @fig-action_individuelle_societe-2023).
 
-D'un point de vue descriptif, il n'y a pas de tendance positive ou négative claire. En moyenne, toutes cohortes confondues, un peu plus de personnes changent vers "Non" ou "Pas vraiment", par rapport à "Oui".
+D'un point de vue descriptif, il n'y a pas de tendance positive ou négative claire. Le principal constat est plutôt celui d'une stabilité : une majorité de volontaires (65 % de ceux qui ont répondu aux deux points temporels) pensent déjà au début de leur service civique que leur action individuelle peut contribuer à changer la société, et la plupart d'entre eux (77 %) le pensent toujours six mois après la fin de celui-ci. Ce n'est peut-être pas surprenant : les jeunes qui choisissent de faire un service civique ont probablement tendance à croire dès le départ que leur action peut être utile. Parmi la minorité qui change de réponse, en moyenne, toutes cohortes confondues, un peu plus de personnes changent vers "Non" ou "Pas vraiment", par rapport à "Oui".
 
 ### Promo 2020-21
 
@@ -1516,84 +1285,23 @@ D'un point de vue descriptif, il n'y a pas de tendance positive ou négative cla
 
 ```{r}
 #| label: fig-action_individuelle_societe-2020
-#| fig-cap: "Promo 2020-21. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3. Note that this analysis considers only answers of volunteers who answered at *both* time points."
+#| fig-cap: "Promo 2020-21. Évolution des volontaires déclarant penser que leur action individuelle peut contribuer à changer la société, entre Q1 (début du service civique) et Q3 (six mois après la fin du service civique). Notez que cette analyse ne prend en compte que les réponses des volontaires ayant répondu aux *deux* points temporels."
 #| fig-subcap:
-#|   - "Alluvial plot"
-#|   - "Percentages" 
+#|   - "Diagramme alluvial"
+#|   - "Pourcentages" 
 #| layout-ncol: 2
 
-# make wide format data to track change
-action_data <- combined %>%
-  filter(promo == "20-21") |> 
-  drop_na(action_individuelle_societe) |>
-  select(id_jeune, source, action_individuelle_societe) %>%
-  pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
-  filter(!is.na(action_individuelle_q1) & !is.na(action_individuelle_q3))
+plots <- plot_within_change(
+  data = combined,
+  variable = "action_individuelle_societe",
+  promo_filter = "20-21",
+  waves = c("q1", "q3"),
+  answer_levels = c("Pas vraiment", "Non", "Oui"),
+  fill_label = "Contribution individuelle"
+)
 
-
-# Prepare data for alluvial plot
-plot_data <- combined %>%
-  drop_na(action_individuelle_societe) |>
-  select(id_jeune, source, action_individuelle_societe) |> 
-  rename(time = source) |> 
-  # select individuals with observations in both
-  group_by(id_jeune) |>
-  filter(all(c("q1", "q3") %in% time)) |>
-  ungroup() |> 
-  # make a factor
-    mutate(action_individuelle_societe = factor(
-    action_individuelle_societe,
-    levels = c("Pas vraiment", "Non", "Oui")
-  ))
-
-pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
-
-# Create alluvial plot
-ggplot(plot_data, 
-       aes(x = time, stratum = action_individuelle_societe, alluvium = id_jeune, fill = action_individuelle_societe, label = action_individuelle_societe)) +
-  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
-  geom_stratum() +
-  scale_fill_manual(values = pal) + 
-  scale_x_discrete(expand = c(0.1, 0.1)) +
-  labs(
-    x = "Temps",
-    y = "Nombre d'individus",
-    fill = "Contribution individuelle"
-  ) +
-  plot_theme 
-
-# make plot for change
-
-change_summary <- action_data |>
-  mutate(change = case_when(
-    action_individuelle_q1 == action_individuelle_q3 ~ "Pas de changement",
-    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Non" ~ "vers Non",
-    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Non" ~ "vers Non",
-    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Oui" ~ "vers Oui",
-    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Oui" ~ "vers Oui",
-    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment",
-    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment"
-  )) |>
-  count(change) |>
-  mutate(prop = n / sum(n))
-
-ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
-  geom_col() +
-  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
-            vjust = -0.5, size = 4) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
-  scale_fill_manual(values = c(
-    "vers Pas vraiment" = "#E1AF00",
-    "vers Non" = "#F21A00",
-    "vers Oui" = "#3B9AB2"
-  )) +
-  guides(fill = FALSE) +
-  labs(
-    x = "Changé",
-    y = "Proportion",
-    fill = NULL
-  ) +
-  plot_theme
+plots$alluvial
+plots$change
 ```
 
 ### Promo 2021-22
@@ -1602,84 +1310,23 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 ```{r}
 #| label: fig-action_individuelle_societe-2021
-#| fig-cap: "Promo 2021-22. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3. Note that this analysis considers only answers of volunteers who answered at *both* time points."
+#| fig-cap: "Promo 2021-22. Évolution des volontaires déclarant penser que leur action individuelle peut contribuer à changer la société, entre Q1 (début du service civique) et Q3 (six mois après la fin du service civique). Notez que cette analyse ne prend en compte que les réponses des volontaires ayant répondu aux *deux* points temporels."
 #| fig-subcap:
-#|   - "Alluvial plot"
-#|   - "Percentages" 
+#|   - "Diagramme alluvial"
+#|   - "Pourcentages" 
 #| layout-ncol: 2
 
-# make wide format data to track change
-action_data <- combined %>%
-  filter(promo == "21-22") |> 
-  drop_na(action_individuelle_societe) |>
-  select(id_jeune, source, action_individuelle_societe) %>%
-  pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
-  filter(!is.na(action_individuelle_q1) & !is.na(action_individuelle_q3))
+plots <- plot_within_change(
+  data = combined,
+  variable = "action_individuelle_societe",
+  promo_filter = "21-22",
+  waves = c("q1", "q3"),
+  answer_levels = c("Pas vraiment", "Non", "Oui"),
+  fill_label = "Contribution individuelle"
+)
 
-
-# Prepare data for alluvial plot
-plot_data <- combined %>%
-  drop_na(action_individuelle_societe) |>
-  select(id_jeune, source, action_individuelle_societe) |> 
-  rename(time = source) |> 
-  # select individuals with observations in both
-  group_by(id_jeune) |>
-  filter(all(c("q1", "q3") %in% time)) |>
-  ungroup() |> 
-  # make a factor
-    mutate(action_individuelle_societe = factor(
-    action_individuelle_societe,
-    levels = c("Pas vraiment", "Non", "Oui")
-  ))
-
-pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
-
-# Create alluvial plot
-ggplot(plot_data, 
-       aes(x = time, stratum = action_individuelle_societe, alluvium = id_jeune, fill = action_individuelle_societe, label = action_individuelle_societe)) +
-  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
-  geom_stratum() +
-  scale_fill_manual(values = pal) + 
-  scale_x_discrete(expand = c(0.1, 0.1)) +
-  labs(
-    x = "Temps",
-    y = "Nombre d'individus",
-    fill = "Contribution individuelle"
-  ) +
-  plot_theme 
-
-# make plot for change
-
-change_summary <- action_data |>
-  mutate(change = case_when(
-    action_individuelle_q1 == action_individuelle_q3 ~ "Pas de changement",
-    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Non" ~ "vers Non",
-    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Non" ~ "vers Non",
-    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Oui" ~ "vers Oui",
-    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Oui" ~ "vers Oui",
-    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment",
-    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment"
-  )) |>
-  count(change) |>
-  mutate(prop = n / sum(n))
-
-ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
-  geom_col() +
-  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
-            vjust = -0.5, size = 4) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
-  scale_fill_manual(values = c(
-    "vers Pas vraiment" = "#E1AF00",
-    "vers Non" = "#F21A00",
-    "vers Oui" = "#3B9AB2"
-  )) +
-  guides(fill = FALSE) +
-  labs(
-    x = "Changé",
-    y = "Proportion",
-    fill = NULL
-  ) +
-  plot_theme
+plots$alluvial
+plots$change
 ```
 
 ### Promo 2022-23
@@ -1688,84 +1335,23 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 ```{r}
 #| label: fig-action_individuelle_societe-2022
-#| fig-cap: "Promo 2022-23. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3. Note that this analysis considers only answers of volunteers who answered at *both* time points."
+#| fig-cap: "Promo 2022-23. Évolution des volontaires déclarant penser que leur action individuelle peut contribuer à changer la société, entre Q1 (début du service civique) et Q3 (six mois après la fin du service civique). Notez que cette analyse ne prend en compte que les réponses des volontaires ayant répondu aux *deux* points temporels."
 #| fig-subcap:
-#|   - "Alluvial plot"
-#|   - "Percentages" 
+#|   - "Diagramme alluvial"
+#|   - "Pourcentages" 
 #| layout-ncol: 2
 
-# make wide format data to track change
-action_data <- combined %>%
-  filter(promo == "22-23") |> 
-  drop_na(action_individuelle_societe) |>
-  select(id_jeune, source, action_individuelle_societe) %>%
-  pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
-  filter(!is.na(action_individuelle_q1) & !is.na(action_individuelle_q3))
+plots <- plot_within_change(
+  data = combined,
+  variable = "action_individuelle_societe",
+  promo_filter = "22-23",
+  waves = c("q1", "q3"),
+  answer_levels = c("Pas vraiment", "Non", "Oui"),
+  fill_label = "Contribution individuelle"
+)
 
-
-# Prepare data for alluvial plot
-plot_data <- combined %>%
-  drop_na(action_individuelle_societe) |>
-  select(id_jeune, source, action_individuelle_societe) |> 
-  rename(time = source) |> 
-  # select individuals with observations in both
-  group_by(id_jeune) |>
-  filter(all(c("q1", "q3") %in% time)) |>
-  ungroup() |> 
-  # make a factor
-    mutate(action_individuelle_societe = factor(
-    action_individuelle_societe,
-    levels = c("Pas vraiment", "Non", "Oui")
-  ))
-
-pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
-
-# Create alluvial plot
-ggplot(plot_data, 
-       aes(x = time, stratum = action_individuelle_societe, alluvium = id_jeune, fill = action_individuelle_societe, label = action_individuelle_societe)) +
-  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
-  geom_stratum() +
-  scale_fill_manual(values = pal) + 
-  scale_x_discrete(expand = c(0.1, 0.1)) +
-  labs(
-    x = "Temps",
-    y = "Nombre d'individus",
-    fill = "Contribution individuelle"
-  ) +
-  plot_theme 
-
-# make plot for change
-
-change_summary <- action_data |>
-  mutate(change = case_when(
-    action_individuelle_q1 == action_individuelle_q3 ~ "Pas de changement",
-    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Non" ~ "vers Non",
-    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Non" ~ "vers Non",
-    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Oui" ~ "vers Oui",
-    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Oui" ~ "vers Oui",
-    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment",
-    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment"
-  )) |>
-  count(change) |>
-  mutate(prop = n / sum(n))
-
-ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
-  geom_col() +
-  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
-            vjust = -0.5, size = 4) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
-  scale_fill_manual(values = c(
-    "vers Pas vraiment" = "#E1AF00",
-    "vers Non" = "#F21A00",
-    "vers Oui" = "#3B9AB2"
-  )) +
-  guides(fill = FALSE) +
-  labs(
-    x = "Changé",
-    y = "Proportion",
-    fill = NULL
-  ) +
-  plot_theme
+plots$alluvial
+plots$change
 ```
 
 ### Promo 2023-24
@@ -1774,89 +1360,28 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 ```{r}
 #| label: fig-action_individuelle_societe-2023
-#| fig-cap: "Promo 2023-24. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3. Note that this analysis considers only answers of volunteers who answered at *both* time points."
+#| fig-cap: "Promo 2023-24. Évolution des volontaires déclarant penser que leur action individuelle peut contribuer à changer la société, entre Q1 (début du service civique) et Q3 (six mois après la fin du service civique). Notez que cette analyse ne prend en compte que les réponses des volontaires ayant répondu aux *deux* points temporels."
 #| fig-subcap:
-#|   - "Alluvial plot"
-#|   - "Percentages" 
+#|   - "Diagramme alluvial"
+#|   - "Pourcentages" 
 #| layout-ncol: 2
 
-# make wide format data to track change
-action_data <- combined %>%
-  filter(promo == "23-24") |> 
-  drop_na(action_individuelle_societe) |>
-  select(id_jeune, source, action_individuelle_societe) %>%
-  pivot_wider(names_from = source, values_from = action_individuelle_societe, names_prefix = "action_individuelle_") %>%
-  filter(!is.na(action_individuelle_q1) & !is.na(action_individuelle_q3))
+plots <- plot_within_change(
+  data = combined,
+  variable = "action_individuelle_societe",
+  promo_filter = "23-24",
+  waves = c("q1", "q3"),
+  answer_levels = c("Pas vraiment", "Non", "Oui"),
+  fill_label = "Contribution individuelle"
+)
 
-
-# Prepare data for alluvial plot
-plot_data <- combined %>%
-  drop_na(action_individuelle_societe) |>
-  select(id_jeune, source, action_individuelle_societe) |> 
-  rename(time = source) |> 
-  # select individuals with observations in both
-  group_by(id_jeune) |>
-  filter(all(c("q1", "q3") %in% time)) |>
-  ungroup() |> 
-  # make a factor
-    mutate(action_individuelle_societe = factor(
-    action_individuelle_societe,
-    levels = c("Pas vraiment", "Non", "Oui")
-  ))
-
-pal <- wes_palette("Zissou1", 5, type = "discrete")[c(3, 5, 1)]
-
-# Create alluvial plot
-ggplot(plot_data, 
-       aes(x = time, stratum = action_individuelle_societe, alluvium = id_jeune, fill = action_individuelle_societe, label = action_individuelle_societe)) +
-  geom_flow(stat = "alluvium", lode.guidance = "frontback", alpha = 0.7) +
-  geom_stratum() +
-  scale_fill_manual(values = pal) + 
-  scale_x_discrete(expand = c(0.1, 0.1)) +
-  labs(
-    x = "Temps",
-    y = "Nombre d'individus",
-    fill = "Contribution individuelle"
-  ) +
-  plot_theme 
-
-# make plot for change
-
-change_summary <- action_data |>
-  mutate(change = case_when(
-    action_individuelle_q1 == action_individuelle_q3 ~ "Pas de changement",
-    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Non" ~ "vers Non",
-    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Non" ~ "vers Non",
-    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Oui" ~ "vers Oui",
-    action_individuelle_q1 == "Pas vraiment" & action_individuelle_q3 == "Oui" ~ "vers Oui",
-    action_individuelle_q1 == "Oui" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment",
-    action_individuelle_q1 == "Non" & action_individuelle_q3 == "Pas vraiment" ~ "vers Pas vraiment"
-  )) |>
-  count(change) |>
-  mutate(prop = n / sum(n))
-
-ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
-  geom_col() +
-  geom_text(aes(label = scales::percent(prop, accuracy = 1)), 
-            vjust = -0.5, size = 4) +
-  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
-  scale_fill_manual(values = c(
-    "vers Pas vraiment" = "#E1AF00",
-    "vers Non" = "#F21A00",
-    "vers Oui" = "#3B9AB2"
-  )) +
-  guides(fill = FALSE) +
-  labs(
-    x = "Changé",
-    y = "Proportion",
-    fill = NULL
-  ) +
-  plot_theme
+plots$alluvial
+plots$change
 ```
 
 ### Quels facteurs démographiques sont associés au changement de perception de sa contribution individuelle à la société ?
 
-Le fait que les volontaires perçoivent que leur action individuelle peut contribuer à changer la société varie en fonction de différentes variables démographiques. Ces modèles sont expliqués dans l'annexe (@sec-appendix-individual-action). Ici, nous ne signalons que les variables qui étaient statistiquement significatives dans ces modèles.
+Pour déterminer quelles variables démographiques sont associées au changement de perception des volontaires quant à la contribution de leur action individuelle à la société, nous avons exécuté des modèles statistiques. Ces modèles sont expliqués dans l'annexe (@sec-appendix-individual-action). Ici, nous ne signalons que les variables qui étaient statistiquement significatives dans ces modèles.
 
 ```{r}
 # remove variables that don't make sense, i.e. the motive and the actual duration (obviously, the longer the duration, the less likely to have a rupture)
@@ -1911,10 +1436,10 @@ model_results_action <- factors_for_model  %>%
 
 ```{r}
 #| label: fig-action_individuelle_societe-residence
-#| fig-cap: "Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to their zone of residence. Note that this analysis considers only answers of volunteers who provided an answer at *both* time points."
+#| fig-cap: "Évolution des volontaires déclarant penser que leur action individuelle peut contribuer à changer la société, entre Q1 (début du service civique) et Q3 (six mois après la fin du service civique), selon leur zone de résidence. Notez que cette analyse ne prend en compte que les réponses des volontaires ayant répondu aux *deux* points temporels."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -1992,10 +1517,10 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 ```{r}
 #| label: fig-action_individuelle_societe-education
-#| fig-cap: "Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to their level of education. Note that this analysis considers only answers of volunteers who provided an answer at *both* time points."
+#| fig-cap: "Évolution des volontaires déclarant penser que leur action individuelle peut contribuer à changer la société, entre Q1 (début du service civique) et Q3 (six mois après la fin du service civique), selon leur niveau d'études. Notez que cette analyse ne prend en compte que les réponses des volontaires ayant répondu aux *deux* points temporels."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -2073,10 +1598,10 @@ ggplot(change_summary, aes(x = change, y = prop, fill = change)) +
 
 ```{r}
 #| label: fig-action_individuelle_societe-handicap
-#| fig-cap: "Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to whether they had a handicap (administrative) or not. Note that this analysis considers only answers of volunteers who provided an answer at *both* time points."
+#| fig-cap: "Évolution des volontaires déclarant penser que leur action individuelle peut contribuer à changer la société, entre Q1 (début du service civique) et Q3 (six mois après la fin du service civique), selon qu'ils avaient un handicap (administratif) ou non. Notez que cette analyse ne prend en compte que les réponses des volontaires ayant répondu aux *deux* points temporels."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -2161,14 +1686,14 @@ share_rupture <- combined |>
   split(.$rupture)
 ```
 
-Tous les volontaires ne travaillent pas jusqu'à la fin de leur contrat. En effet , `r share_rupture$rupture$share` des volontaires connaissent une "rupture", c'est-à-dire qu'ils mettent fin au contrat de manière anticipée (@fig-rupture-overview). Il existe différents motifs pour mettre fin à son contrat de manière anticipée (@fig-rupture-motive). Tous ne sont pas forcément mauvais, par exemple "Embauche en CDD d'au moins 6 mois ou CDI", et certains sont hors de l'influence des volontaires, par exemple "Fin de validité du Titre de Séjour".
+Tous les volontaires ne travaillent pas jusqu'à la fin de leur contrat. En effet, `r share_rupture$rupture$share` des volontaires connaissent une "rupture", c'est-à-dire qu'ils mettent fin au contrat de manière anticipée (@fig-rupture-overview). Il existe différents motifs pour mettre fin à son contrat de manière anticipée (@fig-rupture-motive). Tous ne sont pas forcément mauvais, par exemple "Embauche en CDD d'au moins 6 mois ou CDI", et certains sont hors de l'influence des volontaires, par exemple "Fin de validité du Titre de Séjour".
 
 ```{r}
 #| label: fig-rupture-overview
-#| fig-cap: "Number of volunteers with a rupture (for various possible reasons, including positive ones, such as obtaining a work contract), pooled across all cohorts."
+#| fig-cap: "Nombre de volontaires en rupture (pour diverses raisons possibles, y compris positives, comme l'obtention d'un contrat de travail), toutes cohortes confondues."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 combined |> 
@@ -2212,7 +1737,7 @@ combined |>
 
 ```{r}
 #| label: fig-rupture-motive
-#| fig-cap: "Prevalence of different rupture motives, pooled across all cohorts."
+#| fig-cap: "Fréquence des différents motifs de rupture, toutes cohortes confondues."
 
 combined |> 
   group_by(motif_rupture, rupture_valence) |> 
@@ -2237,16 +1762,43 @@ combined |>
   
 ```
 
+## Quand les ruptures ont-elles lieu ?
+
+Les ruptures ne se produisent pas toutes au même moment. @fig-rupture-timing montre, pour l'ensemble des volontaires ayant mis fin à leur contrat de manière anticipée, combien de mois de service ils avaient effectués à ce moment-là. Des ruptures ont lieu tout au long de l'année, mais de manière disproportionnée au début : environ un tiers des volontaires qui ont une rupture partent au cours de leurs trois premiers mois, et la moitié au cours de leurs cinq premiers mois (alors que la plupart des volontaires s'engagent pour huit mois). Pour Cité Unis, cela suggère que l'accompagnement visant à prévenir les ruptures (négatives) importe surtout dans les premiers mois du service civique.
+
+```{r}
+#| label: fig-rupture-timing
+#| fig-cap: "Nombre de mois de service civique effectués avant la rupture, parmi l'ensemble des volontaires ayant une rupture (toutes cohortes et tous motifs de rupture confondus)."
+
+rupture_timing <- combined |>
+  filter(rupture == "rupture") |>
+  distinct(id_jeune, duree_reelle_sc_mois) |>
+  drop_na(duree_reelle_sc_mois) |>
+  count(duree_reelle_sc_mois) |>
+  mutate(share = n / sum(n))
+
+ggplot(rupture_timing, aes(x = duree_reelle_sc_mois, y = share)) +
+  geom_col(fill = "#A6332A") +
+  geom_text(aes(label = scales::percent(share, accuracy = 1)), vjust = -0.5, size = 3) +
+  scale_x_continuous(breaks = 0:9) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1), expand = expansion(mult = c(0, 0.1))) +
+  labs(
+    x = "Mois effectués avant la rupture",
+    y = "Part de toutes les ruptures"
+  ) +
+  plot_theme
+```
+
 ## Changement dans la rupture
 
-@fig-rupture illustre le changement concernant le nombre de volontaires ayant mis fin à leur contrat de manière anticipée (rupture) en comparant les différentes promos. Il n'y a pas de tendance claire avec un peu plus de 20 % des volontaires ayant connu une rupture.
+@fig-rupture illustre le changement concernant le nombre de volontaires ayant mis fin à leur contrat de manière anticipée (rupture) en comparant les différentes promos. Il n'y a pas de tendance claire ; dans toutes les cohortes, un peu plus de 20 % des volontaires connaissent une rupture.
 
 ```{r}
 #| label: fig-rupture
-#| fig-cap: "Number of volunteers with a rupture (for various possible reasons, including positive ones, such as obtaining a work contract)."
+#| fig-cap: "Nombre de volontaires en rupture (pour diverses raisons possibles, y compris positives, comme l'obtention d'un contrat de travail)."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 combined |> 
@@ -2297,7 +1849,7 @@ Les modèles statistiques sur la rupture se trouvent en annexe (@sec-appendix-ru
 
 ```{r}
 # remove variables that don't make sense, e.g., the motive and the actual duration (obviously, the longer the duration, the less likely to have a rupture)
-reduced_demographic_variables <- setdiff(demographic_variables, c("rupture", "motif_rupture", "Duree_reelle_sc_mois"))
+reduced_demographic_variables <- setdiff(demographic_variables, c("rupture", "motif_rupture", "duree_reelle_sc_mois"))
 
 # add the two non-demographic variables asked in q1
 factors_for_rupture <- c("perception_avenir_num", "action_individuelle_societe")
@@ -2369,11 +1921,13 @@ model_results_rupture_demographic_variables <- reduced_demographic_variables %>%
 
 ### Facteurs démographiques
 
-Comme le montre la @fig-rupture-descriptive, les volontaires plus âgés ont tendance à avoir moins de ruptures que les plus jeunes ; les volontaires moins instruits (en particulier les "infra bac") ont tendance à avoir plus de ruptures que ceux qui ont fait des études supérieures ; les réfugiés ont tendance à avoir moins de ruptures que les non-réfugiés ; les volontaires masculins ont tendance à avoir un peu plus de ruptures que les volontaires féminins ; les volontaires du programme "Relai" ont tendance à avoir un peu moins de ruptures que les volontaires du programme "Coeur" ; les volontaires des zones résidentielles "QPV" ont tendance à avoir des taux de rupture considérablement plus élevés que les volontaires des autres zones résidentielles.
+Comme le montre la @fig-rupture-descriptive, les volontaires plus âgés ont tendance à avoir moins de ruptures que les plus jeunes ; les volontaires moins instruits (en particulier les "infra bac") ont tendance à avoir plus de ruptures que ceux qui ont fait des études supérieures ; les réfugiés ont tendance à avoir moins de ruptures que les non-réfugiés ; les volontaires masculins ont tendance à avoir un peu plus de ruptures que les volontaires féminins ; les volontaires de type "RELAIS" ont tendance à avoir un peu moins de ruptures que les volontaires de type "CŒUR" (il s'agit des deux formes de statut de volontaire chez Cité Unis, codées dans la variable `type_volontaire`) ; les volontaires des zones résidentielles "QPV" ont tendance à avoir des taux de rupture considérablement plus élevés que les volontaires des autres zones résidentielles.
+
+Notons toutefois que ces groupes se recoupent : par exemple, les volontaires des zones "QPV" sont aussi, en moyenne, moins diplômés. Lorsque tous les facteurs démographiques sont pris en compte simultanément (@sec-appendix-multivariable), le taux de rupture plus élevé des volontaires des zones "QPV" disparaît presque entièrement---il s'explique en grande partie par des différences de niveau d'études. Le niveau d'études lui-même reste le prédicteur le plus fort des ruptures.
 
 ```{r}
 #| label: fig-rupture-descriptive 
-#| fig-cap: Percentages of rupture for (allegedly) negative reasons for different groups, for different variables.
+#| fig-cap: Pourcentages de rupture pour des raisons (supposément) négatives pour différents groupes, selon différentes variables.
 
 plot_variables <- c("age_categorie", "type_volontaire", "niveau_etudes", "sexe", "refugie", "zone_residence")
 
@@ -2381,11 +1935,13 @@ plot_data <- combined %>%
   mutate(across(all_of(plot_variables), as.character)) %>%
   pivot_longer(cols = all_of(plot_variables), names_to = "variable", values_to = "level") %>%
   drop_na(level) |> 
-  group_by(variable, level, rupture_negative) |> 
-  summarize(n = n_distinct(id_jeune)) |> 
+  group_by(variable, level, rupture_negative) |>
+  summarize(n = n_distinct(id_jeune)) |>
   group_by(variable, level) %>%
-  mutate(pct = n / sum(n) * 100) |> 
-  ungroup()
+  mutate(pct = n / sum(n) * 100) |>
+  ungroup() |>
+  # show only the share of negative ruptures (which is what the figure is about)
+  filter(rupture_negative == "rupture negative")
 
 # add correct levels for order
 level_orders <- lapply(combined[plot_variables], levels)
@@ -2395,8 +1951,8 @@ plot_data <- plot_data %>%
   mutate(level = factor(level, levels = level_orders[[unique(variable)]])) %>%
   ungroup()
 
-ggplot(plot_data, aes(x = level, y = pct, fill = factor(rupture_negative))) +
-  geom_col(position = position_dodge(width = 0.9)) +
+ggplot(plot_data, aes(x = level, y = pct)) +
+  geom_col(position = position_dodge(width = 0.9), fill = "#A6332A") +
   geom_text(
     aes(label = sprintf("%.1f%%", pct)),
     position = position_dodge(width = 0.9),
@@ -2404,6 +1960,7 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(rupture_negative))) +
     size = 3
   ) +
   scale_fill_viridis_d(option = "rocket", direction = -1) +
+  guides(fill = "none") +
   facet_wrap(~ variable, scales = "free_x") +
   labs(
     x = NULL, y = "Share",
@@ -2418,16 +1975,16 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(rupture_negative))) +
 
 ### Autres facteurs
 
-Pour les variables non démographiques, l'étude de leur relation avec la rupture n'est pas possible - simplement parce que, par définition, pour les questions qui n'ont été posées qu'à "q2" et "q3", les volontaires qui avaient mis fin à leur contrat de manière anticipée n'étaient plus disponibles (voir @tbl-rupture-candidates). Uniquement pour les deux variables qui ont été posées à "q1" :
+Pour les variables non démographiques, l'étude de leur relation avec la rupture n'est pas possible --- simplement parce que, par définition, pour les questions qui n'ont été posées qu'à "q2" et "q3", les volontaires qui avaient mis fin à leur contrat de manière anticipée n'étaient plus disponibles (voir @tbl-rupture-candidates). Cela n'est possible que pour les deux variables posées à "q1" :
 
 1. `perception_avenir` (Concernant votre avenir, êtes-vous... ? 	Très confiant(e) ; Assez confiant(e) ; Peu confiant(e) ; Pas du tout confiant(e))
 2. `action_individuelle_societe` (En général, pensez-vous que votre action individuelle peut contribuer à changer la société ? 	Oui ; Pas vraiment ; Non)
 
-Comme le montre @fig-rupture-other, sans surprise peut-être, les volontaires qui ont tendance à penser que leur action individuelle peut contribuer à changer la société ont tendance à moins rompre leur contrat. Il est intéressant de noter que les volontaires qui sont très confiants quant à leur avenir ont tendance à rompre davantage leur contrat.
+Comme le montre @fig-rupture-other, sans surprise peut-être, les volontaires qui pensent que leur action individuelle peut contribuer à changer la société mettent moins souvent fin à leur contrat de manière anticipée. Il est intéressant de noter que les volontaires très confiants quant à leur avenir mettent plus souvent fin à leur contrat de manière anticipée. Notez que cette analyse ne concerne que les ruptures pour des raisons a priori *négatives* --- ce constat ne s'explique donc pas simplement par des volontaires confiants qui partiraient pour des raisons positives, comme trouver un emploi.
 
 ```{r}
 #| label: fig-rupture-other
-#| fig-cap: Percentages of rupture for (allegedly) negative reasons, as a function of (i) the volunteers' confidence in their future and (ii) their perception that their individual action can contribute to changing society.
+#| fig-cap: Pourcentages de rupture pour des raisons (supposément) négatives, en fonction (i) de la confiance des volontaires en leur avenir et (ii) de leur perception que leur action individuelle peut contribuer à changer la société.
 
 plot_variables <- c("perception_avenir", "action_individuelle_societe")
 
@@ -2436,11 +1993,13 @@ plot_data <- combined %>%
   pivot_longer(cols = all_of(plot_variables), names_to = "variable", values_to = "level") %>%
   drop_na(level) |> 
   mutate(level = factor(level)) %>%
-  group_by(variable, level, rupture_negative) |> 
-  summarize(n = n_distinct(id_jeune)) |> 
+  group_by(variable, level, rupture_negative) |>
+  summarize(n = n_distinct(id_jeune)) |>
   group_by(variable, level) %>%
-  mutate(pct = n / sum(n) * 100) |> 
-  ungroup()
+  mutate(pct = n / sum(n) * 100) |>
+  ungroup() |>
+  # show only the share of negative ruptures (which is what the figure is about)
+  filter(rupture_negative == "rupture negative")
 
 # add correct levels for order
 level_orders <- lapply(combined[plot_variables], levels)
@@ -2450,8 +2009,8 @@ plot_data <- plot_data %>%
   mutate(level = factor(level, levels = level_orders[[unique(variable)]])) %>%
   ungroup()
 
-ggplot(plot_data, aes(x = level, y = pct, fill = factor(rupture_negative))) +
-  geom_col(position = position_dodge(width = 0.9)) +
+ggplot(plot_data, aes(x = level, y = pct)) +
+  geom_col(position = position_dodge(width = 0.9), fill = "#A6332A") +
   geom_text(
     aes(label = sprintf("%.1f%%", pct)),
     position = position_dodge(width = 0.9),
@@ -2459,6 +2018,7 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(rupture_negative))) +
     size = 3
   ) +
   scale_fill_viridis_d(option = "rocket", direction = -1) +
+  guides(fill = "none") +
   facet_wrap(~ variable, scales = "free_x") +
   labs(
     x = NULL, y = "Share",
@@ -2473,14 +2033,14 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(rupture_negative))) +
 
 # La satisfaction {#sec-satisfaction}
 
-Dans cette section, nous examinons la satisfaction ("D'une manière générale, diriez-vous que votre Service Civique s'est déroulé de façon..." avec les niveaux 1, "pas du tout satisfaisante", à 4, "très satisfaisante").^ [Dans toutes les analyses, nous traitons cette variable comme une variable continue] . Comme le montre @fig-satisfaction-overview, toutes cohortes confondues, la majorité des volontaires estiment que leur expérience est "très satisfaisante".
+Dans cette section, nous examinons la satisfaction ("D'une manière générale, diriez-vous que votre Service Civique s'est déroulé de façon..." avec les niveaux 1, "pas du tout satisfaisante", à 4, "très satisfaisante").^[Dans toutes les analyses, nous traitons cette variable comme une variable continue]. Comme le montre @fig-satisfaction-overview, toutes cohortes confondues, la majorité des volontaires estiment que leur expérience est "très satisfaisante".
 
 ```{r}
 #| label: fig-satisfaction-overview
-#| fig-cap: "Répartition des niveaux de satisfaction" 
+#| fig-cap: "Répartition des niveaux de satisfaction, toutes cohortes confondues."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 combined |> 
@@ -2530,7 +2090,7 @@ combined |>
 
 ```{r}
 #| label: fig-satisfaction
-#| fig-cap: "Satisfaction between cohorts." 
+#| fig-cap: "Satisfaction entre les cohortes." 
 #| 
 combined <- combined |> 
   # make satisfaction a factor, also make a numeric version
@@ -2577,6 +2137,64 @@ combined |>
     axis.text.x = element_text(angle = 20, hjust = 1)  # Rotate x-axis labels
   )
 
+```
+
+## La baisse de la satisfaction s'explique-t-elle par l'évolution démographique ? {#sec-satisfaction-composition}
+
+```{r}
+# cohort trend in satisfaction, with and without adjusting for age and education
+satisfaction_trend_data <- combined |>
+  arrange(id_jeune, is.na(satisfaction)) |>
+  group_by(id_jeune) |>
+  slice(1) |>
+  ungroup() |>
+  drop_na(satisfaction) |>
+  mutate(cohort = as.numeric(factor(promo)))
+
+sat_trend_unadjusted <- lm(satisfaction_num ~ cohort, data = satisfaction_trend_data)
+sat_trend_adjusted <- lm(satisfaction_num ~ cohort + age_categorie + niveau_etudes,
+                         data = satisfaction_trend_data)
+```
+
+La composition des volontaires a considérablement changé au fil des cohortes : parmi les volontaires ayant répondu à la question sur la satisfaction, la part des mineurs (16-17 ans) a presque doublé (d'environ 12 % en 2020-21 à environ 22 % en 2023-24), et la part des volontaires sans bac a augmenté (d'environ 27 % à 38 %). Étant donné que les volontaires plus jeunes et moins diplômés déclarent en moyenne une satisfaction plus faible, on pourrait soupçonner que la baisse de la part des volontaires "très satisfaits" reflète simplement cette évolution de la composition, plutôt qu'un changement dans l'expérience du service civique elle-même.
+
+Les données suggèrent que ce n'est pas le cas : comme le montre @fig-satisfaction-composition, la part des volontaires très satisfaits a diminué *au sein* de pratiquement tous les groupes d'âge et de tous les niveaux d'études. De même, dans une régression linéaire de la satisfaction sur la cohorte (codée de 1 à 4), la tendance estimée reste pratiquement inchangée lorsque l'on ajuste pour l'âge et le niveau d'études (`r round(coef(sat_trend_unadjusted)["cohort"], 3)` point par cohorte sans ajustement, contre `r round(coef(sat_trend_adjusted)["cohort"], 3)` avec ajustement). La baisse de la satisfaction ne semble donc pas s'expliquer par l'évolution de la composition démographique des volontaires.
+
+```{r}
+#| label: fig-satisfaction-composition
+#| fig-cap: "Part des volontaires se déclarant 'très satisfaits' ('Très satisfaisante'), par cohorte, séparément selon les tranches d'âge et les niveaux d'études. Si la baisse globale était uniquement due à l'évolution de la composition des volontaires, les tendances au sein des groupes seraient plates."
+#| fig-subcap:
+#|   - "(tranches d'âge)"
+#|   - "(niveaux d'études)"
+#| layout-ncol: 2
+
+# one satisfaction value per volunteer
+satisfaction_composition_data <- combined |>
+  arrange(id_jeune, is.na(satisfaction)) |>
+  group_by(id_jeune) |>
+  slice(1) |>
+  ungroup() |>
+  drop_na(satisfaction)
+
+# share of very satisfied volunteers by promo, within groups of a given variable
+plot_very_satisfied_by <- function(data, variable) {
+  data |>
+    drop_na(!!sym(variable)) |>
+    group_by(promo, level = !!sym(variable)) |>
+    summarize(pct = 100 * mean(satisfaction_num == 4), .groups = "drop") |>
+    ggplot(aes(x = promo, y = pct, colour = level, group = level)) +
+    geom_line(linewidth = 0.8) +
+    geom_point(size = 2) +
+    scale_y_continuous(labels = scales::percent_format(scale = 1),
+                       limits = c(0, NA)) +
+    scale_colour_manual(values = program_colours) +
+    labs(x = "Promo", y = "Part 'Très satisfaisante'", colour = NULL) +
+    plot_theme +
+    theme(legend.position = "top")
+}
+
+plot_very_satisfied_by(satisfaction_composition_data, "age_categorie")
+plot_very_satisfied_by(satisfaction_composition_data, "niveau_etudes")
 ```
 
 ## Qu'est-ce qui permet de prédire si les volontaires sont plus satisfaits ?
@@ -2657,11 +2275,11 @@ model_results_satisfaction_demographic_variables <- demographic_variables %>%
 
 ### Facteurs démographiques
 
-Comme le montre @fig-satisfaction-descriptive, les volontaires plus âgés ont tendance à être plus satisfaits que les plus jeunes ; les volontaires plus instruits ont tendance à être plus satisfaits que les moins instruits ; les volontaires du programme "Relai" ont tendance à être plus satisfaits que les volontaires du programme "Cœur" ; probablement sans surprise, les volontaires qui ont une rupture ont tendance à être moins satisfaits que les volontaires qui n'en ont pas.
+Comme le montre @fig-satisfaction-descriptive, les volontaires plus âgés ont tendance à être plus satisfaits que les plus jeunes ; les volontaires plus instruits ont tendance à être plus satisfaits que les moins instruits ; les volontaires de type "RELAIS" ont tendance à être plus satisfaits que les volontaires de type "CŒUR" ; probablement sans surprise, les volontaires qui ont une rupture ont tendance à être moins satisfaits que les volontaires qui n'en ont pas. Lorsque tous les facteurs démographiques sont considérés simultanément (@sec-appendix-multivariable), les différences selon le niveau d'études disparaissent (elles reflètent surtout des différences d'âge), tandis que les différences selon l'âge et le type de volontaire subsistent.
 
 ```{r}
 #| label: fig-satisfaction-descriptive 
-#| fig-cap: Share of volunteers responding to the different satisfaction levels, grouped by different variables.
+#| fig-cap: Part des volontaires selon les différents niveaux de satisfaction, par différentes variables.
 
 plot_variables <- c("rupture", "age_categorie", "type_volontaire", "niveau_etudes")
 
@@ -2700,7 +2318,7 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(satisfaction))) +
     fill = "Satisfaction",
   ) +
   scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
-  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct) * 1.15)) +
   plot_theme +
   theme(axis.text.x = element_text(angle = 20, hjust = 1), 
         legend.position = "top")
@@ -2710,14 +2328,14 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(satisfaction))) +
 
 Les variables suivantes sont statistiquement associées à la satisfaction (@fig-satisfaction-other) :
 
-- `comparaison_utilite_autres` ["Diriez-vous que votre Service Civique a été... ? Plus utile à vous qu'aux autres ; Autant utile à vous qu'aux autres ; Moins utile à vous qu'aux autres"] . Sans surprise, les volontaires qui pensent que le service civique leur a été moins utile qu'aux autres ont tendance à être moins satisfaits que ceux qui pensent qu'il leur a été plus utile
-- `fierte` ["Vous sentez-vous fier de ce que vous avez accompli pendant votre Service Civique ? Oui, tout à fait ; Oui, un peu ; Non, pas vraiment ; Non, pas du tout"] . Les volontaires qui sont plus fiers de ce qu'ils ont accompli pendant leur service civique ont également tendance à être plus satisfaits.
+- `comparaison_utilite_autres` ["Diriez-vous que votre Service Civique a été... ? Plus utile à vous qu'aux autres ; Autant utile à vous qu'aux autres ; Moins utile à vous qu'aux autres"]. Sans surprise, les volontaires qui pensent que le service civique leur a été moins utile qu'aux autres ont tendance à être moins satisfaits que ceux qui pensent qu'il leur a été plus utile
+- `fierte` ["Vous sentez-vous fier de ce que vous avez accompli pendant votre Service Civique ? Oui, tout à fait ; Oui, un peu ; Non, pas vraiment ; Non, pas du tout"]. Les volontaires qui sont plus fiers de ce qu'ils ont accompli pendant leur service civique ont également tendance à être plus satisfaits.
 - `confiance_en_soi` ["Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ? Oui, beaucoup ; Oui, assez ; Non, pas vraiment ; Non, pas du tout ; Je ne sais pas".] Les volontaires qui ont gagné en confiance ont également tendance à être plus satisfaits.
 - `confiance_avenir_personnel` ["Concernant votre avenir personnel, êtes-vous... ? Très confiant.e ; Assez confiant.e ; Peu confiant.e ; Pas du tout confiant.e"] Les volontaires qui ont davantage confiance en leur avenir ont également tendance à être plus satisfaits.
 
 ```{r}
 #| label: fig-satisfaction-other
-#| fig-cap: Share of volunteers responding to the different satisfaction levels, grouped by different variables.
+#| fig-cap: Part des volontaires selon les différents niveaux de satisfaction, par différentes variables.
 
 plot_variables <- c(
   "comparaison_utilite_autres",
@@ -2761,7 +2379,7 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(satisfaction))) +
     fill = "Satisfaction",
   ) +
   scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
-  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct) * 1.15)) +
   plot_theme +
   theme(axis.text.x = element_text(angle = 20, hjust = 1), 
         legend.position = "top")
@@ -2773,10 +2391,12 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(satisfaction))) +
 
 ```{r}
 #| label: fig-satisfaction-programs
-#| fig-cap: "Share of volunteers responding to the different satisfaction levels, grouped by which program they were in. Note that we focus only on key programs here. All other programs appear under 'NA' in the plot."
+#| fig-cap: "Part des volontaires selon les différents niveaux de satisfaction, en fonction du programme dans lequel ils étaient. Notez que nous ne considérons ici que les programmes clés. Tous les autres programmes apparaissent sous 'NA' dans le graphique."
+#| fig-width: 9
+#| fig-height: 7
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 plot_data <- combined %>%
@@ -2797,7 +2417,6 @@ ggplot(plot_data, aes(x = satisfaction, y = n, fill = factor(satisfaction))) +
     size = 3
   ) +
   scale_fill_brewer(palette = "Blues") +
-  facet_wrap(~ variable, scales = "free_x") +
   labs(
     x = NULL, 
     y = "Number of volunteers",
@@ -2820,14 +2439,13 @@ ggplot(plot_data, aes(x = satisfaction, y = pct, fill = factor(satisfaction))) +
     size = 3
   ) +
   scale_fill_brewer(palette = "Blues") +
-  facet_wrap(~ variable, scales = "free_x") +
   labs(
     x = NULL, 
     y = "Share of volunteers",
     fill = "Satisfaction",
   ) +
   scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
-  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct) * 1.15)) +
   plot_theme +
   theme(axis.text.x = element_blank(), 
         legend.position = "top") +
@@ -2837,14 +2455,14 @@ ggplot(plot_data, aes(x = satisfaction, y = pct, fill = factor(satisfaction))) +
 
 # Confiance en l'avenir
 
-Dans cette section, nous examinons la confiance en l'avenir (`perception_avenir` : "Concernant votre avenir, êtes-vous... ?" avec les niveaux 1, "Pas du tout confiant.e", à 4, "Très confiant.e").^ [Dans toutes les analyses, nous traitons cette variable comme une variable continue] . Comme le montre @fig-perception-avenir-overview, toutes cohortes confondues, la majorité des volontaires sont "assez confiant.e".
+Dans cette section, nous examinons la confiance en l'avenir (`perception_avenir` : "Concernant votre avenir, êtes-vous... ?" avec les niveaux 1, "Pas du tout confiant.e", à 4, "Très confiant.e").^[Dans toutes les analyses, nous traitons cette variable comme une variable continue]. Comme le montre @fig-perception-avenir-overview, toutes cohortes confondues, la majorité des volontaires sont "assez confiant.e".
 
 ```{r}
 #| label: fig-perception-avenir-overview
-#| fig-cap: "Confidence in one's future, pooled across all cohorts." 
+#| fig-cap: "Confiance en l'avenir, toutes cohortes confondues." 
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 combined |> 
@@ -2896,7 +2514,7 @@ combined |>
 
 ```{r}
 #| label: fig-perception_avenir
-#| fig-cap: "Confidence in one's future, between cohorts." 
+#| fig-cap: "Confiance en l'avenir, entre les cohortes." 
 
 color <- wes_palette("Cavalcanti1")[4]
 
@@ -3007,13 +2625,15 @@ model_results_perception_demographic_variables <- demographic_variables %>%
 
 ### Facteurs démographiques
 
-Comme le montre @fig-perception-avenir-descriptive, les volontaires du programme " Relai " ont tendance à être plus confiants dans leur avenir que les volontaires du programme " Cœur " ; les hommes volontaires ont tendance à être plus confiants que les femmes ; les réfugiés ont tendance à être plus confiants que les non-réfugiés ; par rapport aux volontaires des zones résidentielles urbaines, les volontaires des zones " QPV " ont tendance à être légèrement plus confiants, tandis que les volontaires des zones " ZRR " ont tendance à être légèrement moins confiants ; plus les volontaires sont éduqués, moins ils ont tendance à être confiants. En ce qui concerne l'âge, la tendance n'est pas linéaire : les volontaires de la tranche d'âge "16-17" ont tendance à être plus confiants que les volontaires des tranches d'âge "18-20" et "21-23", mais les plus confiants en moyenne ont tendance à être les volontaires de la tranche d'âge "24-30".
+Comme le montre @fig-perception-avenir-descriptive, les volontaires de type "RELAIS" ont tendance à être plus confiants dans leur avenir que les volontaires de type "CŒUR" ; les hommes volontaires ont tendance à être plus confiants que les femmes ; les réfugiés ont tendance à être plus confiants que les non-réfugiés ; par rapport aux volontaires des zones résidentielles urbaines, les volontaires des zones "QPV" ont tendance à être légèrement plus confiants, tandis que les volontaires des zones "ZRR" ont tendance à être légèrement moins confiants ; plus les volontaires sont éduqués, moins ils ont tendance à être confiants. En ce qui concerne l'âge, la tendance n'est pas linéaire : les volontaires de la tranche d'âge "16-17" ont tendance à être plus confiants que les volontaires des tranches d'âge "18-20" et "21-23", mais les plus confiants en moyenne ont tendance à être les volontaires de la tranche d'âge "24-30". Lorsque tous les facteurs démographiques sont considérés simultanément (@sec-appendix-multivariable), les différences selon le sexe, le statut de réfugié et le type de volontaire restent clairement visibles, tandis que les différences selon le niveau d'études et l'âge ne sont plus statistiquement significatives.
 
 ```{r}
 #| label: fig-perception-avenir-descriptive
-#| fig-cap: Share of volunteers according to their confidence in their future, grouped by different variables.
+#| fig-cap: Part des volontaires selon leur confiance en leur avenir, par différentes variables.
+#| fig-width: 10
+#| fig-height: 8
 
-plot_variables <- c("rupture", "age_categorie", "type_volontaire", "niveau_etudes")
+plot_variables <- c("rupture", "age_categorie", "type_volontaire", "niveau_etudes", "sexe", "refugie", "zone_residence")
 
 plot_data <- combined %>%
   mutate(across(all_of(plot_variables), as.character)) %>%
@@ -3050,7 +2670,7 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(perception_avenir))) +
     fill = "Confidence in Future",
   ) +
   scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
-  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct) * 1.15)) +
   plot_theme +
   theme(axis.text.x = element_text(angle = 20, hjust = 1), 
         legend.position = "top")
@@ -3058,11 +2678,11 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(perception_avenir))) +
 
 ### Autres facteurs
 
-Le seul facteur que nous avons pu statistiquement relier à la confiance en l'avenir est le suivant `action_individuelle_societe` ("En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?" Oui ; Pas vraiment ; Non). Comme le montre @fig-perception-avenir-other, les volontaires qui pensent qu'ils peuvent contribuer à la société ont tendance à avoir plus confiance en leur avenir que les volontaires qui ne le pensent pas.
+Le seul facteur que nous avons pu statistiquement relier à la confiance en l'avenir est `action_individuelle_societe` ("En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?" Oui ; Pas vraiment ; Non). Comme le montre @fig-perception-avenir-other, les volontaires qui pensent qu'ils peuvent contribuer à la société ont tendance à avoir plus confiance en leur avenir que les volontaires qui ne le pensent pas.
 
 ```{r}
 #| label: fig-perception-avenir-other
-#| fig-cap: Share of volunteers according to their confidence in their future, as a function of whether they think their individual action can contribute to society.
+#| fig-cap: Part des volontaires selon leur confiance en leur avenir, en fonction de leur perception que leur action individuelle peut contribuer à la société.
 
 plot_variables <- c("action_individuelle_societe")
 
@@ -3101,7 +2721,7 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(perception_avenir))) +
     fill = "Confidence in Future",
   ) +
   scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
-  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct) * 1.15)) +
   plot_theme +
   theme(axis.text.x = element_text(angle = 40, hjust = 1), 
         legend.position = "top")
@@ -3113,10 +2733,12 @@ ggplot(plot_data, aes(x = level, y = pct, fill = factor(perception_avenir))) +
 
 ```{r}
 #| label: fig-perception-avenir-programs
-#| fig-cap: "Number of volunteers responding with different levels of confidence in their future, grouped by which program they were in. Note that we focus only on key programs here. All other programs appear under 'NA' in the plot."
+#| fig-cap: "Nombre de volontaires selon les différents niveaux de confiance en leur avenir, en fonction du programme dans lequel ils étaient. Notez que nous ne considérons ici que les programmes clés. Tous les autres programmes apparaissent sous 'NA' dans le graphique."
+#| fig-width: 9
+#| fig-height: 7
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 plot_data <- combined %>%
@@ -3137,7 +2759,6 @@ ggplot(plot_data, aes(x = perception_avenir, y = n, fill = factor(perception_ave
     size = 3
   ) +
   scale_fill_brewer(palette = "Purples") +
-  facet_wrap(~ variable, scales = "free_x") +
   labs(
     x = NULL, 
     y = "Number of volunteers",
@@ -3160,14 +2781,13 @@ ggplot(plot_data, aes(x = perception_avenir, y = pct, fill = factor(perception_a
     size = 3
   ) +
   scale_fill_brewer(palette = "Purples") +
-  facet_wrap(~ variable, scales = "free_x") +
   labs(
     x = NULL, 
     y = "Share of volunteers",
-    fill = "Satisfaction",
+    fill = "Confidence in Future",
   ) +
   scale_y_continuous(labels = scales::percent_format(scale = 1), breaks = seq(0,100, 20)) +
-  coord_cartesian(ylim = c(0, max(plot_data$pct))) +
+  coord_cartesian(ylim = c(0, max(plot_data$pct) * 1.15)) +
   plot_theme +
   theme(axis.text.x = element_blank(), 
         legend.position = "top") +
@@ -3207,17 +2827,17 @@ factors_for_program_comparison <- c(
 )
 ```
 
-Il existe `r program_count$n_programs` différents programmes, que l'on peut classer en `r program_count$n_program_categories` différentes catégories (voir [Tableaux](tables.qmd)). Ici, nous ne faisons la distinction qu'entre `r program_count$n_key_programs` catégories de programmes clés, à savoir : `r key_programs`. @fig-programs-overview donne un aperçu du nombre de volontaires dans les différents programmes clés, à travers les promotions.
+Il existe `r program_count$n_programs` différents programmes, que l'on peut classer en `r program_count$n_program_categories` différentes catégories (voir [Tableaux](tables.qmd)). Ici, nous ne faisons la distinction qu'entre `r program_count$n_key_programs` catégories de programmes clés, à savoir : `r key_programs`. @fig-programs-overview donne un aperçu du nombre de volontaires dans les différents programmes clés, à travers les promotions. Notez que tous les programmes clés n'apparaissent pas dans toutes les cohortes dans les données : "Solidarité Séniors" et "Solidarité Aidants" n'apparaissent qu'à partir de la cohorte 2021-22, et "ASM" qu'à partir de la cohorte 2022-23.
 
-Dans les sections suivantes, nous examinons les différences démographiques entre les volontaires des différents programmes clés. Les modèles statistiques sur les différences entre les programmes se trouvent en annexe (@sec-appendix-programs). Ici, nous ne montrons que de manière descriptive les différences entre les programmes pour les variables qui étaient statistiquement significatives dans ces modèles.
+Dans les sections suivantes, nous examinons les différences démographiques entre les volontaires des différents programmes clés. Notez que ces comparaisons regroupent toutes les cohortes ; elles décrivent des différences moyennes et ne rendent pas compte de l'évolution des programmes dans le temps. Les modèles statistiques sur les différences entre les programmes se trouvent en annexe (@sec-appendix-programs). Ici, nous ne montrons que de manière descriptive les différences entre les programmes pour les variables qui étaient statistiquement significatives dans ces modèles.
 Chacune des sections suivantes se concentre sur un programme clé. Pour les variables pertinentes, nous montrons comment la moyenne dans le programme clé respectif diffère par rapport à la moyenne de tous les autres programmes clés combinés.
 
 ```{r}
 #| label: fig-programs-overview
-#| fig-cap: "Number of volunteers per key program, within the different promos. Note that, in the percentage plot, the percentages are relative to all volunteers from the respective promo. All volunteers who were not included in any of the key programs appear in the plot under 'NA'."
+#| fig-cap: "Nombre de volontaires par programme clé, au sein des différentes promos. Notez que, dans le graphique des pourcentages, les pourcentages sont relatifs à l'ensemble des volontaires de la promo respective. Tous les volontaires qui ne faisaient partie d'aucun programme clé apparaissent sous 'NA' dans le graphique."
 #| fig-subcap:
-#|   - "(absolute numbers)"
-#|   - "(percentages)" 
+#|   - "(nombres absolus)"
+#|   - "(pourcentages)" 
 #| layout-ncol: 2
 
 # ABSOLUTE NUMBERS
@@ -3263,7 +2883,7 @@ ggplot(plot_data,
   facet_wrap(~promo)
 ```
 
-## Solidarité Aidants {#sec-ecovolonterre}
+## Solidarité Aidants {#sec-solidarite-aidants}
 
 ```{r}
 # Run on Solidarité Aidants data
@@ -3278,11 +2898,11 @@ model_results_solidarite_aidants <- run_program_models(
 #   filter(significant)
 ```
 
-Par rapport à tous les autres programmes confondus, parmi les volontaires du programme "Solidarité Aidants", on trouve généralement : plus de femmes ; moins de réfugiés ; moins de volontaires dans les tranches d'âge "16-17" et "24-30", mais plus de réfugiés dans les tranches d'âge "18-20" et "21-23" ; plus de volontaires dans les zones d'habitation rurales, "QPV" et "ZRR" par rapport aux zones urbaines ; des volontaires plus diplômés, en particulier dans la catégorie "bac2" ; un peu plus de volontaires ayant un handicap déclaré.
+Par rapport à tous les autres programmes confondus, parmi les volontaires du programme "Solidarité Aidants", on trouve généralement : plus de femmes ; moins de réfugiés ; moins de volontaires dans les tranches d'âge "16-17" et "24-30", mais plus de volontaires dans les tranches d'âge "18-20" et "21-23" ; plus de volontaires dans les zones d'habitation rurales, "QPV" et "ZRR" par rapport aux zones urbaines ; des volontaires plus diplômés, en particulier dans la catégorie "bac2" ; un peu plus de volontaires ayant un handicap déclaré.
 
 ```{r}
 #| label: fig-solidarite-aidants-descriptive
-#| fig-cap: Differences in Solidarité Aidants vs. other programs along demographic factors.
+#| fig-cap: Différences entre Solidarité Aidants et les autres programmes selon les facteurs démographiques.
 
 plot_variables <- c(
   "sexe",
@@ -3321,7 +2941,7 @@ Par rapport à tous les autres programmes confondus, parmi les volontaires du pr
 
 ```{r}
 #| label: fig-cine-descriptive
-#| fig-cap: Differences in Cinéma & Citoyenneté vs. other programs along demographic factors.
+#| fig-cap: Différences entre Cinéma & Citoyenneté et les autres programmes selon les facteurs démographiques.
 
 plot_variables <- c(
   "sexe",
@@ -3358,7 +2978,7 @@ Par rapport à tous les autres programmes confondus, parmi les volontaires du pr
 
 ```{r}
 #| label: fig-booster-descriptive
-#| fig-cap: Differences in Booster vs. other programs along demographic factors.
+#| fig-cap: Différences entre Booster et les autres programmes selon les facteurs démographiques.
 
 plot_variables <- c(
   "sexe",
@@ -3397,7 +3017,7 @@ Par rapport à tous les autres programmes confondus, parmi les volontaires du pr
 
 ```{r}
 #| label: fig-ecovolonterre-descriptive
-#| fig-cap: Differences in Ecovolonterre vs. other programs along demographic factors.
+#| fig-cap: Différences entre Ecovolonterre et les autres programmes selon les facteurs démographiques.
 
 plot_variables <- c(
   "sexe",
@@ -3435,7 +3055,7 @@ Par rapport à tous les autres programmes combinés, parmi les volontaires du pr
 
 ```{r}
 #| label: fig-mediaterre-descriptive
-#| fig-cap: Differences in Médiaterre vs. other programs along demographic factors.
+#| fig-cap: Différences entre Médiaterre et les autres programmes selon les facteurs démographiques.
 
 plot_variables <- c(
   "sexe",
@@ -3454,6 +3074,8 @@ plot_faceted_distribution(
 
 ## ASM {#sec-asm}
 
+Notons qu'ASM est de loin le plus petit des programmes clés dans nos données (37 volontaires en 2022-23 et 163 en 2023-24, voir @fig-programs-overview). Les comparaisons de cette section reposent donc sur un petit nombre de volontaires et doivent être lues avec une prudence particulière.
+
 ```{r}
 # Run model
 model_results_asm <- run_program_models(
@@ -3471,7 +3093,7 @@ Par rapport à tous les autres programmes confondus, parmi les volontaires du pr
 
 ```{r}
 #| label: fig-asm-descriptive
-#| fig-cap: Differences in ASM vs. other programs along demographic factors.
+#| fig-cap: Différences entre ASM et les autres programmes selon les facteurs démographiques.
 
 plot_variables <- c(
   "sexe",
@@ -3508,7 +3130,7 @@ Par rapport à tous les autres programmes confondus, parmi les volontaires du pr
 
 ```{r}
 #| label: fig-solidarite-seniors-descriptive
-#| fig-cap: Differences in Solidarité Séniors vs. other programs along demographic factors.
+#| fig-cap: Différences entre Solidarité Séniors et les autres programmes selon les facteurs démographiques.
 
 plot_variables <- c(
   "sexe",
@@ -3528,31 +3150,31 @@ plot_faceted_distribution(
 )
 ```
 
-# Conclusion : Quelques remarques méthodologiques.
+# Conclusion : Quelques remarques méthodologiques
 
-Ce rapport ne peut fournir que des instantanés des nombreuses données du questionnaire recueillies par Cités Unis. Nous avons cherché à couvrir un large éventail de sujets et de variables afin de révéler des schémas et des tendances potentiellement instructifs. Plutôt que de résumer ces schémas une fois de plus, nous concluons par plusieurs notes méthodologiques qui soulignent les possibilités d'améliorer les futures évaluations d'impact basées sur les questionnaires.
+Ce rapport ne peut fournir que des instantanés des nombreuses données du questionnaire recueillies par Cité Unis. Nous avons cherché à couvrir un large éventail de sujets et de variables afin de révéler des schémas et des tendances potentiellement instructifs. Plutôt que de résumer ces schémas une fois de plus, nous concluons par plusieurs notes méthodologiques qui soulignent les possibilités d'améliorer les futures évaluations d'impact basées sur les questionnaires.
 
-Tout d'abord, les questionnaires pourraient probablement être plus courts. La réduction du nombre de questions diminuerait probablement l'attrition : les volontaires qui répondent à un très long questionnaire à q1 peuvent être moins motivés pour répondre à un autre long questionnaire à q2, et encore moins à q3. Des questionnaires plus courts pourraient également améliorer la qualité des réponses. Lorsque les questionnaires sont longs, les personnes interrogées peuvent se fatiguer ou s'ennuyer et commencer à répondre rapidement et sans grande attention. Une autre option pour améliorer la qualité des réponses serait d'inclure des contrôles d'attention. Cela dit, comme les volontaires ne sont pas obligés de répondre à l'enquête, on peut raisonnablement supposer que ceux qui y participent sont généralement motivés pour y répondre de bonne foi.
+Tout d'abord, les questionnaires pourraient probablement être plus courts. La réduction du nombre de questions diminuerait probablement l'attrition (et, avec elle, le risque de résultats faussés discuté dans @sec-attrition-bias) : les volontaires qui répondent à un très long questionnaire à q1 peuvent être moins motivés pour répondre à un autre long questionnaire à q2, et encore moins à q3. Des questionnaires plus courts pourraient également améliorer la qualité des réponses. Lorsque les questionnaires sont longs, les personnes interrogées peuvent se fatiguer ou s'ennuyer et commencer à répondre rapidement et sans grande attention. Une autre option pour améliorer la qualité des réponses serait d'inclure des contrôles d'attention : des questions comportant une réponse manifestement correcte (par exemple, « Pour montrer que vous lisez attentivement, veuillez sélectionner "Oui" ici »), qui permettent d'identifier les répondants qui répondent sans lire les questions. Cela dit, comme les volontaires ne sont pas obligés de répondre à l'enquête, on peut raisonnablement supposer que ceux qui y participent sont généralement motivés pour y répondre de bonne foi.
 
 Une autre amélioration potentielle consisterait à rendre les questionnaires plus similaires à différents moments. Le fait de poser les mêmes questions à plusieurs reprises permet de suivre l'évolution des volontaires au cours de leur service civique (comme le fait @sec-within-change).
 
-Sur une note mineure, il peut être plus instructif de demander aux volontaires leurs intentions de vote plutôt que leur comportement de vote passé. Il semblerait que certains volontaires n'interprètent pas la question actuelle sur le comportement de vote passé comme prévu (@fig-vote_derniers_elections-youngest). En outre, les changements dans le comportement de vote passé dépendent intrinsèquement du fait que des élections se produisent pour une cohorte particulière au cours de leur année de service civique.
+Remarque plus mineure : il pourrait être plus instructif de demander aux volontaires leurs intentions de vote plutôt que leur comportement de vote passé. Il semblerait que certains volontaires n'interprètent pas la question actuelle sur le comportement de vote passé comme prévu (@fig-vote_derniers_elections-youngest). En outre, les changements dans le comportement de vote passé dépendent intrinsèquement du fait que des élections se produisent ou non pour une cohorte particulière au cours de son année de service civique. Notez toutefois que modifier la formulation de la question romprait la comparabilité avec les cohortes précédentes ; une option serait de poser les deux questions en parallèle pendant une année de transition.
 
-Enfin, j'aimerais réitérer un point déjà soulevé dans l'introduction : les données du questionnaire sont purement observationnelles, et aucune des associations présentées dans ce rapport ne soutient d'interprétations causales spécifiques. Par exemple, dans la section sur les différences démographiques entre les programmes (@sec-programs), les programmes dont les volontaires sont plus âgés ont également tendance à avoir des volontaires plus instruits. Ces observations sont probablement liées, puisque les participants plus âgés ont tout simplement eu plus de temps pour poursuivre leurs études. Autre exemple, @fig-satisfaction-programs suggère que moins de volontaires se déclarent "très satisfaits" dans les programmes clés que dans les autres programmes (listés dans la figure sous "NA"). Cependant, les programmes clés ont attiré un nombre croissant de volontaires au fil du temps (@fig-programs-overview), et certains d'entre eux sont relativement récents. Dans le même temps, la part des volontaires qui se déclarent "très satisfaits" a légèrement diminué dans les différentes cohortes (@fig-satisfaction). Il est donc difficile de savoir si les différences observées sont dues aux programmes eux-mêmes, aux tendances plus générales des cohortes en matière de satisfaction ou à d'autres facteurs non observés.
+Enfin, j'aimerais réitérer un point déjà soulevé dans l'introduction : les données du questionnaire sont purement observationnelles, et aucune des associations présentées dans ce rapport ne soutient d'interprétations causales spécifiques. Par exemple, dans la section sur les différences démographiques entre les programmes (@sec-programs), les programmes dont les volontaires sont plus âgés ont également tendance à avoir des volontaires plus instruits. Ces observations sont probablement liées, puisque les participants plus âgés ont tout simplement eu plus de temps pour poursuivre leurs études. Autre exemple, @fig-satisfaction-programs suggère que moins de volontaires se déclarent "très satisfaits" dans les programmes clés que dans les autres programmes (listés dans la figure sous "NA"). Cependant, les programmes clés ont attiré un nombre croissant de volontaires au fil du temps (@fig-programs-overview), et certains d'entre eux sont relativement récents. Dans le même temps, la part des volontaires qui se déclarent "très satisfaits" a légèrement diminué dans les différentes cohortes (@fig-satisfaction). Il est donc difficile de savoir si les différences observées sont dues aux programmes eux-mêmes, aux tendances plus générales des cohortes en matière de satisfaction ou à d'autres facteurs non observés. Les modèles multivariables en annexe (@sec-appendix-multivariable) constituent un premier pas pour démêler ces facteurs qui se recoupent, mais ils restent, eux aussi, descriptifs.
 
 # Matériel supplémentaire : Annexe
 
 ## Vote {#sec-appendix-voting}
 
-@fig-vote-change-model montre comment différentes variables démographiques prédisent les changements dans le comportement électoral. Pour cette analyse, nous considérons toutes les cohortes ensemble. Le résultat, les changements dans le comportement de vote, est binaire (changé pour non vs changé pour oui)^ [C'est-à-dire en ignorant tous les volontaires qui n'ont pas changé.] .
+@fig-vote-change-model montre comment différentes variables démographiques prédisent les changements dans le comportement électoral. Pour cette analyse, nous considérons toutes les cohortes ensemble. Le résultat, les changements dans le comportement de vote, est binaire (changé pour non vs changé pour oui)^[C'est-à-dire en ignorant tous les volontaires qui n'ont pas changé.].
 
-Sur l'axe des ordonnées figurent les variables démographiques, considérées comme prédictives d'un changement de comportement électoral. Pour chaque variable démographique catégorielle, différents niveaux sont indiqués. Par exemple, pour la variable `age_category` le graphique montre trois niveaux : `age_categorie18-20`, `age_categorie21-23`, `age_categorie24-30` . Chacune de ces catégories a une estimation (axe des x). Ces estimations sont les résultats de régressions logistiques^ [Pour chaque variable, une régression logistique distincte a été effectuée. Les estimations de la régression logistique sont exponentielles, de sorte que les estimations rapportées peuvent être interprétées comme des rapports de cotes (RC).] . Ils indiquent comment le fait d'appartenir à une certaine catégorie (par exemple, avoir entre 18 et 20 ans) prédit les chances de changer son comportement électoral. Les estimations sont des "rapports de cotes", qui peuvent être considérés comme des probabilités : Un rapport de cotes de 1 signifie que ce groupe a les mêmes chances de changer pour le "non" que pour le "oui". Plus de 1 signifie que ce groupe a plus de chances de passer au "oui". Par exemple, un rapport de cotes de 2,0 signifie qu'il y a deux fois plus de chances. Un rapport de cotes inférieur à 1 signifie que ce groupe a plus de chances de passer au "non". Un rapport de cotes de 0,5 signifie qu'il est deux fois moins probable.
+Sur l'axe des ordonnées figurent les variables démographiques, considérées comme prédictives d'un changement de comportement électoral. Pour chaque variable démographique catégorielle, différents niveaux sont indiqués. Par exemple, pour la variable `age_categorie`, le graphique montre trois niveaux : `age_categorie18-20`, `age_categorie21-23`, `age_categorie24-30`. Chacune de ces catégories a une estimation (axe des x). Ces estimations sont les résultats de régressions logistiques^[Pour chaque variable, une régression logistique distincte a été effectuée. Les estimations de la régression logistique sont exponentielles, de sorte que les estimations rapportées peuvent être interprétées comme des rapports de cotes (RC).]. Ils indiquent comment le fait d'appartenir à une certaine catégorie (par exemple, avoir entre 18 et 20 ans) prédit les chances de changer son comportement électoral. Les estimations sont des "rapports de cotes", qui peuvent être interprétés en termes de chances relatives : un rapport de cotes de 1 signifie que ce groupe a autant de chances de changer vers le "non" que vers le "oui". Plus de 1 signifie que ce groupe a plus de chances de passer au "oui". Par exemple, un rapport de cotes de 2,0 signifie qu'il y a deux fois plus de chances. Un rapport de cotes inférieur à 1 signifie que ce groupe a plus de chances de passer au "non". Un rapport de cotes de 0,5 signifie qu'il est deux fois moins probable.
 
-Pour chaque variable catégorielle, une catégorie est choisie comme catégorie de base (ou de référence). Les rapports de cotes de toutes les autres catégories sont relatifs à cette référence. Par exemple, pour la variable `age_category` la catégorie "16-17" n'apparaît pas dans le graphique, car il s'agit de la catégorie de base (invisible). Si le rapport de cotes pour `age_category18–20` est de 1,43, cela signifie que les jeunes de 18 à 20 ans sont plus susceptibles de changer leur vote en faveur du "Oui" que les jeunes de 16 à 17 ans. Plus précisément, les chances de changer en faveur du "Oui" chez les 18-20 ans sont environ 43 % plus élevées que chez les 16-17 ans.
+Pour chaque variable catégorielle, une catégorie est choisie comme catégorie de base (ou de référence). Les rapports de cotes de toutes les autres catégories sont relatifs à cette référence. Par exemple, pour la variable `age_categorie`, la catégorie "16-17" n'apparaît pas dans le graphique, car il s'agit de la catégorie de base (invisible). Si le rapport de cotes pour `age_categorie18-20` est de 1,43, cela signifie que les jeunes de 18 à 20 ans sont plus susceptibles de changer leur vote en faveur du "Oui" que les jeunes de 16 à 17 ans. Plus précisément, les cotes de changer en faveur du "Oui" chez les 18-20 ans sont environ 43 % plus élevées que chez les 16-17 ans.
 
 ```{r}
 #| label: fig-vote-change-model 
-#| fig-cap: Effects of demographic factors on change in voting behavior. The outcome is binary (changed to no vs. changed to yes). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+#| fig-cap: Effets des facteurs démographiques sur le changement de comportement électoral. Le résultat est binaire (changé vers le non vs changé vers le oui). Les points et leurs étiquettes sont les estimations de régressions logistiques distinctes pour chaque variable. Les lignes autour des points représentent l'incertitude des estimations (intervalles de confiance à 95 %). Si ces intervalles croisent 1 (la ligne verticale en pointillés), les différences ne sont pas statistiquement significatives, c'est-à-dire que nous pourrions les observer par simple hasard. L'échelle logarithmique (sur l'axe des x) est utilisée pour que les rapports de cotes positifs et négatifs soient symétriques dans la visualisation (c'est-à-dire que 2 soit aussi éloigné de 1 que 0,5).
 
 model_results <- model_results_voting_demographic %>%
   mutate(
@@ -3572,14 +3194,14 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   scale_color_viridis_d(option = "plasma", end = 0.8) +
   scale_x_log10() +
   labs(
-    x = "Odds Ratio (log scale)",
+    x = "Rapport de cotes (échelle log)",
     y = NULL
   ) +
   guides(color="none") +
   theme_minimal()
 ```
 
-Pour comprendre ce rapport de chances, prends @fig-vote_derniers_elections-age : il montre que parmi les 16 à 17 ans, 285 ont changé vers le "Non", alors que seulement 238 ont changé vers le "Oui". Ce qui fait que les chances de changer vers le oui pour la tranche d'âge la plus jeune, choisie comme catégorie de référence dans le modèle, `238:285 = ~0.84`. En revanche, chez les 18-20 ans, les chances sont de . `784:658 = ~1.19`. Le rapport de cotes pour les 18 à 20 ans compare leurs cotes à celles des 16 à 17 ans. `odds ratio = 1.19:0.84 = 1.4`. @fig-vote_derniers_elections-age permet également de comparer les odds ratios aux pourcentages pour les différentes tranches d'âge. Tout comme pour les nombres absolus, les odds ratios peuvent être calculés à partir des pourcentages. Par exemple, parmi les jeunes de 16 à 17 ans, 13,8 % ont changé vers le "Non", tandis que 11,5 % ont changé vers le "Oui", ce qui fait que les chances de changer vers le "Oui", comme ci-dessus, `0.115:0.138 = ~0.83` ^ [Note que dans cette illustration, nous obtenons une valeur légèrement différente par rapport à 0,84 ci-dessus en raison de l'imprécision des arrondis.] . Chez les jeunes de 18 à 20 ans, en conséquence, les probabilités étaient, comme ci-dessus,`0.174:0.146 = ~1.19` ce qui donne le même rapport de cotes de ~1,4.
+Pour comprendre ce rapport de cotes, prenez @fig-vote_derniers_elections-age : il montre que parmi les 16 à 17 ans, 285 ont changé vers le "Non", alors que seulement 238 ont changé vers le "Oui". Les cotes de changer vers le "Oui" pour la tranche d'âge la plus jeune, choisie comme catégorie de référence dans le modèle, sont donc de `238:285 = ~0.84`. En revanche, chez les 18-20 ans, les cotes sont de `784:658 = ~1.19`. Le rapport de cotes pour les 18 à 20 ans compare leurs cotes à celles des 16 à 17 ans. `rapport de cotes = 1.19:0.84 = 1.4`. @fig-vote_derniers_elections-age permet également de comparer les rapports de cotes aux pourcentages pour les différentes tranches d'âge. Tout comme pour les nombres absolus, les rapports de cotes peuvent être calculés à partir des pourcentages. Par exemple, parmi les jeunes de 16 à 17 ans, 13,8 % ont changé vers le "Non", tandis que 11,5 % ont changé vers le "Oui", ce qui fait que les chances de changer vers le "Oui", comme ci-dessus, `0.115:0.138 = ~0.83` ^[Notez que dans cette illustration, nous obtenons une valeur légèrement différente par rapport à 0,84 ci-dessus en raison de l'imprécision des arrondis.]. Chez les jeunes de 18 à 20 ans, en conséquence, les cotes étaient, comme ci-dessus, `0.174:0.146 = ~1.19` ce qui donne le même rapport de cotes de ~1,4.
 
 ## Action individuelle pour la société {#sec-appendix-individual-action}
 
@@ -3587,7 +3209,7 @@ Pour comprendre ce rapport de chances, prends @fig-vote_derniers_elections-age :
 
 ```{r}
 #| label: fig-action-change-model 
-#| fig-cap: Effects of demographic factors on change in perceptions of how one's individual actions can contribute to society. The outcome is binary ("vers Non/Pas vraiment" vs. "vers Oui"). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+#| fig-cap: Effets des facteurs démographiques sur le changement de perception de la contribution de l'action individuelle à la société. Le résultat est binaire ("vers Non/Pas vraiment" vs "vers Oui"). Les points et leurs étiquettes sont les estimations de régressions logistiques distinctes pour chaque variable. Les lignes autour des points représentent l'incertitude des estimations (intervalles de confiance à 95 %). Si ces intervalles croisent 1 (la ligne verticale en pointillés), les différences ne sont pas statistiquement significatives, c'est-à-dire que nous pourrions les observer par simple hasard. L'échelle logarithmique (sur l'axe des x) est utilisée pour que les rapports de cotes positifs et négatifs soient symétriques dans la visualisation (c'est-à-dire que 2 soit aussi éloigné de 1 que 0,5).
 
 model_results <- model_results_action %>%
   mutate(
@@ -3608,7 +3230,7 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   scale_x_log10() +
   scale_y_discrete(expand = expansion(mult = c(0, 0.1))) +
   labs(
-    x = "Odds Ratio (log scale)",
+    x = "Rapport de cotes (échelle log)",
     y = NULL
   ) +
   guides(color="none") +
@@ -3617,7 +3239,7 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
 
 ## Rupture {#sec-appendix-rupture}
 
-Pour les analyses sur les facteurs prédictifs de rupture, nous nous concentrons uniquement sur les volontaires qui ont mis fin à leur contrat de manière anticipée pour des raisons apparentes. *négative* pour des raisons apparemment négatives. Nous avons utilisé une mesure de résultat binaire (pas de rupture négative vs. rupture négative) et effectué des régressions logistiques séparées avec des variables démographiques (@fig-rupture-model-demographic) et une sélection d'autres variables (@fig-rupture-model-other).
+Pour les analyses sur les facteurs prédictifs de rupture, nous nous concentrons uniquement sur les volontaires qui ont mis fin à leur contrat de manière anticipée pour des raisons apparemment *négatives*. Nous avons utilisé une mesure de résultat binaire (pas de rupture négative vs. rupture négative) et effectué des régressions logistiques séparées avec des variables démographiques (@fig-rupture-model-demographic) et une sélection d'autres variables (@fig-rupture-model-other).
 
 Un rapport de cotes de 1 signifie qu'un certain groupe a les mêmes chances d'avoir une rupture, par rapport au groupe de référence. Plus de 1 signifie que ce groupe a plus de chances d'avoir une rupture. Moins de 1 signifie que ce groupe a moins de chances d'avoir une rupture.
 
@@ -3625,7 +3247,7 @@ Un rapport de cotes de 1 signifie qu'un certain groupe a les mêmes chances d'av
 
 ```{r}
 #| label: fig-rupture-model-demographic 
-#| fig-cap: Effects of demographic factors on negative ruptures. The outcome is binary (no negative rupture vs. negative rupture). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+#| fig-cap: Effets des facteurs démographiques sur les ruptures négatives. Le résultat est binaire (pas de rupture négative vs rupture négative). Les points et leurs étiquettes sont les estimations de régressions logistiques distinctes pour chaque variable. Les lignes autour des points représentent l'incertitude des estimations (intervalles de confiance à 95 %). Si ces intervalles croisent 1 (la ligne verticale en pointillés), les différences ne sont pas statistiquement significatives, c'est-à-dire que nous pourrions les observer par simple hasard. L'échelle logarithmique (sur l'axe des x) est utilisée pour que les rapports de cotes positifs et négatifs soient symétriques dans la visualisation (c'est-à-dire que 2 soit aussi éloigné de 1 que 0,5).
 
 
 model_results <- model_results_rupture_demographic_variables %>%
@@ -3646,7 +3268,7 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   scale_color_viridis_d(option = "plasma", end = 0.8) +
   scale_x_log10() +
   labs(
-    x = "Odds Ratio (log scale)",
+    x = "Rapport de cotes (échelle log)",
     y = NULL
   ) +
   guides(color="none") +
@@ -3655,11 +3277,11 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
 
 ### Autres facteurs
 
-@fig-rupture-model-other montre comment les deux variables pertinentes prédisent la rupture. La variable `action_individuelle_societe` est catégorique et peut être interprétée comme les variables démographiques dans les résultats précédents : une catégorie sert de référence (omise) et les rapports de cotes rapportés représentent la façon dont les cotes de rupture diffèrent par rapport à cette référence. La variable `perception_avenir_num` est numérique (sur une échelle de 1 à 4)^[Note `_num` dans le nom de la variable signifie "numérique" : nous utilisons une version numérique, de "Pas du tout confiant(e)" = 1, à "Très confiant(e)" = 4.]. Pour les prédicteurs numériques, le rapport de cotes estimé indique de combien les chances de rupture changent, en moyenne, pour chaque augmentation d'une unité sur l'échelle. Par exemple, l'estimation résultante de 1,14 dans @fig-rupture-model-other pour les prédicteurs numériques indique combien les chances de rupture changent, en moyenne, pour chaque augmentation d'une unité sur l'échelle. `perception_avenir_num` signifie qu'en moyenne, une augmentation d'un point de la confiance en l'avenir correspond à une augmentation de 14 % des chances de rupture. En d'autres termes, les résultats suggèrent que, plus les volontaires sont confiants dans leur avenir, plus ils ont de chances d'avoir une rupture, en moyenne. @fig-perception-avenir-descriptive suggère que cet effet moyen est principalement dû aux volontaires qui sont "très confiants".
+@fig-rupture-model-other montre comment les deux variables pertinentes prédisent la rupture. La variable `action_individuelle_societe` est catégorique et peut être interprétée comme les variables démographiques dans les résultats précédents : une catégorie sert de référence (omise) et les rapports de cotes rapportés représentent la façon dont les cotes de rupture diffèrent par rapport à cette référence. La variable `perception_avenir_num` est numérique (sur une échelle de 1 à 4)^[Note `_num` dans le nom de la variable signifie "numérique" : nous utilisons une version numérique, de "Pas du tout confiant(e)" = 1, à "Très confiant(e)" = 4.]. Pour les prédicteurs numériques, le rapport de cotes estimé indique de combien les cotes de rupture changent, en moyenne, pour chaque augmentation d'une unité sur l'échelle. Par exemple, l'estimation de 1,14 pour `perception_avenir_num` dans @fig-rupture-model-other signifie qu'en moyenne, une augmentation d'un point de la confiance en l'avenir correspond à une augmentation de 14 % des cotes de rupture. En d'autres termes, les résultats suggèrent que, plus les volontaires sont confiants dans leur avenir, plus ils ont de chances d'avoir une rupture, en moyenne. @fig-perception-avenir-descriptive suggère que cet effet moyen est principalement dû aux volontaires qui sont "très confiants".
 
 ```{r}
 #| label: tbl-rupture-candidates
-#| tbl-cap: Candidate variables to evaluating their association with rupture.
+#| tbl-cap: Variables candidates pour évaluer leur association avec la rupture.
 
 factors_for_rupture <- c("perception_avenir", 
                          "projet_avenir_concret", "action_individuelle_societe", 
@@ -3679,7 +3301,7 @@ combined |>
 
 ```{r}
 #| label: fig-rupture-model-other 
-#| fig-cap: Effects of demographic factors on negative ruptures. The outcome is binary (no negative rupture vs. negative rupture). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio's to be symmetric (i.e. that 2 is as far away from 1 as is 0.5).
+#| fig-cap: Effets des facteurs démographiques sur les ruptures négatives. Le résultat est binaire (pas de rupture négative vs rupture négative). Les points et leurs étiquettes sont les estimations de régressions logistiques distinctes pour chaque variable. Les lignes autour des points représentent l'incertitude des estimations (intervalles de confiance à 95 %). Si ces intervalles croisent 1 (la ligne verticale en pointillés), les différences ne sont pas statistiquement significatives, c'est-à-dire que nous pourrions les observer par simple hasard. L'échelle logarithmique (sur l'axe des x) est utilisée pour que les rapports de cotes positifs et négatifs soient symétriques dans la visualisation (c'est-à-dire que 2 soit aussi éloigné de 1 que 0,5).
 
 
 model_results <- model_results_rupture_other_variables %>%
@@ -3700,7 +3322,7 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   scale_color_viridis_d(option = "plasma", end = 0.8) +
   scale_x_log10() +
   labs(
-    x = "Odds Ratio (log scale)",
+    x = "Rapport de cotes (échelle log)",
     y = NULL
   ) +
   guides(color="none") +
@@ -3709,15 +3331,15 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
 
 ## Satisfaction {#sec-appendix-satisfaction}
 
-Pour les analyses sur ce qui prédit la satisfaction, nous traitons la satisfaction comme une variable continue (de 1, "Pas du tout satisfaisante", à 4, "Très satisfaisante"). Comme ce résultat est continu, nous effectuons des régressions linéaires (et non des régressions logistiques, comme précédemment). Les résultats pour les variables démographiques sont affichés dans @fig-rupture-model-demographic, pour les autres variables dans @fig-rupture-model-other.
+Pour les analyses sur ce qui prédit la satisfaction, nous traitons la satisfaction comme une variable continue (de 1, "Pas du tout satisfaisante", à 4, "Très satisfaisante"). Comme ce résultat est continu, nous effectuons des régressions linéaires (et non des régressions logistiques, comme précédemment). Les résultats pour les variables démographiques sont affichés dans @fig-satisfaction-demographic-variables, pour les autres variables dans @fig-satisfaction-other-variables.
 
 ### Facteurs démographiques
 
-Les résultats des régressions linéaires sont plus simples à interpréter. Pour les prédicteurs catégoriels (c'est-à-dire toutes les variables démographiques), l'estimation est simplement la différence moyenne entre la catégorie montrée et la catégorie de base (encore une fois, omise). Par exemple, comme le montre la variable `refugie` les réfugiés ont tendance à être, en moyenne, plus satisfaits de 0,2 point (sur l'échelle de satisfaction à 4 points) que les non-réfugiés.
+Les résultats des régressions linéaires sont plus simples à interpréter. Pour les prédicteurs catégoriels (c'est-à-dire toutes les variables démographiques), l'estimation est simplement la différence moyenne entre la catégorie montrée et la catégorie de base (encore une fois, omise). Par exemple, comme le montre la variable `refugie`, les réfugiés ont tendance à être, en moyenne, plus satisfaits de 0,2 point (sur l'échelle de satisfaction à 4 points) que les non-réfugiés.
 
 ```{r}
 #| label: fig-satisfaction-demographic-variables 
-#| fig-cap: Effects of demographic factors on satisfaction.
+#| fig-cap: Effets des facteurs démographiques sur la satisfaction.
 
 
 model_results <- model_results_satisfaction_demographic_variables %>%
@@ -3748,11 +3370,11 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
 
 Certaines des variables non démographiques sont numériques^[Tous les noms de variables qui se terminent par `_num` ont été traités comme des variables numériques pour les présentes analyses], par exemple, `confiance_en_soi_num` (Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ? 1 - Non, pas du tout ; 2 - Non, pas vraiment ; 3 - Oui, assez ; 4 - Oui, beaucoup).
 
-Pour les variables numériques, les estimations représentent l'augmentation ou la diminution de la satisfaction avec une augmentation d'une unité de la variable prédictive. Par exemple, pour `confiance_en_soi_num` l'estimation est de 0,33. `confiance_en_soi_num` prend des valeurs sur une échelle de 4 points (de 1, "Non, pas du tout", à 4, "Oui, beaucoup"). Cela signifie qu'en moyenne, une augmentation d'une unité de `confiance_en_soi_num` est associée à une augmentation de 0,33 point de la satisfaction (échelle de 4 points).
+Pour les variables numériques, les estimations représentent l'augmentation ou la diminution de la satisfaction avec une augmentation d'une unité de la variable prédictive. Par exemple, pour `confiance_en_soi_num`, l'estimation est de 0,33. `confiance_en_soi_num` prend des valeurs sur une échelle de 4 points (de 1, "Non, pas du tout", à 4, "Oui, beaucoup"). Cela signifie qu'en moyenne, une augmentation d'une unité de `confiance_en_soi_num` est associée à une augmentation de 0,33 point de la satisfaction (échelle de 4 points).
 
 ```{r}
 #| label: fig-satisfaction-other-variables 
-#| fig-cap: Effects of other, non-demographic factors on satisfaction.
+#| fig-cap: Effets d'autres facteurs, non démographiques, sur la satisfaction.
 
 model_results <- model_results_satisfaction_other_variables %>%
   mutate(
@@ -3780,13 +3402,15 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
 
 ## Confiance en l'avenir {#sec-appendix-perception-avenir}
 
-Comme pour la satisfaction ci-dessus, pour les analyses sur ce qui prédit la confiance en leur avenir, nous la traitons comme une variable continue (1, "Pas du tout confiant.e", à 4, "Très confiant.e"). En ce qui concerne la satisfaction, comme ce résultat est continu, nous effectuons des régressions linéaires. Les résultats pour les variables démographiques sont affichés dans @fig-perception-avenir-demographic-variables, pour les autres variables dans @fig-perception-avenir-other-variables.
+Comme pour la satisfaction ci-dessus, pour les analyses sur ce qui prédit la confiance des volontaires en leur avenir, nous la traitons comme une variable continue (1, "Pas du tout confiant.e", à 4, "Très confiant.e"). Comme pour la satisfaction, ce résultat étant continu, nous effectuons des régressions linéaires. Les résultats pour les variables démographiques sont affichés dans @fig-perception-avenir-demographic-variables, pour les autres variables dans @fig-perception-avenir-other-variables.
 
 ### Facteurs démographiques
 
+Comme expliqué pour la satisfaction ci-dessus, pour les prédicteurs catégoriels, l'estimation est la différence moyenne entre la catégorie affichée et la catégorie de référence (omise). Par exemple, comme le montre la variable `refugie` dans @fig-perception-avenir-demographic-variables, les réfugiés ont tendance à être, en moyenne, plus confiants en leur avenir de 0,45 point (sur l'échelle de confiance à 4 points) que les non-réfugiés.
+
 ```{r}
 #| label: fig-perception-avenir-demographic-variables 
-#| fig-cap: Effects of demographic factors on confidence in one's future.
+#| fig-cap: Effets des facteurs démographiques sur la confiance en l'avenir.
 
 
 model_results <- model_results_perception_demographic_variables %>%
@@ -3819,7 +3443,7 @@ La seule autre variable que nous prenons en compte ici est `action_individuelle_
 
 ```{r}
 #| label: fig-perception-avenir-other-variables 
-#| fig-cap: Effects of other, non-demographic factors on confidence in one's future.
+#| fig-cap: Effets d'autres facteurs, non démographiques, sur la confiance en l'avenir.
 
 model_results <- model_results_perception_other_variables %>%
   mutate(
@@ -3845,15 +3469,128 @@ ggplot(model_results, aes(x = estimate, y = fct_rev(term), color = variable)) +
   theme_minimal()
 ```
 
+## Considérer tous les facteurs à la fois {#sec-appendix-multivariable}
+
+Tous les modèles présentés jusqu'ici examinent un facteur à la fois. C'est facile à interpréter, mais cela a une limite : les groupes se recoupent. Par exemple, les volontaires des zones "QPV" sont aussi, en moyenne, moins diplômés, et les volontaires plus âgés ont tendance à être plus diplômés. Ainsi, lorsque nous observons que les volontaires des zones "QPV" ont plus de ruptures, nous ne pouvons pas dire si cela tient à leur lieu de résidence ou à leur niveau d'études.
+
+Pour aider à démêler cela, nous pouvons mettre tous les facteurs démographiques dans un *seul* modèle (un modèle « multivariable »). Les estimations répondent alors à une question légèrement différente : « En comparant des volontaires semblables sur tous les *autres* facteurs, ce facteur fait-il encore une différence ? » Nous avons appliqué un tel modèle à trois variables : les ruptures négatives (@fig-multivariable-rupture), la satisfaction (@fig-multivariable-satisfaction) et la confiance en l'avenir (@fig-multivariable-perception-avenir). Les graphiques se lisent exactement comme les graphiques facteur-par-facteur correspondants ci-dessus.
+
+```{r}
+# all demographic factors in a single model, per outcome
+multivariable_predictors <- c(
+  "age_categorie", "sexe", "niveau_etudes", "zone_residence", "refugie",
+  "type_volontaire", "handicap_auto_declare", "handicap_administratif"
+)
+
+multivariable_rupture <- run_multivariable_model(
+  data = combined,
+  outcome_var = "rupture_negative",
+  predictors = multivariable_predictors,
+  type = "logistic"
+)
+
+multivariable_satisfaction <- run_multivariable_model(
+  data = combined,
+  outcome_var = "satisfaction_num",
+  predictors = multivariable_predictors,
+  type = "linear"
+)
+
+multivariable_perception <- run_multivariable_model(
+  data = combined,
+  outcome_var = "perception_avenir_num",
+  predictors = multivariable_predictors,
+  type = "linear"
+)
+```
+
+Trois résultats ressortent :
+
+- Pour les ruptures (@fig-multivariable-rupture), la différence "QPV" disparaît : en comparant des volontaires de même niveau d'études, âge, sexe, etc., vivre dans une zone "QPV" ne fait presque plus de différence (l'odds ratio est très proche de 1). Le taux de rupture plus élevé des volontaires des zones "QPV" observé dans @fig-rupture-descriptive s'explique donc en grande partie par des différences de niveau d'études. Le niveau d'études lui-même reste le prédicteur le plus fort : toutes choses égales par ailleurs, les volontaires ayant le bac ou plus ont considérablement moins de ruptures négatives. Les différences d'âge se réduisent aussi considérablement---les volontaires plus âgés ont moins de ruptures surtout *parce qu'*ils sont plus diplômés.
+- Pour la satisfaction (@fig-multivariable-satisfaction), c'est l'inverse : les différences selon le niveau d'études disparaissent, tandis que les différences selon l'âge subsistent. Les volontaires plus âgés sont plus satisfaits, à tous les niveaux d'études.
+- Pour la confiance en l'avenir (@fig-multivariable-perception-avenir), les différences selon le sexe, le statut de réfugié et le type de volontaire restent clairement visibles, tandis que le niveau d'études et l'âge ne font guère de différence une fois les autres facteurs pris en compte.
+
+Deux mises en garde. Premièrement, ces modèles ne peuvent inclure que les volontaires pour lesquels *tous* les facteurs sont connus (par exemple, N = `r format(unique(multivariable_rupture$n), big.mark = " ")` volontaires pour le modèle des ruptures)---les volontaires pour lesquels une information manque sont exclus. Deuxièmement, comme partout dans ce rapport, il s'agit d'associations : « toutes choses égales par ailleurs » ne se réfère qu'aux facteurs inclus dans le modèle, pas à tout ce qui pourrait compter.
+
+```{r}
+#| label: fig-multivariable-rupture
+#| fig-cap: Effets des facteurs démographiques sur les ruptures négatives, lorsque tous les facteurs sont inclus dans un seul modèle. La variable de résultat est binaire (pas de rupture négative vs rupture négative). Les estimations sont des odds ratios et se lisent comme dans les figures précédentes ; la différence est que chaque estimation compare désormais des volontaires semblables sur tous les autres facteurs représentés.
+
+ggplot(multivariable_rupture, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  scale_x_log10() +
+  labs(
+    x = "Rapport de cotes (échelle log)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-multivariable-satisfaction
+#| fig-cap: Effets des facteurs démographiques sur la satisfaction, lorsque tous les facteurs sont inclus dans un seul modèle. Les estimations sont des différences moyennes sur l'échelle de satisfaction en 4 points, par rapport à la catégorie de référence (omise), pour des volontaires semblables sur tous les autres facteurs représentés.
+
+ggplot(multivariable_satisfaction, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  labs(
+    x = "Estimate (on a scale from 1 to 4)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
+```{r}
+#| label: fig-multivariable-perception-avenir
+#| fig-cap: Effets des facteurs démographiques sur la confiance en l'avenir, lorsque tous les facteurs sont inclus dans un seul modèle. Les estimations sont des différences moyennes sur l'échelle de confiance en 4 points, par rapport à la catégorie de référence (omise), pour des volontaires semblables sur tous les autres facteurs représentés.
+
+ggplot(multivariable_perception, aes(x = estimate, y = fct_rev(term), color = variable)) +
+  geom_vline(xintercept = 0, linetype = "dashed", color = "gray50") +
+  geom_point() +
+  geom_text(
+    aes(label = label),
+    vjust = -0.4,  # just slightly to the right of the point
+    size = 3,
+    check_overlap = TRUE  # avoid overlapping labels
+  ) +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), height = 0.2) +
+  scale_color_viridis_d(option = "plasma", end = 0.8) +
+  labs(
+    x = "Estimate (on a scale from 1 to 4)",
+    y = NULL
+  ) +
+  guides(color="none") +
+  theme_minimal()
+```
+
 ## Différences entre les programmes {#sec-appendix-programs}
 
-Les sections suivantes montrent, pour chaque catégorie de programme clé, comment les volontaires de ce programme diffèrent par rapport à toutes les autres catégories de programmes clés combinées, en termes de variables démographiques. Les résultats sont exprimés sous forme de rapports de cotes, qui peuvent être interprétés comme ci-dessus : Si le rapport de cotes est *supérieur à 1* alors un certain groupe est *plus probable* d'être représenté dans la catégorie du programme clé ciblé, par rapport à tous les autres programmes. Par exemple, dans @fig-solidarite-aidants-demographic-variables, il y a plus de jeunes de 18 à 20 ans (odds ratio = 1,18, par rapport à la base omise, les 16 à 17 ans) dans le programme "Solidarité Aidants", que dans les autres programmes, en moyenne. Si l'odds ratio *est inférieur à 1* cela signifie qu'un certain groupe est *moins probable* d'être représenté dans la catégorie de programme clé ciblée. Par exemple, les réfugiés sont considérablement moins susceptibles (rapport de cotes = 0,17, par rapport à la base omise, les non-réfugiés) d'être dans le programme "Solidarité Aidants", par rapport à tous les autres programmes, en moyenne.
+Les sections suivantes montrent, pour chaque catégorie de programme clé, comment les volontaires de ce programme diffèrent par rapport à toutes les autres catégories de programmes clés combinées, en termes de variables démographiques. Les résultats sont exprimés sous forme de rapports de cotes, qui peuvent être interprétés comme ci-dessus : Si le rapport de cotes est *supérieur à 1*, alors un certain groupe est *plus susceptible* d'être représenté dans la catégorie du programme clé ciblé, par rapport à tous les autres programmes. Par exemple, dans @fig-solidarite-aidants-demographic-variables, il y a plus de jeunes de 18 à 20 ans (rapport de cotes = 1,18, par rapport à la base omise, les 16 à 17 ans) dans le programme "Solidarité Aidants", que dans les autres programmes, en moyenne. Si le rapport de cotes est *inférieur à 1*, cela signifie qu'un certain groupe est *moins susceptible* d'être représenté dans la catégorie de programme clé ciblée. Par exemple, les réfugiés sont considérablement moins susceptibles (rapport de cotes = 0,17, par rapport à la base omise, les non-réfugiés) d'être dans le programme "Solidarité Aidants", par rapport à tous les autres programmes, en moyenne.
 
 ### Solidarité Aidants
 
 ```{r}
 #| label: fig-solidarite-aidants-demographic-variables 
-#| fig-cap: Differences in Solidarité Aidants vs. other programs along demographic factors.
+#| fig-cap: Différences entre Solidarité Aidants et les autres programmes selon les facteurs démographiques.
 
 ggplot(model_results_solidarite_aidants , aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
@@ -3879,7 +3616,7 @@ ggplot(model_results_solidarite_aidants , aes(x = estimate, y = fct_rev(term), c
 
 ```{r}
 #| label: fig-cine-demographic-variables 
-#| fig-cap: Differences in Cinéma & Citoyenneté vs. other programs along demographic factors
+#| fig-cap: Différences entre Cinéma & Citoyenneté et les autres programmes selon les facteurs démographiques.
 
 ggplot(model_results_cine, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
@@ -3905,7 +3642,7 @@ ggplot(model_results_cine, aes(x = estimate, y = fct_rev(term), color = variable
 
 ```{r}
 #| label: fig-booster-demographic-variables 
-#| fig-cap: Differences in Booster vs. other programs along demographic factors.
+#| fig-cap: Différences entre Booster et les autres programmes selon les facteurs démographiques.
 
 ggplot(model_results_booster, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
@@ -3931,7 +3668,7 @@ ggplot(model_results_booster, aes(x = estimate, y = fct_rev(term), color = varia
 
 ```{r}
 #| label: fig-ecovolonterre-demographic-variables 
-#| fig-cap: Differences in Ecovolonterre vs. other programs along demographic factors.
+#| fig-cap: Différences entre Ecovolonterre et les autres programmes selon les facteurs démographiques.
 
 ggplot(model_results_ecovolonterre, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
@@ -3957,7 +3694,7 @@ ggplot(model_results_ecovolonterre, aes(x = estimate, y = fct_rev(term), color =
 
 ```{r}
 #| label: fig-mediaterre-demographic-variables 
-#| fig-cap: Differences in Médiaterre vs. other programs along demographic factors.
+#| fig-cap: Différences entre Médiaterre et les autres programmes selon les facteurs démographiques.
 
 ggplot(model_results_mediaterre , aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
@@ -3983,7 +3720,7 @@ ggplot(model_results_mediaterre , aes(x = estimate, y = fct_rev(term), color = v
 
 ```{r}
 #| label: fig-asm-demographic-variables 
-#| fig-cap: Differences in ASM vs. other programs along demographic factors.
+#| fig-cap: Différences entre ASM et les autres programmes selon les facteurs démographiques.
 
 ggplot(model_results_asm, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
@@ -4009,7 +3746,7 @@ ggplot(model_results_asm, aes(x = estimate, y = fct_rev(term), color = variable)
 
 ```{r}
 #| label: fig-solidarite-seniors-demographic-variables 
-#| fig-cap: Differences in Solidarité Séniors vs. other programs along demographic factors.
+#| fig-cap: Différences entre Solidarité Séniors et les autres programmes selon les facteurs démographiques.
 
 ggplot(model_results_solidarite_seniors, aes(x = estimate, y = fct_rev(term), color = variable)) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +

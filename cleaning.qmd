@@ -1097,129 +1097,79 @@ departements <- read_sf("data/map/DEPARTEMENT.shp")
 communes <- read_sf("data/map/COMMUNE.shp")
 ```
 
-Check how compatible the names of our data are with the shape files. 
+The shape files only cover metropolitan France. Some sites are in La Réunion; we exclude them here (and count how many volunteers this concerns). Note that some of these site names ("Saint-Denis", "Saint-Pierre", "Saint-Benoît") also exist as communes in metropolitan France---we verified via the `region` variable that these sites are indeed in La Réunion.
 
 ```{r}
-commune_names <- unique(communes$NOM)  
-departements_names <- unique(departements$NOM)  
+reunion_sites <- c("La Réunion", "Le Port", "Saint-Benoît", "Saint-Denis", "Saint-Pierre")
 
-matches <- n_jeunes |> 
-  mutate(match = case_when(
-    site %in% departements_names & site %in% commune_names  ~ "both",
-    site %in% commune_names ~ "commune", 
-    site %in% departements_names ~ "departement",
-    TRUE ~ NA_character_
-  ))
+# volunteers in La Réunion (excluded from the metropolitan map)
+n_jeunes |>
+  filter(site %in% reunion_sites) |>
+  summarise(n = sum(n))
 
-matches |> 
-  count(match)
+n_jeunes_metro <- n_jeunes |>
+  filter(!site %in% reunion_sites)
 ```
 
-Pretty compatible on the whole, let's check the NA value. 
+Some sites carry the name of a département rather than a commune (e.g. "Val-d'Oise"). We match those directly at the département level. (Paris matches both a commune and a département; the direct match treats it as a département, which is equivalent.)
 
 ```{r}
-matches |> 
-  filter(is.na(match)) |> 
-  group_by(site) |> 
+departement_matches <- n_jeunes_metro |>
+  inner_join(departements |> st_drop_geometry() |> select(NOM, INSEE_DEP),
+             by = join_by(site == NOM))
+```
+
+All remaining sites are matched to communes. Several different communes share the exact same name (e.g. there is a "Valence" in the Drôme, in the Charente and in the Tarn-et-Garonne). Simply joining on commune names would therefore count the same volunteers in several départements at once. For the site names concerned, we assign the correct département by hand; the assignments were verified against the `region` variable in the data.
+
+```{r}
+# hand-checked département assignments for site names that match several communes
+ambiguous_sites <- tribble(
+  ~site, ~INSEE_DEP,
+  "Allonnes", "72",       # Sarthe (region PDL in the data)
+  "Flers", "61",          # Orne (NOR)
+  "La Rochelle", "17",    # Charente-Maritime (NVA)
+  "Rochefort", "17",      # Charente-Maritime (NVA)
+  "Saint-Nazaire", "44",  # Loire-Atlantique (PDL)
+  "Valence", "26"         # Drôme (AURA)
+)
+
+commune_matches <- n_jeunes_metro |>
+  anti_join(departement_matches, by = c("site", "promo")) |>
+  inner_join(communes |> st_drop_geometry() |> select(NOM, INSEE_DEP) |> distinct(),
+             by = join_by(site == NOM),
+             # same-named communes create multiple matches; resolved right below
+             relationship = "many-to-many") |>
+  left_join(ambiguous_sites, by = "site", suffix = c("", "_correct")) |>
+  filter(is.na(INSEE_DEP_correct) | INSEE_DEP == INSEE_DEP_correct) |>
+  select(-INSEE_DEP_correct)
+
+# check: no site should be matched to more than one département anymore
+commune_matches |>
+  count(site, promo) |>
+  filter(n > 1)
+```
+
+Sites that match neither a département nor a commune are dropped; this only concerns "Manche Nord" (19 volunteers).
+
+```{r}
+n_jeunes_metro |>
+  anti_join(departement_matches, by = c("site", "promo")) |>
+  anti_join(commune_matches, by = c("site", "promo")) |>
+  group_by(site) |>
   summarise(n = sum(n))
 ```
-Seems like these are simply missing information cases, and "Manche Nord" might be a region, but so few cases that we will ignore it here.
 
-Next, we merge the geodata with our summary data. We got to make sure not to double-count in cases where there is a match with both the commune and the department (only the case for Paris). 
-
-```{r}
-double_matches <- matches |> 
-  filter(match == "both") |> 
-  pull(site)
-
-# it's only the case for Paris
-double_matches
-```
-
+We then aggregate everything to the département level---**adding up** département-level and commune-level matches (an earlier version of this code used `coalesce()` here, which silently discarded commune-level counts in départements that were also matched directly by a site name). We complete the grid so that every département appears for every promo, with NA where there were no volunteers (so that they show as white on the maps).
 
 ```{r}
-# merge two different levels with participant data
-
-department_level <- left_join(departements, n_jeunes |> 
-                                # remove Paris not to double count it
-                                filter(!site %in% double_matches), 
-                              by = join_by(NOM == site))
-
-commune_level <- left_join(communes, n_jeunes, by = join_by(NOM == site)) 
-
-```
-
-Seems like there is a many-to-many issue because several communes appear several times in the shape file
-
-```{r}
-communes |> st_drop_geometry() |> count(NOM) |>  filter(n > 1)
-
-# check out one case
-communes |> filter(NOM == "Abancourt")
-```
-
-Apparently, different communes have the exact same name. Let's check for how many cases in our data that is relevant.
-
-```{r}
-# Step 1: Count how many times each commune name appears in the shapefile
-commune_name_counts <- communes %>%
-  st_drop_geometry() |> 
-  count(NOM) %>% 
-  filter(n > 1)
-
-# Step 2: Join this with your data's site names to see which match
-n_jeunes %>%
-  distinct(site) %>%
-  inner_join(commune_name_counts, by = c("site" = "NOM"))
-```
-
-Anyways, the transformation seems to have worked. Issue to be looked at again later. 
-
-For slightly nicer plotting, let's have all data at the department level
-
-```{r}
-# have a count at the department level
-n_department_level <- commune_level |> 
-  # without this, all the geometries are grouped and it takes ages
-  st_drop_geometry() |> 
-  group_by(INSEE_DEP, promo) |> 
-  summarise(n = sum(n, na.rm = TRUE)) |> 
-  # for plotting, make sure zeros are NAs
-  mutate(n = ifelse(n == 0, NA, n)) |> 
-  drop_na(promo) |> 
-  pivot_wider(names_from = promo, 
-              values_from = n)
-```
-
-```{r}
-department_level_wide <- department_level |> 
-  st_drop_geometry() |> 
-  pivot_wider(names_from = promo, 
-              values_from = n)
-
-# merge this with department level data (no shape file here)
 promos <- c("20-21", "21-22", "22-23", "23-24")
 
-department_level_long <- department_level_wide |> 
-  left_join(n_department_level, by = "INSEE_DEP", 
-            suffix = c("_dep", "_com")) %>%
-  mutate(
-    `20-21` = coalesce(`20-21_dep`, `20-21_com`),
-    `21-22` = coalesce(`21-22_dep`, `21-22_com`),
-    `22-23` = coalesce(`22-23_dep`, `22-23_com`),
-    `23-24` = coalesce(`23-24_dep`, `23-24_com`)
-    ) |> 
-  pivot_longer(c("20-21", "21-22", "22-23", "23-24"), 
-               names_to = "promo", 
-               values_to = "n") |> 
-  select(
-    # unselect old helper variables
-    -contains("_com"), 
-         -contains("_dep", ignore.case = FALSE)
-    ) |> 
-  # select only key variables
-  select(INSEE_DEP, promo, n)
-    
+department_counts <- bind_rows(departement_matches, commune_matches) |>
+  group_by(INSEE_DEP, promo) |>
+  summarise(n = sum(n), .groups = "drop")
+
+department_level_long <- crossing(INSEE_DEP = departements$INSEE_DEP, promo = promos) |>
+  left_join(department_counts, by = c("INSEE_DEP", "promo"))
 ```
 
 Finally, we merge the data. We also make the map a bit less complex so that it takes R less time to handle it for computations and plotting. 

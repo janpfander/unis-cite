@@ -149,7 +149,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#education" id="toc-education" class="nav-link" data-scroll-target="#education">Education</a></li>
   <li><a href="#sex" id="toc-sex" class="nav-link" data-scroll-target="#sex">Sex</a></li>
   </ul></li>
-  <li><a href="#sec-attrition" id="toc-sec-attrition" class="nav-link" data-scroll-target="#sec-attrition">Attrition</a></li>
+  <li><a href="#sec-attrition" id="toc-sec-attrition" class="nav-link" data-scroll-target="#sec-attrition">Attrition</a>
+  <ul class="collapse">
+  <li><a href="#sec-attrition-bias" id="toc-sec-attrition-bias" class="nav-link" data-scroll-target="#sec-attrition-bias">Which volunteers answer the questionnaires? A word of caution</a></li>
+  </ul></li>
   <li><a href="#sec-within-change" id="toc-sec-within-change" class="nav-link" data-scroll-target="#sec-within-change">How have volunteers changed their attitudes?</a>
   <ul class="collapse">
   <li><a href="#sec-vote" id="toc-sec-vote" class="nav-link" data-scroll-target="#sec-vote">Voting</a>
@@ -171,6 +174,7 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#sec-rupture" id="toc-sec-rupture" class="nav-link" data-scroll-target="#sec-rupture">Rupture</a>
   <ul class="collapse">
+  <li><a href="#when-do-ruptures-happen" id="toc-when-do-ruptures-happen" class="nav-link" data-scroll-target="#when-do-ruptures-happen">When do ruptures happen?</a></li>
   <li><a href="#change-in-rupture" id="toc-change-in-rupture" class="nav-link" data-scroll-target="#change-in-rupture">Change in rupture</a></li>
   <li><a href="#what-predicts-whether-volunteers-end-their-contract-early-rupture" id="toc-what-predicts-whether-volunteers-end-their-contract-early-rupture" class="nav-link" data-scroll-target="#what-predicts-whether-volunteers-end-their-contract-early-rupture">What predicts whether volunteers end their contract early (rupture)?</a>
   <ul class="collapse">
@@ -181,6 +185,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#sec-satisfaction" id="toc-sec-satisfaction" class="nav-link" data-scroll-target="#sec-satisfaction">Satisfaction</a>
   <ul class="collapse">
   <li><a href="#change-in-satisfaction" id="toc-change-in-satisfaction" class="nav-link" data-scroll-target="#change-in-satisfaction">Change in Satisfaction</a></li>
+  <li><a href="#sec-satisfaction-composition" id="toc-sec-satisfaction-composition" class="nav-link" data-scroll-target="#sec-satisfaction-composition">Is the decline in satisfaction driven by changing demographics?</a></li>
   <li><a href="#what-predicts-whether-volunteers-are-more-satisfied" id="toc-what-predicts-whether-volunteers-are-more-satisfied" class="nav-link" data-scroll-target="#what-predicts-whether-volunteers-are-more-satisfied">What predicts whether volunteers are more satisfied ?</a>
   <ul class="collapse">
   <li><a href="#demographic-factors-1" id="toc-demographic-factors-1" class="nav-link" data-scroll-target="#demographic-factors-1">Demographic factors</a></li>
@@ -200,7 +205,7 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#sec-programs" id="toc-sec-programs" class="nav-link" data-scroll-target="#sec-programs">Differences between programs</a>
   <ul class="collapse">
-  <li><a href="#sec-ecovolonterre" id="toc-sec-ecovolonterre" class="nav-link" data-scroll-target="#sec-ecovolonterre">Solidarité Aidants</a></li>
+  <li><a href="#sec-solidarite-aidants" id="toc-sec-solidarite-aidants" class="nav-link" data-scroll-target="#sec-solidarite-aidants">Solidarité Aidants</a></li>
   <li><a href="#sec-cine" id="toc-sec-cine" class="nav-link" data-scroll-target="#sec-cine">Cinéma &amp; Citoyenneté</a></li>
   <li><a href="#sec-booster" id="toc-sec-booster" class="nav-link" data-scroll-target="#sec-booster">Booster</a></li>
   <li><a href="#sec-ecovolonterre" id="toc-sec-ecovolonterre" class="nav-link" data-scroll-target="#sec-ecovolonterre">Ecovolonterre</a></li>
@@ -228,6 +233,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#demographic-factors-4" id="toc-demographic-factors-4" class="nav-link" data-scroll-target="#demographic-factors-4">Demographic factors</a></li>
   <li><a href="#other-factors-5" id="toc-other-factors-5" class="nav-link" data-scroll-target="#other-factors-5">Other factors</a></li>
   </ul></li>
+  <li><a href="#sec-appendix-multivariable" id="toc-sec-appendix-multivariable" class="nav-link" data-scroll-target="#sec-appendix-multivariable">Looking at all factors at once</a></li>
   <li><a href="#sec-appendix-programs" id="toc-sec-appendix-programs" class="nav-link" data-scroll-target="#sec-appendix-programs">Differences between programs</a>
   <ul class="collapse">
   <li><a href="#solidarité-aidants" id="toc-solidarité-aidants" class="nav-link" data-scroll-target="#solidarité-aidants">Solidarité Aidants</a></li>
@@ -292,16 +298,16 @@ ul.task-list li input[type="checkbox"] {
 <p>In <a href="#sec-programs" class="quarto-xref">Section&nbsp;8</a> we investigate demographic differences between different key programs offered by Cité Unis for their volunteers.</p>
 <p>The report ends with a brief conclusion on methodological notes for future questionnaires.</p>
 <p>For these analyses, we rely on questionnaires collected by Cité Unis for four different cohorts of volunteers who did their service civique for a year (2020-2021; 2021-2022; 2022-2023; 2023-2024). These questionnaires are very extensive. For the present analyses, we selected a subset of key questions (a full list can be found in the <a href="./codebook.html">codebook</a>)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<p>Before diving into the results, a note on caution in interpreting the results presented in is report: Whenever we speak of “predictions” that simply means statistical associations—mere observations of differences between groups. This report does <strong>not</strong> provide any evidence that would warrant causal conclusions—answers as to <strong>why</strong> we observe these differences.</p>
-<p>Because the data underlying this report is observational and—for most of it—does not allow to track opinion change (because most questions have only been asked once per cohort), the main objective of this report is not to provide specific and definitive answers. Instead, the aim of this report is to help Cité Unis in identifying patterns and sparking question that may inform new evaluation procedures. The quantitative results presented here can act as pointers, but they are not problem diagnoses. They always need to be accompanied by qualitative assessments of <em>why</em> we observe certain differences, and what could or could not be done about them.</p>
+<p>Before diving into the results, a note on caution in interpreting the results presented in this report: Whenever we speak of “predictions” that simply means statistical associations—mere observations of differences between groups. This report does <strong>not</strong> provide any evidence that would warrant causal conclusions—answers as to <strong>why</strong> we observe these differences.</p>
+<p>Because the data underlying this report is observational and—for most of it—does not allow to track opinion change (because most questions have only been asked once per cohort), the main objective of this report is not to provide specific and definitive answers. Instead, the aim of this report is to help Cité Unis in identifying patterns and sparking questions that may inform new evaluation procedures. The quantitative results presented here can act as pointers, but they are not problem diagnoses. They always need to be accompanied by qualitative assessments of <em>why</em> we observe certain differences, and what could or could not be done about them.</p>
 </section>
 <section id="sec-who" class="level1">
 <h1>Who are the volunteers ?</h1>
 <p>In this section, we review some demographic variables in detail. An extensive summary table with sample demographics across the different cohorts can be found in <a href="./tables.html">Tables</a>.</p>
 <section id="geographic-location" class="level2">
 <h2 class="anchored" data-anchor-id="geographic-location">Geographic location</h2>
-<p>Volunteers came from 80 different departments (see <a href="#fig-map-repartition" class="quarto-xref">Figure&nbsp;1</a>). On average, across the different cohorts, most volunteers came from Bouches-du-Rhône (n = 404), followed by Nord (n = 350) and Seine-Saint-Denis (n = 316).</p>
-<p>Overall, there has been a steady increase in volunteers, from 6386 in 20-21 to 7848 in 23-24, and an average increase of 490.4 per year. Since the 20-21 cohort, each departement has on average increased by 26.7. There were 51 departements who saw an increase, and 14 who saw a decrease (see <a href="#fig-map-trend" class="quarto-xref">Figure&nbsp;2</a>). For details on the trend of each departement, see <a href="./tables.html">Tables</a>.</p>
+<p>Volunteers came from 73 different departments (see <a href="#fig-map-repartition" class="quarto-xref">Figure&nbsp;1</a>). Note that the maps in this section only cover metropolitan France: the 541 volunteers from sites in La Réunion, as well as 19 volunteers from a site that could not be located (“Manche Nord”), are not shown. On average, across the different cohorts, most volunteers came from Bouches-du-Rhône (n = 404), followed by Nord (n = 350) and Seine-Saint-Denis (n = 316).</p>
+<p>Overall, there has been a steady increase in volunteers, from 6386 in 20-21 to 7848 in 23-24, and an average increase of 490.4 per year. Since the 20-21 cohort, each departement has on average increased by 19.3. There were 47 departements who saw an increase, and 15 who saw a decrease (see <a href="#fig-map-trend" class="quarto-xref">Figure&nbsp;2</a>). For details on the trend of each departement, see <a href="./tables.html">Tables</a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-map-repartition" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -310,7 +316,7 @@ ul.task-list li input[type="checkbox"] {
 <img src="index_files/figure-html/fig-map-repartition-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-repartition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Répartition des volontaires en France à travers le temps.
+Figure&nbsp;1: Distribution of volunteers across France, for each cohort. The maps only cover metropolitan France; volunteers from La Réunion are not shown.
 </figcaption>
 </figure>
 </div>
@@ -324,7 +330,7 @@ Figure&nbsp;1: Répartition des volontaires en France à travers le temps.
 <img src="index_files/figure-html/fig-map-trend-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-map-trend-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Evolution de recrutement pour la promo de 2023-24 par rapport à 2020-21.
+Figure&nbsp;2: Change in the number of volunteers per département, promo 2023-24 compared to 2020-21. The map only covers metropolitan France.
 </figcaption>
 </figure>
 </div>
@@ -452,8 +458,8 @@ Figure&nbsp;5: Number of male and female volunteers, within the different promos
 <section id="sec-attrition" class="level1">
 <h1>Attrition</h1>
 <p>As part of their service civique, each volunteer is asked to fill out three different questionnaires: the first one at the onset of their service civique (later on referred to as “q1”), the second one at the end (“q2”), and the third one six months after their service civique (“q3”). Answering these questionnaires is voluntary, and response rates typically decline considerably from the first to the third questionnaire. These declining response rates are referred to as “attrition”. Some volunteers do not even respond to any one questionnaire<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
-<p>Attrition can can have many causes. Here we distinguish between two explanations: ruptures, i.e.&nbsp;volunteers ending their service civique early (<a href="#sec-rupture" class="quarto-xref">Section&nbsp;5</a>) and survey fatigue, i.e.&nbsp;volunteers who continue their service civique but do not fill out the questionnaires (<a href="#fig-attrition-norupture" class="quarto-xref">Figure&nbsp;7</a>).</p>
-<p><a href="#fig-attrition" class="quarto-xref">Figure&nbsp;6</a> shows attrition generally, while <a href="#fig-attrition-norupture" class="quarto-xref">Figure&nbsp;7</a> excludes ruptures, thereby giving an estimate of survey fatigue. This latter figure shows that survey fatigue is an issue, but also suggests that there is a slightly positive trend towards reduced survey fatigue: more and more volunteers seem to answering the questionnaires at least for the first two questionnaires (q1 and q2), but less so for the third questionnaire (q3).</p>
+<p>Attrition can have many causes. Here we distinguish between two explanations: ruptures, i.e.&nbsp;volunteers ending their service civique early (<a href="#sec-rupture" class="quarto-xref">Section&nbsp;5</a>) and survey fatigue, i.e.&nbsp;volunteers who continue their service civique but do not fill out the questionnaires (<a href="#fig-attrition-norupture" class="quarto-xref">Figure&nbsp;7</a>).</p>
+<p><a href="#fig-attrition" class="quarto-xref">Figure&nbsp;6</a> shows attrition generally, while <a href="#fig-attrition-norupture" class="quarto-xref">Figure&nbsp;7</a> excludes ruptures, thereby giving an estimate of survey fatigue. This latter figure shows that survey fatigue is an issue, but also suggests that there is a slightly positive trend towards reduced survey fatigue: more and more volunteers seem to be answering the questionnaires at least for the first two questionnaires (q1 and q2), but less so for the third questionnaire (q3).</p>
 <div id="fig-attrition" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-attrition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -524,6 +530,26 @@ Figure&nbsp;7: Number of volunteers per survey time point, <strong>excluding</st
 </figcaption>
 </figure>
 </div>
+<section id="sec-attrition-bias" class="level2">
+<h2 class="anchored" data-anchor-id="sec-attrition-bias">Which volunteers answer the questionnaires? A word of caution</h2>
+<p>Attrition is not only unfortunate because it means less data—it can also distort results. The volunteers who keep answering the questionnaires are not necessarily the same kind of people as those who stop answering. Imagine, as an extreme example, that only the happiest volunteers fill out the last questionnaire: results based on that questionnaire would paint a much rosier picture than reality, simply because the unhappy volunteers are missing from the data.</p>
+<p>We can check whether something like this is going on, because we know how volunteers answered <em>earlier</em> questionnaires. The check works like this: take all volunteers who reported their satisfaction in the second questionnaire (q2), and split them into two groups—those who later answered the third questionnaire (q3), and those who did not. If the two groups gave very different answers back at q2, then the volunteers who answer q3 are not representative of everyone.</p>
+<p><a href="#fig-attrition-bias" class="quarto-xref">Figure&nbsp;8</a> shows the result of this check: volunteers who later answered q3 were indeed somewhat more satisfied at q2 (55% answered “Très satisfaisante”) than volunteers who did not answer q3 (48%). The difference is real, but moderate. In practical terms: results based on the third questionnaire—for example, the changes in perceptions in <a href="#sec-individual-action" class="quarto-xref">Section&nbsp;4.2</a>—probably paint a slightly too positive picture, but they are unlikely to be fundamentally misleading. We ran the same check one questionnaire earlier (comparing the q1 answers of volunteers who did and did not answer q2) and also found only small differences there.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-attrition-bias" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-attrition-bias-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-attrition-bias-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-attrition-bias-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Share of volunteers who reported being very satisfied (‘Très satisfaisante’) in the second questionnaire (q2), split by whether they later answered the third questionnaire (q3) or not. If the two bars were equal, the volunteers who answer q3 would be perfectly representative—at least in terms of satisfaction—of all volunteers who answered q2.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
 </section>
 <section id="sec-within-change" class="level1">
 <h1>How have volunteers changed their attitudes?</h1>
@@ -532,9 +558,10 @@ Figure&nbsp;7: Number of volunteers per survey time point, <strong>excluding</st
 <li><p>“Avez-vous voté lors des dernières élections (locales ou nationales) ?” (<a href="#sec-vote" class="quarto-xref">Section&nbsp;4.1</a>)</p></li>
 <li><p>“En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?” (<a href="#sec-individual-action" class="quarto-xref">Section&nbsp;4.2</a>).</p></li>
 </ol>
+<p>For all analyses in this section, keep in mind that they rely only on the minority of volunteers who answered at <em>both</em> relevant time points (see <a href="#sec-attrition-bias" class="quarto-xref">Section&nbsp;3.1</a> for what this implies).</p>
 <section id="sec-vote" class="level2">
 <h2 class="anchored" data-anchor-id="sec-vote">Voting</h2>
-<p>In this section, we look at how volunteers have changed regarding their voting behavior. Voting behavior was measured with the question: “Avez-vous voté lors des dernières élections (locales ou nationales) ?”, which has been asked at time points q1 and q2. <a href="#fig-vote_derniers_elections-overview" class="quarto-xref">Figure&nbsp;8</a> shows that, averaged across all cohorts and time points, the majority of volunteers reports having voted.</p>
+<p>In this section, we look at how volunteers have changed regarding their voting behavior. Voting behavior was measured with the question: “Avez-vous voté lors des dernières élections (locales ou nationales) ?”, which has been asked at time points q1 (at the beginning of the service civique) and q2 (at its end). <a href="#fig-vote_derniers_elections-overview" class="quarto-xref">Figure&nbsp;9</a> shows that, averaged across all cohorts and time points, the majority of volunteers reports having voted.</p>
 <div id="fig-vote_derniers_elections-overview" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vote_derniers_elections-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -566,16 +593,17 @@ Figure&nbsp;7: Number of volunteers per survey time point, <strong>excluding</st
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vote_derniers_elections-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8: Distribution of whether volunteers reported having voted or not during the last elections, averaged across time points and cohorts.
+Figure&nbsp;9: Distribution of whether volunteers reported having voted or not during the last elections, averaged across time points and cohorts.
 </figcaption>
 </figure>
 </div>
-<p>In the following sections, we investigate how volunteers have changed in answering this question, throughout their service civique. For these analyses, we only consider those volunteers who have answered the question at both time points, q1 and q2. Changes towards “Yes” or “No” can have happened either from the respective other option, or from the third answer option: “Vous n’aviez pas l’âge de voter ou vous n’étiez pas inscrit.e sur les listes électorales”, which is abbreviated in the plots below as “Pas sur les listes”. We look at the different cohorts separately (promo 2020-21, <a href="#fig-vote_derniers_elections-2020" class="quarto-xref">Figure&nbsp;9</a>; promo 2021-22, <a href="#fig-vote_derniers_elections-2021" class="quarto-xref">Figure&nbsp;10</a>; 2022-23, <a href="#fig-vote_derniers_elections-2022" class="quarto-xref">Figure&nbsp;11</a>; 2023-24, <a href="#fig-vote_derniers_elections-2023" class="quarto-xref">Figure&nbsp;12</a>).</p>
-<p>The following sections reveal considerable differences between the cohorts. For example, in 2020-21 and 2021-22, many volunteers reported changes in voting behavior, but in opposite directions: In 2020-21, 24% of volunteers changed towards “No”, outweighing those who changed to “Yes” (6%) by far. Inversely, in 2021-22, 35% of volunteers changed towards “Yes”, while only 8% changed towards “No”.</p>
-<p>It is not clear why we observe these differences. One explanation might be that volunteers care more about national elections than local ones (or vice verse). If that is the case, we would expect changes in voting behavior to be dependent on whether there were national or local elections happening during the year of a cohort’s service civique.</p>
+<p>In the following sections, we investigate how volunteers have changed in answering this question, throughout their service civique. For these analyses, we only consider those volunteers who have answered the question at both time points, q1 and q2. Changes towards “Yes” or “No” can have happened either from the respective other option, or from the third answer option: “Vous n’aviez pas l’âge de voter ou vous n’étiez pas inscrit.e sur les listes électorales”, which is abbreviated in the plots below as “Pas sur les listes”. We look at the different cohorts separately (promo 2020-21, <a href="#fig-vote_derniers_elections-2020" class="quarto-xref">Figure&nbsp;10</a>; promo 2021-22, <a href="#fig-vote_derniers_elections-2021" class="quarto-xref">Figure&nbsp;11</a>; 2022-23, <a href="#fig-vote_derniers_elections-2022" class="quarto-xref">Figure&nbsp;12</a>; 2023-24, <a href="#fig-vote_derniers_elections-2023" class="quarto-xref">Figure&nbsp;13</a>).</p>
+<p>Before turning to the differences between cohorts, note that in every cohort, most volunteers reported the same voting behavior at both time points. How many varies considerably between cohorts, however: from 57% in 2021-22 to 88% in 2022-23. The changes discussed in the following concern the remaining minority.</p>
+<p>That said, the following sections reveal considerable differences between the cohorts. For example, in 2020-21 and 2021-22, many volunteers reported changes in voting behavior, but in opposite directions: In 2020-21, 24% of volunteers changed towards “No”, outweighing those who changed to “Yes” (6%) by far. Inversely, in 2021-22, 35% of volunteers changed towards “Yes”, while only 8% changed towards “No”. A plausible explanation for the shift towards “Yes” in 2021-22 is that 2022—the year in which this cohort filled out their second questionnaire—was the year of a presidential election.</p>
+<p>More generally, one explanation for the differences between cohorts might be that volunteers care more about national elections than local ones (or vice versa). If that is the case, we would expect changes in voting behavior to depend on whether there were national or local elections happening during the year of a cohort’s service civique. For reference, France’s election calendar during the period covered by this report was as follows: municipal elections in spring 2020, regional elections in June 2021, presidential elections in April 2022 followed by legislative elections in June 2022, no nationwide elections in 2023, and European elections followed by snap legislative elections in June–July 2024. In the sections below, we indicate for each cohort which elections had taken place before each questionnaire. The 2022-23 cohort illustrates the point well: no nationwide elections took place during their service year, and this cohort was by far the most stable in its answers (88% reported the same voting behavior at both time points).</p>
 <section id="promo-2020-21" class="level3">
 <h3 class="anchored" data-anchor-id="promo-2020-21">Promo 2020-21</h3>
-<p><a href="#fig-vote_derniers_elections-2020" class="quarto-xref">Figure&nbsp;9</a> shows change in volunteers’ reported voting behavior for the promo “2020-21”.</p>
+<p><a href="#fig-vote_derniers_elections-2020" class="quarto-xref">Figure&nbsp;10</a> shows change in volunteers’ reported voting behavior for the promo “2020-21”. For this cohort, the last elections before Q1 were the municipal elections of spring 2020; the regional elections of June 2021 took place around the time volunteers filled out Q2.</p>
 <div id="fig-vote_derniers_elections-2020" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vote_derniers_elections-2020-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -607,14 +635,14 @@ Figure&nbsp;8: Distribution of whether volunteers reported having voted or not d
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vote_derniers_elections-2020-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;9: Promo 2020-21. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at <em>both</em> time points.
+Figure&nbsp;10: Promo 2020-21. Change in volunteers reporting whether they voted or not during the last elections, between Q1 (beginning of the service civique) and Q2 (end of the service civique). Note that this analysis considers only volunteers who answered the question at <em>both</em> time points. Changes towards ‘Pas sur les listes’ are rare and are not shown in the change plots.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="promo-2021-22" class="level3">
 <h3 class="anchored" data-anchor-id="promo-2021-22">Promo 2021-22</h3>
-<p><a href="#fig-vote_derniers_elections-2021" class="quarto-xref">Figure&nbsp;10</a> shows change in volunteers’ reported voting behavior for the promo “2021-22”.</p>
+<p><a href="#fig-vote_derniers_elections-2021" class="quarto-xref">Figure&nbsp;11</a> shows change in volunteers’ reported voting behavior for the promo “2021-22”. For this cohort, the last elections before Q1 were the regional elections of June 2021; by the time of Q2, the presidential elections of April 2022 (followed by the legislative elections in June 2022) had taken place.</p>
 <div id="fig-vote_derniers_elections-2021" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vote_derniers_elections-2021-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -646,14 +674,14 @@ Figure&nbsp;9: Promo 2020-21. Change in volunteers reporting whether they voted 
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vote_derniers_elections-2021-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;10: Promo 2021-22. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at <em>both</em> time points.
+Figure&nbsp;11: Promo 2021-22. Change in volunteers reporting whether they voted or not during the last elections, between Q1 (beginning of the service civique) and Q2 (end of the service civique). Note that this analysis considers only volunteers who answered the question at <em>both</em> time points. Changes towards ‘Pas sur les listes’ are rare and are not shown in the change plots.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="promo-2022-23" class="level3">
 <h3 class="anchored" data-anchor-id="promo-2022-23">Promo 2022-23</h3>
-<p><a href="#fig-vote_derniers_elections-2022" class="quarto-xref">Figure&nbsp;11</a> shows change in volunteers’ reported voting behavior for the promo “2022-23”.</p>
+<p><a href="#fig-vote_derniers_elections-2022" class="quarto-xref">Figure&nbsp;12</a> shows change in volunteers’ reported voting behavior for the promo “2022-23”. For this cohort, the last elections before Q1 were the presidential and legislative elections of spring 2022; since no nationwide elections took place in 2023, these were still the last elections at the time of Q2.</p>
 <div id="fig-vote_derniers_elections-2022" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vote_derniers_elections-2022-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -685,14 +713,14 @@ Figure&nbsp;10: Promo 2021-22. Change in volunteers reporting whether they voted
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vote_derniers_elections-2022-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;11: Promo 2022-23. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at <em>both</em> time points.
+Figure&nbsp;12: Promo 2022-23. Change in volunteers reporting whether they voted or not during the last elections, between Q1 (beginning of the service civique) and Q2 (end of the service civique). Note that this analysis considers only volunteers who answered the question at <em>both</em> time points. Changes towards ‘Pas sur les listes’ are rare and are not shown in the change plots.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="promo-2023-24" class="level3">
 <h3 class="anchored" data-anchor-id="promo-2023-24">Promo 2023-24</h3>
-<p><a href="#fig-vote_derniers_elections-2023" class="quarto-xref">Figure&nbsp;12</a> shows change in volunteers’ reported voting behavior for the promo “2023-24”.</p>
+<p><a href="#fig-vote_derniers_elections-2023" class="quarto-xref">Figure&nbsp;13</a> shows change in volunteers’ reported voting behavior for the promo “2023-24”. For this cohort, the last elections before Q1 were the presidential and legislative elections of 2022; depending on when volunteers filled out Q2, the European elections of June 2024 (followed by the snap legislative elections of June–July 2024) may have taken place shortly before.</p>
 <div id="fig-vote_derniers_elections-2023" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vote_derniers_elections-2023-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -724,7 +752,7 @@ Figure&nbsp;11: Promo 2022-23. Change in volunteers reporting whether they voted
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vote_derniers_elections-2023-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;12: Promo 2023-24. Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2. Note that this analysis considers only answers of volunteers who answered either yes or no at <em>both</em> time points.
+Figure&nbsp;13: Promo 2023-24. Change in volunteers reporting whether they voted or not during the last elections, between Q1 (beginning of the service civique) and Q2 (end of the service civique). Note that this analysis considers only volunteers who answered the question at <em>both</em> time points. Changes towards ‘Pas sur les listes’ are rare and are not shown in the change plots.
 </figcaption>
 </figure>
 </div>
@@ -732,9 +760,10 @@ Figure&nbsp;12: Promo 2023-24. Change in volunteers reporting whether they voted
 <section id="which-demographic-factors-are-associated-with-change-of-voting-intentions" class="level3">
 <h3 class="anchored" data-anchor-id="which-demographic-factors-are-associated-with-change-of-voting-intentions">Which demographic factors are associated with change of voting intentions?</h3>
 <p>To determine which demographic variables are associated with change of voting intentions, we ran statistical models. These models are explained in the Appendix (<a href="#sec-appendix-voting" class="quarto-xref">Section&nbsp;10.1</a>). Here, we only report the variables that were statistically significant in these models.</p>
+<p>Note that these analyses pool all cohorts. As shown above, changes in voting behavior differed considerably between cohorts (likely depending on the election calendar), so the pooled associations reported here do not tell us which volunteers changed in a particular year. Running these analyses separately by cohort would be possible, but would considerably lengthen the report.</p>
 <section id="sex-1" class="level4">
 <h4 class="anchored" data-anchor-id="sex-1">Sex</h4>
-<p>As shown in <a href="#fig-vote_derniers_elections-sex" class="quarto-xref">Figure&nbsp;13</a>, more female volunteers changed towards “Yes” than towards “No”. Among male volunteers, the opposite was true.</p>
+<p>As shown in <a href="#fig-vote_derniers_elections-sex" class="quarto-xref">Figure&nbsp;14</a>, more female volunteers changed towards “Yes” than towards “No”. Among male volunteers, the opposite was true.</p>
 <div id="fig-vote_derniers_elections-sex" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vote_derniers_elections-sex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -766,14 +795,14 @@ Figure&nbsp;12: Promo 2023-24. Change in volunteers reporting whether they voted
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vote_derniers_elections-sex-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;13: Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their sex. Note that this analysis considers only answers of volunteers who answered either yes or no at <em>both</em> time points.
+Figure&nbsp;14: Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their sex. Note that this analysis considers only volunteers who answered the question at <em>both</em> time points. Changes towards ‘Pas sur les listes’ are rare and are not shown in the change plots.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="age-1" class="level4">
 <h4 class="anchored" data-anchor-id="age-1">Age</h4>
-<p><a href="#fig-vote_derniers_elections-age" class="quarto-xref">Figure&nbsp;14</a> compares changes in voting behaviour between age groups. Among the 18 to 20 year-olds, the share of volunteers who have changed towards “Yes” was highest. One interpretation could be, that the service civique might encourage this age group in particular to vote. However, an alternative explanation could be that this group could vote for the first time during their service civique, as the legal voting age in France is 18.</p>
+<p><a href="#fig-vote_derniers_elections-age" class="quarto-xref">Figure&nbsp;15</a> compares changes in voting behaviour between age groups. Among the 18 to 20 year-olds, the share of volunteers who have changed towards “Yes” was highest. One interpretation could be, that the service civique might encourage this age group in particular to vote. However, an alternative explanation could be that this group could vote for the first time during their service civique, as the legal voting age in France is 18.</p>
 <div id="fig-vote_derniers_elections-age" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vote_derniers_elections-age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -805,11 +834,11 @@ Figure&nbsp;13: Change in volunteers reporting whether they voted or not during 
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vote_derniers_elections-age-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;14: Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, for the different age groups. Note that this analysis considers only answers of volunteers who answered either yes or no at <em>both</em> time points.
+Figure&nbsp;15: Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, for the different age groups. Note that this analysis considers only volunteers who answered the question at <em>both</em> time points. Changes towards ‘Pas sur les listes’ are rare and are not shown in the change plots.
 </figcaption>
 </figure>
 </div>
-<p>On a side note, looking at the 16 to 17 age groups shows that some answers were erroneous. In France, the legal voting age is 18. Therefore, the 16 to 17 year-olds, at least at the beginning of their service civique (q0/q1), have never been on a voting list before. However, as shown in <a href="#fig-vote_derniers_elections-youngest" class="quarto-xref">Figure&nbsp;15</a> there are 443 volunteers who answered “No” at q0/q1 (which technically is true, but not the most specific answer option), and 20 who answered “Yes” (probably not reading the question carefully or accidentally clicking on the wrong response).</p>
+<p>On a side note, looking at the 16 to 17 age groups shows that some answers were erroneous. In France, the legal voting age is 18. Therefore, the 16 to 17 year-olds, at least at the beginning of their service civique (q0/q1), have never been on a voting list before. However, as shown in <a href="#fig-vote_derniers_elections-youngest" class="quarto-xref">Figure&nbsp;16</a> there are 443 volunteers who answered “No” at q0/q1 (which technically is true, but not the most specific answer option), and 20 who answered “Yes” (probably not reading the question carefully or accidentally clicking on the wrong response).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-vote_derniers_elections-youngest" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -818,7 +847,7 @@ Figure&nbsp;14: Change in volunteers reporting whether they voted or not during 
 <img src="index_files/figure-html/fig-vote_derniers_elections-youngest-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vote_derniers_elections-youngest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;15: Distribution of whether volunteers reported having voted or not during the last elections, at different time points, for the youngest age group (16–17 years old). All answers at q0/q1 that are not “Pas sur les listes” are not exactly correct.
+Figure&nbsp;16: Distribution of whether volunteers reported having voted or not during the last elections, at different time points, for the youngest age group (16–17 years old). All answers at q0/q1 that are not “Pas sur les listes” are not exactly correct.
 </figcaption>
 </figure>
 </div>
@@ -827,7 +856,7 @@ Figure&nbsp;15: Distribution of whether volunteers reported having voted or not 
 </section>
 <section id="zone-of-residence" class="level4">
 <h4 class="anchored" data-anchor-id="zone-of-residence">Zone of Residence</h4>
-<p><a href="#fig-vote_derniers_elections-residence" class="quarto-xref">Figure&nbsp;16</a> shows that volunteers from “QPV” and ZRR” residential areas had a greater tendency to change towards “No”, compared to “Yes”. By contrast, in particular in rural areas, but also slightly in urban ones, more volunteers changed towards “Yes”.</p>
+<p><a href="#fig-vote_derniers_elections-residence" class="quarto-xref">Figure&nbsp;17</a> shows that volunteers from “QPV” and “ZRR” residential areas had a greater tendency to change towards “No”, compared to “Yes”. By contrast, in particular in rural areas, but also slightly in urban ones, more volunteers changed towards “Yes”. Note that, as for all demographic factors in this report, these are bivariate associations, and the groups overlap: for example, volunteers from “QPV” zones are also less educated on average (50% “infra bac”, compared to 36% among volunteers from urban zones). The patterns for individual variables should therefore not be interpreted in isolation.</p>
 <div id="fig-vote_derniers_elections-residence" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vote_derniers_elections-residence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -859,14 +888,14 @@ Figure&nbsp;15: Distribution of whether volunteers reported having voted or not 
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vote_derniers_elections-residence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;16: Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their zone of residence. Note that this analysis considers only answers of volunteers who answered either yes or no at <em>both</em> time points.
+Figure&nbsp;17: Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their zone of residence. Note that this analysis considers only volunteers who answered the question at <em>both</em> time points. Changes towards ‘Pas sur les listes’ are rare and are not shown in the change plots.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="education-1" class="level4">
 <h4 class="anchored" data-anchor-id="education-1">Education</h4>
-<p>As shown in <a href="#fig-vote_derniers_elections-education" class="quarto-xref">Figure&nbsp;17</a>, the share of volunteers who changed towards “Yes” was particularly high among those with a level of education corresponding to “Bac+2”. In all other education segments, the share of those changing towards “No” was higher.</p>
+<p>As shown in <a href="#fig-vote_derniers_elections-education" class="quarto-xref">Figure&nbsp;18</a>, the share of volunteers who changed towards “Yes” was particularly high among those with a level of education between “Bac” and “Bac+2”. In the other education segments, the share of those changing towards “No” was higher. Note that the most educated volunteers (“Bac+3” and above) were also the least likely to change their answer at all: roughly 80% of them reported the same voting behavior at both time points, compared to roughly 70% in the other education groups.</p>
 <div id="fig-vote_derniers_elections-education" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-vote_derniers_elections-education-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -898,7 +927,7 @@ Figure&nbsp;16: Change in volunteers reporting whether they voted or not during 
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vote_derniers_elections-education-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;17: Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their level of education. Note that this analysis considers only answers of volunteers who answered either yes or no at <em>both</em> time points.
+Figure&nbsp;18: Change in volunteers reporting whether they voted or not during the last elections, between Q1 and Q2, according to their level of education. Note that this analysis considers only volunteers who answered the question at <em>both</em> time points. Changes towards ‘Pas sur les listes’ are rare and are not shown in the change plots.
 </figcaption>
 </figure>
 </div>
@@ -907,11 +936,11 @@ Figure&nbsp;17: Change in volunteers reporting whether they voted or not during 
 </section>
 <section id="sec-individual-action" class="level2">
 <h2 class="anchored" data-anchor-id="sec-individual-action">Individual action for society</h2>
-<p>In this section, we look at how volunteers have changed regarding their perception on whether their individual action can contribute to changing society. This was measured with the question: “En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?”, which has been asked at time points q1 and q3. We look at the different cohorts separately (promo 2020-21, <a href="#fig-action_individuelle_societe-2020" class="quarto-xref">Figure&nbsp;18</a>; promo 2021-22, <a href="#fig-vote_derniers_elections-2021" class="quarto-xref">Figure&nbsp;10</a>; 2022-23, <a href="#fig-vote_derniers_elections-2022" class="quarto-xref">Figure&nbsp;11</a>; 2023-24, <a href="#fig-vote_derniers_elections-2023" class="quarto-xref">Figure&nbsp;12</a>).</p>
-<p>Descriptively, there is no clear positive or negative trend. On average, across all cohorts, slightly more people are changing towards “No” or “Not really”, compared to “Yes”.</p>
+<p>In this section, we look at how volunteers have changed regarding their perception on whether their individual action can contribute to changing society. This was measured with the question: “En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?”, which has been asked at time points q1 (at the beginning of the service civique) and q3 (six months after its end). We look at the different cohorts separately (promo 2020-21, <a href="#fig-action_individuelle_societe-2020" class="quarto-xref">Figure&nbsp;19</a>; promo 2021-22, <a href="#fig-action_individuelle_societe-2021" class="quarto-xref">Figure&nbsp;20</a>; 2022-23, <a href="#fig-action_individuelle_societe-2022" class="quarto-xref">Figure&nbsp;21</a>; 2023-24, <a href="#fig-action_individuelle_societe-2023" class="quarto-xref">Figure&nbsp;22</a>).</p>
+<p>Descriptively, there is no clear positive or negative trend. The main takeaway is rather one of stability: a majority of volunteers (65% of those who answered at both time points) already think at the beginning of their service civique that their individual action can contribute to changing society, and most of them (77%) still think so six months after its end. This is perhaps not surprising: young people who choose to do a service civique probably tend to believe from the outset that their action can be useful. Among the minority who do change their answer, on average, across all cohorts, slightly more people change towards “No” or “Not really”, compared to “Yes”.</p>
 <section id="promo-2020-21-1" class="level3">
 <h3 class="anchored" data-anchor-id="promo-2020-21-1">Promo 2020-21</h3>
-<p><a href="#fig-action_individuelle_societe-2020" class="quarto-xref">Figure&nbsp;18</a> shows change in volunteers’ perceptions of whether their individual action contributes to changing society, for the promo “2020-21”.</p>
+<p><a href="#fig-action_individuelle_societe-2020" class="quarto-xref">Figure&nbsp;19</a> shows change in volunteers’ perceptions of whether their individual action contributes to changing society, for the promo “2020-21”.</p>
 <div id="fig-action_individuelle_societe-2020" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-action_individuelle_societe-2020-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -943,14 +972,14 @@ Figure&nbsp;17: Change in volunteers reporting whether they voted or not during 
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-action_individuelle_societe-2020-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;18: Promo 2020-21. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3. Note that this analysis considers only answers of volunteers who answered at <em>both</em> time points.
+Figure&nbsp;19: Promo 2020-21. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 (beginning of the service civique) and Q3 (six months after its end). Note that this analysis considers only answers of volunteers who answered at <em>both</em> time points.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="promo-2021-22-1" class="level3">
 <h3 class="anchored" data-anchor-id="promo-2021-22-1">Promo 2021-22</h3>
-<p><a href="#fig-action_individuelle_societe-2021" class="quarto-xref">Figure&nbsp;19</a> shows change in volunteers’ perceptions of whether their individual action contributes to changing society, for the promo “2021-22”.</p>
+<p><a href="#fig-action_individuelle_societe-2021" class="quarto-xref">Figure&nbsp;20</a> shows change in volunteers’ perceptions of whether their individual action contributes to changing society, for the promo “2021-22”.</p>
 <div id="fig-action_individuelle_societe-2021" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-action_individuelle_societe-2021-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -982,14 +1011,14 @@ Figure&nbsp;18: Promo 2020-21. Change in volunteers reporting whether they think
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-action_individuelle_societe-2021-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;19: Promo 2021-22. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3. Note that this analysis considers only answers of volunteers who answered at <em>both</em> time points.
+Figure&nbsp;20: Promo 2021-22. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 (beginning of the service civique) and Q3 (six months after its end). Note that this analysis considers only answers of volunteers who answered at <em>both</em> time points.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="promo-2022-23-1" class="level3">
 <h3 class="anchored" data-anchor-id="promo-2022-23-1">Promo 2022-23</h3>
-<p><a href="#fig-action_individuelle_societe-2022" class="quarto-xref">Figure&nbsp;20</a> shows change in volunteers’ perceptions of whether their individual action contributes to changing society, for the promo “2022-23”.</p>
+<p><a href="#fig-action_individuelle_societe-2022" class="quarto-xref">Figure&nbsp;21</a> shows change in volunteers’ perceptions of whether their individual action contributes to changing society, for the promo “2022-23”.</p>
 <div id="fig-action_individuelle_societe-2022" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-action_individuelle_societe-2022-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1021,14 +1050,14 @@ Figure&nbsp;19: Promo 2021-22. Change in volunteers reporting whether they think
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-action_individuelle_societe-2022-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;20: Promo 2022-23. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3. Note that this analysis considers only answers of volunteers who answered at <em>both</em> time points.
+Figure&nbsp;21: Promo 2022-23. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 (beginning of the service civique) and Q3 (six months after its end). Note that this analysis considers only answers of volunteers who answered at <em>both</em> time points.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="promo-2023-24-1" class="level3">
 <h3 class="anchored" data-anchor-id="promo-2023-24-1">Promo 2023-24</h3>
-<p><a href="#fig-action_individuelle_societe-2023" class="quarto-xref">Figure&nbsp;21</a> shows change in volunteers’ perceptions of whether their individual action contributes to changing society, for the promo “2023-24”.</p>
+<p><a href="#fig-action_individuelle_societe-2023" class="quarto-xref">Figure&nbsp;22</a> shows change in volunteers’ perceptions of whether their individual action contributes to changing society, for the promo “2023-24”.</p>
 <div id="fig-action_individuelle_societe-2023" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-action_individuelle_societe-2023-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1060,17 +1089,17 @@ Figure&nbsp;20: Promo 2022-23. Change in volunteers reporting whether they think
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-action_individuelle_societe-2023-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;21: Promo 2023-24. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3. Note that this analysis considers only answers of volunteers who answered at <em>both</em> time points.
+Figure&nbsp;22: Promo 2023-24. Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 (beginning of the service civique) and Q3 (six months after its end). Note that this analysis considers only answers of volunteers who answered at <em>both</em> time points.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="which-demographic-factors-are-associated-with-change-in-perceptions-of-ones-individual-contribution-to-society" class="level3">
 <h3 class="anchored" data-anchor-id="which-demographic-factors-are-associated-with-change-in-perceptions-of-ones-individual-contribution-to-society">Which demographic factors are associated with change in perceptions of one’s individual contribution to society?</h3>
-<p>Whether volunteers perceived their individual action can contribute to changing society varies along different demographic variables. These models are explained in the Appendix (<a href="#sec-appendix-individual-action" class="quarto-xref">Section&nbsp;10.2</a>). Here, we only report the variables that were statistically significant in these models.</p>
+<p>To determine which demographic variables are associated with change in volunteers’ perception that their individual action can contribute to changing society, we ran statistical models. These models are explained in the Appendix (<a href="#sec-appendix-individual-action" class="quarto-xref">Section&nbsp;10.2</a>). Here, we only report the variables that were statistically significant in these models.</p>
 <section id="zone-of-residence-1" class="level4">
 <h4 class="anchored" data-anchor-id="zone-of-residence-1">Zone of Residence</h4>
-<p><a href="#fig-action_individuelle_societe-residence" class="quarto-xref">Figure&nbsp;22</a> shows that in particular volunteers from rural areas had a greater tendency to change towards “Yes”, compared to changes towards “No” or “Not really”.</p>
+<p><a href="#fig-action_individuelle_societe-residence" class="quarto-xref">Figure&nbsp;23</a> shows that in particular volunteers from rural areas had a greater tendency to change towards “Yes”, compared to changes towards “No” or “Not really”.</p>
 <div id="fig-action_individuelle_societe-residence" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-action_individuelle_societe-residence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1102,14 +1131,14 @@ Figure&nbsp;21: Promo 2023-24. Change in volunteers reporting whether they think
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-action_individuelle_societe-residence-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;22: Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to their zone of residence. Note that this analysis considers only answers of volunteers who provided an answer at <em>both</em> time points.
+Figure&nbsp;23: Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to their zone of residence. Note that this analysis considers only answers of volunteers who provided an answer at <em>both</em> time points.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="education-2" class="level4">
 <h4 class="anchored" data-anchor-id="education-2">Education</h4>
-<p><a href="#fig-action_individuelle_societe-education" class="quarto-xref">Figure&nbsp;23</a> shows that volunteers with a “Bac+3” had a greater tendency to change towards “Yes”, compared to changing towards “No” or “Not really”, than the other groups.</p>
+<p><a href="#fig-action_individuelle_societe-education" class="quarto-xref">Figure&nbsp;24</a> shows that volunteers with a “Bac+3” had a greater tendency to change towards “Yes”, compared to changing towards “No” or “Not really”, than the other groups.</p>
 <div id="fig-action_individuelle_societe-education" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-action_individuelle_societe-education-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1141,14 +1170,14 @@ Figure&nbsp;22: Change in volunteers reporting whether they think their individu
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-action_individuelle_societe-education-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;23: Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to their level of education. Note that this analysis considers only answers of volunteers who provided an answer at <em>both</em> time points.
+Figure&nbsp;24: Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to their level of education. Note that this analysis considers only answers of volunteers who provided an answer at <em>both</em> time points.
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="handicap-administrative" class="level4">
 <h4 class="anchored" data-anchor-id="handicap-administrative">Handicap (administrative)</h4>
-<p><a href="#fig-action_individuelle_societe-handicap" class="quarto-xref">Figure&nbsp;24</a> shows that volunteers with a handicap (administrative) had a greater tendency to change towards “No” or “Not really”, compared to changing towards “Yes”.</p>
+<p><a href="#fig-action_individuelle_societe-handicap" class="quarto-xref">Figure&nbsp;25</a> shows that volunteers with a handicap (administrative) had a greater tendency to change towards “No” or “Not really”, compared to changing towards “Yes”.</p>
 <div id="fig-action_individuelle_societe-handicap" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-action_individuelle_societe-handicap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1180,7 +1209,7 @@ Figure&nbsp;23: Change in volunteers reporting whether they think their individu
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-action_individuelle_societe-handicap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;24: Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to whether they had a handicap (administrative) or not. Note that this analysis considers only answers of volunteers who provided an answer at <em>both</em> time points.
+Figure&nbsp;25: Change in volunteers reporting whether they think their individual action can contribute to changing society, between Q1 and Q3, according to whether they had a handicap (administrative) or not. Note that this analysis considers only answers of volunteers who provided an answer at <em>both</em> time points.
 </figcaption>
 </figure>
 </div>
@@ -1190,7 +1219,7 @@ Figure&nbsp;24: Change in volunteers reporting whether they think their individu
 </section>
 <section id="sec-rupture" class="level1">
 <h1>Rupture</h1>
-<p>Not all volunteers work until the end of their contract. In fact, 22.9% of volunteers have a “rupture”, i.e.&nbsp;terminate the contract early (<a href="#fig-rupture-overview" class="quarto-xref">Figure&nbsp;25</a>). There are various motives for ending one’s contract early (<a href="#fig-rupture-motive" class="quarto-xref">Figure&nbsp;26</a>). Not all of them are necessarily bad, e.g.&nbsp;“Embauche en CDD d’au moins 6 mois ou CDI”, and some are outside of the influence of the volunteers, e.g.&nbsp;“Fin de validité du Titre de Séjour”.</p>
+<p>Not all volunteers work until the end of their contract. In fact, 22.9% of volunteers have a “rupture”, i.e.&nbsp;terminate the contract early (<a href="#fig-rupture-overview" class="quarto-xref">Figure&nbsp;26</a>). There are various motives for ending one’s contract early (<a href="#fig-rupture-motive" class="quarto-xref">Figure&nbsp;27</a>). Not all of them are necessarily bad, e.g.&nbsp;“Embauche en CDD d’au moins 6 mois ou CDI”, and some are outside of the influence of the volunteers, e.g.&nbsp;“Fin de validité du Titre de Séjour”.</p>
 <div id="fig-rupture-overview" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-rupture-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1222,7 +1251,7 @@ Figure&nbsp;24: Change in volunteers reporting whether they think their individu
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rupture-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;25: Number of volunteers with a rupture (for various possible reasons, including positive ones, such as obtaining a work contract), pooled across all cohorts.
+Figure&nbsp;26: Number of volunteers with a rupture (for various possible reasons, including positive ones, such as obtaining a work contract), pooled across all cohorts.
 </figcaption>
 </figure>
 </div>
@@ -1234,15 +1263,33 @@ Figure&nbsp;25: Number of volunteers with a rupture (for various possible reason
 <img src="index_files/figure-html/fig-rupture-motive-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rupture-motive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;26: Prevalence of different rupture motives, pooled across all cohorts.
+Figure&nbsp;27: Prevalence of different rupture motives, pooled across all cohorts.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
+<section id="when-do-ruptures-happen" class="level2">
+<h2 class="anchored" data-anchor-id="when-do-ruptures-happen">When do ruptures happen?</h2>
+<p>Ruptures do not all happen at the same moment. <a href="#fig-rupture-timing" class="quarto-xref">Figure&nbsp;28</a> shows, for all volunteers who ended their contract early, how many months of service they had completed at that point. Ruptures happen throughout the whole year, but disproportionately early on: about a third of the volunteers who have a rupture leave within their first three months, and half leave within their first five months (while most volunteers sign up for eight months). For Cité Unis, this suggests that support aimed at preventing (negative) ruptures matters most in the first months of the service civique.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-rupture-timing" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rupture-timing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-rupture-timing-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rupture-timing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;28: Number of months of service civique completed before the rupture, among all volunteers with a rupture (pooled across all cohorts, all rupture motives combined).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="change-in-rupture" class="level2">
 <h2 class="anchored" data-anchor-id="change-in-rupture">Change in rupture</h2>
-<p><a href="#fig-rupture" class="quarto-xref">Figure&nbsp;27</a> illustrates change regarding how many volunteers have ended their contract early (rupture) by comparing the different promos. There are no clear trends with slightly more than 20% of volunteers having a rupture.</p>
+<p><a href="#fig-rupture" class="quarto-xref">Figure&nbsp;29</a> illustrates change regarding how many volunteers have ended their contract early (rupture) by comparing the different promos. There are no clear trends with slightly more than 20% of volunteers having a rupture.</p>
 <div id="fig-rupture" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-rupture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1274,17 +1321,18 @@ Figure&nbsp;26: Prevalence of different rupture motives, pooled across all cohor
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rupture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;27: Number of volunteers with a rupture (for various possible reasons, including positive ones, such as obtaining a work contract).
+Figure&nbsp;29: Number of volunteers with a rupture (for various possible reasons, including positive ones, such as obtaining a work contract).
 </figcaption>
 </figure>
 </div>
 </section>
 <section id="what-predicts-whether-volunteers-end-their-contract-early-rupture" class="level2">
 <h2 class="anchored" data-anchor-id="what-predicts-whether-volunteers-end-their-contract-early-rupture">What predicts whether volunteers end their contract early (rupture)?</h2>
-<p>Statistical models on rupture can be found in the Appendix (<a href="#sec-appendix-rupture" class="quarto-xref">Section&nbsp;10.3</a>). Here, we only report the variables that were statistically significant in these models. Not all ruptures happen for negative reasons (<a href="#fig-rupture-motive" class="quarto-xref">Figure&nbsp;26</a>). For analyses in this section, we focus on negative reasons: We distinguish between volunteers who ended their contract early for apparently <em>negative</em> reasons, and all other volunteers.</p>
+<p>Statistical models on rupture can be found in the Appendix (<a href="#sec-appendix-rupture" class="quarto-xref">Section&nbsp;10.3</a>). Here, we only report the variables that were statistically significant in these models. Not all ruptures happen for negative reasons (<a href="#fig-rupture-motive" class="quarto-xref">Figure&nbsp;27</a>). For analyses in this section, we focus on negative reasons: We distinguish between volunteers who ended their contract early for apparently <em>negative</em> reasons, and all other volunteers.</p>
 <section id="demographic-factors" class="level3">
 <h3 class="anchored" data-anchor-id="demographic-factors">Demographic factors</h3>
-<p>As shown in <a href="#fig-rupture-descriptive" class="quarto-xref">Figure&nbsp;28</a>, older volunteers tend to have less ruptures than younger ones; less educated volunteers (in particular “infra bac”) tend to have more ruptures than those with higher education; refugees tend to have less ruptures than non-refugees; male volunteers tend to have slightly more ruptures than female ones; volunteers in the “Relai” program tend to have slightly less ruptures than volunteers in the “Coeur” program; volunteers from “QPV” residential areas tend to have considerably higher rupture rates than volunteers from other residential areas.</p>
+<p>As shown in <a href="#fig-rupture-descriptive" class="quarto-xref">Figure&nbsp;30</a>, older volunteers tend to have less ruptures than younger ones; less educated volunteers (in particular “infra bac”) tend to have more ruptures than those with higher education; refugees tend to have less ruptures than non-refugees; male volunteers tend to have slightly more ruptures than female ones; “RELAIS”-type volunteers tend to have slightly fewer ruptures than “CŒUR”-type volunteers (these are the two forms of volunteer status at Cité Unis, coded in the variable <code>type_volontaire</code>); volunteers from “QPV” residential areas tend to have considerably higher rupture rates than volunteers from other residential areas.</p>
+<p>Note, however, that these groups overlap: for example, volunteers from “QPV” areas are also less educated on average. When all demographic factors are taken into account at the same time (<a href="#sec-appendix-multivariable" class="quarto-xref">Section&nbsp;10.6</a>), the higher rupture rate of volunteers from “QPV” areas disappears almost entirely—it is largely explained by differences in education. Education itself remains the strongest predictor of ruptures.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-rupture-descriptive" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1293,7 +1341,7 @@ Figure&nbsp;27: Number of volunteers with a rupture (for various possible reason
 <img src="index_files/figure-html/fig-rupture-descriptive-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rupture-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;28: Percentages of rupture for (allegedly) negative reasons for different groups, for different variables.
+Figure&nbsp;30: Percentages of rupture for (allegedly) negative reasons for different groups, for different variables.
 </figcaption>
 </figure>
 </div>
@@ -1307,7 +1355,7 @@ Figure&nbsp;28: Percentages of rupture for (allegedly) negative reasons for diff
 <li><code>perception_avenir</code> (Concernant votre avenir, êtes-vous…? Très confiant(e); Assez confiant(e); Peu confiant(e); Pas du tout confiant(e))</li>
 <li><code>action_individuelle_societe</code> (En général, pensez-vous que votre action individuelle peut contribuer à changer la société ? Oui; Pas vraiment; Non)</li>
 </ol>
-<p>As shown in <a href="#fig-rupture-other" class="quarto-xref">Figure&nbsp;29</a>, perhaps unsurprisingly, those volunteers who tend to think that their individual action can contribute to changing society tend to disrupt their contract less. Interestingly, volunteers who are very confident regarding their future tend to distrupt their contract more.</p>
+<p>As shown in <a href="#fig-rupture-other" class="quarto-xref">Figure&nbsp;31</a>, perhaps unsurprisingly, those volunteers who tend to think that their individual action can contribute to changing society tend to end their contract early less often. Interestingly, volunteers who are very confident regarding their future tend to end their contract early more often. Note that this analysis only concerns ruptures for apparently <em>negative</em> reasons—so this pattern is not simply explained by confident volunteers leaving for positive reasons, such as finding a job.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-rupture-other" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1316,7 +1364,7 @@ Figure&nbsp;28: Percentages of rupture for (allegedly) negative reasons for diff
 <img src="index_files/figure-html/fig-rupture-other-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rupture-other-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;29: Percentages of rupture for (allegedly) negative reasons, as a function of (i) the volunteers’ confidence in their future and (ii) their perception that their individual action can contribute to changing society.
+Figure&nbsp;31: Percentages of rupture for (allegedly) negative reasons, as a function of (i) the volunteers’ confidence in their future and (ii) their perception that their individual action can contribute to changing society.
 </figcaption>
 </figure>
 </div>
@@ -1327,7 +1375,7 @@ Figure&nbsp;29: Percentages of rupture for (allegedly) negative reasons, as a fu
 </section>
 <section id="sec-satisfaction" class="level1">
 <h1>Satisfaction</h1>
-<p>In this section, we look at satisfaction (“D’une manière générale, diriez-vous que votre Service Civique s’est déroulé de façon…” with levels 1, “pas du tout satisfaisainte”, to 4, “très satisfaisante”)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. As shown in <a href="#fig-satisfaction-overview" class="quarto-xref">Figure&nbsp;30</a>, taking all cohorts together, the majority of volunteers thinks their experience is “très satisfaisant”.</p>
+<p>In this section, we look at satisfaction (“D’une manière générale, diriez-vous que votre Service Civique s’est déroulé de façon…” with levels 1, “pas du tout satisfaisante”, to 4, “très satisfaisante”)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. As shown in <a href="#fig-satisfaction-overview" class="quarto-xref">Figure&nbsp;32</a>, taking all cohorts together, the majority of volunteers thinks their experience is “très satisfaisant”.</p>
 <div id="fig-satisfaction-overview" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-satisfaction-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1359,13 +1407,13 @@ Figure&nbsp;29: Percentages of rupture for (allegedly) negative reasons, as a fu
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-satisfaction-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;30: Répartition des niveaux de satisfaction
+Figure&nbsp;32: Distribution of satisfaction levels, pooled across all cohorts.
 </figcaption>
 </figure>
 </div>
 <section id="change-in-satisfaction" class="level2">
 <h2 class="anchored" data-anchor-id="change-in-satisfaction">Change in Satisfaction</h2>
-<p><a href="#fig-satisfaction" class="quarto-xref">Figure&nbsp;31</a> shows how satisfaction with the service civique has changed over time, between the different cohorts. The share of volunteers who are “very satisfied” has decreased over time, but the shares of those who are “not” or “little” satisfied have remained broadly stable.</p>
+<p><a href="#fig-satisfaction" class="quarto-xref">Figure&nbsp;33</a> shows how satisfaction with the service civique has changed over time, between the different cohorts. The share of volunteers who are “very satisfied” has decreased over time, but the shares of those who are “not” or “little” satisfied have remained broadly stable.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-satisfaction" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1374,11 +1422,51 @@ Figure&nbsp;30: Répartition des niveaux de satisfaction
 <img src="index_files/figure-html/fig-satisfaction-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-satisfaction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;31: Satisfaction between cohorts.
+Figure&nbsp;33: Satisfaction between cohorts.
 </figcaption>
 </figure>
 </div>
 </div>
+</div>
+</section>
+<section id="sec-satisfaction-composition" class="level2">
+<h2 class="anchored" data-anchor-id="sec-satisfaction-composition">Is the decline in satisfaction driven by changing demographics?</h2>
+<p>The composition of volunteers has changed considerably across cohorts: among volunteers who answered the satisfaction question, the share of minors (16-17) has almost doubled (from roughly 12% in 2020-21 to roughly 22% in 2023-24), and the share of volunteers without a bac has increased (from roughly 27% to 38%). Since younger and less educated volunteers tend to report lower satisfaction, one might suspect that the declining share of “very satisfied” volunteers simply reflects this changing composition, rather than a change in the experience of the service civique itself.</p>
+<p>The data suggest that this is not the case: as shown in <a href="#fig-satisfaction-composition" class="quarto-xref">Figure&nbsp;34</a>, the share of very satisfied volunteers has declined <em>within</em> practically all age groups and all education levels. In line with this, in a linear regression of satisfaction on cohort (coded 1 to 4), the estimated trend is essentially unchanged when adjusting for age and education (-0.033 points per cohort unadjusted, vs.&nbsp;-0.03 adjusted). The decline in satisfaction therefore does not appear to be explained by the changing demographic composition of volunteers.</p>
+<div id="fig-satisfaction-composition" class="quarto-layout-panel">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-satisfaction-composition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="quarto-layout-row">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-satisfaction-composition" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-satisfaction-composition-1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-satisfaction-composition-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-satisfaction-composition-1.png" class="img-fluid figure-img" data-ref-parent="fig-satisfaction-composition" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-satisfaction-composition-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) (age groups)
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-satisfaction-composition" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="fig-satisfaction-composition-2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-subfloat-fig figure">
+<div aria-describedby="fig-satisfaction-composition-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-satisfaction-composition-2.png" class="img-fluid figure-img" data-ref-parent="fig-satisfaction-composition" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-satisfaction-composition-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) (education levels)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-satisfaction-composition-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;34: Share of volunteers who report being ‘very satisfied’ (‘Très satisfaisante’), by cohort, separately for age groups and education levels. If the overall decline were only driven by the changing composition of volunteers, the trends within groups would be flat.
+</figcaption>
+</figure>
 </div>
 </section>
 <section id="what-predicts-whether-volunteers-are-more-satisfied" class="level2">
@@ -1386,7 +1474,7 @@ Figure&nbsp;31: Satisfaction between cohorts.
 <p>Statistical models on satisfaction can be found in the Appendix (<a href="#sec-appendix-satisfaction" class="quarto-xref">Section&nbsp;10.4</a>). Here, we only report the variables that were statistically significant in these models.</p>
 <section id="demographic-factors-1" class="level3">
 <h3 class="anchored" data-anchor-id="demographic-factors-1">Demographic factors</h3>
-<p>As shown in <a href="#fig-satisfaction-descriptive" class="quarto-xref">Figure&nbsp;32</a>, older volunteers tend to be more satisfied than younger ones; more educated volunteers tend to be more satisfied than less educated; volunteers in the “Relai” program tend to be more satisfied than volunteers in the “Coeur” program; probably unsurprisingly, volunteers who have a rupture tend to be less satisfied than volunteers who don’t.</p>
+<p>As shown in <a href="#fig-satisfaction-descriptive" class="quarto-xref">Figure&nbsp;35</a>, older volunteers tend to be more satisfied than younger ones; more educated volunteers tend to be more satisfied than less educated; “RELAIS”-type volunteers tend to be more satisfied than “CŒUR”-type volunteers; probably unsurprisingly, volunteers who have a rupture tend to be less satisfied than volunteers who don’t. When all demographic factors are considered at once (<a href="#sec-appendix-multivariable" class="quarto-xref">Section&nbsp;10.6</a>), the differences by education disappear (they mostly reflect age differences), while the differences by age and by volunteer type remain.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-satisfaction-descriptive" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1395,7 +1483,7 @@ Figure&nbsp;31: Satisfaction between cohorts.
 <img src="index_files/figure-html/fig-satisfaction-descriptive-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-satisfaction-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;32: Share of volunteers responding to the different satisfaction levels, grouped by different variables.
+Figure&nbsp;35: Share of volunteers responding to the different satisfaction levels, grouped by different variables.
 </figcaption>
 </figure>
 </div>
@@ -1404,9 +1492,9 @@ Figure&nbsp;32: Share of volunteers responding to the different satisfaction lev
 </section>
 <section id="other-factors-1" class="level3">
 <h3 class="anchored" data-anchor-id="other-factors-1">Other factors</h3>
-<p>The following variables are statistically associated with satisfaction (<a href="#fig-satisfaction-other" class="quarto-xref">Figure&nbsp;33</a>):</p>
+<p>The following variables are statistically associated with satisfaction (<a href="#fig-satisfaction-other" class="quarto-xref">Figure&nbsp;36</a>):</p>
 <ul>
-<li><code>comparaison_utilite_autres</code> [“Diriez-vous que votre Service Civique a été…? Plus utile à vous qu’aux autres; Autant utile à vous qu’aux autres; Moins utile à vous qu’aux autres”]. Probably unsurprisingly, volunteers who believe the service civique was less useful for them than for others tend to be less satisfied than those who think it was more usefult to them</li>
+<li><code>comparaison_utilite_autres</code> [“Diriez-vous que votre Service Civique a été…? Plus utile à vous qu’aux autres; Autant utile à vous qu’aux autres; Moins utile à vous qu’aux autres”]. Probably unsurprisingly, volunteers who believe the service civique was less useful for them than for others tend to be less satisfied than those who think it was more useful to them</li>
 <li><code>fierte</code> [“Vous sentez-vous fier de ce que vous avez accompli pendant votre Service Civique ? Oui, tout à fait; Oui, un peu; Non, pas vraiment; Non, pas du tout”]. Volunteers who are more proud with what they have achieved during their service civique also tend to be more satisfied.</li>
 <li><code>confiance_en_soi</code> [“Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ? Oui, beaucoup; Oui, assez; Non, pas vraiment; Non, pas du tout; Je ne sais pas”] Volunteers who have gained confidence also tend to be more satisfied.</li>
 <li><code>confiance_avenir_personnel</code> [“Concernant votre avenir personnel, êtes-vous…? Très confiant.e; Assez confiant.e; Peu confiant.e; Pas du tout confiant.e”] Volunteers who are more confident about their future also tend to be more satisfied.</li>
@@ -1419,7 +1507,7 @@ Figure&nbsp;32: Share of volunteers responding to the different satisfaction lev
 <img src="index_files/figure-html/fig-satisfaction-other-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-satisfaction-other-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;33: Share of volunteers responding to the different satisfaction levels, grouped by different variables.
+Figure&nbsp;36: Share of volunteers responding to the different satisfaction levels, grouped by different variables.
 </figcaption>
 </figure>
 </div>
@@ -1429,7 +1517,7 @@ Figure&nbsp;33: Share of volunteers responding to the different satisfaction lev
 </section>
 <section id="differences-between-key-programs" class="level2">
 <h2 class="anchored" data-anchor-id="differences-between-key-programs">Differences between key programs</h2>
-<p><a href="#fig-satisfaction-programs" class="quarto-xref">Figure&nbsp;34</a> shows descriptive differences in satisfaction between different key programs.</p>
+<p><a href="#fig-satisfaction-programs" class="quarto-xref">Figure&nbsp;37</a> shows descriptive differences in satisfaction between different key programs.</p>
 <div id="fig-satisfaction-programs" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-satisfaction-programs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1438,7 +1526,7 @@ Figure&nbsp;33: Share of volunteers responding to the different satisfaction lev
 <div id="fig-satisfaction-programs-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-satisfaction-programs-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-satisfaction-programs-1.png" class="img-fluid figure-img" data-ref-parent="fig-satisfaction-programs" width="672">
+<img src="index_files/figure-html/fig-satisfaction-programs-1.png" class="img-fluid figure-img" data-ref-parent="fig-satisfaction-programs" width="864">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-satisfaction-programs-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) (absolute numbers)
@@ -1450,7 +1538,7 @@ Figure&nbsp;33: Share of volunteers responding to the different satisfaction lev
 <div id="fig-satisfaction-programs-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-satisfaction-programs-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-satisfaction-programs-2.png" class="img-fluid figure-img" data-ref-parent="fig-satisfaction-programs" width="672">
+<img src="index_files/figure-html/fig-satisfaction-programs-2.png" class="img-fluid figure-img" data-ref-parent="fig-satisfaction-programs" width="864">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-satisfaction-programs-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) (percentages)
@@ -1461,7 +1549,7 @@ Figure&nbsp;33: Share of volunteers responding to the different satisfaction lev
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-satisfaction-programs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;34: Share of volunteers responding to the different satisfaction levels, grouped by which program they were in. Note that we focus only on key programs here. All other programs appear under ‘NA’ in the plot.
+Figure&nbsp;37: Share of volunteers responding to the different satisfaction levels, grouped by which program they were in. Note that we focus only on key programs here. All other programs appear under ‘NA’ in the plot.
 </figcaption>
 </figure>
 </div>
@@ -1469,7 +1557,7 @@ Figure&nbsp;34: Share of volunteers responding to the different satisfaction lev
 </section>
 <section id="confidence-in-ones-future" class="level1">
 <h1>Confidence in one’s future</h1>
-<p>In this section, we look at confidence in one’s future (<code>perception_avenir</code>: “Concernant votre avenir, êtes-vous…?” with levels 1, “Pas du tout confiant.e”, to 4, “Très confiant.e”)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. As shown in <a href="#fig-perception-avenir-overview" class="quarto-xref">Figure&nbsp;35</a>, taking all cohorts together, the majority of volunteers are “assez confiant.e”.</p>
+<p>In this section, we look at confidence in one’s future (<code>perception_avenir</code>: “Concernant votre avenir, êtes-vous…?” with levels 1, “Pas du tout confiant.e”, to 4, “Très confiant.e”)<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. As shown in <a href="#fig-perception-avenir-overview" class="quarto-xref">Figure&nbsp;38</a>, taking all cohorts together, the majority of volunteers are “assez confiant.e”.</p>
 <div id="fig-perception-avenir-overview" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-perception-avenir-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1501,13 +1589,13 @@ Figure&nbsp;34: Share of volunteers responding to the different satisfaction lev
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perception-avenir-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;35: Confidence in one’s future, pooled across all cohorts.
+Figure&nbsp;38: Confidence in one’s future, pooled across all cohorts.
 </figcaption>
 </figure>
 </div>
 <section id="change-in-confidence-in-ones-future" class="level2">
 <h2 class="anchored" data-anchor-id="change-in-confidence-in-ones-future">Change in confidence in one’s future</h2>
-<p><a href="#fig-perception_avenir" class="quarto-xref">Figure&nbsp;36</a> shows how confidence in one’s future has changed over time, between the different cohorts. The results are very stable, with a majority of volunteers being “assez confiant.e” in all cohorts.</p>
+<p><a href="#fig-perception_avenir" class="quarto-xref">Figure&nbsp;39</a> shows how confidence in one’s future has changed over time, between the different cohorts. The results are very stable, with a majority of volunteers being “assez confiant.e” in all cohorts.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-perception_avenir" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1516,7 +1604,7 @@ Figure&nbsp;35: Confidence in one’s future, pooled across all cohorts.
 <img src="index_files/figure-html/fig-perception_avenir-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perception_avenir-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;36: Confidence in one’s future, between cohorts.
+Figure&nbsp;39: Confidence in one’s future, between cohorts.
 </figcaption>
 </figure>
 </div>
@@ -1528,16 +1616,16 @@ Figure&nbsp;36: Confidence in one’s future, between cohorts.
 <p>Statistical models on volunteers’ confidence in their future can be found in the Appendix (<a href="#sec-appendix-perception-avenir" class="quarto-xref">Section&nbsp;10.5</a>). Here, we only report the variables that were statistically significant in these models.</p>
 <section id="demographic-factors-2" class="level3">
 <h3 class="anchored" data-anchor-id="demographic-factors-2">Demographic factors</h3>
-<p>As shown in <a href="#fig-perception-avenir-descriptive" class="quarto-xref">Figure&nbsp;37</a>, volunteers in the “Relai” program tend to be more confident about their future than volunteers in the “Coeur” program; male volunteers tend to be more confident than female ones; refugees tend to be more confident than non-refugees; compared to volunteers from urban residential zones, volunteers from “QPV” zones tend to be slightly more confident, while volunteers from “ZRR” zones tend to be slightly less confident; the more educated volunteers, the less confident they tend to be. For age, the pattern appears non-linear: volunteers from the age group “16-17” tend to be more confident than volunteers from the age groups “18-20” and “21-23”, but the most confident on average tend to be volunteers from the age group “24-30”.</p>
+<p>As shown in <a href="#fig-perception-avenir-descriptive" class="quarto-xref">Figure&nbsp;40</a>, “RELAIS”-type volunteers tend to be more confident about their future than “CŒUR”-type volunteers; male volunteers tend to be more confident than female ones; refugees tend to be more confident than non-refugees; compared to volunteers from urban residential zones, volunteers from “QPV” zones tend to be slightly more confident, while volunteers from “ZRR” zones tend to be slightly less confident; the more educated volunteers, the less confident they tend to be. For age, the pattern appears non-linear: volunteers from the age group “16-17” tend to be more confident than volunteers from the age groups “18-20” and “21-23”, but the most confident on average tend to be volunteers from the age group “24-30”. When all demographic factors are considered at once (<a href="#sec-appendix-multivariable" class="quarto-xref">Section&nbsp;10.6</a>), the differences by sex, refugee status and volunteer type remain clearly visible, while the differences by education and age are no longer statistically significant.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-perception-avenir-descriptive" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-perception-avenir-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-perception-avenir-descriptive-1.png" class="img-fluid figure-img" width="672">
+<img src="index_files/figure-html/fig-perception-avenir-descriptive-1.png" class="img-fluid figure-img" width="960">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perception-avenir-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;37: Share of volunteers according to their confidence in their future, grouped by different variables.
+Figure&nbsp;40: Share of volunteers according to their confidence in their future, grouped by different variables.
 </figcaption>
 </figure>
 </div>
@@ -1546,7 +1634,7 @@ Figure&nbsp;37: Share of volunteers according to their confidence in their futur
 </section>
 <section id="other-factors-2" class="level3">
 <h3 class="anchored" data-anchor-id="other-factors-2">Other factors</h3>
-<p>The only factor which we could statistically relate to confidence in one’s future is <code>action_individuelle_societe</code> (“En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?” Oui; Pas vraiment; Non). As shown in <a href="#fig-perception-avenir-other" class="quarto-xref">Figure&nbsp;38</a>, volunteers who think they can contribute to society tend to have more confidence in their future than volunteers who don’t.</p>
+<p>The only factor which we could statistically relate to confidence in one’s future is <code>action_individuelle_societe</code> (“En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?” Oui; Pas vraiment; Non). As shown in <a href="#fig-perception-avenir-other" class="quarto-xref">Figure&nbsp;41</a>, volunteers who think they can contribute to society tend to have more confidence in their future than volunteers who don’t.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-perception-avenir-other" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1555,7 +1643,7 @@ Figure&nbsp;37: Share of volunteers according to their confidence in their futur
 <img src="index_files/figure-html/fig-perception-avenir-other-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perception-avenir-other-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;38: Share of volunteers according to their confidence in their future, as a function of whether they think their individual action can contribute to society.
+Figure&nbsp;41: Share of volunteers according to their confidence in their future, as a function of whether they think their individual action can contribute to society.
 </figcaption>
 </figure>
 </div>
@@ -1565,7 +1653,7 @@ Figure&nbsp;38: Share of volunteers according to their confidence in their futur
 </section>
 <section id="differences-between-key-programs-1" class="level2">
 <h2 class="anchored" data-anchor-id="differences-between-key-programs-1">Differences between key programs</h2>
-<p><a href="#fig-perception-avenir-programs" class="quarto-xref">Figure&nbsp;39</a> shows descriptive differences in volunteers’ confidence in their future between different key programs.</p>
+<p><a href="#fig-perception-avenir-programs" class="quarto-xref">Figure&nbsp;42</a> shows descriptive differences in volunteers’ confidence in their future between different key programs.</p>
 <div id="fig-perception-avenir-programs" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-perception-avenir-programs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1574,7 +1662,7 @@ Figure&nbsp;38: Share of volunteers according to their confidence in their futur
 <div id="fig-perception-avenir-programs-1" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-perception-avenir-programs-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-perception-avenir-programs-1.png" class="img-fluid figure-img" data-ref-parent="fig-perception-avenir-programs" width="672">
+<img src="index_files/figure-html/fig-perception-avenir-programs-1.png" class="img-fluid figure-img" data-ref-parent="fig-perception-avenir-programs" width="864">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-perception-avenir-programs-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) (absolute numbers)
@@ -1586,7 +1674,7 @@ Figure&nbsp;38: Share of volunteers according to their confidence in their futur
 <div id="fig-perception-avenir-programs-2" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-subfloat-fig figure">
 <div aria-describedby="fig-perception-avenir-programs-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-perception-avenir-programs-2.png" class="img-fluid figure-img" data-ref-parent="fig-perception-avenir-programs" width="672">
+<img src="index_files/figure-html/fig-perception-avenir-programs-2.png" class="img-fluid figure-img" data-ref-parent="fig-perception-avenir-programs" width="864">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-perception-avenir-programs-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) (percentages)
@@ -1597,7 +1685,7 @@ Figure&nbsp;38: Share of volunteers according to their confidence in their futur
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perception-avenir-programs-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;39: Number of volunteers responding with different levels of confidence in their future, grouped by which program they were in. Note that we focus only on key programs here. All other programs appear under ‘NA’ in the plot.
+Figure&nbsp;42: Number of volunteers responding with different levels of confidence in their future, grouped by which program they were in. Note that we focus only on key programs here. All other programs appear under ‘NA’ in the plot.
 </figcaption>
 </figure>
 </div>
@@ -1605,8 +1693,8 @@ Figure&nbsp;39: Number of volunteers responding with different levels of confide
 </section>
 <section id="sec-programs" class="level1">
 <h1>Differences between programs</h1>
-<p>There are 14 different programs, which can be sorted into 6 different categories (see <a href="./tables.html">Tables</a>). Here, we only distinguish between 7 key program categories, namely: Solidarité Séniors; Médiaterre; Cinéma &amp; Citoyenneté; Solidarité Aidants; Booster; Ecovolonterre; ASM. <a href="#fig-programs-overview" class="quarto-xref">Figure&nbsp;40</a> provides an overview of the number of volunteers in the different key programs, across promotions.</p>
-<p>In the following sections, we look at how volunteers differ demographically between the different key programs. Statistical models on program differences can be found in the Appendix (<a href="#sec-appendix-programs" class="quarto-xref">Section&nbsp;10.6</a>). Here, we only descriptively show the differences between programs for those variables that were statistically significant in these models. Each of the following sections focuses on one key program. For relevant variables, we show how the average in the respective key program differs compared to the average of all other key programs combined.</p>
+<p>There are 14 different programs, which can be sorted into 6 different categories (see <a href="./tables.html">Tables</a>). Here, we only distinguish between 7 key program categories, namely: Solidarité Séniors; Médiaterre; Cinéma &amp; Citoyenneté; Solidarité Aidants; Booster; Ecovolonterre; ASM. <a href="#fig-programs-overview" class="quarto-xref">Figure&nbsp;43</a> provides an overview of the number of volunteers in the different key programs, across promotions. Note that not all key programs appear in all cohorts in the data: “Solidarité Séniors” and “Solidarité Aidants” only appear from the 2021-22 cohort onwards, and “ASM” only from the 2022-23 cohort onwards.</p>
+<p>In the following sections, we look at how volunteers differ demographically between the different key programs. Note that these comparisons pool all cohorts; they describe average differences and do not capture how programs may have changed over time. Statistical models on program differences can be found in the Appendix (<a href="#sec-appendix-programs" class="quarto-xref">Section&nbsp;10.7</a>). Here, we only descriptively show the differences between programs for those variables that were statistically significant in these models. Each of the following sections focuses on one key program. For relevant variables, we show how the average in the respective key program differs compared to the average of all other key programs combined.</p>
 <div id="fig-programs-overview" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-programs-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -1638,13 +1726,13 @@ Figure&nbsp;39: Number of volunteers responding with different levels of confide
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-programs-overview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;40: Number of volunteers per key program, within the different promos. Note that, in the percentage plot, the percentages are relative to all volunteers from the respective promo. All volunteers who were not included in any of the key programs appear in the plot under ‘NA’.
+Figure&nbsp;43: Number of volunteers per key program, within the different promos. Note that, in the percentage plot, the percentages are relative to all volunteers from the respective promo. All volunteers who were not included in any of the key programs appear in the plot under ‘NA’.
 </figcaption>
 </figure>
 </div>
-<section id="sec-ecovolonterre" class="level2">
-<h2 class="anchored" data-anchor-id="sec-ecovolonterre">Solidarité Aidants</h2>
-<p>Compared to all other programs combined, among the volunteers in the “Solidarité Aidants” program, there tend to be: more female volunteers; less refugees; fewer volunteers in the “16-17” and “24-30” age groups, but more refugees in the age groups “18-20” and “21-23”; more volunteers in rural, “QPV” and “ZRR” residential zones compared to urban ones; more educated volunteers, in particular in the “bac2” category; slightly more volunteers with a declared handicap.</p>
+<section id="sec-solidarite-aidants" class="level2">
+<h2 class="anchored" data-anchor-id="sec-solidarite-aidants">Solidarité Aidants</h2>
+<p>Compared to all other programs combined, among the volunteers in the “Solidarité Aidants” program, there tend to be: more female volunteers; less refugees; fewer volunteers in the “16-17” and “24-30” age groups, but more volunteers in the age groups “18-20” and “21-23”; more volunteers in rural, “QPV” and “ZRR” residential zones compared to urban ones; more educated volunteers, in particular in the “bac2” category; slightly more volunteers with a declared handicap.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-solidarite-aidants-descriptive" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1653,7 +1741,7 @@ Figure&nbsp;40: Number of volunteers per key program, within the different promo
 <img src="index_files/figure-html/fig-solidarite-aidants-descriptive-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-solidarite-aidants-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;41: Differences in Solidarité Aidants vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;44: Differences in Solidarité Aidants vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -1662,7 +1750,7 @@ Figure&nbsp;41: Differences in Solidarité Aidants vs.&nbsp;other programs along
 </section>
 <section id="sec-cine" class="level2">
 <h2 class="anchored" data-anchor-id="sec-cine">Cinéma &amp; Citoyenneté</h2>
-<p>Compared to all other programs combined, among the volunteers in the “Cinéma &amp; Citoyenneté” program, there tend to be: more male volunteers; more older volunteers; more volunteers in urbain and “ZRR” residential zones; more educated volunteers; slighly fewer handicaped volunteers; fewer volunteers who have a rupture.</p>
+<p>Compared to all other programs combined, among the volunteers in the “Cinéma &amp; Citoyenneté” program, there tend to be: more male volunteers; more older volunteers; more volunteers in urban and “ZRR” residential zones; more educated volunteers; slightly fewer handicapped volunteers; fewer volunteers who have a rupture.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-cine-descriptive" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1671,7 +1759,7 @@ Figure&nbsp;41: Differences in Solidarité Aidants vs.&nbsp;other programs along
 <img src="index_files/figure-html/fig-cine-descriptive-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cine-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;42: Differences in Cinéma &amp; Citoyenneté vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;45: Differences in Cinéma &amp; Citoyenneté vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -1680,7 +1768,7 @@ Figure&nbsp;42: Differences in Cinéma &amp; Citoyenneté vs.&nbsp;other program
 </section>
 <section id="sec-booster" class="level2">
 <h2 class="anchored" data-anchor-id="sec-booster">Booster</h2>
-<p>Compared to all other programs combined, among the volunteers in the “Booster” program, there tend to be: more male volunteers; considerably more younger volunteers; more volunteers in “QPV” residential zones; less educated volunteers; fewer volunteers with a declared and an adimistrative handicap; more volunteers who have a rupture.</p>
+<p>Compared to all other programs combined, among the volunteers in the “Booster” program, there tend to be: more male volunteers; considerably more younger volunteers; more volunteers in “QPV” residential zones; less educated volunteers; fewer volunteers with a declared and an administrative handicap; more volunteers who have a rupture.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-booster-descriptive" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1689,7 +1777,7 @@ Figure&nbsp;42: Differences in Cinéma &amp; Citoyenneté vs.&nbsp;other program
 <img src="index_files/figure-html/fig-booster-descriptive-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-booster-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;43: Differences in Booster vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;46: Differences in Booster vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -1698,7 +1786,7 @@ Figure&nbsp;43: Differences in Booster vs.&nbsp;other programs along demographic
 </section>
 <section id="sec-ecovolonterre" class="level2">
 <h2 class="anchored" data-anchor-id="sec-ecovolonterre">Ecovolonterre</h2>
-<p>Compared to all other programs combined, among the volunteers in the “Ecovolonterre” program, there tend to be: more male volunteers; considerably more refugees; more volunteers in the “21-23” age category; more volunteers in urbain and fewer in “QPV” residential zones; more educated volunteers, in particular far more volunteers in the “bac+3” category; fewer handicapped volunteers; less volunteers who have a rupture.</p>
+<p>Compared to all other programs combined, among the volunteers in the “Ecovolonterre” program, there tend to be: more male volunteers; considerably more refugees; more volunteers in the “21-23” age category; more volunteers in urban and fewer in “QPV” residential zones; more educated volunteers, in particular far more volunteers in the “bac+3” category; fewer handicapped volunteers; less volunteers who have a rupture.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-ecovolonterre-descriptive" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1707,7 +1795,7 @@ Figure&nbsp;43: Differences in Booster vs.&nbsp;other programs along demographic
 <img src="index_files/figure-html/fig-ecovolonterre-descriptive-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ecovolonterre-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;44: Differences in Ecovolonterre vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;47: Differences in Ecovolonterre vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -1725,7 +1813,7 @@ Figure&nbsp;44: Differences in Ecovolonterre vs.&nbsp;other programs along demog
 <img src="index_files/figure-html/fig-mediaterre-descriptive-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mediaterre-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;45: Differences in Ecovolonterre vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;48: Differences in Médiaterre vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -1734,7 +1822,8 @@ Figure&nbsp;45: Differences in Ecovolonterre vs.&nbsp;other programs along demog
 </section>
 <section id="sec-asm" class="level2">
 <h2 class="anchored" data-anchor-id="sec-asm">ASM</h2>
-<p>Compared to all other programs combined, among the volunteers in the “ASM” program, there tend to be: more female volunteers; more older volunteers, particular in the “21-23” age category; more volunteers in urbain and rural, considerably fewer in “QPV”, and none in “ZRR” residential zones; more educated volunteers, in particular far more volunteers in the “bac+3” category; less volunteers who have a rupture.</p>
+<p>Note that ASM is by far the smallest of the key programs in our data (37 volunteers in 2022-23 and 163 in 2023-24, see <a href="#fig-programs-overview" class="quarto-xref">Figure&nbsp;43</a>). The comparisons in this section therefore rest on few volunteers and should be read with extra caution.</p>
+<p>Compared to all other programs combined, among the volunteers in the “ASM” program, there tend to be: more female volunteers; more older volunteers, particular in the “21-23” age category; more volunteers in urban and rural, considerably fewer in “QPV”, and none in “ZRR” residential zones; more educated volunteers, in particular far more volunteers in the “bac+3” category; less volunteers who have a rupture.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-asm-descriptive" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1743,7 +1832,7 @@ Figure&nbsp;45: Differences in Ecovolonterre vs.&nbsp;other programs along demog
 <img src="index_files/figure-html/fig-asm-descriptive-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-asm-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;46: Differences in ASM vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;49: Differences in ASM vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -1761,7 +1850,7 @@ Figure&nbsp;46: Differences in ASM vs.&nbsp;other programs along demographic fac
 <img src="index_files/figure-html/fig-solidarite-seniors-descriptive-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-solidarite-seniors-descriptive-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;47: Differences in Solidarité Séniors vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;50: Differences in Solidarité Séniors vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -1771,19 +1860,19 @@ Figure&nbsp;47: Differences in Solidarité Séniors vs.&nbsp;other programs alon
 </section>
 <section id="conclusion-some-methodological-notes" class="level1">
 <h1>Conclusion: Some methodological notes</h1>
-<p>This report can only provide snapshots of the extensive questionnaire data collected by Cités Unies. We aimed to cover a broad range of topics and variables in order to reveal potentially informative patterns and trends. Rather than summarizing these patterns once more, we conclude with several methodological notes that highlight opportunities to improve future impact evaluations based on the questionnaires.</p>
-<p>First, the questionnaires could likely be shorter. Reducing the number of questions would probably decrease attrition: volunteers who respond to a very long questionnaire at q1 may be less motivated to complete another long questionnaire at q2, let alone q3. Shorter questionnaires could also improve response quality. When questionnaires are lengthy, respondents may become tired or bored and begin answering quickly and without much attention. Another option to improve response quality would be to include attention checks. That said, because volunteers are not required to take the survey, it is reasonable to assume that those who do participate are generally motivated to complete it in good faith.</p>
+<p>This report can only provide snapshots of the extensive questionnaire data collected by Cité Unis. We aimed to cover a broad range of topics and variables in order to reveal potentially informative patterns and trends. Rather than summarizing these patterns once more, we conclude with several methodological notes that highlight opportunities to improve future impact evaluations based on the questionnaires.</p>
+<p>First, the questionnaires could likely be shorter. Reducing the number of questions would probably decrease attrition (and, with it, the risk of distorted results discussed in <a href="#sec-attrition-bias" class="quarto-xref">Section&nbsp;3.1</a>): volunteers who respond to a very long questionnaire at q1 may be less motivated to complete another long questionnaire at q2, let alone q3. Shorter questionnaires could also improve response quality. When questionnaires are lengthy, respondents may become tired or bored and begin answering quickly and without much attention. Another option to improve response quality would be to include attention checks: questions with one obviously correct answer (for example, “To show that you are reading carefully, please select ‘Yes’ here”), which make it possible to identify respondents who answer without reading the questions. That said, because volunteers are not required to take the survey, it is reasonable to assume that those who do participate are generally motivated to complete it in good faith.</p>
 <p>Another potential improvement would be to make the questionnaires at different time points more similar. Asking the same questions across multiple waves makes it possible to track how individual volunteers change over the course of their service civique (as done in <a href="#sec-within-change" class="quarto-xref">Section&nbsp;4</a>).</p>
-<p>On a minor note, it may be more informative to ask volunteers about their voting intentions rather than their past voting behavior. There are indications that some volunteers may not interpret the current question about past voting behavior as intended (<a href="#fig-vote_derniers_elections-youngest" class="quarto-xref">Figure&nbsp;15</a>). In addition, changes in past voting behavior are inherently dependent on whether elections happen to occur for a particular cohort during their year of service civique.</p>
-<p>Finally, I would like to reiterate a point already raised in the introduction: the questionnaire data are purely observational, and none of the associations presented in this report support specific causal interpretations. For example, in the section on demographic differences between programs (<a href="#sec-programs" class="quarto-xref">Section&nbsp;8</a>), programs with older volunteers also tend to have more highly educated volunteers. These observations are likely related, since older participants have simply had more time to pursue education. As another example, <a href="#fig-satisfaction-programs" class="quarto-xref">Figure&nbsp;34</a> suggests that fewer volunteers report being “very satisfied” in key programs compared to other programs (listed in the figure under “NA”). However, key programs have attracted an increasing number of volunteers over time (<a href="#fig-programs-overview" class="quarto-xref">Figure&nbsp;40</a>), and some of them are relatively recent. At the same time, the share of volunteers who report being “very satisfied” has declined slightly across cohorts (<a href="#fig-satisfaction" class="quarto-xref">Figure&nbsp;31</a>). It is therefore unclear whether the observed differences are driven by the programs themselves, broader cohort trends in satisfaction, or other unobserved factors.</p>
+<p>On a minor note, it may be more informative to ask volunteers about their voting intentions rather than their past voting behavior. There are indications that some volunteers may not interpret the current question about past voting behavior as intended (<a href="#fig-vote_derniers_elections-youngest" class="quarto-xref">Figure&nbsp;16</a>). In addition, changes in past voting behavior are inherently dependent on whether elections happen to occur for a particular cohort during their year of service civique. Note, however, that changing the wording of the question would break comparability with previous cohorts; one option would be to ask both questions in parallel during a transition year.</p>
+<p>Finally, I would like to reiterate a point already raised in the introduction: the questionnaire data are purely observational, and none of the associations presented in this report support specific causal interpretations. For example, in the section on demographic differences between programs (<a href="#sec-programs" class="quarto-xref">Section&nbsp;8</a>), programs with older volunteers also tend to have more highly educated volunteers. These observations are likely related, since older participants have simply had more time to pursue education. As another example, <a href="#fig-satisfaction-programs" class="quarto-xref">Figure&nbsp;37</a> suggests that fewer volunteers report being “very satisfied” in key programs compared to other programs (listed in the figure under “NA”). However, key programs have attracted an increasing number of volunteers over time (<a href="#fig-programs-overview" class="quarto-xref">Figure&nbsp;43</a>), and some of them are relatively recent. At the same time, the share of volunteers who report being “very satisfied” has declined slightly across cohorts (<a href="#fig-satisfaction" class="quarto-xref">Figure&nbsp;33</a>). It is therefore unclear whether the observed differences are driven by the programs themselves, broader cohort trends in satisfaction, or other unobserved factors. The multivariable models in the appendix (<a href="#sec-appendix-multivariable" class="quarto-xref">Section&nbsp;10.6</a>) are a first step towards disentangling such overlapping factors, but they, too, remain descriptive.</p>
 </section>
 <section id="supplemental-materials-appendix" class="level1">
 <h1>Supplemental materials: Appendix</h1>
 <section id="sec-appendix-voting" class="level2">
 <h2 class="anchored" data-anchor-id="sec-appendix-voting">Voting</h2>
-<p><a href="#fig-vote-change-model" class="quarto-xref">Figure&nbsp;48</a> shows how different demographic variables predict changes in voting behavior. For this analysis, we look at all cohorts together. The outcome, changes in voting behavior, is binary (changed to no vs.&nbsp;changed to yes)<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
-<p>Plotted on the y-axis are the demographic variables, taken to predict change in voting behavior. For each categorical demographic variable, different levels are shown. For example, for the variable <code>age_category</code>, the plot shows three levels: <code>age_categorie18-20</code>, <code>age_categorie21-23</code>, <code>age_categorie24-30</code>. Each of these categories has an estimate (x-axis). These estimates are the results logistic regressions<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. They indicate how being part of a certain category (e.g.&nbsp;being between 18 and 20 years old) predicts the chances of changing one’s voting behavior. The estimates are “odds ratios”, which can be conceived of as probabilities: An odds ratio of 1 means that this group has the same chance changing to “no” as changing to “yes”. More than 1 means that this group is more likely to change to “yes”. For example, an odds ratio of 2.0 means twice as likely. Less than 1 means that this group is more likely to change to “no”. An odds ratio of 0.5 means half as likely.</p>
-<p>For each categorical variable, one category is chosen as the baseline (or reference) category. The odds ratios of all other categories are relative to that baseline. For example, for the variable <code>age_category</code>, the category “16-17” is not appearing in the graph, because it is the (invisible) baseline category. If the odds ratio for <code>age_category18–20</code> is 1.43, this means that 18 to 20 year-olds are more likely to change their vote towards “Yes”, compared to 16 to 17 year-olds. More specifically, the odds of changing towards “Yes” among 18–20-year-olds are about 43% higher than among 16–17-year-olds.</p>
+<p><a href="#fig-vote-change-model" class="quarto-xref">Figure&nbsp;51</a> shows how different demographic variables predict changes in voting behavior. For this analysis, we look at all cohorts together. The outcome, changes in voting behavior, is binary (changed to no vs.&nbsp;changed to yes)<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+<p>Plotted on the y-axis are the demographic variables, taken to predict change in voting behavior. For each categorical demographic variable, different levels are shown. For example, for the variable <code>age_categorie</code>, the plot shows three levels: <code>age_categorie18-20</code>, <code>age_categorie21-23</code>, <code>age_categorie24-30</code>. Each of these categories has an estimate (x-axis). These estimates are the results of logistic regressions<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. They indicate how being part of a certain category (e.g.&nbsp;being between 18 and 20 years old) predicts the chances of changing one’s voting behavior. The estimates are “odds ratios”, which can be thought of in terms of relative chances: An odds ratio of 1 means that this group is as likely to change to “no” as to “yes”. More than 1 means that this group is more likely to change to “yes”. For example, an odds ratio of 2.0 means twice as likely. Less than 1 means that this group is more likely to change to “no”. An odds ratio of 0.5 means half as likely.</p>
+<p>For each categorical variable, one category is chosen as the baseline (or reference) category. The odds ratios of all other categories are relative to that baseline. For example, for the variable <code>age_categorie</code>, the category “16-17” is not appearing in the graph, because it is the (invisible) baseline category. If the odds ratio for <code>age_categorie18-20</code> is 1.43, this means that 18 to 20 year-olds are more likely to change their vote towards “Yes”, compared to 16 to 17 year-olds. More specifically, the odds of changing towards “Yes” among 18–20-year-olds are about 43% higher than among 16–17-year-olds.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-vote-change-model" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1792,17 +1881,17 @@ Figure&nbsp;47: Differences in Solidarité Séniors vs.&nbsp;other programs alon
 <img src="index_files/figure-html/fig-vote-change-model-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vote-change-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;48: Effects of demographic factors on change in voting behavior. The outcome is binary (changed to no vs.&nbsp;changed to yes). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio’s to be symmetric (i.e.&nbsp;that 2 is as far away from 1 as is 0.5).
+Figure&nbsp;51: Effects of demographic factors on change in voting behavior. The outcome is binary (changed to no vs.&nbsp;changed to yes). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio’s to be symmetric (i.e.&nbsp;that 2 is as far away from 1 as is 0.5).
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>To understand this odds ratio, take <a href="#fig-vote_derniers_elections-age" class="quarto-xref">Figure&nbsp;14</a>: it shows that among the 16 to 17 year-olds, 285 have changed towards “No”, while only 238 have changed towards “Yes”. That makes the odds of changing towards yes for the youngest age group, chosen as the baseline category in the model, <code>238:285 = ~0.84</code>. By contrast, among the 18 to 20 year-olds, the odds were <code>784:658 = ~1.19</code>. The odds ratio for the 18 to 20 year-olds compares their odds to those of the 16 to 17 year-olds <code>odds ratio = 1.19:0.84 = 1.4</code>. <a href="#fig-vote_derniers_elections-age" class="quarto-xref">Figure&nbsp;14</a> also allows to compare the odds ratios to the percentages for the different age groups. Just like for absolute numbers, the odds ratios can be calculated from the percentages. For example, among the 16 to 17 year-olds, 13.8% have changed towards “No”, while 11.5% have changed towards “Yes”, making the odds of changing to “Yes”, as above, <code>0.115:0.138 = ~0.83</code><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. Among the 18 to 20 year-olds, accordingly, the odds were, as above, <code>0.174:0.146 = ~1.19</code>, resulting in the same odds ratio of ~1.4.</p>
+<p>To understand this odds ratio, take <a href="#fig-vote_derniers_elections-age" class="quarto-xref">Figure&nbsp;15</a>: it shows that among the 16 to 17 year-olds, 285 have changed towards “No”, while only 238 have changed towards “Yes”. That makes the odds of changing towards yes for the youngest age group, chosen as the baseline category in the model, <code>238:285 = ~0.84</code>. By contrast, among the 18 to 20 year-olds, the odds were <code>784:658 = ~1.19</code>. The odds ratio for the 18 to 20 year-olds compares their odds to those of the 16 to 17 year-olds <code>odds ratio = 1.19:0.84 = 1.4</code>. <a href="#fig-vote_derniers_elections-age" class="quarto-xref">Figure&nbsp;15</a> also allows to compare the odds ratios to the percentages for the different age groups. Just like for absolute numbers, the odds ratios can be calculated from the percentages. For example, among the 16 to 17 year-olds, 13.8% have changed towards “No”, while 11.5% have changed towards “Yes”, making the odds of changing to “Yes”, as above, <code>0.115:0.138 = ~0.83</code><a href="#fn7" class="footnote-ref" id="fnref7" role="doc-noteref"><sup>7</sup></a>. Among the 18 to 20 year-olds, accordingly, the odds were, as above, <code>0.174:0.146 = ~1.19</code>, resulting in the same odds ratio of ~1.4.</p>
 </section>
 <section id="sec-appendix-individual-action" class="level2">
 <h2 class="anchored" data-anchor-id="sec-appendix-individual-action">Individual action for society</h2>
-<p><a href="#fig-action-change-model" class="quarto-xref">Figure&nbsp;49</a> shows how different demographic variables predict changes in perceptions of one’s individual contribution to society. For this analysis, we look at all cohorts together. The outcome, changes in perceptions of one’s individual contribution to society, collapsed into a binary measure (“vers Non/Pas vraiment” vs.&nbsp;“vers Oui”). The plots can be interpreted as described above in the section on voting behavior (<a href="#sec-appendix-voting" class="quarto-xref">Section&nbsp;10.1</a>). An odds ratio of 1 means that a certain group has the same chance of changing to “Non/Pas vraiment” as changing to “Oui”, compared to the baseline group. More than 1 means that this group is more likely to change to “Oui”. Less than 1 means that this group is more likely to change to “Non/Pas vraiment”.</p>
+<p><a href="#fig-action-change-model" class="quarto-xref">Figure&nbsp;52</a> shows how different demographic variables predict changes in perceptions of one’s individual contribution to society. For this analysis, we look at all cohorts together. The outcome, changes in perceptions of one’s individual contribution to society, collapsed into a binary measure (“vers Non/Pas vraiment” vs.&nbsp;“vers Oui”). The plots can be interpreted as described above in the section on voting behavior (<a href="#sec-appendix-voting" class="quarto-xref">Section&nbsp;10.1</a>). An odds ratio of 1 means that a certain group has the same chance of changing to “Non/Pas vraiment” as changing to “Oui”, compared to the baseline group. More than 1 means that this group is more likely to change to “Oui”. Less than 1 means that this group is more likely to change to “Non/Pas vraiment”.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-action-change-model" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1811,7 +1900,7 @@ Figure&nbsp;48: Effects of demographic factors on change in voting behavior. The
 <img src="index_files/figure-html/fig-action-change-model-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-action-change-model-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;49: Effects of demographic factors on change in perceptions of how one’s individual actions can contribute to society. The outcome is binary (“vers Non/Pas vraiment” vs.&nbsp;“vers Oui”). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio’s to be symmetric (i.e.&nbsp;that 2 is as far away from 1 as is 0.5).
+Figure&nbsp;52: Effects of demographic factors on change in perceptions of how one’s individual actions can contribute to society. The outcome is binary (“vers Non/Pas vraiment” vs.&nbsp;“vers Oui”). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio’s to be symmetric (i.e.&nbsp;that 2 is as far away from 1 as is 0.5).
 </figcaption>
 </figure>
 </div>
@@ -1820,7 +1909,7 @@ Figure&nbsp;49: Effects of demographic factors on change in perceptions of how o
 </section>
 <section id="sec-appendix-rupture" class="level2">
 <h2 class="anchored" data-anchor-id="sec-appendix-rupture">Rupture</h2>
-<p>For analyses on what predicts ruptures, we focus only on volunteers who ended their contract early for apparently <em>negative</em> reasons. We used a binary outcome measure (no negative rupture vs.&nbsp;negative rupture) and ran separate logistic regressions with demographic variables (<a href="#fig-rupture-model-demographic" class="quarto-xref">Figure&nbsp;50</a>) a selection of other variables (<a href="#fig-rupture-model-other" class="quarto-xref">Figure&nbsp;51</a>).</p>
+<p>For analyses on what predicts ruptures, we focus only on volunteers who ended their contract early for apparently <em>negative</em> reasons. We used a binary outcome measure (no negative rupture vs.&nbsp;negative rupture) and ran separate logistic regressions with demographic variables (<a href="#fig-rupture-model-demographic" class="quarto-xref">Figure&nbsp;53</a>) a selection of other variables (<a href="#fig-rupture-model-other" class="quarto-xref">Figure&nbsp;54</a>).</p>
 <p>An odds ratio of 1 means that a certain group has the same chance of having a rupture, compared to the baseline group. More than 1 means that this group is more likely to have a rupture. Less than 1 means that this group is less likely to have a rupture.</p>
 <section id="demographics" class="level3">
 <h3 class="anchored" data-anchor-id="demographics">Demographics</h3>
@@ -1832,7 +1921,7 @@ Figure&nbsp;49: Effects of demographic factors on change in perceptions of how o
 <img src="index_files/figure-html/fig-rupture-model-demographic-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rupture-model-demographic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;50: Effects of demographic factors on negative ruptures. The outcome is binary (no negative rupture vs.&nbsp;negative rupture). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio’s to be symmetric (i.e.&nbsp;that 2 is as far away from 1 as is 0.5).
+Figure&nbsp;53: Effects of demographic factors on negative ruptures. The outcome is binary (no negative rupture vs.&nbsp;negative rupture). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio’s to be symmetric (i.e.&nbsp;that 2 is as far away from 1 as is 0.5).
 </figcaption>
 </figure>
 </div>
@@ -1841,7 +1930,7 @@ Figure&nbsp;50: Effects of demographic factors on negative ruptures. The outcome
 </section>
 <section id="other-factors-3" class="level3">
 <h3 class="anchored" data-anchor-id="other-factors-3">Other factors</h3>
-<p><a href="#fig-rupture-model-other" class="quarto-xref">Figure&nbsp;51</a> shows how the two relevant variables predict rupture. The variable <code>action_individuelle_societe</code> is categorical and can be interpreted like the demographic variables in the previous results: one category serves as the reference (omitted) category, and the reported odds ratios represent how the odds of rupture differ relative to that reference. The variable <code>perception_avenir_num</code> is numeric (on a scale from 1 to 4)<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. For numeric predictors, the estimated odds ratio indicates how much the odds of rupture change, on average, for each one-unit increase on the scale. For example, the resulting estimate of 1.14 in <a href="#fig-rupture-model-other" class="quarto-xref">Figure&nbsp;51</a> for <code>perception_avenir_num</code> means that, on average, a one point increase in confidence about one’s future corresponds to 14% higher odds of rupture. In other words, the results suggest that, the more confident volunteers are about their future, the more likely they are to have a rupture, on average. <a href="#fig-perception-avenir-descriptive" class="quarto-xref">Figure&nbsp;37</a> suggests that this average effect is mostly driven by those volunteers who are “very confident”.</p>
+<p><a href="#fig-rupture-model-other" class="quarto-xref">Figure&nbsp;54</a> shows how the two relevant variables predict rupture. The variable <code>action_individuelle_societe</code> is categorical and can be interpreted like the demographic variables in the previous results: one category serves as the reference (omitted) category, and the reported odds ratios represent how the odds of rupture differ relative to that reference. The variable <code>perception_avenir_num</code> is numeric (on a scale from 1 to 4)<a href="#fn8" class="footnote-ref" id="fnref8" role="doc-noteref"><sup>8</sup></a>. For numeric predictors, the estimated odds ratio indicates how much the odds of rupture change, on average, for each one-unit increase on the scale. For example, the resulting estimate of 1.14 in <a href="#fig-rupture-model-other" class="quarto-xref">Figure&nbsp;54</a> for <code>perception_avenir_num</code> means that, on average, a one point increase in confidence about one’s future corresponds to 14% higher odds of rupture. In other words, the results suggest that, the more confident volunteers are about their future, the more likely they are to have a rupture, on average. <a href="#fig-perception-avenir-descriptive" class="quarto-xref">Figure&nbsp;40</a> suggests that this average effect is mostly driven by those volunteers who are “very confident”.</p>
 <div class="cell">
 <div id="tbl-rupture-candidates" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -1913,7 +2002,7 @@ Table&nbsp;1: Candidate variables to evaluating their association with rupture.
 <img src="index_files/figure-html/fig-rupture-model-other-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rupture-model-other-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;51: Effects of demographic factors on negative ruptures. The outcome is binary (no negative rupture vs.&nbsp;negative rupture). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio’s to be symmetric (i.e.&nbsp;that 2 is as far away from 1 as is 0.5).
+Figure&nbsp;54: Effects of demographic factors on negative ruptures. The outcome is binary (no negative rupture vs.&nbsp;negative rupture). The dots and their labels are the estimates of separate logistic regressions for each variable. The lines around the dots represent uncertainty in the estimates (95% confidence intervals). If these confidence intervals cross 1 (the dotted vertical line), the differences are not statistically significant, meaning we might observe them just by chance. The logarithmic scale (on the x-axis) is used so that in the visualization for the positive and negative odds ratio’s to be symmetric (i.e.&nbsp;that 2 is as far away from 1 as is 0.5).
 </figcaption>
 </figure>
 </div>
@@ -1923,7 +2012,7 @@ Figure&nbsp;51: Effects of demographic factors on negative ruptures. The outcome
 </section>
 <section id="sec-appendix-satisfaction" class="level2">
 <h2 class="anchored" data-anchor-id="sec-appendix-satisfaction">Satisfaction</h2>
-<p>For analyses on what predicts satisfaction, we treat satisfaction as a continuous variable (from 1, “Pas du tout satisfaisante”, to 4, “Très satisfaisante”). Because this outcome is continuous, we run linear regressions (and not logistic regressions, as before) on it. The results for demographic variables are displayed in <a href="#fig-rupture-model-demographic" class="quarto-xref">Figure&nbsp;50</a>, for other variables in <a href="#fig-rupture-model-other" class="quarto-xref">Figure&nbsp;51</a>.</p>
+<p>For analyses on what predicts satisfaction, we treat satisfaction as a continuous variable (from 1, “Pas du tout satisfaisante”, to 4, “Très satisfaisante”). Because this outcome is continuous, we run linear regressions (and not logistic regressions, as before) on it. The results for demographic variables are displayed in <a href="#fig-satisfaction-demographic-variables" class="quarto-xref">Figure&nbsp;55</a>, for other variables in <a href="#fig-satisfaction-other-variables" class="quarto-xref">Figure&nbsp;56</a>.</p>
 <section id="demographic-factors-3" class="level3">
 <h3 class="anchored" data-anchor-id="demographic-factors-3">Demographic factors</h3>
 <p>The results of the linear regressions are more straightforward to interpret. For categorical predictors (i.e., all demographic variables), the estimate is simply the average difference between the shown category and the (again, omitted) baseline category. For example, as shown with the variable <code>refugie</code>, refugees tend to be, on average, more satisfied by 0.2 points (on the 4-point satisfaction scale) than non-refugees.</p>
@@ -1935,7 +2024,7 @@ Figure&nbsp;51: Effects of demographic factors on negative ruptures. The outcome
 <img src="index_files/figure-html/fig-satisfaction-demographic-variables-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-satisfaction-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;52: Effects of demographic factors on satisfaction.
+Figure&nbsp;55: Effects of demographic factors on satisfaction.
 </figcaption>
 </figure>
 </div>
@@ -1945,7 +2034,7 @@ Figure&nbsp;52: Effects of demographic factors on satisfaction.
 <section id="other-factors-4" class="level3">
 <h3 class="anchored" data-anchor-id="other-factors-4">Other factors</h3>
 <p>Some of the non-demographic variables are numeric<a href="#fn9" class="footnote-ref" id="fnref9" role="doc-noteref"><sup>9</sup></a>, for example, <code>confiance_en_soi_num</code> (Pensez-vous avoir gagné en confiance en vous durant votre Service Civique ? 1 - Non, pas du tout; 2 - Non, pas vraiment; 3 - Oui, assez; 4 - Oui, beaucoup).</p>
-<p>For numeric variables, the estimates represent how much satisfaction increases or decreases with a one-unit increase in the predictor variable. For example, for <code>confiance_en_soi_num</code>, the estimate is 0.33. <code>confiance_en_soi_num</code> takes values on a 4-point scale (from 1, “Non, pas du tout”, to 4, “Oui, beaucoup”). This means that, on average, a one unit increase in <code>confiance_en_soi_num</code> is associated with a 0.33 point in crease in satisfaction (4-point scale).</p>
+<p>For numeric variables, the estimates represent how much satisfaction increases or decreases with a one-unit increase in the predictor variable. For example, for <code>confiance_en_soi_num</code>, the estimate is 0.33. <code>confiance_en_soi_num</code> takes values on a 4-point scale (from 1, “Non, pas du tout”, to 4, “Oui, beaucoup”). This means that, on average, a one unit increase in <code>confiance_en_soi_num</code> is associated with a 0.33 point increase in satisfaction (4-point scale).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-satisfaction-other-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1954,7 +2043,7 @@ Figure&nbsp;52: Effects of demographic factors on satisfaction.
 <img src="index_files/figure-html/fig-satisfaction-other-variables-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-satisfaction-other-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;53: Effects of other, non-demographic factors on satisfaction.
+Figure&nbsp;56: Effects of other, non-demographic factors on satisfaction.
 </figcaption>
 </figure>
 </div>
@@ -1964,9 +2053,10 @@ Figure&nbsp;53: Effects of other, non-demographic factors on satisfaction.
 </section>
 <section id="sec-appendix-perception-avenir" class="level2">
 <h2 class="anchored" data-anchor-id="sec-appendix-perception-avenir">Confidence in one’s future</h2>
-<p>As for satisfaction above, for analyses on what predicts confident in their future, we treat it as a continuous variable (1, “Pas du tout confiant.e”, to 4, “Très confiant.e”). As for satisfaction, because this outcome is continuous, we run linear regressions on it. The results for demographic variables are displayed in <a href="#fig-perception-avenir-demographic-variables" class="quarto-xref">Figure&nbsp;54</a>, for other variables in <a href="#fig-perception-avenir-other-variables" class="quarto-xref">Figure&nbsp;55</a>.</p>
+<p>As for satisfaction above, for analyses on what predicts volunteers’ confidence in their future, we treat it as a continuous variable (1, “Pas du tout confiant.e”, to 4, “Très confiant.e”). As for satisfaction, because this outcome is continuous, we run linear regressions on it. The results for demographic variables are displayed in <a href="#fig-perception-avenir-demographic-variables" class="quarto-xref">Figure&nbsp;57</a>, for other variables in <a href="#fig-perception-avenir-other-variables" class="quarto-xref">Figure&nbsp;58</a>.</p>
 <section id="demographic-factors-4" class="level3">
 <h3 class="anchored" data-anchor-id="demographic-factors-4">Demographic factors</h3>
+<p>As explained for satisfaction above, for categorical predictors, the estimate is the average difference between the shown category and the (omitted) baseline category. For example, as shown with the variable <code>refugie</code> in <a href="#fig-perception-avenir-demographic-variables" class="quarto-xref">Figure&nbsp;57</a>, refugees tend to be, on average, more confident about their future by 0.45 points (on the 4-point confidence scale) than non-refugees.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-perception-avenir-demographic-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1975,7 +2065,7 @@ Figure&nbsp;53: Effects of other, non-demographic factors on satisfaction.
 <img src="index_files/figure-html/fig-perception-avenir-demographic-variables-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perception-avenir-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;54: Effects of demographic factors on confidence in one’s future.
+Figure&nbsp;57: Effects of demographic factors on confidence in one’s future.
 </figcaption>
 </figure>
 </div>
@@ -1984,7 +2074,7 @@ Figure&nbsp;54: Effects of demographic factors on confidence in one’s future.
 </section>
 <section id="other-factors-5" class="level3">
 <h3 class="anchored" data-anchor-id="other-factors-5">Other factors</h3>
-<p>The only other variable we consider here is <code>action_individuelle_societe</code> (“En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?” Oui; Pas vraiment; Non). <a href="#fig-perception-avenir-other-variables" class="quarto-xref">Figure&nbsp;55</a> shows that volunteers who do not think that they can individually contribute to changing society (the omitted baseline category) are the least confident about their future: both volunteers who are slightly less pessimistic (having answered “Not really”) and volunteers think they can contribute (having answered “Yes) are more likely to be confident, with those having answered”Yes” being most likely.</p>
+<p>The only other variable we consider here is <code>action_individuelle_societe</code> (“En général, pensez-vous que votre action individuelle peut contribuer à changer la société ?” Oui; Pas vraiment; Non). <a href="#fig-perception-avenir-other-variables" class="quarto-xref">Figure&nbsp;58</a> shows that volunteers who do not think that they can individually contribute to changing society (the omitted baseline category) are the least confident about their future: both volunteers who are slightly less pessimistic (having answered “Not really”) and volunteers think they can contribute (having answered “Yes) are more likely to be confident, with those having answered”Yes” being most likely.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-perception-avenir-other-variables" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1993,7 +2083,7 @@ Figure&nbsp;54: Effects of demographic factors on confidence in one’s future.
 <img src="index_files/figure-html/fig-perception-avenir-other-variables-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perception-avenir-other-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;55: Effects of other, non-demographic factors on confidence in one’s future.
+Figure&nbsp;58: Effects of other, non-demographic factors on confidence in one’s future.
 </figcaption>
 </figure>
 </div>
@@ -2001,9 +2091,63 @@ Figure&nbsp;55: Effects of other, non-demographic factors on confidence in one�
 </div>
 </section>
 </section>
+<section id="sec-appendix-multivariable" class="level2">
+<h2 class="anchored" data-anchor-id="sec-appendix-multivariable">Looking at all factors at once</h2>
+<p>All models so far look at one factor at a time. This is easy to interpret, but it has a limit: the groups overlap. For example, volunteers from “QPV” areas are also less educated on average, and older volunteers tend to be more educated. So when we observe that volunteers from “QPV” areas have more ruptures, we cannot tell whether this is about where they live or about their level of education.</p>
+<p>To help disentangle this, we can put all demographic factors into a <em>single</em> model (a “multivariable” model). The estimates then answer a slightly different question: “Comparing volunteers who are similar on all the <em>other</em> factors, does this factor still make a difference?” We ran such a model for three outcomes: negative ruptures (<a href="#fig-multivariable-rupture" class="quarto-xref">Figure&nbsp;59</a>), satisfaction (<a href="#fig-multivariable-satisfaction" class="quarto-xref">Figure&nbsp;60</a>) and confidence in one’s future (<a href="#fig-multivariable-perception-avenir" class="quarto-xref">Figure&nbsp;61</a>). The plots read exactly like the corresponding one-factor-at-a-time plots above.</p>
+<p>Three results stand out:</p>
+<ul>
+<li>For ruptures (<a href="#fig-multivariable-rupture" class="quarto-xref">Figure&nbsp;59</a>), the “QPV” difference disappears: comparing volunteers with the same level of education, age, sex, and so on, living in a “QPV” area makes almost no difference anymore (the odds ratio is very close to 1). The higher rupture rate of “QPV” volunteers seen in <a href="#fig-rupture-descriptive" class="quarto-xref">Figure&nbsp;30</a> is thus largely explained by differences in education. Education itself remains the strongest predictor: all else equal, volunteers with a bac or more have considerably fewer negative ruptures. The age differences also shrink considerably—older volunteers have fewer ruptures mostly <em>because</em> they are more educated.</li>
+<li>For satisfaction (<a href="#fig-multivariable-satisfaction" class="quarto-xref">Figure&nbsp;60</a>), the opposite happens: the differences by education disappear, while the differences by age remain. Older volunteers are more satisfied, at every level of education.</li>
+<li>For confidence in one’s future (<a href="#fig-multivariable-perception-avenir" class="quarto-xref">Figure&nbsp;61</a>), the differences by sex, by refugee status and by volunteer type remain clearly visible, while education and age make little difference once the other factors are taken into account.</li>
+</ul>
+<p>Two notes of caution. First, these models can only include volunteers for whom <em>all</em> factors are known (for example, N = 14,927 volunteers for the rupture model)—volunteers with missing information on any factor are left out. Second, as everywhere in this report, these are associations: “all else equal” refers only to the factors in the model, not to everything that could possibly matter.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-multivariable-rupture" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-multivariable-rupture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-multivariable-rupture-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multivariable-rupture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;59: Effects of demographic factors on negative ruptures, when all factors are included in a single model. The outcome is binary (no negative rupture vs.&nbsp;negative rupture). Estimates are odds ratios and read as in the previous figures; the difference is that each estimate now compares volunteers who are similar on all the other factors shown.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-multivariable-satisfaction" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-multivariable-satisfaction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-multivariable-satisfaction-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multivariable-satisfaction-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;60: Effects of demographic factors on satisfaction, when all factors are included in a single model. Estimates are average differences on the 4-point satisfaction scale, compared to the (omitted) baseline category, for volunteers who are similar on all the other factors shown.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-multivariable-perception-avenir" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-multivariable-perception-avenir-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-multivariable-perception-avenir-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multivariable-perception-avenir-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;61: Effects of demographic factors on confidence in one’s future, when all factors are included in a single model. Estimates are average differences on the 4-point confidence scale, compared to the (omitted) baseline category, for volunteers who are similar on all the other factors shown.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="sec-appendix-programs" class="level2">
 <h2 class="anchored" data-anchor-id="sec-appendix-programs">Differences between programs</h2>
-<p>The following sections show, for each key program category, how the volunteers of that program differ compared to all the other key program categories combined, in terms of demographic variables. The results are expressed in odds ratios, which can be interpreted as above: If the odds ratio is <em>larger than 1</em>, then a certain group is <em>more likely</em> to be represented in the target key program category, compared to all other programs. For example, in <a href="#fig-solidarite-aidants-demographic-variables" class="quarto-xref">Figure&nbsp;56</a>, there are more 18 to 20 year-olds (odds ratio = 1.18, compared to the omitted baseline, 16 to 17 year-olds) in the “Solidarité Aidants” program, than in the other programs, on average. If the odds ratio <em>is below 1</em>, this means that a certain group is <em>less likely</em> to be represented in the target key program category. For example, refugees are considerably less likely (odds ratio = 0.17, compared to the omitted baseline, non-refugees) to be in the “Solidarité Aidants” program, compared to all other programs, on average.</p>
+<p>The following sections show, for each key program category, how the volunteers of that program differ compared to all the other key program categories combined, in terms of demographic variables. The results are expressed in odds ratios, which can be interpreted as above: If the odds ratio is <em>larger than 1</em>, then a certain group is <em>more likely</em> to be represented in the target key program category, compared to all other programs. For example, in <a href="#fig-solidarite-aidants-demographic-variables" class="quarto-xref">Figure&nbsp;62</a>, there are more 18 to 20 year-olds (odds ratio = 1.18, compared to the omitted baseline, 16 to 17 year-olds) in the “Solidarité Aidants” program, than in the other programs, on average. If the odds ratio <em>is below 1</em>, this means that a certain group is <em>less likely</em> to be represented in the target key program category. For example, refugees are considerably less likely (odds ratio = 0.17, compared to the omitted baseline, non-refugees) to be in the “Solidarité Aidants” program, compared to all other programs, on average.</p>
 <section id="solidarité-aidants" class="level3">
 <h3 class="anchored" data-anchor-id="solidarité-aidants">Solidarité Aidants</h3>
 <div class="cell">
@@ -2014,7 +2158,7 @@ Figure&nbsp;55: Effects of other, non-demographic factors on confidence in one�
 <img src="index_files/figure-html/fig-solidarite-aidants-demographic-variables-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-solidarite-aidants-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;56: Differences in Solidarité Aidants vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;62: Differences in Solidarité Aidants vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -2031,7 +2175,7 @@ Figure&nbsp;56: Differences in Solidarité Aidants vs.&nbsp;other programs along
 <img src="index_files/figure-html/fig-cine-demographic-variables-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cine-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;57: Differences in Cinéma &amp; Citoyenneté vs.&nbsp;other programs along demographic factors
+Figure&nbsp;63: Differences in Cinéma &amp; Citoyenneté vs.&nbsp;other programs along demographic factors
 </figcaption>
 </figure>
 </div>
@@ -2048,7 +2192,7 @@ Figure&nbsp;57: Differences in Cinéma &amp; Citoyenneté vs.&nbsp;other program
 <img src="index_files/figure-html/fig-booster-demographic-variables-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-booster-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;58: Differences in Booster vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;64: Differences in Booster vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -2065,7 +2209,7 @@ Figure&nbsp;58: Differences in Booster vs.&nbsp;other programs along demographic
 <img src="index_files/figure-html/fig-ecovolonterre-demographic-variables-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ecovolonterre-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;59: Differences in Ecovolonterre vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;65: Differences in Ecovolonterre vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -2082,7 +2226,7 @@ Figure&nbsp;59: Differences in Ecovolonterre vs.&nbsp;other programs along demog
 <img src="index_files/figure-html/fig-mediaterre-demographic-variables-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mediaterre-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;60: Differences in Médiaterre vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;66: Differences in Médiaterre vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -2099,7 +2243,7 @@ Figure&nbsp;60: Differences in Médiaterre vs.&nbsp;other programs along demogra
 <img src="index_files/figure-html/fig-asm-demographic-variables-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-asm-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;61: Differences in ASM vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;67: Differences in ASM vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -2116,7 +2260,7 @@ Figure&nbsp;61: Differences in ASM vs.&nbsp;other programs along demographic fac
 <img src="index_files/figure-html/fig-solidarite-seniors-demographic-variables-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-solidarite-seniors-demographic-variables-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;62: Differences in Solidarité Séniors vs.&nbsp;other programs along demographic factors.
+Figure&nbsp;68: Differences in Solidarité Séniors vs.&nbsp;other programs along demographic factors.
 </figcaption>
 </figure>
 </div>
@@ -2132,12 +2276,12 @@ Figure&nbsp;62: Differences in Solidarité Séniors vs.&nbsp;other programs alon
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Note that the questions have been selected based on the questionnaire of the first cohort (2020/21). As a result, potentially interesting variables that only appear in later questionnaires will not appear here.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Note that the questions have been selected based on the questionnaire of the first cohort (2020/21). As a result, potentially interesting variables that only appear in later questionnaires will not appear here. In addition, a few questions whose wording changed in later cohorts could not be matched across all cohorts; the corresponding variables are missing for those cohorts.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Cité Unis nevertheless has some administrative data on volunteers who did not respond to a single questionnaire, for example which program they have been in. In some of the plots in this report, notably in <a href="#sec-attrition" class="quarto-xref">Section&nbsp;3</a>, these volunteers appear under the label “q0”.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>In all analyses we treat this as a continuous variable<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>In all analyses we treat this as a continuous variable<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn5"><p>I.e. ignoring all volunteers who did not change<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6"><p>For each variable, a separate logistic regression has been run. The estimates from the logistic regression are exponantiated, so that the reported estimates can be interpreted as odds ratios (ORs).<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>For each variable, a separate logistic regression has been run. The estimates from the logistic regression are exponentiated, so that the reported estimates can be interpreted as odds ratios (ORs).<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn7"><p>Note that in this illustration, we obtain a slightly different value compared to 0.84 above due to rounding imprecision.<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn8"><p>Note <code>_num</code> in the variable name stands for ‘numeric’: we use a numeric version, from “Pas du tout confiant(e)” = 1, to “Très confiant(e)” = 4.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p>All variable names that end with <code>_num</code> have been treated as numeric for the present analyses<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
