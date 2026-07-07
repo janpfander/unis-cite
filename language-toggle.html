@@ -1,0 +1,63 @@
+<script>
+// Site-wide language handling. No automatic redirects — the script only
+// rewrites links, so it can never cause navigation loops (and degrades
+// gracefully if localStorage is unavailable, e.g. in private windows).
+//
+// The site's default language is French: the homepage (index.html) is the
+// French summary, the English summary is index.en.html; the full report is
+// English at report.html, French at report.fr.html.
+//
+// "Mode" is the language of the last bilingual page visited (kept in
+// localStorage, French by default). Monolingual pages (Tables, Codebook)
+// keep the mode. Navbar links and the navbar language toggle follow the mode.
+// When adding a new bilingual page, add its two filenames to `pairs`.
+document.addEventListener("DOMContentLoaded", function () {
+  var pairs = {
+    index: { fr: "index.html", en: "index.en.html" },
+    report: { fr: "report.fr.html", en: "report.html" }
+  };
+
+  var file = window.location.pathname.split("/").pop();
+  if (!file || !/\.html$/.test(file)) file = "index.html";
+
+  // Which bilingual page (if any) are we on, and in which language?
+  var stem = null;
+  var pageLang = null;
+  Object.keys(pairs).forEach(function (s) {
+    Object.keys(pairs[s]).forEach(function (l) {
+      if (pairs[s][l] === file) { stem = s; pageLang = l; }
+    });
+  });
+
+  var mode = pageLang || "fr";
+  try {
+    if (pageLang) {
+      localStorage.setItem("site-lang", pageLang);
+    } else {
+      mode = localStorage.getItem("site-lang") === "en" ? "en" : "fr";
+    }
+  } catch (e) { /* storage unavailable: mode already has a sane value */ }
+
+  // Point navbar links (brand, Summary, Full Report) to the current language.
+  document.querySelectorAll("#quarto-header a[href]").forEach(function (a) {
+    var m = a.getAttribute("href").match(/^(\.\/)?(index|report)(?:\.(?:en|fr))?\.html$/);
+    if (m) a.setAttribute("href", (m[1] || "") + pairs[m[2]][mode]);
+  });
+
+  // Navbar toggle: the other-language version of this page (or, from a
+  // monolingual page, of the homepage).
+  var other = mode === "fr" ? "en" : "fr";
+  var target = pairs[stem || "index"][other];
+  var label = other === "fr" ? "Français" : "English";
+  var ul = document.querySelector(".navbar .navbar-nav.ms-auto");
+  if (!ul) return;
+  var li = document.createElement("li");
+  li.className = "nav-item";
+  var a = document.createElement("a");
+  a.className = "nav-link";
+  a.href = target;
+  a.innerHTML = '<i class="fa-solid fa-globe" aria-hidden="true"></i>&nbsp;<b>' + label + "</b>";
+  li.appendChild(a);
+  ul.insertBefore(li, ul.firstChild);
+});
+</script>

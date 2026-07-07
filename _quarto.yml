@@ -8,15 +8,13 @@ project:
     # - "!index.fr.qmd"
     
 website:
-  title: "Cité-Unis"
+  title: "Unis-Cité"
   navbar:
     left:
-      - text: "Report"
-        menu:
-          - href: index.qmd
-            text: "English"
-          - href: index.fr.qmd
-            text: "Français"
+      - href: index.qmd
+        text: "Summary"
+      - href: report.qmd
+        text: "Full Report"
       - href: tables.qmd
         text: "Tables"
       - href: codebook.qmd
@@ -39,6 +37,7 @@ format:
   html:
     toc: true
     toc-depth: 3
+    include-after-body: language-toggle.html
 
 execute:
   freeze: auto 

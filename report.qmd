@@ -1,13 +1,13 @@
 ---
-title: "Volunteer Report Cité-Unis"
-shorttitle: "Cité-Unis"
+title: "Volunteer Report Unis-Cité"
+shorttitle: "Unis-Cité"
 author:
   - name: Jan Pfänder
     corresponding: true
     email: janlukas.pfaender@gmail.com
     affiliations: Paris
     
-abstract: "This report analyzes survey data for four different cohorts of Cité-Unis volunteers who did their service civique (2020-2024)."
+abstract: "This report analyzes survey data for four different cohorts of Unis-Cité volunteers who did their service civique (2020-2024)."
 
 mask: true
 
@@ -93,7 +93,7 @@ program_colours <- c(
 
 # Introduction
 
-This report analyzes survey data for four different cohorts of Cité Unis volunteers who did their service civique in France between 2020 and 2024.
+This report analyzes survey data for four different cohorts of Unis-Cité volunteers who did their service civique in France between 2020 and 2024.
 
 @sec-who provides information on who the volunteers are, in terms of age, sex, level of education and geographical location. @sec-attrition provides an overview on how many volunteers answered to questionnaires at different stages of their service civique (every volunteer is asked to fill out three questionnaires in total).
 
@@ -101,15 +101,15 @@ In @sec-within-change, we look at how volunteers have changed certain attitudes 
 
 We then look at several outcomes of interest in detail, namely whether volunteers end their contract early (@sec-rupture), how satisfied they are (@sec-satisfaction), and how confident they are about their future (@sec-perception-avenir). For these outcomes, we analyze whether there are trends across the different cohorts, and whether the outcomes are associated with demographic and other factors. 
 
-In @sec-programs we investigate demographic differences between different key programs offered by Cité Unis for their volunteers. 
+In @sec-programs we investigate demographic differences between different key programs offered by Unis-Cité for their volunteers. 
 
 The report ends with a brief conclusion on methodological notes for future questionnaires. 
 
-For these analyses, we rely on questionnaires collected by Cité Unis for four different cohorts of volunteers who did their service civique for a year (2020-2021; 2021-2022; 2022-2023; 2023-2024). These questionnaires are very extensive. For the present analyses, we selected a subset of key questions (a full list can be found in the [codebook](codebook.qmd))^[Note that the questions have been selected based on the questionnaire of the first cohort (2020/21). As a result, potentially interesting variables that only appear in later questionnaires will not appear here. In addition, a few questions whose wording changed in later cohorts could not be matched across all cohorts; the corresponding variables are missing for those cohorts.]. 
+For these analyses, we rely on questionnaires collected by Unis-Cité for four different cohorts of volunteers who did their service civique for a year (2020-2021; 2021-2022; 2022-2023; 2023-2024). These questionnaires are very extensive. For the present analyses, we selected a subset of key questions (a full list can be found in the [codebook](codebook.qmd))^[Note that the questions have been selected based on the questionnaire of the first cohort (2020/21). As a result, potentially interesting variables that only appear in later questionnaires will not appear here. In addition, a few questions whose wording changed in later cohorts could not be matched across all cohorts; the corresponding variables are missing for those cohorts.]. 
 
 Before diving into the results, a note on caution in interpreting the results presented in this report: Whenever we speak of "predictions" that simply means statistical associations---mere observations of differences between groups. This report does **not** provide any evidence that would warrant causal conclusions---answers as to **why** we observe these differences. 
 
-Because the data underlying this report is observational and---for most of it---does not allow to track opinion change (because most questions have only been asked once per cohort), the main objective of this report is not to provide specific and definitive answers. Instead, the aim of this report is to help Cité Unis in identifying patterns and sparking questions that may inform new evaluation procedures. The quantitative results presented here can act as pointers, but they are not problem diagnoses. They always need to be accompanied by qualitative assessments of *why* we observe certain differences, and what could or could not be done about them. 
+Because the data underlying this report is observational and---for most of it---does not allow to track opinion change (because most questions have only been asked once per cohort), the main objective of this report is not to provide specific and definitive answers. Instead, the aim of this report is to help Unis-Cité in identifying patterns and sparking questions that may inform new evaluation procedures. The quantitative results presented here can act as pointers, but they are not problem diagnoses. They always need to be accompanied by qualitative assessments of *why* we observe certain differences, and what could or could not be done about them. 
 
 # Who are the volunteers ? {#sec-who}
 
@@ -375,7 +375,7 @@ ggplot(sex_data,
 
 # Attrition {#sec-attrition}
 
-As part of their service civique, each volunteer is asked to fill out three different questionnaires: the first one at the onset of their service civique (later on referred to as "q1"), the second one at the end ("q2"), and the third one six months after their service civique ("q3"). Answering these questionnaires is voluntary, and response rates typically decline considerably from the first to the third questionnaire. These declining response rates are referred to as "attrition". Some volunteers do not even respond to any one questionnaire^[Cité Unis nevertheless has some administrative data on volunteers who did not respond to a single questionnaire, for example which program they have been in. In some of the plots in this report, notably in @sec-attrition, these volunteers appear under the label "q0".]. 
+As part of their service civique, each volunteer is asked to fill out three different questionnaires: the first one at the onset of their service civique (later on referred to as "q1"), the second one at the end ("q2"), and the third one six months after their service civique ("q3"). Answering these questionnaires is voluntary, and response rates typically decline considerably from the first to the third questionnaire. These declining response rates are referred to as "attrition". Some volunteers do not even respond to any one questionnaire^[Unis-Cité nevertheless has some administrative data on volunteers who did not respond to a single questionnaire, for example which program they have been in. In some of the plots in this report, notably in @sec-attrition, these volunteers appear under the label "q0".]. 
 
 Attrition can have many causes. Here we distinguish between two explanations: ruptures, i.e. volunteers ending their service civique early (@sec-rupture) and survey fatigue, i.e. volunteers who continue their service civique but do not fill out the questionnaires (@fig-attrition-norupture). 
 
@@ -1775,7 +1775,7 @@ combined |>
 
 ## When do ruptures happen?
 
-Ruptures do not all happen at the same moment. @fig-rupture-timing shows, for all volunteers who ended their contract early, how many months of service they had completed at that point. Ruptures happen throughout the whole year, but disproportionately early on: about a third of the volunteers who have a rupture leave within their first three months, and half leave within their first five months (while most volunteers sign up for eight months). For Cité Unis, this suggests that support aimed at preventing (negative) ruptures matters most in the first months of the service civique.
+Ruptures do not all happen at the same moment. @fig-rupture-timing shows, for all volunteers who ended their contract early, how many months of service they had completed at that point. Ruptures happen throughout the whole year, but disproportionately early on: about a third of the volunteers who have a rupture leave within their first three months, and half leave within their first five months (while most volunteers sign up for eight months). For Unis-Cité, this suggests that support aimed at preventing (negative) ruptures matters most in the first months of the service civique.
 
 ```{r}
 #| label: fig-rupture-timing
@@ -1932,7 +1932,7 @@ model_results_rupture_demographic_variables <- reduced_demographic_variables %>%
 
 ### Demographic factors
 
-As shown in @fig-rupture-descriptive, older volunteers tend to have less ruptures than younger ones; less educated volunteers (in particular "infra bac") tend to have more ruptures than those with higher education; refugees tend to have less ruptures than non-refugees; male volunteers tend to have slightly more ruptures than female ones; "RELAIS"-type volunteers tend to have slightly fewer ruptures than "CŒUR"-type volunteers (these are the two forms of volunteer status at Cité Unis, coded in the variable `type_volontaire`); volunteers from "QPV" residential areas tend to have considerably higher rupture rates than volunteers from other residential areas. 
+As shown in @fig-rupture-descriptive, older volunteers tend to have less ruptures than younger ones; less educated volunteers (in particular "infra bac") tend to have more ruptures than those with higher education; refugees tend to have less ruptures than non-refugees; male volunteers tend to have slightly more ruptures than female ones; "RELAIS"-type volunteers tend to have slightly fewer ruptures than "CŒUR"-type volunteers (these are the two forms of volunteer status at Unis-Cité, coded in the variable `type_volontaire`); volunteers from "QPV" residential areas tend to have considerably higher rupture rates than volunteers from other residential areas. 
 
 Note, however, that these groups overlap: for example, volunteers from "QPV" areas are also less educated on average. When all demographic factors are taken into account at the same time (@sec-appendix-multivariable), the higher rupture rate of volunteers from "QPV" areas disappears almost entirely---it is largely explained by differences in education. Education itself remains the strongest predictor of ruptures.
 
@@ -3164,7 +3164,7 @@ plot_faceted_distribution(
 
 # Conclusion: Some methodological notes
 
-This report can only provide snapshots of the extensive questionnaire data collected by Cité Unis. We aimed to cover a broad range of topics and variables in order to reveal potentially informative patterns and trends. Rather than summarizing these patterns once more, we conclude with several methodological notes that highlight opportunities to improve future impact evaluations based on the questionnaires.
+This report can only provide snapshots of the extensive questionnaire data collected by Unis-Cité. We aimed to cover a broad range of topics and variables in order to reveal potentially informative patterns and trends. Rather than summarizing these patterns once more, we conclude with several methodological notes that highlight opportunities to improve future impact evaluations based on the questionnaires.
 
 First, the questionnaires could likely be shorter. Reducing the number of questions would probably decrease attrition (and, with it, the risk of distorted results discussed in @sec-attrition-bias): volunteers who respond to a very long questionnaire at q1 may be less motivated to complete another long questionnaire at q2, let alone q3. Shorter questionnaires could also improve response quality. When questionnaires are lengthy, respondents may become tired or bored and begin answering quickly and without much attention. Another option to improve response quality would be to include attention checks: questions with one obviously correct answer (for example, "To show that you are reading carefully, please select 'Yes' here"), which make it possible to identify respondents who answer without reading the questions. That said, because volunteers are not required to take the survey, it is reasonable to assume that those who do participate are generally motivated to complete it in good faith.
 

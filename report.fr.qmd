@@ -1,12 +1,12 @@
 ---
-title: Rapport sur les volontaires de Cité-Unis
-shorttitle: Cité-Unis
+title: Rapport sur les volontaires de Unis-Cité
+shorttitle: Unis-Cité
 author:
 - name: Jan Pfänder
   corresponding: true
   email: janlukas.pfaender@gmail.com
   affiliations: Paris
-abstract: Ce rapport analyse les données d’enquête de quatre cohortes différentes de volontaires de Cité-Unis ayant effectué leur service civique (2020-2024).
+abstract: Ce rapport analyse les données d’enquête de quatre cohortes différentes de volontaires de Unis-Cité ayant effectué leur service civique (2020-2024).
 mask: true
 format:
   html: default
@@ -84,7 +84,7 @@ program_colours <- c(
 
 # Introduction
 
-Ce rapport analyse les données d’enquête de quatre cohortes différentes de volontaires de Cité Unis ayant effectué leur service civique en France entre 2020 et 2024.
+Ce rapport analyse les données d’enquête de quatre cohortes différentes de volontaires de Unis-Cité ayant effectué leur service civique en France entre 2020 et 2024.
 
 La @sec-who fournit des informations sur le profil des volontaires, notamment en termes d’âge, de sexe, de niveau d’éducation et de localisation géographique. La @sec-attrition présente un aperçu du nombre de volontaires ayant répondu aux questionnaires aux différentes étapes de leur service civique (chaque volontaire est invité à remplir trois questionnaires au total).
 
@@ -92,16 +92,16 @@ Dans la @sec-within-change, nous examinons comment certaines attitudes et opinio
 
 Nous examinons ensuite en détail plusieurs résultats d’intérêt, à savoir si les volontaires mettent fin à leur contrat de manière anticipée (@sec-rupture), leur niveau de satisfaction (@sec-satisfaction) et leur degré de confiance dans leur avenir (@sec-perception-avenir). Pour ces résultats, nous analysons s’il existe des tendances entre les différentes cohortes et si ces résultats sont associés à des facteurs démographiques ou autres.
 
-Dans la @sec-programs, nous étudions les différences démographiques entre les principaux programmes proposés par Cité Unis à ses volontaires.
+Dans la @sec-programs, nous étudions les différences démographiques entre les principaux programmes proposés par Unis-Cité à ses volontaires.
 
 Le rapport se termine par une brève conclusion contenant des remarques méthodologiques pour les questionnaires futurs.
 
-Pour ces analyses, nous nous appuyons sur les questionnaires collectés par Cité Unis auprès de quatre cohortes différentes de volontaires ayant effectué un service civique d’un an (2020-2021 ; 2021-2022 ; 2022-2023 ; 2023-2024). Ces questionnaires sont très détaillés. Pour les analyses présentées ici, nous avons sélectionné un sous-ensemble de questions clés (une liste complète est disponible dans le codebook
+Pour ces analyses, nous nous appuyons sur les questionnaires collectés par Unis-Cité auprès de quatre cohortes différentes de volontaires ayant effectué un service civique d’un an (2020-2021 ; 2021-2022 ; 2022-2023 ; 2023-2024). Ces questionnaires sont très détaillés. Pour les analyses présentées ici, nous avons sélectionné un sous-ensemble de questions clés (une liste complète est disponible dans le codebook
 )^[Notez que les questions ont été sélectionnées sur la base du questionnaire de la première cohorte (2020/21). Par conséquent, certaines variables potentiellement intéressantes qui n’apparaissent que dans des questionnaires ultérieurs ne figurent pas ici. En outre, quelques questions dont la formulation a changé dans les cohortes ultérieures n’ont pas pu être appariées dans toutes les cohortes ; les variables correspondantes sont manquantes pour ces cohortes.].
 
 Avant de présenter les résultats, une remarque importante concernant l’interprétation des résultats présentés dans ce rapport : lorsque nous parlons de « prédictions », il s’agit simplement d’associations statistiques — de simples observations de différences entre groupes. Ce rapport ne fournit aucune preuve permettant de tirer des conclusions causales — c’est-à-dire des réponses quant aux raisons pour lesquelles nous observons ces différences.
 
-Étant donné que les données sur lesquelles repose ce rapport sont observationnelles et — pour la plupart — ne permettent pas de suivre l’évolution des opinions (car la majorité des questions n’ont été posées qu’une seule fois par cohorte), l’objectif principal de ce rapport n’est pas de fournir des réponses spécifiques et définitives. L’objectif est plutôt d’aider Cité Unis à identifier des tendances et à faire émerger des questions susceptibles d’orienter de nouvelles procédures d’évaluation. Les résultats quantitatifs présentés ici peuvent servir d’indications, mais ils ne constituent pas des diagnostics de problèmes. Ils doivent toujours être accompagnés d’analyses qualitatives permettant de comprendre pourquoi nous observons certaines différences, et ce qui pourrait — ou non — être fait pour y répondre.
+Étant donné que les données sur lesquelles repose ce rapport sont observationnelles et — pour la plupart — ne permettent pas de suivre l’évolution des opinions (car la majorité des questions n’ont été posées qu’une seule fois par cohorte), l’objectif principal de ce rapport n’est pas de fournir des réponses spécifiques et définitives. L’objectif est plutôt d’aider Unis-Cité à identifier des tendances et à faire émerger des questions susceptibles d’orienter de nouvelles procédures d’évaluation. Les résultats quantitatifs présentés ici peuvent servir d’indications, mais ils ne constituent pas des diagnostics de problèmes. Ils doivent toujours être accompagnés d’analyses qualitatives permettant de comprendre pourquoi nous observons certaines différences, et ce qui pourrait — ou non — être fait pour y répondre.
 
 # Qui sont les volontaires ? {#sec-who}
 
@@ -367,7 +367,7 @@ ggplot(sex_data,
 
 # Attrition {#sec-attrition}
 
-Dans le cadre de son service civique, chaque volontaire est invité à remplir trois questionnaires différents : le premier au début de son service civique (appelé par la suite "q1"), le deuxième à la fin ("q2"), et le troisième six mois après son service civique ("q3"). La réponse à ces questionnaires est volontaire, et les taux de réponse diminuent généralement de façon considérable entre le premier et le troisième questionnaire. Cette baisse du taux de réponse est appelée "attrition". Certains volontaires ne répondent même pas à un seul questionnaire^[Cité Unis dispose néanmoins de quelques données administratives sur les volontaires qui n'ont pas répondu à un seul questionnaire, par exemple à quel programme ils ont participé. Dans certains graphiques de ce rapport, notamment dans @sec-attrition, ces volontaires apparaissent sous l'étiquette "q0".].
+Dans le cadre de son service civique, chaque volontaire est invité à remplir trois questionnaires différents : le premier au début de son service civique (appelé par la suite "q1"), le deuxième à la fin ("q2"), et le troisième six mois après son service civique ("q3"). La réponse à ces questionnaires est volontaire, et les taux de réponse diminuent généralement de façon considérable entre le premier et le troisième questionnaire. Cette baisse du taux de réponse est appelée "attrition". Certains volontaires ne répondent même pas à un seul questionnaire^[Unis-Cité dispose néanmoins de quelques données administratives sur les volontaires qui n'ont pas répondu à un seul questionnaire, par exemple à quel programme ils ont participé. Dans certains graphiques de ce rapport, notamment dans @sec-attrition, ces volontaires apparaissent sous l'étiquette "q0".].
 
 L'attrition peut avoir de nombreuses causes. Nous distinguons ici deux explications : les ruptures, c'est-à-dire les volontaires qui mettent fin prématurément à leur service civique (@sec-rupture) et la lassitude face à l'enquête, c'est-à-dire les volontaires qui poursuivent leur service civique mais ne remplissent pas les questionnaires (@fig-attrition-norupture).
 
@@ -1764,7 +1764,7 @@ combined |>
 
 ## Quand les ruptures ont-elles lieu ?
 
-Les ruptures ne se produisent pas toutes au même moment. @fig-rupture-timing montre, pour l'ensemble des volontaires ayant mis fin à leur contrat de manière anticipée, combien de mois de service ils avaient effectués à ce moment-là. Des ruptures ont lieu tout au long de l'année, mais de manière disproportionnée au début : environ un tiers des volontaires qui ont une rupture partent au cours de leurs trois premiers mois, et la moitié au cours de leurs cinq premiers mois (alors que la plupart des volontaires s'engagent pour huit mois). Pour Cité Unis, cela suggère que l'accompagnement visant à prévenir les ruptures (négatives) importe surtout dans les premiers mois du service civique.
+Les ruptures ne se produisent pas toutes au même moment. @fig-rupture-timing montre, pour l'ensemble des volontaires ayant mis fin à leur contrat de manière anticipée, combien de mois de service ils avaient effectués à ce moment-là. Des ruptures ont lieu tout au long de l'année, mais de manière disproportionnée au début : environ un tiers des volontaires qui ont une rupture partent au cours de leurs trois premiers mois, et la moitié au cours de leurs cinq premiers mois (alors que la plupart des volontaires s'engagent pour huit mois). Pour Unis-Cité, cela suggère que l'accompagnement visant à prévenir les ruptures (négatives) importe surtout dans les premiers mois du service civique.
 
 ```{r}
 #| label: fig-rupture-timing
@@ -1921,7 +1921,7 @@ model_results_rupture_demographic_variables <- reduced_demographic_variables %>%
 
 ### Facteurs démographiques
 
-Comme le montre la @fig-rupture-descriptive, les volontaires plus âgés ont tendance à avoir moins de ruptures que les plus jeunes ; les volontaires moins instruits (en particulier les "infra bac") ont tendance à avoir plus de ruptures que ceux qui ont fait des études supérieures ; les réfugiés ont tendance à avoir moins de ruptures que les non-réfugiés ; les volontaires masculins ont tendance à avoir un peu plus de ruptures que les volontaires féminins ; les volontaires de type "RELAIS" ont tendance à avoir un peu moins de ruptures que les volontaires de type "CŒUR" (il s'agit des deux formes de statut de volontaire chez Cité Unis, codées dans la variable `type_volontaire`) ; les volontaires des zones résidentielles "QPV" ont tendance à avoir des taux de rupture considérablement plus élevés que les volontaires des autres zones résidentielles.
+Comme le montre la @fig-rupture-descriptive, les volontaires plus âgés ont tendance à avoir moins de ruptures que les plus jeunes ; les volontaires moins instruits (en particulier les "infra bac") ont tendance à avoir plus de ruptures que ceux qui ont fait des études supérieures ; les réfugiés ont tendance à avoir moins de ruptures que les non-réfugiés ; les volontaires masculins ont tendance à avoir un peu plus de ruptures que les volontaires féminins ; les volontaires de type "RELAIS" ont tendance à avoir un peu moins de ruptures que les volontaires de type "CŒUR" (il s'agit des deux formes de statut de volontaire chez Unis-Cité, codées dans la variable `type_volontaire`) ; les volontaires des zones résidentielles "QPV" ont tendance à avoir des taux de rupture considérablement plus élevés que les volontaires des autres zones résidentielles.
 
 Notons toutefois que ces groupes se recoupent : par exemple, les volontaires des zones "QPV" sont aussi, en moyenne, moins diplômés. Lorsque tous les facteurs démographiques sont pris en compte simultanément (@sec-appendix-multivariable), le taux de rupture plus élevé des volontaires des zones "QPV" disparaît presque entièrement---il s'explique en grande partie par des différences de niveau d'études. Le niveau d'études lui-même reste le prédicteur le plus fort des ruptures.
 
@@ -3152,7 +3152,7 @@ plot_faceted_distribution(
 
 # Conclusion : Quelques remarques méthodologiques
 
-Ce rapport ne peut fournir que des instantanés des nombreuses données du questionnaire recueillies par Cité Unis. Nous avons cherché à couvrir un large éventail de sujets et de variables afin de révéler des schémas et des tendances potentiellement instructifs. Plutôt que de résumer ces schémas une fois de plus, nous concluons par plusieurs notes méthodologiques qui soulignent les possibilités d'améliorer les futures évaluations d'impact basées sur les questionnaires.
+Ce rapport ne peut fournir que des instantanés des nombreuses données du questionnaire recueillies par Unis-Cité. Nous avons cherché à couvrir un large éventail de sujets et de variables afin de révéler des schémas et des tendances potentiellement instructifs. Plutôt que de résumer ces schémas une fois de plus, nous concluons par plusieurs notes méthodologiques qui soulignent les possibilités d'améliorer les futures évaluations d'impact basées sur les questionnaires.
 
 Tout d'abord, les questionnaires pourraient probablement être plus courts. La réduction du nombre de questions diminuerait probablement l'attrition (et, avec elle, le risque de résultats faussés discuté dans @sec-attrition-bias) : les volontaires qui répondent à un très long questionnaire à q1 peuvent être moins motivés pour répondre à un autre long questionnaire à q2, et encore moins à q3. Des questionnaires plus courts pourraient également améliorer la qualité des réponses. Lorsque les questionnaires sont longs, les personnes interrogées peuvent se fatiguer ou s'ennuyer et commencer à répondre rapidement et sans grande attention. Une autre option pour améliorer la qualité des réponses serait d'inclure des contrôles d'attention : des questions comportant une réponse manifestement correcte (par exemple, « Pour montrer que vous lisez attentivement, veuillez sélectionner "Oui" ici »), qui permettent d'identifier les répondants qui répondent sans lire les questions. Cela dit, comme les volontaires ne sont pas obligés de répondre à l'enquête, on peut raisonnablement supposer que ceux qui y participent sont généralement motivés pour y répondre de bonne foi.
 
