@@ -15,3 +15,7 @@ data/
 .httr-oauth
 .DS_Store
 .quarto
+
+# local Claude Code context, untracked
+CLAUDE.md
+.claude/
